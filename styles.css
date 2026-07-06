@@ -44,14 +44,25 @@ main { margin-top: 2.5rem; }
   display: flex; gap: 1.1rem; align-items: center;
   border: 1px solid var(--line); border-radius: 10px; padding: 1rem; background: var(--panel);
 }
-.about .avatar {
-  width: 96px; height: 96px; flex: none; object-fit: cover; border-radius: 8px;
+.about .avatar-wrap {
+  position: relative; flex: none; line-height: 0; border-radius: 8px; overflow: hidden;
   border: 1px solid var(--cyan);
+}
+.about .avatar {
+  width: 96px; height: 96px; display: block; object-fit: cover;
   /* redacted / matrix duotone by default */
   filter: grayscale(1) contrast(1.05) brightness(.92) sepia(.5) hue-rotate(75deg) saturate(3);
-  transition: filter .3s ease, box-shadow .3s ease, transform .3s ease;
+  transition: filter .3s ease, transform .3s ease;
 }
-.about .avatar:hover { filter: none; box-shadow: var(--glow); transform: scale(1.03); }
+/* CRT scanline overlay */
+.about .avatar-wrap::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply; opacity: .6; transition: opacity .3s ease;
+}
+.about .avatar-wrap:hover { box-shadow: var(--glow); }
+.about .avatar-wrap:hover .avatar { filter: none; transform: scale(1.04); }
+.about .avatar-wrap:hover::after { opacity: .15; }
 .about .bio { font-size: .92rem; }
 .about .bio .line { white-space: pre-wrap; }
 .about .bio .key { color: var(--cyan); }

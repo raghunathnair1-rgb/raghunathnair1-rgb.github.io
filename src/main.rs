@@ -73,7 +73,9 @@ fn app() -> Html {
             <section class="about">
                 <div class="cmd">{ "$ whoami" }</div>
                 <div class="card">
-                    <img class="avatar" src="/assets/raghu.jpg" alt="Raghu Nair"/>
+                    <div class="avatar-wrap">
+                        <img class="avatar" src="/assets/raghu.jpg" alt="Raghu Nair"/>
+                    </div>
                     <div class="bio">
                         <div class="line"><span class="key">{ "user " }</span>{ "raghu nair" }</div>
                         <div class="line"><span class="key">{ "role " }</span>{ "builder · tinkerer · runs an AI dark factory for fun" }</div>
