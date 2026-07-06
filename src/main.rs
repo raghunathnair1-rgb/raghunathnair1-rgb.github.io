@@ -227,9 +227,24 @@ fn glyph(c: char) -> [&'static str; 5] {
     }
 }
 
-fn now_hms() -> String {
+fn now_shown() -> String {
     let d = js_sys::Date::new_0();
-    format!("{:02}:{:02}:{:02}", d.get_hours() as u32, d.get_minutes() as u32, d.get_seconds() as u32)
+    let t = format!("{:02}:{:02}:{:02}", d.get_hours() as u32, d.get_minutes() as u32, d.get_seconds() as u32);
+    // blink the colons: shown first half of each second, blank the second half
+    if d.get_milliseconds() < 500.0 { t } else { t.replace(':', " ") }
+}
+
+fn now_date() -> String {
+    let d = js_sys::Date::new_0();
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    format!(
+        "{} {} {:02} {}",
+        days[d.get_day() as usize],
+        months[d.get_month() as usize],
+        d.get_date() as u32,
+        d.get_full_year() as u32
+    )
 }
 
 fn to_ascii(s: &str) -> String {
@@ -242,18 +257,19 @@ fn to_ascii(s: &str) -> String {
 
 #[function_component(AsciiClock)]
 fn ascii_clock() -> Html {
-    let time = use_state(now_hms);
+    let shown = use_state(now_shown);
     {
-        let time = time.clone();
+        let shown = shown.clone();
         use_effect_with((), move |_| {
-            let interval = gloo_timers::callback::Interval::new(1000, move || time.set(now_hms()));
+            let interval = gloo_timers::callback::Interval::new(250, move || shown.set(now_shown()));
             move || drop(interval)
         });
     }
     html! {
         <div class="clock">
             <div class="clock-cmd">{ "$ watch date +%T" }</div>
-            <pre class="clock-face">{ to_ascii(&time) }</pre>
+            <pre class="clock-face">{ to_ascii(&shown) }</pre>
+            <div class="clock-date">{ now_date() }</div>
         </div>
     }
 }

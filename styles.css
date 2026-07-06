@@ -87,6 +87,7 @@ main { margin-top: 2.5rem; }
   font-size: clamp(.5rem, 2.4vw, .85rem); line-height: 1.05; letter-spacing: 0;
   overflow-x: auto;
 }
+.clock-date { color: var(--muted); font-size: .8rem; margin-top: .4rem; }
 
 /* $ fortune */
 .fortune { margin-bottom: 1.9rem; }
