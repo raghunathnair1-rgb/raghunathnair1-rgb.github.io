@@ -236,6 +236,22 @@ struct Wttr {
     nearest_area: Vec<WxArea>,
 }
 
+// build a flag emoji from a 2-letter ISO code (regional indicators); globe for anything else
+fn flag(code: &str) -> String {
+    let b = code.as_bytes();
+    if code.len() == 2 && b.iter().all(|x| x.is_ascii_uppercase()) {
+        let mut s = String::new();
+        for &x in b {
+            if let Some(c) = char::from_u32(0x1F1E6 + (x - b'A') as u32) {
+                s.push(c);
+            }
+        }
+        s
+    } else {
+        "\u{1F30D}".to_string()
+    }
+}
+
 #[function_component(WeatherCard)]
 fn weather_card() -> Html {
     let wx = use_state(|| None::<String>);
@@ -249,9 +265,10 @@ fn weather_card() -> Html {
                             let city = a.area_name.first().map(|v| v.value.as_str()).unwrap_or("somewhere");
                             let country = a.country.first().map(|v| v.value.as_str()).unwrap_or("");
                             let desc = c.desc.first().map(|v| v.value.as_str()).unwrap_or("");
+                            let code = cc(country);
                             wx.set(Some(format!(
-                                "{}, {}: {} \u{00B7} {}\u{00B0}C \u{00B7} wind {}km/h \u{00B7} humidity {}%",
-                                city, cc(country), desc, c.temp_c, c.wind, c.humidity
+                                "{} {}, {}: {} \u{00B7} {}\u{00B0}C \u{00B7} wind {}km/h \u{00B7} humidity {}%",
+                                flag(&code), city, code, desc, c.temp_c, c.wind, c.humidity
                             )));
                         }
                     }
