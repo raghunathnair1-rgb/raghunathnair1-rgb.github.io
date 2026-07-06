@@ -65,6 +65,28 @@
         setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 700);
       }, 1100);
     }
+    function playChime() {
+      try {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        var ctx = new AC();
+        if (ctx.state === 'suspended' && ctx.resume) ctx.resume();
+        var notes = [523.25, 659.25, 783.99, 1046.50]; // C5 E5 G5 C6
+        var t0 = ctx.currentTime + 0.05;
+        notes.forEach(function (f, i) {
+          var o = ctx.createOscillator(), g = ctx.createGain();
+          o.type = 'triangle'; o.frequency.value = f;
+          var t = t0 + i * 0.12;
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(0.14, t + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+          o.connect(g); g.connect(ctx.destination);
+          o.start(t); o.stop(t + 0.6);
+        });
+        setTimeout(function () { try { ctx.close(); } catch (e) {} }, 1700);
+      } catch (e) {}
+    }
+    playChime();
     typeLines();
   })();
   </script>
