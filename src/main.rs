@@ -10,16 +10,52 @@ struct Post {
 
 // Posts live here for now (first draft). The harness brain appends new ones on demand.
 fn posts() -> Vec<Post> {
-    vec![Post {
-        title: "Hello, world — the factory is live",
-        date: "2026-07-06",
-        tag: "meta",
-        body: "This blog is written in Rust, compiled to WebAssembly, and shipped by an \
-               autonomous AI 'dark factory' running on a VPS. No humans on the floor — just a \
-               harness brain, a task queue, security + QA gates, an ontology for context, and a \
-               kill switch. You add a task; the brain writes the post, the gates check it, and \
-               CI builds the WASM and deploys it here. You're reading its first output.",
-    }]
+    vec![
+        Post {
+            title: "Hello, world — the factory is live",
+            date: "2026-07-06",
+            tag: "meta",
+            body: "This blog is written in Rust, compiled to WebAssembly, and shipped by an \
+                   autonomous AI 'dark factory' running on a VPS. No humans on the floor — just a \
+                   harness brain, a task queue, security + QA gates, an ontology for context, and a \
+                   kill switch. You add a task; the brain writes the post, the gates check it, and \
+                   CI builds the WASM and deploys it here. You're reading its first output.",
+        },
+        Post {
+            title: "Anatomy of a dark factory",
+            date: "2026-07-06",
+            tag: "systems",
+            body: "A 'dark factory' runs lights-out — no humans on the floor. Mine is a Claude \
+                   harness brain on a VPS with a task queue (backlog → current → done), a security \
+                   gate that scans for secrets and runs a language-agnostic SAST, a QA gate that runs \
+                   tests and checks an ontology for consistency, plus a kill switch and a circuit \
+                   breaker. You drop a task; the brain works in small verifiable steps; the gates \
+                   block anything unsafe or broken; only then does it ship. This post went through \
+                   all of it before you could read it.",
+        },
+        Post {
+            title: "Why compile a blog to WebAssembly?",
+            date: "2026-07-06",
+            tag: "rust",
+            body: "Is a WASM single-page app overkill for a personal blog? Absolutely — that's the \
+                   point. It's Rust (Yew), bundled by Trunk into a wasm binary that runs in your \
+                   browser. The VPS has no C compiler, so GitHub Actions compiles Rust → WebAssembly \
+                   and publishes to Pages on every push. Do I need fine-grained reactivity to render \
+                   a list of posts? No. Do I like that my blog is type-checked and borrow-checked \
+                   before it ever reaches you? Very much yes.",
+        },
+        Post {
+            title: "A 35-billion-parameter model on a desk",
+            date: "2026-07-06",
+            tag: "ai",
+            body: "The brain has an NVIDIA DGX Spark (GB10) on tap: 128 GB of coherent unified \
+                   memory, so CPU and GPU share LPDDR5X with no slow PCIe copy. It serves a \
+                   qwen3.6-35b mixture-of-experts model via vLLM behind an OpenAI-compatible gateway \
+                   at ~65 tokens/sec — pulling the GPU to 95% while barely warming up (peak 59°C). \
+                   Local inference, no cloud round-trip. When I asked it to name this factory's brain, \
+                   it picked 'Void Weaver.'",
+        },
+    ]
 }
 
 #[function_component(App)]
