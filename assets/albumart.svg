@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#05070b"/>
+  <g fill="none" stroke="#22d3ee" stroke-width="1.2" opacity="0.85">
+    <ellipse cx="100" cy="100" rx="88" ry="30"/>
+    <ellipse cx="100" cy="100" rx="66" ry="22"/>
+    <ellipse cx="100" cy="100" rx="44" ry="15"/>
+  </g>
+  <circle cx="100" cy="100" r="12" fill="#05070b" stroke="#4ade80" stroke-width="2"/>
+  <circle cx="100" cy="100" r="4" fill="#4ade80"/>
+  <text x="10" y="24" font-family="monospace" font-size="11" fill="#4ade80">&#9835; OST</text>
+  <text x="10" y="190" font-family="monospace" font-size="10" fill="#22d3ee">interstellar</text>
+</svg>

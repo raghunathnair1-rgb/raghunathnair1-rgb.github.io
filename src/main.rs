@@ -84,9 +84,28 @@ fn app() -> Html {
                     </div>
                 </div>
             </section>
-            <div class="nowplaying">
-                <span class="eq"><i></i><i></i><i></i><i></i></span>
-                <span>{ "now playing \u{00B7} " }<a href="https://www.youtube.com/results?search_query=Hans+Zimmer+Cornfield+Chase+Interstellar" target="_blank" rel="noopener">{ "Cornfield Chase \u{2014} Hans Zimmer" }</a></span>
+            <div class="am-card">
+                <img class="am-art" src="/assets/albumart.svg" alt="Interstellar OST"/>
+                <div class="am-body">
+                    <div class="am-head">
+                        <div class="am-meta">
+                            <div class="am-title">{ "Cornfield Chase" }</div>
+                            <div class="am-artist">{ "Hans Zimmer \u{00B7} Interstellar (OST)" }</div>
+                        </div>
+                        <span class="eq"><i></i><i></i><i></i><i></i></span>
+                    </div>
+                    <div class="am-scrub">
+                        <span class="am-t">{ "0:00" }</span>
+                        <div class="am-bar"><div class="am-fill"></div></div>
+                        <span class="am-t">{ "2:06" }</span>
+                    </div>
+                    <div class="am-ctrl">
+                        <span>{ "\u{23EE}" }</span>
+                        <span class="am-play">{ "\u{23F8}" }</span>
+                        <span>{ "\u{23ED}" }</span>
+                        <a href="https://www.youtube.com/results?search_query=Hans+Zimmer+Cornfield+Chase+Interstellar" target="_blank" rel="noopener">{ "listen \u{2197}" }</a>
+                    </div>
+                </div>
             </div>
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
