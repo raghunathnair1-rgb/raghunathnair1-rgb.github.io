@@ -149,27 +149,48 @@ fn posts() -> Vec<Post> {
     ]
 }
 
-#[derive(serde::Deserialize, Clone, PartialEq)]
-struct GhUser {
-    public_repos: u32,
-    followers: u32,
-    following: u32,
+#[derive(serde::Deserialize)]
+struct WxVal {
+    value: String,
+}
+#[derive(serde::Deserialize)]
+struct WxCond {
+    #[serde(rename = "temp_C")]
+    temp_c: String,
+    #[serde(rename = "weatherDesc")]
+    desc: Vec<WxVal>,
+    #[serde(rename = "windspeedKmph")]
+    wind: String,
+    humidity: String,
+}
+#[derive(serde::Deserialize)]
+struct WxArea {
+    #[serde(rename = "areaName")]
+    area_name: Vec<WxVal>,
+}
+#[derive(serde::Deserialize)]
+struct Wttr {
+    current_condition: Vec<WxCond>,
+    nearest_area: Vec<WxArea>,
 }
 
-#[function_component(GithubCard)]
-fn github_card() -> Html {
-    let stats = use_state(|| None::<GhUser>);
+#[function_component(WeatherCard)]
+fn weather_card() -> Html {
+    let wx = use_state(|| None::<String>);
     {
-        let stats = stats.clone();
+        let wx = wx.clone();
         use_effect_with((), move |_| {
             wasm_bindgen_futures::spawn_local(async move {
-                if let Ok(resp) =
-                    gloo_net::http::Request::get("https://api.github.com/users/raghunathnair1-rgb")
-                        .send()
-                        .await
-                {
-                    if let Ok(user) = resp.json::<GhUser>().await {
-                        stats.set(Some(user));
+                if let Ok(resp) = gloo_net::http::Request::get("https://wttr.in/?format=j1").send().await {
+                    if let Ok(d) = resp.json::<Wttr>().await {
+                        if let (Some(c), Some(a)) = (d.current_condition.first(), d.nearest_area.first()) {
+                            let city = a.area_name.first().map(|v| v.value.as_str()).unwrap_or("somewhere");
+                            let desc = c.desc.first().map(|v| v.value.as_str()).unwrap_or("");
+                            wx.set(Some(format!(
+                                "{}: {} \u{00B7} {}\u{00B0}C \u{00B7} wind {}km/h \u{00B7} humidity {}%",
+                                city, desc, c.temp_c, c.wind, c.humidity
+                            )));
+                        }
                     }
                 }
             });
@@ -177,18 +198,12 @@ fn github_card() -> Html {
         });
     }
     html! {
-        <div class="gh">
-            <div class="gh-cmd">{ "$ gh api /users/raghunathnair1-rgb" }</div>
+        <div class="wx">
+            <div class="wx-cmd">{ "$ curl wttr.in" }</div>
             {
-                match &*stats {
-                    Some(u) => html! {
-                        <div class="gh-grid">
-                            <div class="gh-stat"><span class="gh-n">{ u.public_repos.to_string() }</span><span class="gh-l">{ "repos" }</span></div>
-                            <div class="gh-stat"><span class="gh-n">{ u.followers.to_string() }</span><span class="gh-l">{ "followers" }</span></div>
-                            <div class="gh-stat"><span class="gh-n">{ u.following.to_string() }</span><span class="gh-l">{ "following" }</span></div>
-                        </div>
-                    },
-                    None => html! { <div class="gh-loading">{ "fetching live from github\u{2026}" }</div> },
+                match &*wx {
+                    Some(t) => html! { <div class="wx-out">{ t.clone() }</div> },
+                    None => html! { <div class="wx-loading">{ "checking your local weather\u{2026}" }</div> },
                 }
             }
         </div>
@@ -261,7 +276,7 @@ fn app() -> Html {
                 <div class="nf-cmd">{ "$ fortune" }</div>
                 <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
             </div>
-            <GithubCard />
+            <WeatherCard />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
