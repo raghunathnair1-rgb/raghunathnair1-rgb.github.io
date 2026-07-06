@@ -22,8 +22,7 @@ echo "✅ gate clean."
 
 # --- ship ---
 git add -A
-if git diff --cached --quiet; then echo "nothing to ship"; exit 0; fi
-git commit -m "$msg"
-git push origin main
+if git diff --cached --quiet; then echo "no new changes to commit"; else git commit -m "$msg"; fi
+git push -u origin main   # always push (pushes any unpushed commits; idempotent)
 echo "🚀 pushed — GitHub Actions is building Rust→WASM and deploying to Pages."
 echo "   actions: https://github.com/raghunathnair1-rgb/raghunathnair1-rgb.github.io/actions"
