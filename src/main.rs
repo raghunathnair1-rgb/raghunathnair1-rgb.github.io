@@ -122,5 +122,10 @@ fn app() -> Html {
 }
 
 fn main() {
-    yew::Renderer::<App>::new().render();
+    // Mount into #app so the matrix-rain <canvas> stays a separate layer Yew
+    // never manages. Fall back to body-mount so the app can never go blank.
+    match gloo_utils::document().get_element_by_id("app") {
+        Some(root) => yew::Renderer::<App>::with_root(root).render(),
+        None => yew::Renderer::<App>::new().render(),
+    };
 }

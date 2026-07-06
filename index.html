@@ -17,5 +17,32 @@
   <link data-trunk rel="css" href="styles.css"/>
   <link data-trunk rel="copy-dir" href="assets"/>
 </head>
-<body></body>
+<body>
+  <canvas id="matrix"></canvas>
+  <div id="app"></div>
+  <script>
+  (function () {
+    var c = document.getElementById('matrix'); if (!c) return;
+    var x = c.getContext('2d');
+    var glyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃ0123456789<>{}[]=/#*+-'.split('');
+    var fs = 14, cols, drops;
+    function resize() {
+      c.width = window.innerWidth; c.height = window.innerHeight;
+      cols = Math.ceil(c.width / fs); drops = [];
+      for (var i = 0; i < cols; i++) drops[i] = Math.random() * c.height / fs;
+    }
+    resize(); window.addEventListener('resize', resize);
+    function draw() {
+      x.fillStyle = 'rgba(10,14,20,0.09)'; x.fillRect(0, 0, c.width, c.height);
+      x.fillStyle = '#4ade80'; x.font = fs + 'px monospace';
+      for (var i = 0; i < drops.length; i++) {
+        x.fillText(glyphs[Math.floor(Math.random() * glyphs.length)], i * fs, drops[i] * fs);
+        if (drops[i] * fs > c.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(draw, 55);
+  })();
+  </script>
+</body>
 </html>

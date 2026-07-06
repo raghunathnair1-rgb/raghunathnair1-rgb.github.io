@@ -6,6 +6,7 @@ description = "Personal blog in Rust/WASM, shipped by an AI harness brain."
 
 [dependencies]
 yew = { version = "0.21", features = ["csr"] }
+gloo-utils = "0.2"
 
 [profile.release]
 opt-level = "z"
