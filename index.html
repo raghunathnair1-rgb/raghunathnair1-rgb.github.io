@@ -25,7 +25,7 @@
     if (!boot) return;
     var pre = boot.querySelector('pre');
     var seen = false, reduce = false;
-    try { seen = sessionStorage.getItem('booted') === '1'; sessionStorage.setItem('booted', '1'); } catch (e) {}
+    try { seen = sessionStorage.getItem('booted') === '1'; } catch (e) {}
     try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
     if (seen || reduce) { if (boot.parentNode) boot.parentNode.removeChild(boot); return; }
     var lines = [
@@ -107,8 +107,23 @@
         document.addEventListener('keydown', unlock, { once: true });
       } catch (e) {}
     }
-    bootSound();
-    typeLines();
+    // browsers block autoplay audio -> a "power on" tap provides the gesture,
+    // so the hum + chime play in sync with the boot from the very start.
+    pre.textContent = '  ▶ press any key or click to power on';
+    boot.classList.add('boot-idle');
+    var started = false;
+    function powerOn() {
+      if (started) return; started = true;
+      document.removeEventListener('pointerdown', powerOn);
+      document.removeEventListener('keydown', powerOn);
+      try { sessionStorage.setItem('booted', '1'); } catch (e) {}
+      boot.classList.remove('boot-idle');
+      pre.textContent = ''; out = []; i = 0;
+      bootSound();
+      typeLines();
+    }
+    document.addEventListener('pointerdown', powerOn, { once: true });
+    document.addEventListener('keydown', powerOn, { once: true });
   })();
   </script>
   <canvas id="matrix"></canvas>

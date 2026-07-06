@@ -25,8 +25,19 @@
   transition: opacity .6s ease;
 }
 #boot pre { margin: 0; white-space: pre-wrap; text-shadow: 0 0 6px rgba(74, 222, 128, .4); }
-#boot.boot-typed pre::after { content: "_"; color: var(--green); animation: boot-blink 1s step-end infinite; }
+#boot.boot-typed pre::after, #boot.boot-idle pre::after { content: "_"; color: var(--green); animation: boot-blink 1s step-end infinite; }
 @keyframes boot-blink { 50% { opacity: 0; } }
+
+/* CRT mode (toggle in the terminal: `crt`) */
+:root[data-crt="on"] body::before {
+  background:
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, .34) 0 1px, transparent 1px 3px),
+    radial-gradient(130% 130% at 50% 50%, transparent 62%, rgba(0, 0, 0, .55) 100%);
+  animation: crt-flicker .12s steps(2, end) infinite;
+}
+@keyframes crt-flicker { 0%, 100% { opacity: .92; } 50% { opacity: 1; } }
+:root[data-crt="on"] body { text-shadow: 0 0 1px rgba(74, 222, 128, .25); }
+@media (prefers-reduced-motion: reduce) { :root[data-crt="on"] body::before { animation: none; } }
 #boot.boot-done { opacity: 0; pointer-events: none; }
 html, body { height: 100%; }
 body {

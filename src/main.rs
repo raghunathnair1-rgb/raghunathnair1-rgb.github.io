@@ -12,8 +12,9 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  reboot  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  crt  reboot  uptime  echo <x>  clear".to_string(),
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
+        ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
         ["ls"] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
         ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
@@ -76,6 +77,18 @@ fn terminal() -> Html {
                         let _ = w.location().reload();
                     }
                     return;
+                }
+                if cmd == "crt" || cmd == "crt on" || cmd == "crt off" {
+                    if let Some(el) = gloo_utils::document().document_element() {
+                        let on = if cmd == "crt off" {
+                            false
+                        } else if cmd == "crt on" {
+                            true
+                        } else {
+                            el.get_attribute("data-crt").as_deref() != Some("on")
+                        };
+                        let _ = el.set_attribute("data-crt", if on { "on" } else { "off" });
+                    }
                 }
                 if cmd.is_empty() {
                     return;
