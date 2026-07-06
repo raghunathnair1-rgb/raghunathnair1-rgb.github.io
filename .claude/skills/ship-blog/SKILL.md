@@ -12,8 +12,19 @@ description: >
 The blog is a **Rust → WebAssembly** app (Yew + Trunk), its OWN git repo, deployed to
 **GitHub Pages** via GitHub Actions. The VPS has **no C toolchain** → you CANNOT build
 locally. CI is the only build. So: never claim "done" until you have *verified* the
-live result. `./deploy.sh` runs the security gate → snapshots brain status → pushes →
-Actions builds+deploys.
+live result. `./deploy.sh` runs a **3-layer security gate → snapshots brain status →
+pushes → Actions builds+deploys**.
+
+## The security gate (deploy.sh, before any push)
+1. **Secret regex** — `git grep` for `sk-…`, private keys, `ghp_…`, `AKIA…` (aborts on hit).
+2. **opengrep SAST** — `--severity ERROR` language-agnostic static analysis (aborts on error-level).
+3. **Fable AI review** — `claude -p --model claude-fable-5` reads the `git diff HEAD` and
+   returns one line of JSON `{verdict,severity,reason}`. Aborts the deploy on a `fail`
+   (medium/high real security issue: secrets, XSS/injection, unsafe raw-HTML from untrusted
+   input, exfiltration, supply-chain). **Fails OPEN** if `claude` is missing/unparseable/
+   times out (infra never blocks a deploy) — but a parsed `fail` **hard-blocks**. Verified:
+   catches planted secret+XSS (fail/high), passes clean code (pass/none).
+   Do NOT remove or weaken this gate. If it false-blocks, tighten the prompt, don't delete it.
 
 ## Non-negotiable workflow
 1. Make the change (edit `blog/src/main.rs`, `index.html`, `styles.css`, etc.).
