@@ -84,28 +84,13 @@ fn app() -> Html {
                     </div>
                 </div>
             </section>
-            <div class="am-card">
-                <img class="am-art" src="/assets/albumart.svg" alt="Interstellar OST"/>
-                <div class="am-body">
-                    <div class="am-head">
-                        <div class="am-meta">
-                            <div class="am-title">{ "Cornfield Chase" }</div>
-                            <div class="am-artist">{ "Hans Zimmer \u{00B7} Interstellar (OST)" }</div>
-                        </div>
-                        <span class="eq"><i></i><i></i><i></i><i></i></span>
-                    </div>
-                    <div class="am-scrub">
-                        <span class="am-t">{ "0:00" }</span>
-                        <div class="am-bar"><div class="am-fill"></div></div>
-                        <span class="am-t">{ "2:06" }</span>
-                    </div>
-                    <div class="am-ctrl">
-                        <span>{ "\u{23EE}" }</span>
-                        <span class="am-play">{ "\u{23F8}" }</span>
-                        <span>{ "\u{23ED}" }</span>
-                        <a href="https://www.youtube.com/results?search_query=Hans+Zimmer+Cornfield+Chase+Interstellar" target="_blank" rel="noopener">{ "listen \u{2197}" }</a>
-                    </div>
-                </div>
+            <div class="np">
+                <div class="np-label"><span class="eq"><i></i><i></i><i></i><i></i></span>{ " $ now-playing --live \u{00B7} Cornfield Chase \u{2014} Hans Zimmer" }</div>
+                <iframe class="np-embed" loading="lazy" title="Cornfield Chase on Apple Music"
+                    allow="autoplay *; encrypted-media *; clipboard-write"
+                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                    src="https://embed.music.apple.com/nl/album/cornfield-chase/1533983552?i=1533984393&l=en-GB">
+                </iframe>
             </div>
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
