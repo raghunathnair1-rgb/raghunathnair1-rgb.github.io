@@ -7,10 +7,12 @@ enum Line {
     Out(String),
 }
 
+const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_\n    |,4-  ) )-,_..;\\ (  `'-'\n   '---''(_/--'  `-'\\_)";
+
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  neofetch  now-playing  coffee  brew  fortune  theme <name>  uptime  echo <x>  sudo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  uptime  echo <x>  clear".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
         ["ls"] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
         ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
@@ -26,7 +28,8 @@ fn run_command(cmd: &str) -> String {
         ["theme", "amber"] => "theme set: amber \u{2600}".to_string(),
         ["theme", "green"] => "theme set: green".to_string(),
         ["theme", _] => "unknown theme \u{2014} try 'theme green' or 'theme amber'".to_string(),
-        ["cat"] => "usage: cat <post>  \u{2014} try 'ls posts'".to_string(),
+        ["meow"] => format!("{}   Maine Coon \u{00B7} *purr* \u{1F408}", MAINE_COON),
+        ["cat"] => format!("{}\n(psst \u{2014} to read posts: cat <post>, try 'ls posts')", MAINE_COON),
         ["cat", rest @ ..] => {
             let n = rest.join(" ").to_lowercase();
             posts().iter()
@@ -204,6 +207,7 @@ fn app() -> Html {
                     <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
                     <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
                     <div class="nf-line"><span class="k">{ "fuel" }</span>{ "\u{2615} coffee \u{00B7} \u{221E} cups" }</div>
+                    <div class="nf-line"><span class="k">{ "pet" }</span>{ "Maine Coon \u{1F408} (loaf mode)" }</div>
                     <div class="nf-line"><span class="k">{ "status" }</span><span class="nf-ok">{ "\u{25CF} online" }</span></div>
                 </div>
             </div>
