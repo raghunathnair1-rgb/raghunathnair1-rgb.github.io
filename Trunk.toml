@@ -1,0 +1,5 @@
+# Trunk build config. User site (raghunathnair1-rgb.github.io) serves at root,
+# so public_url = "/" — no subpath rewriting needed.
+[build]
+release = true
+public_url = "/"

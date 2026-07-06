@@ -1,0 +1,14 @@
+[package]
+name = "blog"
+version = "0.1.0"
+edition = "2021"
+description = "Personal blog in Rust/WASM, shipped by an AI harness brain."
+
+[dependencies]
+yew = { version = "0.21", features = ["csr"] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"

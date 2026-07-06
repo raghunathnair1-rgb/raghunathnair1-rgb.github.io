@@ -1,0 +1,62 @@
+:root {
+  --bg: #0a0e14;
+  --panel: #0e131b;
+  --fg: #c9d1d9;
+  --muted: #6b7685;
+  --cyan: #22d3ee;
+  --green: #4ade80;
+  --line: #1b2430;
+  --glow: 0 0 8px rgba(34, 211, 238, .45);
+  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(34,211,238,.06), transparent 60%),
+    var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+  max-width: 44rem;
+  margin-inline: auto;
+  padding: 3rem 1.25rem 4rem;
+}
+/* faint scanlines for the CRT vibe */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+  background: repeating-linear-gradient(180deg, rgba(255,255,255,.015) 0 1px, transparent 1px 3px);
+}
+header .logo {
+  font-size: 2.4rem; font-weight: 700; letter-spacing: .04em;
+  color: var(--cyan); text-shadow: var(--glow);
+}
+.cursor { animation: blink 1.05s steps(1) infinite; color: var(--green); }
+@keyframes blink { 50% { opacity: 0; } }
+.boot { color: var(--green); margin-top: .25rem; font-size: .9rem; opacity: .85; }
+
+main { margin-top: 2.5rem; }
+ul.log { list-style: none; padding: 0; margin: 0; }
+ul.log li {
+  display: grid; grid-template-columns: auto 1fr auto auto; align-items: baseline; gap: .75rem;
+  padding: .7rem .75rem; border: 1px solid var(--line); border-radius: 8px;
+  margin-bottom: .6rem; cursor: pointer; background: var(--panel);
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+ul.log li:hover { border-color: var(--cyan); transform: translateX(3px); box-shadow: var(--glow); }
+.prompt { color: var(--green); }
+.title { color: var(--fg); }
+.tag { color: var(--cyan); font-size: .8rem; }
+time { color: var(--muted); font-size: .8rem; white-space: nowrap; }
+
+article h2 { color: var(--cyan); text-shadow: var(--glow); margin-bottom: .2rem; }
+article .meta { color: var(--muted); margin-bottom: 1.2rem; }
+.back { color: var(--green); cursor: pointer; text-decoration: none; font-size: .9rem; }
+.back:hover { text-decoration: underline; }
+
+a { color: var(--cyan); }
+footer {
+  margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: .82rem;
+}
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
