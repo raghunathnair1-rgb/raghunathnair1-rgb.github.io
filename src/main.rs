@@ -149,6 +149,52 @@ fn posts() -> Vec<Post> {
     ]
 }
 
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct GhUser {
+    public_repos: u32,
+    followers: u32,
+    following: u32,
+}
+
+#[function_component(GithubCard)]
+fn github_card() -> Html {
+    let stats = use_state(|| None::<GhUser>);
+    {
+        let stats = stats.clone();
+        use_effect_with((), move |_| {
+            wasm_bindgen_futures::spawn_local(async move {
+                if let Ok(resp) =
+                    gloo_net::http::Request::get("https://api.github.com/users/raghunathnair1-rgb")
+                        .send()
+                        .await
+                {
+                    if let Ok(user) = resp.json::<GhUser>().await {
+                        stats.set(Some(user));
+                    }
+                }
+            });
+            || ()
+        });
+    }
+    html! {
+        <div class="gh">
+            <div class="gh-cmd">{ "$ gh api /users/raghunathnair1-rgb" }</div>
+            {
+                match &*stats {
+                    Some(u) => html! {
+                        <div class="gh-grid">
+                            <div class="gh-stat"><span class="gh-n">{ u.public_repos.to_string() }</span><span class="gh-l">{ "repos" }</span></div>
+                            <div class="gh-stat"><span class="gh-n">{ u.followers.to_string() }</span><span class="gh-l">{ "followers" }</span></div>
+                            <div class="gh-stat"><span class="gh-n">{ u.following.to_string() }</span><span class="gh-l">{ "following" }</span></div>
+                        </div>
+                    },
+                    None => html! { <div class="gh-loading">{ "fetching live from github\u{2026}" }</div> },
+                }
+            }
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -215,6 +261,7 @@ fn app() -> Html {
                 <div class="nf-cmd">{ "$ fortune" }</div>
                 <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
             </div>
+            <GithubCard />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();

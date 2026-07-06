@@ -8,6 +8,9 @@ description = "Personal blog in Rust/WASM, shipped by an AI harness brain."
 yew = { version = "0.21", features = ["csr"] }
 gloo-utils = "0.2"
 web-sys = { version = "0.3", features = ["HtmlInputElement", "InputEvent", "KeyboardEvent", "Document", "Element"] }
+gloo-net = { version = "0.6", default-features = false, features = ["http", "json"] }
+wasm-bindgen-futures = "0.4"
+serde = { version = "1", features = ["derive"] }
 
 [profile.release]
 opt-level = "z"
