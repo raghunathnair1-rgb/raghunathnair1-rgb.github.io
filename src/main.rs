@@ -190,6 +190,45 @@ struct WxCond {
 struct WxArea {
     #[serde(rename = "areaName")]
     area_name: Vec<WxVal>,
+    country: Vec<WxVal>,
+}
+
+// wttr.in gives the country name, not a code — map common ones to ISO2, else keep the name.
+fn cc(country: &str) -> String {
+    match country.to_lowercase().as_str() {
+        "netherlands" => "NL",
+        "united states" | "united states of america" | "usa" => "US",
+        "united kingdom" | "uk" => "GB",
+        "germany" => "DE",
+        "france" => "FR",
+        "india" => "IN",
+        "canada" => "CA",
+        "australia" => "AU",
+        "spain" => "ES",
+        "italy" => "IT",
+        "belgium" => "BE",
+        "ireland" => "IE",
+        "japan" => "JP",
+        "china" => "CN",
+        "brazil" => "BR",
+        "mexico" => "MX",
+        "sweden" => "SE",
+        "norway" => "NO",
+        "denmark" => "DK",
+        "finland" => "FI",
+        "poland" => "PL",
+        "portugal" => "PT",
+        "switzerland" => "CH",
+        "austria" => "AT",
+        "singapore" => "SG",
+        "united arab emirates" => "AE",
+        "south korea" | "korea, republic of" => "KR",
+        "new zealand" => "NZ",
+        "south africa" => "ZA",
+        "russia" => "RU",
+        _ => return country.to_string(),
+    }
+    .to_string()
 }
 #[derive(serde::Deserialize)]
 struct Wttr {
@@ -208,10 +247,11 @@ fn weather_card() -> Html {
                     if let Ok(d) = resp.json::<Wttr>().await {
                         if let (Some(c), Some(a)) = (d.current_condition.first(), d.nearest_area.first()) {
                             let city = a.area_name.first().map(|v| v.value.as_str()).unwrap_or("somewhere");
+                            let country = a.country.first().map(|v| v.value.as_str()).unwrap_or("");
                             let desc = c.desc.first().map(|v| v.value.as_str()).unwrap_or("");
                             wx.set(Some(format!(
-                                "{}: {} \u{00B7} {}\u{00B0}C \u{00B7} wind {}km/h \u{00B7} humidity {}%",
-                                city, desc, c.temp_c, c.wind, c.humidity
+                                "{}, {}: {} \u{00B7} {}\u{00B0}C \u{00B7} wind {}km/h \u{00B7} humidity {}%",
+                                city, cc(country), desc, c.temp_c, c.wind, c.humidity
                             )));
                         }
                     }
