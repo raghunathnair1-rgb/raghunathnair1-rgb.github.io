@@ -27,6 +27,33 @@ fi
 if git grep -nIE -e 'sk-[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|ghp_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16}' -- . ':!:*.md' 2>/dev/null | grep -q .; then
   echo "❌ possible hardcoded secret in blog — deploy aborted"; exit 1
 fi
+
+# --- AI security review (Fable 5) of the diff — catches what regex/SAST miss ---
+if command -v claude >/dev/null 2>&1; then
+  echo "🔍 fable security review…"
+  DIFF=$(git --no-pager diff HEAD -- . ':(exclude)status.json' 2>/dev/null | head -c 10000)
+  if [ -n "$DIFF" ]; then
+    RES=$(timeout 90 claude -p "You are a STRICT application-security reviewer for a PUBLIC Rust/WASM blog on GitHub Pages. Review ONLY the git diff below for REAL, exploitable problems: hardcoded secrets/tokens/keys, XSS or HTML/JS injection, unsafe raw-HTML built from untrusted input, dangerous eval/fetch, data exfiltration, or supply-chain risk. Ignore style, naming and non-security nits. Reply with ONE line of JSON and nothing else: {\"verdict\":\"pass\"|\"fail\",\"severity\":\"none|low|medium|high\",\"reason\":\"short\"}. Set verdict=fail ONLY for a medium or high severity real security problem.
+
+GIT DIFF:
+$DIFF" --model claude-fable-5 --output-format json 2>/dev/null \
+      | python3 -c "import sys,json,re
+try:
+    r=json.load(sys.stdin).get('result','')
+    d=json.loads(re.search(r'\{.*\}', r, re.S).group(0))
+    print(d.get('verdict','pass'), d.get('severity','none'), '::', str(d.get('reason',''))[:180])
+except Exception: print('pass none :: (review unavailable — failing open)')" 2>/dev/null) || true
+    RES=${RES:-"pass none :: (no result — failing open)"}
+    if [ "$(printf '%s' "$RES" | awk '{print $1}')" = "fail" ]; then
+      echo "❌ fable security review FAILED — $RES"
+      echo "   deploy aborted. review the finding, fix, and re-run."
+      exit 1
+    fi
+    echo "   ✅ fable review: $RES"
+  fi
+else
+  echo "   (claude CLI not found — skipping AI security review)"
+fi
 echo "✅ gate clean."
 
 # --- ship ---
