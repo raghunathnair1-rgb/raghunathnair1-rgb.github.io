@@ -94,8 +94,12 @@ fn app() -> Html {
             </header>
             <main>{ view }</main>
             <footer>
-                { "built in Rust \u{2192} WebAssembly · shipped by an AI harness brain · " }
-                <a href="https://github.com/raghunathnair1-rgb">{ "github" }</a>
+                <div class="social">
+                    <a href="https://www.linkedin.com/in/rgnair">{ "linkedin" }</a>
+                    { " · " }
+                    <a href="https://github.com/raghunathnair1-rgb">{ "github" }</a>
+                </div>
+                { "built in Rust \u{2192} WebAssembly · shipped by an AI harness brain" }
             </footer>
         </>
     }

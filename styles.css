@@ -59,4 +59,7 @@ footer {
   margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
   color: var(--muted); font-size: .82rem;
 }
+footer .social { margin-bottom: .4rem; }
+footer .social a { color: var(--green); }
+footer .social a:hover { color: var(--cyan); text-shadow: var(--glow); }
 @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
