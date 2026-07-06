@@ -79,6 +79,15 @@ main { margin-top: 2.5rem; }
 }
 .wx-loading { color: var(--muted); font-size: .85rem; }
 
+/* ASCII clock */
+.clock { margin-bottom: 1.9rem; }
+.clock-cmd { color: var(--green); margin-bottom: .5rem; }
+.clock-face {
+  margin: 0; color: var(--cyan); text-shadow: var(--glow);
+  font-size: clamp(.5rem, 2.4vw, .85rem); line-height: 1.05; letter-spacing: 0;
+  overflow-x: auto;
+}
+
 /* $ fortune */
 .fortune { margin-bottom: 1.9rem; }
 .fortune blockquote {

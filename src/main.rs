@@ -210,6 +210,54 @@ fn weather_card() -> Html {
     }
 }
 
+fn glyph(c: char) -> [&'static str; 5] {
+    match c {
+        '0' => ["\u{2588}\u{2588}\u{2588}", "\u{2588} \u{2588}", "\u{2588} \u{2588}", "\u{2588} \u{2588}", "\u{2588}\u{2588}\u{2588}"],
+        '1' => ["  \u{2588}", "  \u{2588}", "  \u{2588}", "  \u{2588}", "  \u{2588}"],
+        '2' => ["\u{2588}\u{2588}\u{2588}", "  \u{2588}", "\u{2588}\u{2588}\u{2588}", "\u{2588}  ", "\u{2588}\u{2588}\u{2588}"],
+        '3' => ["\u{2588}\u{2588}\u{2588}", "  \u{2588}", "\u{2588}\u{2588}\u{2588}", "  \u{2588}", "\u{2588}\u{2588}\u{2588}"],
+        '4' => ["\u{2588} \u{2588}", "\u{2588} \u{2588}", "\u{2588}\u{2588}\u{2588}", "  \u{2588}", "  \u{2588}"],
+        '5' => ["\u{2588}\u{2588}\u{2588}", "\u{2588}  ", "\u{2588}\u{2588}\u{2588}", "  \u{2588}", "\u{2588}\u{2588}\u{2588}"],
+        '6' => ["\u{2588}\u{2588}\u{2588}", "\u{2588}  ", "\u{2588}\u{2588}\u{2588}", "\u{2588} \u{2588}", "\u{2588}\u{2588}\u{2588}"],
+        '7' => ["\u{2588}\u{2588}\u{2588}", "  \u{2588}", "  \u{2588}", "  \u{2588}", "  \u{2588}"],
+        '8' => ["\u{2588}\u{2588}\u{2588}", "\u{2588} \u{2588}", "\u{2588}\u{2588}\u{2588}", "\u{2588} \u{2588}", "\u{2588}\u{2588}\u{2588}"],
+        '9' => ["\u{2588}\u{2588}\u{2588}", "\u{2588} \u{2588}", "\u{2588}\u{2588}\u{2588}", "  \u{2588}", "\u{2588}\u{2588}\u{2588}"],
+        ':' => ["   ", " \u{2588} ", "   ", " \u{2588} ", "   "],
+        _ => ["   ", "   ", "   ", "   ", "   "],
+    }
+}
+
+fn now_hms() -> String {
+    let d = js_sys::Date::new_0();
+    format!("{:02}:{:02}:{:02}", d.get_hours() as u32, d.get_minutes() as u32, d.get_seconds() as u32)
+}
+
+fn to_ascii(s: &str) -> String {
+    let g: Vec<[&str; 5]> = s.chars().map(glyph).collect();
+    (0..5)
+        .map(|row| g.iter().map(|x| x[row]).collect::<Vec<_>>().join(" "))
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
+#[function_component(AsciiClock)]
+fn ascii_clock() -> Html {
+    let time = use_state(now_hms);
+    {
+        let time = time.clone();
+        use_effect_with((), move |_| {
+            let interval = gloo_timers::callback::Interval::new(1000, move || time.set(now_hms()));
+            move || drop(interval)
+        });
+    }
+    html! {
+        <div class="clock">
+            <div class="clock-cmd">{ "$ watch date +%T" }</div>
+            <pre class="clock-face">{ to_ascii(&time) }</pre>
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -277,6 +325,7 @@ fn app() -> Html {
                 <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
             </div>
             <WeatherCard />
+            <AsciiClock />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
