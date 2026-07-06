@@ -27,6 +27,16 @@ body::before {
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
   background: repeating-linear-gradient(180deg, rgba(255,255,255,.015) 0 1px, transparent 1px 3px);
 }
+/* faint falling data-stream behind everything */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 44px, rgba(74,222,128,.028) 44px 45px),
+    linear-gradient(180deg, rgba(74,222,128,.05), transparent 42%);
+  background-size: auto, 100% 340px;
+  animation: datastream 7s linear infinite;
+}
+@keyframes datastream { to { background-position: 0 0, 0 340px; } }
 header .logo {
   font-size: 2.4rem; font-weight: 700; letter-spacing: .04em;
   color: var(--cyan); text-shadow: var(--glow);
@@ -80,6 +90,14 @@ ul.log li:hover { border-color: var(--cyan); transform: translateX(3px); box-sha
 .tag { color: var(--cyan); font-size: .8rem; }
 time { color: var(--muted); font-size: .8rem; white-space: nowrap; }
 
+/* post opens with a glitchy reveal */
+article { animation: glitch-in .45s ease both; }
+@keyframes glitch-in {
+  0%   { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateX(-5px); filter: hue-rotate(90deg) saturate(2.2); }
+  35%  { opacity: 1; clip-path: inset(0 0 25% 0); transform: translateX(4px); }
+  60%  { clip-path: inset(0 0 0 0); transform: translateX(-2px); filter: none; }
+  100% { transform: none; }
+}
 article h2 { color: var(--cyan); text-shadow: var(--glow); margin-bottom: .2rem; }
 article .meta { color: var(--muted); margin-bottom: 1.2rem; }
 .back { color: var(--green); cursor: pointer; text-decoration: none; font-size: .9rem; }
@@ -118,5 +136,6 @@ ul.log li:nth-child(4) { animation-delay: .66s; }
 @keyframes bootin { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .cursor, .logo, .boot, .about, ul.log li { animation: none !important; clip-path: none !important; }
+  .cursor, .logo, .boot, .about, ul.log li, article { animation: none !important; clip-path: none !important; }
+  body::after { animation: none !important; }
 }
