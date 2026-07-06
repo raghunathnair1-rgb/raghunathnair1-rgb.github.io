@@ -12,7 +12,8 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  reboot  uptime  echo <x>  clear".to_string(),
+        ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
         ["ls"] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
         ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
@@ -65,6 +66,15 @@ fn terminal() -> Html {
                 value.set(String::new());
                 if cmd == "clear" {
                     history.set(Vec::new());
+                    return;
+                }
+                if cmd == "reboot" {
+                    if let Some(w) = web_sys::window() {
+                        if let Ok(Some(s)) = w.session_storage() {
+                            let _ = s.remove_item("booted");
+                        }
+                        let _ = w.location().reload();
+                    }
                     return;
                 }
                 if cmd.is_empty() {

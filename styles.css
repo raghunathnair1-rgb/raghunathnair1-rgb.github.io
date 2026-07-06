@@ -25,6 +25,8 @@
   transition: opacity .6s ease;
 }
 #boot pre { margin: 0; white-space: pre-wrap; text-shadow: 0 0 6px rgba(74, 222, 128, .4); }
+#boot.boot-typed pre::after { content: "_"; color: var(--green); animation: boot-blink 1s step-end infinite; }
+@keyframes boot-blink { 50% { opacity: 0; } }
 #boot.boot-done { opacity: 0; pointer-events: none; }
 html, body { height: 100%; }
 body {
