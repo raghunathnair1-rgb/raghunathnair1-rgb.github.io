@@ -10,7 +10,7 @@ enum Line {
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  neofetch  now-playing  coffee  brew  fortune  uptime  history  echo <x>  sudo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  neofetch  now-playing  coffee  brew  fortune  theme <name>  uptime  echo <x>  sudo <x>  clear".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
         ["ls"] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
         ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
@@ -22,7 +22,18 @@ fn run_command(cmd: &str) -> String {
         ["coffee"] | ["make", "coffee"] => "       ) )\n      ( (\n    ........\n    |      |]\n    \\      /\n     `----'   \u{2615} caffeine loaded \u{00B7} \u{221E} cups shipped".to_string(),
         ["brew"] => "brewing \u{2615} ... [\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}] done \u{2014} enjoy. (this shell runs on coffee too)".to_string(),
         ["coffee", ..] | ["brew", ..] => "\u{2615} one thing at a time. try just 'coffee' or 'brew'.".to_string(),
-        ["theme"] => "themes: [green] active \u{00B7} amber (soon)".to_string(),
+        ["theme"] => "themes: green (default) \u{00B7} amber \u{2014} usage: theme <name>".to_string(),
+        ["theme", "amber"] => "theme set: amber \u{2600}".to_string(),
+        ["theme", "green"] => "theme set: green".to_string(),
+        ["theme", _] => "unknown theme \u{2014} try 'theme green' or 'theme amber'".to_string(),
+        ["cat"] => "usage: cat <post>  \u{2014} try 'ls posts'".to_string(),
+        ["cat", rest @ ..] => {
+            let n = rest.join(" ").to_lowercase();
+            posts().iter()
+                .find(|p| p.title.to_lowercase().contains(n.as_str()) || p.tag == n.as_str())
+                .map(|p| format!("{} [#{}]\n\n{}", p.title, p.tag, p.body))
+                .unwrap_or_else(|| format!("cat: {}: no such post (try 'ls posts')", n))
+        }
         ["echo", rest @ ..] => rest.join(" "),
         ["sudo", ..] => "Error 418: I'm a teapot. (nice try \u{2014} you're not root here)".to_string(),
         [] => String::new(),
@@ -55,6 +66,12 @@ fn terminal() -> Html {
                 }
                 if cmd.is_empty() {
                     return;
+                }
+                if cmd == "theme amber" || cmd == "theme green" {
+                    let t = if cmd.ends_with("amber") { "amber" } else { "green" };
+                    if let Some(el) = gloo_utils::document().document_element() {
+                        let _ = el.set_attribute("data-theme", t);
+                    }
                 }
                 let mut h = (*history).clone();
                 h.push(Line::Cmd(cmd.clone()));

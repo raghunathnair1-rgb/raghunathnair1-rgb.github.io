@@ -9,6 +9,12 @@
   --glow: 0 0 8px rgba(34, 211, 238, .45);
   font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 }
+/* amber theme (toggle via terminal: `theme amber` / `theme green`) */
+:root[data-theme="amber"] {
+  --cyan: #f59e0b;
+  --green: #fbbf24;
+  --glow: 0 0 8px rgba(245, 158, 11, .45);
+}
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
