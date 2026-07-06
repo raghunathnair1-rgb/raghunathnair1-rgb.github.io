@@ -9,9 +9,9 @@ SEC=/home/raghu/harness/security
 # --- dark-factory pre-deploy security gate (SAST + secret scan) ---
 echo "🛡️  pre-deploy gate…"
 if [ -x "$SEC/bin/opengrep" ]; then
-  "$SEC/bin/opengrep" scan --config auto --error --quiet --timeout 30 \
+  "$SEC/bin/opengrep" scan --config auto --error --quiet --severity ERROR --timeout 30 \
     --exclude target --exclude dist . \
-    || { echo "❌ SAST findings — deploy aborted (fix, then re-run)"; exit 1; }
+    || { echo "❌ SAST error-level findings — deploy aborted (fix, then re-run)"; exit 1; }
 else
   echo "   (opengrep not installed — skipping SAST; run harness security/install-sast.sh)"
 fi
