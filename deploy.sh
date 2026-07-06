@@ -6,6 +6,15 @@ cd "$(dirname "$0")"
 msg="${1:-blog: update $(date -u +%FT%TZ)}"
 SEC=/home/raghu/harness/security
 
+# --- snapshot the real harness-brain status for the blog's brain widget ---
+bstate=$(systemctl --user is-active harness-brain 2>/dev/null || echo unknown)
+bstart=$(systemctl --user show harness-brain -p ActiveEnterTimestamp --value 2>/dev/null)
+bepoch=$(date -d "$bstart" +%s 2>/dev/null || echo 0)
+bpid=$(systemctl --user show harness-brain -p MainPID --value 2>/dev/null || echo 0)
+printf '{"healthy": %s, "service": "harness-brain.service", "started_epoch": %s, "pid": %s, "updated_epoch": %s}\n' \
+  "$([ "$bstate" = active ] && echo true || echo false)" "${bepoch:-0}" "${bpid:-0}" "$(date +%s)" > status.json
+echo "🧠 brain snapshot: $bstate (pid ${bpid:-0})"
+
 # --- dark-factory pre-deploy security gate (SAST + secret scan) ---
 echo "🛡️  pre-deploy gate…"
 if [ -x "$SEC/bin/opengrep" ]; then

@@ -102,6 +102,21 @@ main { margin-top: 2.5rem; }
 }
 .wx-loading { color: var(--muted); font-size: .85rem; }
 
+/* 🧠 brain-status widget (live, from status.json) */
+.brain { max-width: 34rem; margin-bottom: 1.9rem; }
+.brain-cmd { color: var(--green); margin-bottom: .5rem; }
+.brain-row {
+  display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; font-size: .86rem;
+  border: 1px solid var(--line); border-radius: 10px; padding: .6rem .9rem; background: var(--panel);
+}
+.brain .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.brain .dot.ok { background: var(--green); box-shadow: 0 0 7px var(--green); animation: brain-pulse 1.6s ease-in-out infinite; }
+.brain .dot.bad { background: #ff5f56; box-shadow: 0 0 7px #ff5f56; }
+@keyframes brain-pulse { 50% { opacity: .35; } }
+.brain-up { color: var(--cyan); font-variant-numeric: tabular-nums; margin-left: auto; }
+.brain-pid { color: var(--muted); font-size: .76rem; }
+.brain-loading { color: var(--muted); font-size: .85rem; }
+
 /* ASCII clock */
 .clock { margin-bottom: 1.9rem; }
 .clock-cmd { color: var(--green); margin-bottom: .5rem; }

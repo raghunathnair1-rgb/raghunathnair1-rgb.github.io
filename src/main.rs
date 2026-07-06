@@ -349,6 +349,67 @@ fn ascii_clock() -> Html {
     }
 }
 
+#[derive(serde::Deserialize)]
+struct BrainStatus {
+    healthy: bool,
+    #[serde(default)]
+    started_epoch: f64,
+    #[serde(default)]
+    pid: u64,
+}
+
+#[function_component(BrainCard)]
+fn brain_card() -> Html {
+    let st = use_state(|| None::<BrainStatus>);
+    let tick = use_state(|| 0u64);
+    {
+        let st = st.clone();
+        use_effect_with((), move |_| {
+            wasm_bindgen_futures::spawn_local(async move {
+                if let Ok(resp) = gloo_net::http::Request::get("/status.json").send().await {
+                    if let Ok(b) = resp.json::<BrainStatus>().await {
+                        st.set(Some(b));
+                    }
+                }
+            });
+            || ()
+        });
+    }
+    {
+        let tick = tick.clone();
+        use_effect_with((), move |_| {
+            let interval = gloo_timers::callback::Interval::new(1000, move || tick.set(0));
+            move || drop(interval)
+        });
+    }
+    html! {
+        <div class="brain">
+            <div class="brain-cmd">{ "$ systemctl status harness-brain" }</div>
+            {
+                match &*st {
+                    Some(b) => {
+                        let up = if b.started_epoch > 0.0 {
+                            ((js_sys::Date::now() / 1000.0) - b.started_epoch).max(0.0) as u64
+                        } else {
+                            0
+                        };
+                        let (d, h, m, s) = (up / 86400, (up % 86400) / 3600, (up % 3600) / 60, up % 60);
+                        html! {
+                            <div class="brain-row">
+                                <span class={ if b.healthy { "dot ok" } else { "dot bad" } }></span>
+                                <span class="brain-lbl">{ if b.healthy { "brain: healthy" } else { "brain: down" } }</span>
+                                <span class="brain-up">{ format!("uptime {}d {:02}h {:02}m {:02}s", d, h, m, s) }</span>
+                                <span class="brain-pid">{ format!("pid {}", b.pid) }</span>
+                            </div>
+                        }
+                    }
+                    None => html! { <div class="brain-loading">{ "querying the harness brain\u{2026}" }</div> },
+                }
+            }
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -417,6 +478,7 @@ fn app() -> Html {
             </div>
             <WeatherCard />
             <AsciiClock />
+            <BrainCard />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
