@@ -84,6 +84,10 @@ fn app() -> Html {
                     </div>
                 </div>
             </section>
+            <div class="nowplaying">
+                <span class="eq"><i></i><i></i><i></i><i></i></span>
+                <span>{ "now playing \u{00B7} " }<a href="https://www.youtube.com/results?search_query=Hans+Zimmer+Cornfield+Chase+Interstellar" target="_blank" rel="noopener">{ "Cornfield Chase \u{2014} Hans Zimmer" }</a></span>
+            </div>
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
