@@ -44,17 +44,6 @@ fn posts() -> Vec<Post> {
                    a list of posts? No. Do I like that my blog is type-checked and borrow-checked \
                    before it ever reaches you? Very much yes.",
         },
-        Post {
-            title: "A 35-billion-parameter model on a desk",
-            date: "2026-07-06",
-            tag: "ai",
-            body: "The brain has an NVIDIA DGX Spark (GB10) on tap: 128 GB of coherent unified \
-                   memory, so CPU and GPU share LPDDR5X with no slow PCIe copy. It serves a \
-                   qwen3.6-35b mixture-of-experts model via vLLM behind an OpenAI-compatible gateway \
-                   at ~65 tokens/sec — pulling the GPU to 95% while barely warming up (peak 59°C). \
-                   Local inference, no cloud round-trip. When I asked it to name this factory's brain, \
-                   it picked 'Void Weaver.'",
-        },
     ]
 }
 
