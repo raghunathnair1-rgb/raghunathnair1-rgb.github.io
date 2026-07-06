@@ -10,7 +10,7 @@ enum Line {
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  ls posts  neofetch  now-playing  fortune  uptime  history  echo <x>  sudo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  neofetch  now-playing  coffee  brew  fortune  uptime  history  echo <x>  sudo <x>  clear".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
         ["ls"] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
         ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
@@ -19,6 +19,9 @@ fn run_command(cmd: &str) -> String {
         ["fortune"] => "\u{201C}Do not go gentle into that good night...\u{201D} \u{2014} Interstellar".to_string(),
         ["uptime"] => "shipping since 2026-07-06 \u{00B7} brain online".to_string(),
         ["history"] => "1  git init life\n2  cargo build --release\n3  ./deploy.sh dreams".to_string(),
+        ["coffee"] | ["make", "coffee"] => "       ) )\n      ( (\n    ........\n    |      |]\n    \\      /\n     `----'   \u{2615} caffeine loaded \u{00B7} \u{221E} cups shipped".to_string(),
+        ["brew"] => "brewing \u{2615} ... [\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}] done \u{2014} enjoy. (this shell runs on coffee too)".to_string(),
+        ["coffee", ..] | ["brew", ..] => "\u{2615} one thing at a time. try just 'coffee' or 'brew'.".to_string(),
         ["theme"] => "themes: [green] active \u{00B7} amber (soon)".to_string(),
         ["echo", rest @ ..] => rest.join(" "),
         ["sudo", ..] => "Error 418: I'm a teapot. (nice try \u{2014} you're not root here)".to_string(),
@@ -183,6 +186,7 @@ fn app() -> Html {
                     <div class="nf-line"><span class="k">{ "shell" }</span>{ "the harness brain" }</div>
                     <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
                     <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
+                    <div class="nf-line"><span class="k">{ "fuel" }</span>{ "\u{2615} coffee \u{00B7} \u{221E} cups" }</div>
                     <div class="nf-line"><span class="k">{ "status" }</span><span class="nf-ok">{ "\u{25CF} online" }</span></div>
                 </div>
             </div>
