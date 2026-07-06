@@ -85,10 +85,14 @@ fn app() -> Html {
                 </div>
             </section>
             <div class="np">
-                <div class="np-label"><span class="eq"><i></i><i></i><i></i><i></i></span>{ " $ now-playing --live \u{00B7} Cornfield Chase \u{2014} Hans Zimmer" }</div>
-                { yew::virtual_dom::VNode::from_html_unchecked(yew::AttrValue::from(
-                    r#"<iframe class="np-embed" loading="lazy" title="Cornfield Chase on Apple Music" allow="autoplay *; encrypted-media *; clipboard-write" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/nl/album/cornfield-chase/1533983552?i=1533984393&amp;l=en-GB"></iframe>"#
-                )) }
+                <div class="np-cmd">{ "$ now-playing" }</div>
+                <div class="np-out">
+                    <span class="np-note">{ "\u{266B}" }</span>
+                    <span class="eq"><i></i><i></i><i></i><i></i></span>
+                    <span class="np-track">{ "Cornfield Chase" }</span>
+                    <span class="np-artist">{ "\u{00B7} Hans Zimmer \u{2014} Interstellar (OST)" }</span>
+                    <a href="https://music.apple.com/nl/album/cornfield-chase/1533983552?i=1533984393" target="_blank" rel="noopener">{ "[listen \u{2197}]" }</a>
+                </div>
             </div>
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
