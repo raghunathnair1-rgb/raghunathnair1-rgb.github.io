@@ -18,6 +18,44 @@
   <link data-trunk rel="copy-dir" href="assets"/>
 </head>
 <body>
+  <div id="boot"><pre></pre></div>
+  <script>
+  (function () {
+    var boot = document.getElementById('boot');
+    if (!boot) return;
+    var pre = boot.querySelector('pre');
+    var seen = false, reduce = false;
+    try { seen = sessionStorage.getItem('booted') === '1'; sessionStorage.setItem('booted', '1'); } catch (e) {}
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (seen || reduce) { if (boot.parentNode) boot.parentNode.removeChild(boot); return; }
+    var lines = [
+      'dark-factory BIOS v4.8 — POST',
+      '──────────────────────',
+      '[ OK ] cpu: brain @ ∞GHz',
+      '[ OK ] memory ............ 128GB unified',
+      '[ OK ] gpu ............... NVIDIA GB10',
+      '[ OK ] mount /dev/rust ... wasm32',
+      '[ OK ] modules ........... matrix_rain, terminal, clock',
+      '[ OK ] security gates .... armed',
+      '[ OK ] coffee ............ brewed ☕',
+      '',
+      'boot complete. launching raghu // dark-factory_'
+    ];
+    var i = 0;
+    (function next() {
+      if (i < lines.length) {
+        pre.textContent += lines[i] + '\n';
+        i++;
+        setTimeout(next, 110 + Math.random() * 90);
+      } else {
+        setTimeout(function () {
+          boot.classList.add('boot-done');
+          setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 700);
+        }, 550);
+      }
+    })();
+  })();
+  </script>
   <canvas id="matrix"></canvas>
   <div id="app"></div>
   <script>

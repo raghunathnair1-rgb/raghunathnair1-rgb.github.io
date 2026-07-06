@@ -16,6 +16,16 @@
   --glow: 0 0 8px rgba(245, 158, 11, .45);
 }
 * { box-sizing: border-box; }
+
+/* BIOS / POST boot splash (first load per session) */
+#boot {
+  position: fixed; inset: 0; z-index: 9999; background: #05070b;
+  color: var(--green); padding: 2rem 1.25rem;
+  font: 13px/1.55 ui-monospace, "JetBrains Mono", monospace;
+  transition: opacity .6s ease;
+}
+#boot pre { margin: 0; white-space: pre-wrap; text-shadow: 0 0 6px rgba(74, 222, 128, .4); }
+#boot.boot-done { opacity: 0; pointer-events: none; }
 html, body { height: 100%; }
 body {
   margin: 0;
