@@ -94,6 +94,23 @@ fn app() -> Html {
                     <a href="https://music.apple.com/nl/album/cornfield-chase/1533983552?i=1533984393" target="_blank" rel="noopener">{ "[listen \u{2197}]" }</a>
                 </div>
             </div>
+            <div class="nf-cmd">{ "$ neofetch" }</div>
+            <div class="neofetch">
+                <pre class="nf-art">{ "   ╷ ╷ ╷\n  ┌┴─┴─┴┐\n  │ ▓▓▓ │\n  │dark-f│\n  └─────┘" }</pre>
+                <div class="nf-info">
+                    <div class="nf-line"><span class="k">{ "os" }</span>{ "dark-factory (lights-out)" }</div>
+                    <div class="nf-line"><span class="k">{ "host" }</span>{ "raghunathnair1-rgb.github.io" }</div>
+                    <div class="nf-line"><span class="k">{ "kernel" }</span>{ "rust \u{2192} wasm (yew + trunk)" }</div>
+                    <div class="nf-line"><span class="k">{ "shell" }</span>{ "the harness brain" }</div>
+                    <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
+                    <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
+                    <div class="nf-line"><span class="k">{ "status" }</span><span class="nf-ok">{ "\u{25CF} online" }</span></div>
+                </div>
+            </div>
+            <div class="fortune">
+                <div class="nf-cmd">{ "$ fortune" }</div>
+                <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
+            </div>
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
