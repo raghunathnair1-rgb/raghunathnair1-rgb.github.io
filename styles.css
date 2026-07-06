@@ -36,6 +36,26 @@ header .logo {
 .boot { color: var(--green); margin-top: .25rem; font-size: .9rem; opacity: .85; }
 
 main { margin-top: 2.5rem; }
+
+/* $ whoami card */
+.about { margin-bottom: 2rem; }
+.about .cmd { color: var(--green); margin-bottom: .55rem; }
+.about .card {
+  display: flex; gap: 1.1rem; align-items: center;
+  border: 1px solid var(--line); border-radius: 10px; padding: 1rem; background: var(--panel);
+}
+.about .avatar {
+  width: 96px; height: 96px; flex: none; object-fit: cover; border-radius: 8px;
+  border: 1px solid var(--cyan);
+  /* redacted / matrix duotone by default */
+  filter: grayscale(1) contrast(1.05) brightness(.92) sepia(.5) hue-rotate(75deg) saturate(3);
+  transition: filter .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.about .avatar:hover { filter: none; box-shadow: var(--glow); transform: scale(1.03); }
+.about .bio { font-size: .92rem; }
+.about .bio .line { white-space: pre-wrap; }
+.about .bio .key { color: var(--cyan); }
+@media (max-width: 30rem) { .about .card { flex-direction: column; text-align: center; } }
 ul.log { list-style: none; padding: 0; margin: 0; }
 ul.log li {
   display: grid; grid-template-columns: auto 1fr auto auto; align-items: baseline; gap: .75rem;
