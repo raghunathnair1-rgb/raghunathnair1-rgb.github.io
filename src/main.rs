@@ -230,21 +230,16 @@ fn glyph(c: char) -> [&'static str; 5] {
 fn now_shown() -> String {
     let d = js_sys::Date::new_0();
     let t = format!("{:02}:{:02}:{:02}", d.get_hours() as u32, d.get_minutes() as u32, d.get_seconds() as u32);
-    // blink the colons: shown first half of each second, blank the second half
-    if d.get_milliseconds() < 500.0 { t } else { t.replace(':', " ") }
+    // blink the colons: on for the first half of each second, off the second half
+    let blink = ((js_sys::Date::now() / 500.0) as u64) % 2 == 0;
+    if blink { t } else { t.replace(':', " ") }
 }
 
 fn now_date() -> String {
-    let d = js_sys::Date::new_0();
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    format!(
-        "{} {} {:02} {}",
-        days[d.get_day() as usize],
-        months[d.get_month() as usize],
-        d.get_date() as u32,
-        d.get_full_year() as u32
-    )
+    js_sys::Date::new_0()
+        .to_date_string()
+        .as_string()
+        .unwrap_or_default()
 }
 
 fn to_ascii(s: &str) -> String {
