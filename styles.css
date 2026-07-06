@@ -135,6 +135,28 @@ article .meta { color: var(--muted); margin-bottom: 1.2rem; }
 .back:hover { text-decoration: underline; }
 
 a { color: var(--cyan); }
+
+/* interactive terminal */
+.term {
+  border: 1px solid var(--cyan); border-radius: 10px; background: #060a10;
+  padding: .7rem .9rem; margin: 2.2rem 0; box-shadow: var(--glow); font-size: .88rem;
+}
+.t-bar { display: flex; align-items: center; gap: 6px; margin-bottom: .6rem; }
+.t-bar .d { width: 10px; height: 10px; border-radius: 50%; }
+.t-bar .d.r { background: #ff5f56; }
+.t-bar .d.y { background: #ffbd2e; }
+.t-bar .d.g { background: #27c93f; }
+.t-name { color: var(--muted); font-size: .74rem; margin-left: .35rem; }
+.t-body { max-height: 260px; overflow-y: auto; }
+.t-line { white-space: pre-wrap; word-break: break-word; }
+.t-out { margin: .1rem 0 .55rem; white-space: pre-wrap; color: var(--fg); font: inherit; }
+.t-prompt { color: var(--green); }
+.t-inputline { display: flex; align-items: center; }
+.t-input {
+  flex: 1; min-width: 0; background: transparent; border: none; outline: none;
+  color: var(--fg); font: inherit; caret-color: var(--cyan);
+}
+.t-input::placeholder { color: var(--muted); opacity: .6; }
 footer {
   margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
   color: var(--muted); font-size: .82rem;

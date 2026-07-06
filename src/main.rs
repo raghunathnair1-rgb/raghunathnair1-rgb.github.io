@@ -1,4 +1,83 @@
 use yew::prelude::*;
+use yew::TargetCast;
+
+#[derive(Clone)]
+enum Line {
+    Cmd(String),
+    Out(String),
+}
+
+fn run_command(cmd: &str) -> String {
+    let p: Vec<&str> = cmd.split_whitespace().collect();
+    match p.as_slice() {
+        ["help"] => "commands: help  whoami  ls  ls posts  neofetch  now-playing  fortune  uptime  history  echo <x>  sudo <x>  clear".to_string(),
+        ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
+        ["ls"] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
+        ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
+        ["neofetch"] => "os: dark-factory \u{00B7} kernel: rust\u{2192}wasm \u{00B7} shell: harness brain \u{00B7} status: \u{25CF} online".to_string(),
+        ["now-playing", ..] => "\u{266B} Cornfield Chase \u{2014} Hans Zimmer \u{00B7} Interstellar (OST)".to_string(),
+        ["fortune"] => "\u{201C}Do not go gentle into that good night...\u{201D} \u{2014} Interstellar".to_string(),
+        ["uptime"] => "shipping since 2026-07-06 \u{00B7} brain online".to_string(),
+        ["history"] => "1  git init life\n2  cargo build --release\n3  ./deploy.sh dreams".to_string(),
+        ["theme"] => "themes: [green] active \u{00B7} amber (soon)".to_string(),
+        ["echo", rest @ ..] => rest.join(" "),
+        ["sudo", ..] => "Error 418: I'm a teapot. (nice try \u{2014} you're not root here)".to_string(),
+        [] => String::new(),
+        _ => format!("command not found: {} \u{2014} type 'help'", p[0]),
+    }
+}
+
+#[function_component(Terminal)]
+fn terminal() -> Html {
+    let history = use_state(|| vec![Line::Out("dark-factory shell \u{2014} type 'help' for commands.".to_string())]);
+    let value = use_state(String::new);
+
+    let oninput = {
+        let value = value.clone();
+        Callback::from(move |e: web_sys::InputEvent| {
+            let el: web_sys::HtmlInputElement = e.target_unchecked_into();
+            value.set(el.value());
+        })
+    };
+    let onkeydown = {
+        let history = history.clone();
+        let value = value.clone();
+        Callback::from(move |e: web_sys::KeyboardEvent| {
+            if e.key() == "Enter" {
+                let cmd = (*value).trim().to_string();
+                value.set(String::new());
+                if cmd == "clear" {
+                    history.set(Vec::new());
+                    return;
+                }
+                if cmd.is_empty() {
+                    return;
+                }
+                let mut h = (*history).clone();
+                h.push(Line::Cmd(cmd.clone()));
+                h.push(Line::Out(run_command(&cmd)));
+                history.set(h);
+            }
+        })
+    };
+
+    html! {
+        <section class="term">
+            <div class="t-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="t-name">{ "visitor@dark-factory \u{2014} try it \u{2193}" }</span></div>
+            <div class="t-body">
+                { for (*history).iter().map(|l| match l {
+                    Line::Cmd(s) => html! { <div class="t-line"><span class="t-prompt">{ "$ " }</span>{ s.clone() }</div> },
+                    Line::Out(s) => html! { <pre class="t-out">{ s.clone() }</pre> },
+                }) }
+                <div class="t-inputline">
+                    <span class="t-prompt">{ "$ " }</span>
+                    <input class="t-input" type="text" value={(*value).clone()} {oninput} {onkeydown}
+                        spellcheck="false" autocomplete="off" placeholder="type a command..." />
+                </div>
+            </div>
+        </section>
+    }
+}
 
 #[derive(Clone, PartialEq)]
 struct Post {
@@ -125,6 +204,7 @@ fn app() -> Html {
                     }
                 }) }
             </ul>
+            <Terminal />
             </>
         },
     };
