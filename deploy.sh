@@ -31,7 +31,7 @@ fi
 # --- AI security review (Fable 5) of the diff — catches what regex/SAST miss ---
 if command -v claude >/dev/null 2>&1; then
   echo "🔍 fable security review…"
-  DIFF=$(git --no-pager diff HEAD -- . ':(exclude)status.json' 2>/dev/null | head -c 10000)
+  DIFF=$(git --no-pager diff HEAD -- . ':(exclude)status.json' 2>/dev/null | head -c 10000 || true)
   if [ -n "$DIFF" ]; then
     RES=$(timeout 90 claude -p "You are a STRICT application-security reviewer for a PUBLIC Rust/WASM blog on GitHub Pages. Review ONLY the git diff below for REAL, exploitable problems: hardcoded secrets/tokens/keys, XSS or HTML/JS injection, unsafe raw-HTML built from untrusted input, dangerous eval/fetch, data exfiltration, or supply-chain risk. Ignore style, naming and non-security nits. Reply with ONE line of JSON and nothing else: {\"verdict\":\"pass\"|\"fail\",\"severity\":\"none|low|medium|high\",\"reason\":\"short\"}. Set verdict=fail ONLY for a medium or high severity real security problem.
 

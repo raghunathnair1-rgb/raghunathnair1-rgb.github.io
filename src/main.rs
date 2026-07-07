@@ -12,7 +12,7 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  crt  reboot  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
         ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
@@ -22,6 +22,20 @@ fn run_command(cmd: &str) -> String {
         ["now-playing", ..] => "\u{266B} Cornfield Chase \u{2014} Hans Zimmer \u{00B7} Interstellar (OST)".to_string(),
         ["fortune"] => "\u{201C}Do not go gentle into that good night...\u{201D} \u{2014} Interstellar".to_string(),
         ["uptime"] => "shipping since 2026-07-06 \u{00B7} brain online".to_string(),
+        ["path", a, b] => match (kg_index(a), kg_index(b)) {
+            (Some(fi), Some(ti)) => {
+                let pth = kg_path(fi, ti);
+                if pth.is_empty() {
+                    format!("no path: '{}' \u{2194} '{}'", a, b)
+                } else {
+                    let names: Vec<&str> = pth.iter().map(|&i| KG_NODES[i].0).collect();
+                    let hops = pth.len() - 1;
+                    format!("{}  \u{00B7} {} hop{}  (traced on the graph \u{2191})", names.join(" \u{2192} "), hops, if hops == 1 { "" } else { "s" })
+                }
+            }
+            _ => "path: unknown node \u{2014} pick from the graph (e.g. rust, wasm, brain, dgx-spark, coffee)".to_string(),
+        },
+        ["path", ..] => "usage: path <a> <b>  \u{2014} e.g. 'path coffee wasm'".to_string(),
         ["history"] => "1  git init life\n2  cargo build --release\n3  ./deploy.sh dreams".to_string(),
         ["coffee"] | ["make", "coffee"] => "       ) )\n      ( (\n    ........\n    |      |]\n    \\      /\n     `----'   \u{2615} caffeine loaded \u{00B7} \u{221E} cups shipped".to_string(),
         ["brew"] => "brewing \u{2615} ... [\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}] done \u{2014} enjoy. (this shell runs on coffee too)".to_string(),
@@ -46,8 +60,13 @@ fn run_command(cmd: &str) -> String {
     }
 }
 
+#[derive(Properties, PartialEq)]
+struct TermProps {
+    on_path: Callback<Vec<usize>>,
+}
+
 #[function_component(Terminal)]
-fn terminal() -> Html {
+fn terminal(props: &TermProps) -> Html {
     let history = use_state(|| vec![Line::Out("dark-factory shell \u{2014} type 'help' for commands.".to_string())]);
     let value = use_state(String::new);
 
@@ -61,6 +80,7 @@ fn terminal() -> Html {
     let onkeydown = {
         let history = history.clone();
         let value = value.clone();
+        let on_path = props.on_path.clone();
         Callback::from(move |e: web_sys::KeyboardEvent| {
             if e.key() == "Enter" {
                 let cmd = (*value).trim().to_string();
@@ -98,6 +118,18 @@ fn terminal() -> Html {
                     if let Some(el) = gloo_utils::document().document_element() {
                         let _ = el.set_attribute("data-theme", t);
                     }
+                }
+                if let Some(rest) = cmd.strip_prefix("path ") {
+                    let parts: Vec<&str> = rest.split_whitespace().collect();
+                    let p = if parts.len() == 2 {
+                        match (kg_index(parts[0]), kg_index(parts[1])) {
+                            (Some(fi), Some(ti)) => kg_path(fi, ti),
+                            _ => Vec::new(),
+                        }
+                    } else {
+                        Vec::new()
+                    };
+                    on_path.emit(p);
                 }
                 let mut h = (*history).clone();
                 h.push(Line::Cmd(cmd.clone()));
@@ -750,6 +782,52 @@ fn kg_fmt(v: f64) -> String {
 fn kg_degree(i: usize) -> usize {
     KG_EDGES.iter().filter(|&&(a, b)| a == i || b == i).count()
 }
+fn kg_index(label: &str) -> Option<usize> {
+    KG_NODES.iter().position(|&(l, _)| l == label)
+}
+fn kg_on_path(path: &[usize], a: usize, b: usize) -> bool {
+    path.windows(2).any(|w| (w[0] == a && w[1] == b) || (w[0] == b && w[1] == a))
+}
+fn kg_path(from: usize, to: usize) -> Vec<usize> {
+    let n = KG_NODES.len();
+    let mut prev = vec![usize::MAX; n];
+    let mut seen = vec![false; n];
+    let mut q = std::collections::VecDeque::new();
+    q.push_back(from);
+    seen[from] = true;
+    while let Some(u) = q.pop_front() {
+        if u == to {
+            break;
+        }
+        for &(a, b) in KG_EDGES {
+            let v = if a == u {
+                Some(b)
+            } else if b == u {
+                Some(a)
+            } else {
+                None
+            };
+            if let Some(v) = v {
+                if !seen[v] {
+                    seen[v] = true;
+                    prev[v] = u;
+                    q.push_back(v);
+                }
+            }
+        }
+    }
+    if !seen[to] {
+        return Vec::new();
+    }
+    let mut path = vec![to];
+    let mut cur = to;
+    while cur != from {
+        cur = prev[cur];
+        path.push(cur);
+    }
+    path.reverse();
+    path
+}
 
 fn kg_post_idx(i: usize) -> Option<usize> {
     match i {
@@ -798,6 +876,7 @@ fn kg_desc(i: usize) -> &'static str {
 #[derive(Properties, PartialEq)]
 struct KgProps {
     on_open: Callback<usize>,
+    path: Vec<usize>,
 }
 
 #[function_component(KnowledgeGraph)]
@@ -827,6 +906,17 @@ fn knowledge_graph(props: &KgProps) -> Html {
                 }))
             };
             move || drop(iv)
+        });
+    }
+    {
+        let svg_ref = svg_ref.clone();
+        use_effect_with(props.path.clone(), move |p| {
+            if !p.is_empty() {
+                if let Some(el) = svg_ref.cast::<web_sys::Element>() {
+                    el.scroll_into_view();
+                }
+            }
+            || ()
         });
     }
     let onmove = {
@@ -876,57 +966,73 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let sn = *sel_node;
     let focus = hv.or(sn);
     let t = js_sys::Date::now() / 1000.0;
+    let path = props.path.clone();
+    let pmode = !path.is_empty();
     html! {
         <div class="kg-wrap">
-            <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click any node" }</div>
+            <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click \u{00B7} try 'path a b'" }</div>
             <svg class="kg" ref={svg_ref.clone()} viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet"
                  onmousemove={onmove} onmouseup={onup} onmouseleave={onleave}>
                 { for KG_EDGES.iter().map(|&(a, b)| {
                     let (na, nb) = (&nodes[a], &nodes[b]);
-                    let active = focus.map_or(true, |h| a == h || b == h);
-                    let cls = if focus.is_some() && !active { "kg-edge dim" } else { "kg-edge" };
+                    let active = if pmode { kg_on_path(&path, a, b) } else { focus.map_or(true, |h| a == h || b == h) };
+                    let dim = if pmode { !active } else { focus.is_some() && !active };
+                    let cls = if pmode && active { "kg-edge kg-path-edge" } else if dim { "kg-edge dim" } else { "kg-edge" };
                     html! { <line x1={kg_fmt(na.x)} y1={kg_fmt(na.y)} x2={kg_fmt(nb.x)} y2={kg_fmt(nb.y)} class={cls} /> }
                 }) }
-                { for KG_EDGES.iter().enumerate().map(|(k, &(a, b))| {
-                    let active = focus.map_or(true, |h| a == h || b == h);
-                    if focus.is_some() && !active { return html! {}; }
-                    // surge: when a node is focused, pulses on its edges speed up and flow OUTWARD from it
-                    let (surge, src, dst) = match focus {
-                        Some(h) if a == h => (true, a, b),
-                        Some(h) if b == h => (true, b, a),
-                        _ => (false, a, b),
-                    };
-                    let (ns, nd) = (&nodes[src], &nodes[dst]);
-                    let speed = if surge { 1.4 } else { 0.4 };
-                    let ph = (t * speed + k as f64 * 0.37).fract();
-                    let px = ns.x + (nd.x - ns.x) * ph;
-                    let py = ns.y + (nd.y - ns.y) * ph;
-                    if surge {
-                        let ph2 = (ph + 0.5).fract();
-                        let px2 = ns.x + (nd.x - ns.x) * ph2;
-                        let py2 = ns.y + (nd.y - ns.y) * ph2;
-                        html! { <>
-                            <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="2.4" class="kg-pulse kg-surge" />
-                            <circle cx={kg_fmt(px2)} cy={kg_fmt(py2)} r="1.9" class="kg-pulse kg-surge" />
-                        </> }
-                    } else {
-                        html! { <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="1.6" class="kg-pulse" /> }
-                    }
-                }) }
+                { if !pmode { html! { <>
+                    { for KG_EDGES.iter().enumerate().map(|(k, &(a, b))| {
+                        let active = focus.map_or(true, |h| a == h || b == h);
+                        if focus.is_some() && !active { return html! {}; }
+                        let (surge, src, dst) = match focus {
+                            Some(h) if a == h => (true, a, b),
+                            Some(h) if b == h => (true, b, a),
+                            _ => (false, a, b),
+                        };
+                        let (ns, nd) = (&nodes[src], &nodes[dst]);
+                        let speed = if surge { 1.4 } else { 0.4 };
+                        let ph = (t * speed + k as f64 * 0.37).fract();
+                        let px = ns.x + (nd.x - ns.x) * ph;
+                        let py = ns.y + (nd.y - ns.y) * ph;
+                        if surge {
+                            let ph2 = (ph + 0.5).fract();
+                            let px2 = ns.x + (nd.x - ns.x) * ph2;
+                            let py2 = ns.y + (nd.y - ns.y) * ph2;
+                            html! { <>
+                                <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="2.4" class="kg-pulse kg-surge" />
+                                <circle cx={kg_fmt(px2)} cy={kg_fmt(py2)} r="1.9" class="kg-pulse kg-surge" />
+                            </> }
+                        } else {
+                            html! { <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="1.6" class="kg-pulse" /> }
+                        }
+                    }) }
+                </> } } else { html! {} } }
+                { if pmode && path.len() >= 2 {
+                    let nseg = (path.len() - 1) as f64;
+                    let u = (t * 0.9) % nseg;
+                    let seg = u.floor() as usize;
+                    let fr = u - seg as f64;
+                    let (pa, pb) = (&nodes[path[seg]], &nodes[path[seg + 1]]);
+                    let px = pa.x + (pb.x - pa.x) * fr;
+                    let py = pa.y + (pb.y - pa.y) * fr;
+                    html! { <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="3.2" class="kg-pulse kg-surge" /> }
+                } else { html! {} } }
                 { for KG_NODES.iter().enumerate().map(|(i, &(label, kind))| {
                     let nd = &nodes[i];
-                    let active = focus.map_or(true, |h| h == i || kg_neighbor(h, i));
+                    let active = if pmode { path.contains(&i) } else { focus.map_or(true, |h| h == i || kg_neighbor(h, i)) };
+                    let ringed = Some(i) == sn || (pmode && path.contains(&i));
+                    let dim = if pmode { !active } else { focus.is_some() && !active };
                     let mut cls = String::from("kg-node");
                     if kg_post_idx(i).is_some() { cls.push_str(" kg-clickable"); }
-                    if Some(i) == sn { cls.push_str(" kg-sel"); }
-                    if focus.is_some() && !active { cls.push_str(" dim"); }
+                    if ringed { cls.push_str(" kg-sel"); }
+                    if dim { cls.push_str(" dim"); }
                     let r = kg_r(kind) + (kg_degree(i) as f64).sqrt() * 1.1;
                     html! {
                         <g class={cls}
                            onmouseover={ let h = hovered.clone(); Callback::from(move |_| h.set(Some(i))) }
                            onmouseout={ let h = hovered.clone(); Callback::from(move |_| h.set(None)) }
                            onmousedown={ let d = drag.clone(); let m = moved.clone(); Callback::from(move |e: web_sys::MouseEvent| { e.prevent_default(); *d.borrow_mut() = Some(i); *m.borrow_mut() = false; }) }>
-                            { if Some(i) == sn { html! { <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r + 3.0)} class="kg-ring" /> } } else { html! {} } }
+                            { if ringed { html! { <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r + 3.0)} class="kg-ring" /> } } else { html! {} } }
                             <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r)} class={kg_cls(kind)} />
                             <text x={kg_fmt(nd.x + r + 2.0)} y={kg_fmt(nd.y + 2.5)}>{ label }</text>
                         </g>
@@ -962,6 +1068,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
+    let path_hl = use_state(|| Vec::<usize>::new());
     let list = posts();
 
     let view = match *selected {
@@ -1032,7 +1139,7 @@ fn app() -> Html {
             <BrainViz />
             <Orrery />
             <SpinningDonut />
-            <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } />
+            <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
@@ -1047,7 +1154,7 @@ fn app() -> Html {
                     }
                 }) }
             </ul>
-            <Terminal />
+            <Terminal on_path={ let p = path_hl.clone(); Callback::from(move |pv: Vec<usize>| p.set(pv)) } />
             </>
         },
     };
