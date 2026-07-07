@@ -1646,6 +1646,8 @@ fn spark_text(d: &SparkData) -> String {
     s
 }
 
+const SPARK_POLL_MS: u32 = 30_000;
+
 #[function_component(SparkMonitor)]
 fn spark_monitor() -> Html {
     let data = use_state(|| None::<SparkData>);
@@ -1654,16 +1656,28 @@ fn spark_monitor() -> Html {
         let data = data.clone();
         let err = err.clone();
         use_effect_with((), move |_| {
-            wasm_bindgen_futures::spawn_local(async move {
-                match gloo_net::http::Request::get("/spark.json").send().await {
-                    Ok(resp) => match resp.json::<SparkData>().await {
-                        Ok(v) => data.set(Some(v)),
+            // poll every 30s with a cache-buster (GitHub Pages caches spark.json for 10min);
+            // keep the last frame on any error so the panel never blanks.
+            let poll = move || {
+                let data = data.clone();
+                let err = err.clone();
+                wasm_bindgen_futures::spawn_local(async move {
+                    let url = format!("/spark.json?t={}", js_sys::Date::now() as u64);
+                    match gloo_net::http::Request::get(&url).send().await {
+                        Ok(resp) => match resp.json::<SparkData>().await {
+                            Ok(v) => {
+                                data.set(Some(v));
+                                err.set(false);
+                            }
+                            Err(_) => err.set(true),
+                        },
                         Err(_) => err.set(true),
-                    },
-                    Err(_) => err.set(true),
-                }
-            });
-            || ()
+                    }
+                });
+            };
+            poll();
+            let interval = gloo_timers::callback::Interval::new(SPARK_POLL_MS, poll);
+            move || drop(interval)
         });
     }
     let body = match (&*data, *err) {
@@ -1673,7 +1687,7 @@ fn spark_monitor() -> Html {
     };
     html! {
         <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ ssh dgx-spark nvidia-smi  \u{00B7}  the machine that builds this" }</div>
+            <div class="ascii-cmd">{ "$ watch -n5 nvidia-smi  \u{00B7}  both GB10 nodes \u{00B7} auto-refresh 30s" }</div>
             { body }
         </div>
     }
