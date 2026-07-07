@@ -682,7 +682,7 @@ fn kg_build() -> Vec<GNode> {
         .collect()
 }
 
-fn kg_step(nodes: &mut [GNode]) {
+fn kg_step(nodes: &mut [GNode], pinned: Option<usize>) {
     let n = nodes.len();
     let mut fx = vec![0.0f64; n];
     let mut fy = vec![0.0f64; n];
@@ -712,6 +712,11 @@ fn kg_step(nodes: &mut [GNode]) {
         fy[b] -= f * uy;
     }
     for i in 0..n {
+        if Some(i) == pinned {
+            nodes[i].vx = 0.0;
+            nodes[i].vy = 0.0;
+            continue;
+        }
         fx[i] += (180.0 - nodes[i].x) * 0.02;
         fy[i] += (140.0 - nodes[i].y) * 0.02;
         nodes[i].vx = (nodes[i].vx + fx[i]) * 0.82;
@@ -743,22 +748,41 @@ fn kg_fmt(v: f64) -> String {
     format!("{:.1}", v)
 }
 
+fn kg_post_idx(i: usize) -> Option<usize> {
+    match i {
+        9 => Some(0),   // hello-world
+        10 => Some(1),  // anatomy
+        11 => Some(2),  // why-wasm
+        _ => None,
+    }
+}
+
+#[derive(Properties, PartialEq)]
+struct KgProps {
+    on_open: Callback<usize>,
+}
+
 #[function_component(KnowledgeGraph)]
-fn knowledge_graph() -> Html {
+fn knowledge_graph(props: &KgProps) -> Html {
     let sim = use_mut_ref(kg_build);
+    let drag = use_mut_ref(|| None::<usize>);
+    let moved = use_mut_ref(|| false);
     let tick = use_state(|| 0u64);
     let hovered = use_state(|| None::<usize>);
+    let svg_ref = use_node_ref();
     {
         let sim = sim.clone();
+        let drag = drag.clone();
         let tick = tick.clone();
         use_effect_with((), move |_| {
             let iv = if reduced_motion() {
                 None
             } else {
                 Some(gloo_timers::callback::Interval::new(33, move || {
+                    let pinned = *drag.borrow();
                     {
                         let mut b = sim.borrow_mut();
-                        kg_step(&mut b);
+                        kg_step(&mut b, pinned);
                     }
                     tick.set(0);
                 }))
@@ -766,12 +790,57 @@ fn knowledge_graph() -> Html {
             move || drop(iv)
         });
     }
+    let onmove = {
+        let sim = sim.clone();
+        let drag = drag.clone();
+        let moved = moved.clone();
+        let svg_ref = svg_ref.clone();
+        Callback::from(move |e: web_sys::MouseEvent| {
+            if let Some(i) = *drag.borrow() {
+                *moved.borrow_mut() = true;
+                if let Some(el) = svg_ref.cast::<web_sys::Element>() {
+                    let rect = el.get_bounding_client_rect();
+                    if rect.width() > 0.0 && rect.height() > 0.0 {
+                        let sx = (e.client_x() as f64 - rect.left()) / rect.width() * 360.0;
+                        let sy = (e.client_y() as f64 - rect.top()) / rect.height() * 280.0;
+                        let mut b = sim.borrow_mut();
+                        b[i].x = sx.clamp(14.0, 346.0);
+                        b[i].y = sy.clamp(12.0, 268.0);
+                        b[i].vx = 0.0;
+                        b[i].vy = 0.0;
+                    }
+                }
+            }
+        })
+    };
+    let onup = {
+        let drag = drag.clone();
+        let moved = moved.clone();
+        let on_open = props.on_open.clone();
+        Callback::from(move |_: web_sys::MouseEvent| {
+            if let Some(i) = *drag.borrow() {
+                if !*moved.borrow() {
+                    if let Some(pi) = kg_post_idx(i) {
+                        on_open.emit(pi);
+                    }
+                }
+            }
+            *drag.borrow_mut() = None;
+        })
+    };
+    let onleave = {
+        let drag = drag.clone();
+        Callback::from(move |_: web_sys::MouseEvent| {
+            *drag.borrow_mut() = None;
+        })
+    };
     let nodes = sim.borrow();
     let hv = *hovered;
     html! {
         <div class="kg-wrap">
-            <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover a node" }</div>
-            <svg class="kg" viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet">
+            <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click a post" }</div>
+            <svg class="kg" ref={svg_ref.clone()} viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet"
+                 onmousemove={onmove} onmouseup={onup} onmouseleave={onleave}>
                 { for KG_EDGES.iter().map(|&(a, b)| {
                     let (na, nb) = (&nodes[a], &nodes[b]);
                     let active = hv.map_or(true, |h| a == h || b == h);
@@ -781,12 +850,14 @@ fn knowledge_graph() -> Html {
                 { for KG_NODES.iter().enumerate().map(|(i, &(label, kind))| {
                     let nd = &nodes[i];
                     let active = hv.map_or(true, |h| h == i || kg_neighbor(h, i));
-                    let cls = if hv.is_some() && !active { "kg-node dim" } else { "kg-node" };
+                    let is_post = kg_post_idx(i).is_some();
+                    let cls = if hv.is_some() && !active { "kg-node dim" } else if is_post { "kg-node kg-clickable" } else { "kg-node" };
                     let r = kg_r(kind);
                     html! {
                         <g class={cls}
                            onmouseover={ let h = hovered.clone(); Callback::from(move |_| h.set(Some(i))) }
-                           onmouseout={ let h = hovered.clone(); Callback::from(move |_| h.set(None)) }>
+                           onmouseout={ let h = hovered.clone(); Callback::from(move |_| h.set(None)) }
+                           onmousedown={ let d = drag.clone(); let m = moved.clone(); Callback::from(move |e: web_sys::MouseEvent| { e.prevent_default(); *d.borrow_mut() = Some(i); *m.borrow_mut() = false; }) }>
                             <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r)} class={kg_cls(kind)} />
                             <text x={kg_fmt(nd.x + r + 2.0)} y={kg_fmt(nd.y + 2.5)}>{ label }</text>
                         </g>
@@ -870,7 +941,7 @@ fn app() -> Html {
             <BrainViz />
             <Orrery />
             <SpinningDonut />
-            <KnowledgeGraph />
+            <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
