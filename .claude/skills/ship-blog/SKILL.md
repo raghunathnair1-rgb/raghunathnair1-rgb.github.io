@@ -54,6 +54,14 @@ pushes → Actions builds+deploys**.
 - **Audio can't autoplay** on first load without a user gesture — that's a browser law,
   not a bug. Use a "power on" tap or a first-interaction unlock.
 - **Flag emojis** don't render on Windows (show the 2 letters) — always show the code too.
+- **`deploy.sh` SIGPIPE on large diffs**: the Fable gate captures the diff with
+  `git diff | head -c 10000`. Under `set -euo pipefail`, once a diff exceeds 10 KB,
+  `head` closes the pipe early → `git` gets SIGPIPE (141) → the script dies **before
+  pushing** (exit 141, log stops at "🔍 fable security review…"). Fixed with `|| true`
+  on that line. If a deploy exits 141 / never prints "pushed", this is it — the diff is
+  big; do NOT mistake it for a code or gate failure. (Also: the Fable review can take
+  60–90s on a big diff — give `deploy.sh` a generous timeout and capture to a file,
+  don't pipe through `head -N` which can SIGPIPE-truncate your view.)
 
 ## Adding a terminal command
 Command logic lives in `run_command()` (pure `&str -> String`). Side-effects that touch
