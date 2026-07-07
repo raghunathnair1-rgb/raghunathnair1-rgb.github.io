@@ -590,12 +590,16 @@ const BRAIN: &str = r#"       .-~~~~~~~-.
 
 fn brain_frame(t: f64) -> String {
     let ramp = b" .:-+ioO@";
+    let front = (t / 2.6).fract() * 14.0; // bright spike sweeping across every 2.6s
     let mut s = String::with_capacity(BRAIN.len() + 16);
     for (r, line) in BRAIN.lines().enumerate() {
         for (c, ch) in line.bytes().enumerate() {
             if ch == b'o' {
                 let phase = r as f64 * 0.7 + c as f64 * 0.32;
-                let b = 0.5 + 0.5 * (t * 3.5 - phase).sin();
+                let base = 0.5 + 0.5 * (t * 3.5 - phase).sin();
+                let d = phase - front;
+                let boost = (-(d * d) / 2.42).exp(); // gaussian spike front (2*1.1^2)
+                let b = base.max(boost);
                 let idx = ((b * (ramp.len() as f64 - 1.0)) as usize).min(ramp.len() - 1);
                 s.push(ramp[idx] as char);
             } else {
@@ -622,11 +626,20 @@ fn brain_viz() -> Html {
         });
     }
     let t = js_sys::Date::now() / 1000.0;
+    let frame = brain_frame(t);
+    let active = frame.bytes().filter(|&b| b == b'O' || b == b'@').count();
+    let bright = frame.bytes().filter(|&b| b == b'@').count();
+    let hz = 7.0 + 1.6 * (t * 0.5).sin();
+    let sub = if bright > 1 {
+        format!("\u{03B8} {:.1} Hz \u{00B7} {} firing \u{00B7} \u{21AF} spike", hz, active)
+    } else {
+        format!("\u{03B8} {:.1} Hz \u{00B7} {} firing", hz, active)
+    };
     html! {
         <div class="ascii-art">
             <div class="ascii-cmd">{ "$ ./brain --live" }</div>
-            <pre class="ascii-face brain-face">{ brain_frame(t) }</pre>
-            <div class="brain-sub">{ "neural mesh \u{00B7} synapses firing \u{00B7} \u{03B8}-wave online" }</div>
+            <pre class="ascii-face brain-face">{ frame }</pre>
+            <div class="brain-sub">{ sub }</div>
         </div>
     }
 }
