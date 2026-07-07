@@ -2,6 +2,7 @@
 @font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/fonts/jetbrains-mono-400.woff2") format("woff2"); }
 @font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/jetbrains-mono-700.woff2") format("woff2"); }
 @font-face { font-family: "VT323"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/fonts/vt323-400.woff2") format("woff2"); }
+@font-face { font-family: "Space Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/space-mono-700.woff2") format("woff2"); }
 
 :root {
   --bg: #0a0e14;
@@ -84,7 +85,8 @@ body::before {
   mask-image: radial-gradient(ellipse 42% 58% at 50% 46%, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.9) 42%, black 74%);
 }
 header .logo {
-  font-size: 2.4rem; font-weight: 700; letter-spacing: .04em;
+  font-family: "Space Mono", "JetBrains Mono", ui-monospace, monospace;
+  font-size: 2.4rem; font-weight: 700; letter-spacing: .02em;
   color: var(--cyan); text-shadow: var(--glow);
 }
 .cursor { animation: blink 1.05s steps(1) infinite; color: var(--green); }
