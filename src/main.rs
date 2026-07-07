@@ -69,6 +69,7 @@ struct TermProps {
 fn terminal(props: &TermProps) -> Html {
     let history = use_state(|| vec![Line::Out("dark-factory shell \u{2014} type 'help' for commands.".to_string())]);
     let value = use_state(String::new);
+    let hist_idx = use_state(|| None::<usize>);
 
     let oninput = {
         let value = value.clone();
@@ -80,11 +81,39 @@ fn terminal(props: &TermProps) -> Html {
     let onkeydown = {
         let history = history.clone();
         let value = value.clone();
+        let hist_idx = hist_idx.clone();
         let on_path = props.on_path.clone();
         Callback::from(move |e: web_sys::KeyboardEvent| {
-            if e.key() == "Enter" {
+            let key = e.key();
+            if key == "ArrowUp" || key == "ArrowDown" {
+                e.prevent_default();
+                let cmds: Vec<String> = (*history)
+                    .iter()
+                    .filter_map(|l| match l { Line::Cmd(s) => Some(s.clone()), _ => None })
+                    .collect();
+                if cmds.is_empty() {
+                    return;
+                }
+                let n = cmds.len();
+                let new_idx = match (*hist_idx, key == "ArrowUp") {
+                    (None, true) => Some(n - 1),
+                    (Some(i), true) => Some(i.saturating_sub(1)),
+                    (Some(i), false) => {
+                        if i + 1 < n { Some(i + 1) } else { None }
+                    }
+                    (None, false) => None,
+                };
+                match new_idx {
+                    Some(i) => value.set(cmds[i].clone()),
+                    None => value.set(String::new()),
+                }
+                hist_idx.set(new_idx);
+                return;
+            }
+            if key == "Enter" {
                 let cmd = (*value).trim().to_string();
                 value.set(String::new());
+                hist_idx.set(None);
                 if cmd == "clear" {
                     history.set(Vec::new());
                     return;
@@ -292,20 +321,24 @@ fn weather_card() -> Html {
         let wx = wx.clone();
         use_effect_with((), move |_| {
             wasm_bindgen_futures::spawn_local(async move {
-                if let Ok(resp) = gloo_net::http::Request::get("https://wttr.in/?format=j1").send().await {
-                    if let Ok(d) = resp.json::<Wttr>().await {
-                        if let (Some(c), Some(a)) = (d.current_condition.first(), d.nearest_area.first()) {
-                            let city = a.area_name.first().map(|v| v.value.as_str()).unwrap_or("somewhere");
-                            let country = a.country.first().map(|v| v.value.as_str()).unwrap_or("");
-                            let desc = c.desc.first().map(|v| v.value.as_str()).unwrap_or("");
-                            let code = cc(country);
-                            wx.set(Some(format!(
-                                "{} {}, {}: {} \u{00B7} {}\u{00B0}C \u{00B7} wind {}km/h \u{00B7} humidity {}%",
-                                flag(&code), city, code, desc, c.temp_c, c.wind, c.humidity
-                            )));
-                        }
-                    }
-                }
+                let msg = match gloo_net::http::Request::get("https://wttr.in/?format=j1").send().await {
+                    Ok(resp) => match resp.json::<Wttr>().await {
+                        Ok(d) => match (d.current_condition.first(), d.nearest_area.first()) {
+                            (Some(c), Some(a)) => {
+                                let city = a.area_name.first().map(|v| v.value.as_str()).unwrap_or("somewhere");
+                                let country = a.country.first().map(|v| v.value.as_str()).unwrap_or("");
+                                let desc = c.desc.first().map(|v| v.value.as_str()).unwrap_or("");
+                                let code = cc(country);
+                                format!("{} {}, {}: {} \u{00B7} {}\u{00B0}C \u{00B7} wind {}km/h \u{00B7} humidity {}%",
+                                    flag(&code), city, code, desc, c.temp_c, c.wind, c.humidity)
+                            }
+                            _ => "weather offline \u{00B7} unexpected response".to_string(),
+                        },
+                        Err(_) => "weather offline \u{00B7} couldn't parse wttr.in".to_string(),
+                    },
+                    Err(_) => "weather offline \u{00B7} couldn't reach wttr.in".to_string(),
+                };
+                wx.set(Some(msg));
             });
             || ()
         });
@@ -394,15 +427,19 @@ struct BrainStatus {
 #[function_component(BrainCard)]
 fn brain_card() -> Html {
     let st = use_state(|| None::<BrainStatus>);
+    let err = use_state(|| false);
     let tick = use_state(|| 0u64);
     {
         let st = st.clone();
+        let err = err.clone();
         use_effect_with((), move |_| {
             wasm_bindgen_futures::spawn_local(async move {
-                if let Ok(resp) = gloo_net::http::Request::get("/status.json").send().await {
-                    if let Ok(b) = resp.json::<BrainStatus>().await {
-                        st.set(Some(b));
-                    }
+                match gloo_net::http::Request::get("/status.json").send().await {
+                    Ok(resp) => match resp.json::<BrainStatus>().await {
+                        Ok(b) => st.set(Some(b)),
+                        Err(_) => err.set(true),
+                    },
+                    Err(_) => err.set(true),
                 }
             });
             || ()
@@ -419,8 +456,8 @@ fn brain_card() -> Html {
         <div class="brain">
             <div class="brain-cmd">{ "$ systemctl status harness-brain" }</div>
             {
-                match &*st {
-                    Some(b) => {
+                match (&*st, *err) {
+                    (Some(b), _) => {
                         let up = if b.started_epoch > 0.0 {
                             ((js_sys::Date::now() / 1000.0) - b.started_epoch).max(0.0) as u64
                         } else {
@@ -436,7 +473,8 @@ fn brain_card() -> Html {
                             </div>
                         }
                     }
-                    None => html! { <div class="brain-loading">{ "querying the harness brain\u{2026}" }</div> },
+                    (None, true) => html! { <div class="brain-loading">{ "brain: unreachable \u{00B7} status.json 404" }</div> },
+                    (None, false) => html! { <div class="brain-loading">{ "querying the harness brain\u{2026}" }</div> },
                 }
             }
         </div>
@@ -448,6 +486,20 @@ fn reduced_motion() -> bool {
         .and_then(|w| w.match_media("(prefers-reduced-motion: reduce)").ok().flatten())
         .map(|m| m.matches())
         .unwrap_or(false)
+}
+
+/// Re-render every `ms` to animate a widget — unless the user prefers reduced motion.
+#[hook]
+fn use_anim_tick(ms: u32) {
+    let f = use_state(|| 0u64);
+    use_effect_with((), move |_| {
+        let iv = if reduced_motion() {
+            None
+        } else {
+            Some(gloo_timers::callback::Interval::new(ms, move || f.set(0)))
+        };
+        move || drop(iv)
+    });
 }
 
 // --- spinning ASCII donut (a1k0n donut.c, ported) ---
@@ -498,18 +550,7 @@ fn donut_frame(a: f64, b: f64) -> String {
 
 #[function_component(SpinningDonut)]
 fn spinning_donut() -> Html {
-    let f = use_state(|| 0u64);
-    {
-        let f = f.clone();
-        use_effect_with((), move |_| {
-            let iv = if reduced_motion() {
-                None
-            } else {
-                Some(gloo_timers::callback::Interval::new(50, move || f.set(0)))
-            };
-            move || drop(iv)
-        });
-    }
+    use_anim_tick(50);
     let t = js_sys::Date::now() / 1000.0;
     html! {
         <div class="ascii-art">
@@ -570,18 +611,7 @@ fn orrery_frame(t: f64) -> String {
 
 #[function_component(Orrery)]
 fn orrery() -> Html {
-    let f = use_state(|| 0u64);
-    {
-        let f = f.clone();
-        use_effect_with((), move |_| {
-            let iv = if reduced_motion() {
-                None
-            } else {
-                Some(gloo_timers::callback::Interval::new(60, move || f.set(0)))
-            };
-            move || drop(iv)
-        });
-    }
+    use_anim_tick(60);
     let t = js_sys::Date::now() / 1000.0;
     html! {
         <div class="ascii-art">
@@ -646,18 +676,7 @@ fn brain_frame(t: f64) -> String {
 
 #[function_component(BrainViz)]
 fn brain_viz() -> Html {
-    let f = use_state(|| 0u64);
-    {
-        let f = f.clone();
-        use_effect_with((), move |_| {
-            let iv = if reduced_motion() {
-                None
-            } else {
-                Some(gloo_timers::callback::Interval::new(80, move || f.set(0)))
-            };
-            move || drop(iv)
-        });
-    }
+    use_anim_tick(80);
     let t = js_sys::Date::now() / 1000.0;
     let frame = brain_frame(t);
     let active = frame.bytes().filter(|&b| b == b'O' || b == b'@').count();
@@ -1150,18 +1169,7 @@ fn cube_frame(a: f64, b: f64) -> String {
 
 #[function_component(CubeWireframe)]
 fn cube_wireframe() -> Html {
-    let f = use_state(|| 0u64);
-    {
-        let f = f.clone();
-        use_effect_with((), move |_| {
-            let iv = if reduced_motion() {
-                None
-            } else {
-                Some(gloo_timers::callback::Interval::new(60, move || f.set(0)))
-            };
-            move || drop(iv)
-        });
-    }
+    use_anim_tick(60);
     let t = js_sys::Date::now() / 1000.0;
     html! {
         <div class="ascii-art">
@@ -1188,16 +1196,38 @@ struct NewsItem {
 
 const NEWS_PER_PAGE: usize = 6;
 
+/// Only allow http(s) links from the auto-curated feed (Yew does NOT escape href;
+/// a javascript:/data: url would otherwise execute on click). Returns None for anything else.
+fn safe_href(url: &str) -> Option<String> {
+    let lower = url.trim().to_ascii_lowercase();
+    if lower.starts_with("http://") || lower.starts_with("https://") {
+        Some(url.trim().to_string())
+    } else {
+        None
+    }
+}
+
 fn news_item(it: &NewsItem) -> Html {
+    let href = safe_href(&it.url);
     html! {
         <li class="news-item">
             <div class="news-head">
-                <a class="news-title" href={it.url.clone()} target="_blank" rel="noopener">{ it.title.clone() }</a>
+                {
+                    match &href {
+                        Some(u) => html! { <a class="news-title" href={u.clone()} target="_blank" rel="noopener noreferrer">{ it.title.clone() }</a> },
+                        None => html! { <span class="news-title">{ it.title.clone() }</span> },
+                    }
+                }
                 { if !it.tag.is_empty() { html! { <span class="news-tag">{ format!("#{}", it.tag) }</span> } } else { html! {} } }
                 { if !it.date.is_empty() { html! { <time class="news-date">{ it.date.clone() }</time> } } else { html! {} } }
             </div>
             { if !it.summary.is_empty() { html! { <p class="news-sum">{ it.summary.clone() }</p> } } else { html! {} } }
-            { if !it.source.is_empty() { html! { <a class="news-src" href={it.url.clone()} target="_blank" rel="noopener">{ format!("source: {} \u{2197}", it.source) }</a> } } else { html! {} } }
+            {
+                match (&href, it.source.is_empty()) {
+                    (Some(u), false) => html! { <a class="news-src" href={u.clone()} target="_blank" rel="noopener noreferrer">{ format!("source: {} \u{2197}", it.source) }</a> },
+                    _ => html! {},
+                }
+            }
         </li>
     }
 }
@@ -1206,23 +1236,28 @@ fn news_item(it: &NewsItem) -> Html {
 fn news_feed() -> Html {
     let items = use_state(|| None::<Vec<NewsItem>>);
     let page = use_state(|| 0usize);
+    let err = use_state(|| false);
     {
         let items = items.clone();
+        let err = err.clone();
         use_effect_with((), move |_| {
             wasm_bindgen_futures::spawn_local(async move {
-                if let Ok(resp) = gloo_net::http::Request::get("/news.json").send().await {
-                    if let Ok(v) = resp.json::<Vec<NewsItem>>().await {
-                        items.set(Some(v));
-                    }
+                match gloo_net::http::Request::get("/news.json").send().await {
+                    Ok(resp) => match resp.json::<Vec<NewsItem>>().await {
+                        Ok(v) => items.set(Some(v)),
+                        Err(_) => err.set(true),
+                    },
+                    Err(_) => err.set(true),
                 }
             });
             || ()
         });
     }
-    let body = match &*items {
-        None => html! { <div class="news-loading">{ "fetching the AI feed\u{2026}" }</div> },
-        Some(v) if v.is_empty() => html! { <div class="news-loading">{ "feed warming up \u{2014} the factory posts fresh AI / agentic / LLM stories here every day \u{1F5DE}\u{FE0F}" }</div> },
-        Some(v) => {
+    let body = match (&*items, *err) {
+        (None, true) => html! { <div class="news-loading">{ "ai-feed offline \u{2014} couldn't load news.json" }</div> },
+        (None, false) => html! { <div class="news-loading">{ "fetching the AI feed\u{2026}" }</div> },
+        (Some(v), _) if v.is_empty() => html! { <div class="news-loading">{ "feed warming up \u{2014} the factory posts fresh AI / agentic / LLM stories here every day \u{1F5DE}\u{FE0F}" }</div> },
+        (Some(v), _) => {
             let total = v.len();
             let pages = ((total + NEWS_PER_PAGE - 1) / NEWS_PER_PAGE).max(1);
             let cur = (*page).min(pages - 1);
@@ -1263,11 +1298,20 @@ fn app() -> Html {
             let p = &list[i];
             let back = {
                 let s = selected.clone();
-                Callback::from(move |_| s.set(None))
+                Callback::from(move |_: web_sys::MouseEvent| s.set(None))
+            };
+            let keyback = {
+                let s = selected.clone();
+                Callback::from(move |e: web_sys::KeyboardEvent| {
+                    if e.key() == "Enter" || e.key() == " " {
+                        e.prevent_default();
+                        s.set(None);
+                    }
+                })
             };
             html! {
                 <article>
-                    <a class="back" onclick={back}>{"‹ back to log"}</a>
+                    <a class="back" onclick={back} onkeydown={keyback} tabindex="0" role="button">{"‹ back to log"}</a>
                     <h2>{ p.title }</h2>
                     <div class="meta"><span class="tag">{ format!("#{}", p.tag) }</span>{ " · " }<time>{ p.date }</time></div>
                     <p>{ p.body }</p>
@@ -1331,10 +1375,12 @@ fn app() -> Html {
             <NewsFeed />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
-                    let s = selected.clone();
-                    let open = Callback::from(move |_| s.set(Some(i)));
+                    let open = { let s = selected.clone(); Callback::from(move |_: web_sys::MouseEvent| s.set(Some(i))) };
+                    let keyopen = { let s = selected.clone(); Callback::from(move |e: web_sys::KeyboardEvent| {
+                        if e.key() == "Enter" || e.key() == " " { e.prevent_default(); s.set(Some(i)); }
+                    }) };
                     html! {
-                        <li onclick={open}>
+                        <li onclick={open} onkeydown={keyopen} tabindex="0" role="button">
                             <span class="prompt">{ "›" }</span>
                             <span class="title">{ p.title }</span>
                             <span class="tag">{ format!("#{}", p.tag) }</span>

@@ -17,6 +17,10 @@
 }
 * { box-sizing: border-box; }
 
+/* keyboard focus indicators (mouse users unaffected) */
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
+.t-input:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--cyan), var(--glow); }
+
 /* cinematic WebGL CRT shader overlay */
 #crtfx {
   position: fixed; inset: 0; width: 100vw; height: 100vh;
