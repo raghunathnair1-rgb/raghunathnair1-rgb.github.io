@@ -127,6 +127,20 @@ main { margin-top: 2.5rem; }
 .brain-pid { color: var(--muted); font-size: .76rem; }
 .brain-loading { color: var(--muted); font-size: .85rem; }
 
+/* 🤖 AI daily feed (auto-curated by the dark factory) */
+.news { margin-bottom: 1.9rem; }
+.news-loading { color: var(--muted); font-size: .85rem; margin-top: .3rem; }
+.news-list { list-style: none; padding: 0; margin: .5rem 0 0; display: grid; gap: .7rem; }
+.news-item { border: 1px solid var(--line); border-radius: 10px; padding: .7rem .9rem; background: var(--panel); }
+.news-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem; }
+.news-title { color: var(--cyan); font-weight: 600; text-decoration: none; }
+.news-title:hover { text-decoration: underline; }
+.news-tag { color: var(--green); font-size: .72rem; }
+.news-date { color: var(--muted); font-size: .72rem; margin-left: auto; }
+.news-sum { color: var(--fg); font-size: .86rem; margin: .4rem 0 .35rem; line-height: 1.5; }
+.news-src { color: var(--muted); font-size: .76rem; text-decoration: none; }
+.news-src:hover { color: var(--fg); }
+
 /* 🍩🌍 spinning ASCII art (donut + globe) */
 .ascii-art { margin-bottom: 1.9rem; }
 .ascii-cmd { color: var(--green); margin-bottom: .4rem; }

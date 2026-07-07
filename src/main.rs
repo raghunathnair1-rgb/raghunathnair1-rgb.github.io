@@ -1142,6 +1142,63 @@ fn cube_wireframe() -> Html {
     }
 }
 
+#[derive(serde::Deserialize)]
+struct NewsItem {
+    title: String,
+    #[serde(default)]
+    date: String,
+    #[serde(default)]
+    tag: String,
+    #[serde(default)]
+    summary: String,
+    #[serde(default)]
+    source: String,
+    #[serde(default)]
+    url: String,
+}
+
+#[function_component(NewsFeed)]
+fn news_feed() -> Html {
+    let items = use_state(|| None::<Vec<NewsItem>>);
+    {
+        let items = items.clone();
+        use_effect_with((), move |_| {
+            wasm_bindgen_futures::spawn_local(async move {
+                if let Ok(resp) = gloo_net::http::Request::get("/news.json").send().await {
+                    if let Ok(v) = resp.json::<Vec<NewsItem>>().await {
+                        items.set(Some(v));
+                    }
+                }
+            });
+            || ()
+        });
+    }
+    html! {
+        <div class="news">
+            <div class="nf-cmd">{ "$ ai-feed --daily  \u{00B7} auto-curated by the dark factory \u{1F916}" }</div>
+            {
+                match &*items {
+                    None => html! { <div class="news-loading">{ "fetching the AI feed\u{2026}" }</div> },
+                    Some(v) if v.is_empty() => html! { <div class="news-loading">{ "feed warming up \u{2014} the factory posts fresh AI / agentic / LLM stories here every day \u{1F5DE}\u{FE0F}" }</div> },
+                    Some(v) => html! { <ul class="news-list">
+                        { for v.iter().map(|it| html! {
+                            <li class="news-item">
+                                <div class="news-head">
+                                    <a class="news-title" href={it.url.clone()} target="_blank" rel="noopener">{ it.title.clone() }</a>
+                                    { if !it.tag.is_empty() { html! { <span class="news-tag">{ format!("#{}", it.tag) }</span> } } else { html! {} } }
+                                    { if !it.date.is_empty() { html! { <time class="news-date">{ it.date.clone() }</time> } } else { html! {} } }
+                                </div>
+                                { if !it.summary.is_empty() { html! { <p class="news-sum">{ it.summary.clone() }</p> } } else { html! {} } }
+                                { if !it.source.is_empty() { html! { <a class="news-src" href={it.url.clone()} target="_blank" rel="noopener">{ format!("source: {} \u{2197}", it.source) }</a> } } else { html! {} } }
+                            </li>
+                        }) }
+                    </ul> },
+                }
+            }
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -1218,6 +1275,7 @@ fn app() -> Html {
             <SpinningDonut />
             <CubeWireframe />
             <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
+            <NewsFeed />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
