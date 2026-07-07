@@ -1,3 +1,8 @@
+/* self-hosted fonts (bundled in assets/ — no external CDN, offline-capable) */
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/fonts/jetbrains-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/jetbrains-mono-700.woff2") format("woff2"); }
+@font-face { font-family: "VT323"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/fonts/vt323-400.woff2") format("woff2"); }
+
 :root {
   --bg: #0a0e14;
   --panel: #0e131b;
@@ -7,7 +12,7 @@
   --green: #4ade80;
   --line: #1b2430;
   --glow: 0 0 8px rgba(34, 211, 238, .45);
-  font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 /* amber theme (toggle via terminal: `theme amber` / `theme green`) */
 :root[data-theme="amber"] {
@@ -21,6 +26,9 @@
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
 .t-input:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--cyan), var(--glow); }
 
+/* keep block/box ASCII (█ ▓ ─ ┌) on a self-consistent monospace so it stays aligned */
+.clock-face, .nf-art { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
 /* cinematic WebGL CRT shader overlay */
 #crtfx {
   position: fixed; inset: 0; width: 100vw; height: 100vh;
@@ -32,7 +40,7 @@
 #boot {
   position: fixed; inset: 0; z-index: 9999; background: #05070b;
   color: var(--green); padding: 2rem 1.25rem;
-  font: 13px/1.55 ui-monospace, "JetBrains Mono", monospace;
+  font-family: "VT323", ui-monospace, monospace; font-size: clamp(15px, 4vw, 21px); line-height: 1.15;
   transition: opacity .6s ease;
 }
 #boot pre { margin: 0; white-space: pre-wrap; text-shadow: 0 0 6px rgba(74, 222, 128, .4); }
