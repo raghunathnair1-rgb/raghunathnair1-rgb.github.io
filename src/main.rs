@@ -1577,11 +1577,11 @@ struct SparkGpu {
     power: Option<i32>,
 }
 #[derive(serde::Deserialize, Clone, PartialEq)]
-struct SparkData {
-    #[serde(default)]
-    captured: String,
+struct SparkNode {
     #[serde(default)]
     host: String,
+    #[serde(default)]
+    role: String,
     #[serde(default)]
     reachable: bool,
     #[serde(default)]
@@ -1592,6 +1592,15 @@ struct SparkData {
     mem_used_mb: i64,
     #[serde(default)]
     mem_total_mb: i64,
+}
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct SparkData {
+    #[serde(default)]
+    captured: String,
+    #[serde(default)]
+    reachable: bool,
+    #[serde(default)]
+    nodes: Vec<SparkNode>,
 }
 
 fn spark_bar(pct: f64, width: usize) -> String {
@@ -1609,29 +1618,32 @@ fn spark_bar(pct: f64, width: usize) -> String {
 }
 
 fn spark_text(d: &SparkData) -> String {
-    let host = if d.host.is_empty() { "dgx-spark" } else { d.host.as_str() };
     let when = if d.captured.len() >= 16 { &d.captured[11..16] } else { "--:--" };
-    let status = if d.reachable { "online" } else { "last-known \u{00B7} unreachable now" };
-    let mut s = format!("{}  \u{00B7}  node 1/2  \u{00B7}  snapshot {} UTC  \u{00B7}  {}\n", host, when, status);
-    if !d.load.is_empty() {
-        s.push_str(&format!("load {}\n", d.load));
-    }
-    s.push('\n');
-    for (i, g) in d.gpus.iter().enumerate() {
-        s.push_str(&format!("GPU{}  {}\n", i, g.name));
-        let temp = g.temp.map(|t| format!("  {}\u{00B0}C", t)).unwrap_or_default();
-        let power = g.power.map(|p| format!("  {}W", p)).unwrap_or_default();
-        s.push_str(&format!("  util  {} {:>3}%{}{}\n", spark_bar(g.util as f64, 20), g.util, temp, power));
-    }
-    if d.mem_total_mb > 0 {
-        let pct = d.mem_used_mb as f64 / d.mem_total_mb as f64 * 100.0;
-        s.push_str(&format!(
-            "  mem   {} {}/{} GB ({:.0}%) unified\n",
-            spark_bar(pct, 20),
-            d.mem_used_mb / 1024,
-            d.mem_total_mb / 1024,
-            pct
-        ));
+    let mut s = format!("2-node GB10 cluster  \u{00B7}  snapshot {} UTC\n", when);
+    for n in &d.nodes {
+        let host = if n.host.is_empty() { "node" } else { n.host.as_str() };
+        let st = if n.reachable { "online" } else { "unreachable" };
+        s.push('\n');
+        s.push_str(&format!("{} \u{00B7} {} \u{00B7} {}", n.role, host, st));
+        if !n.load.is_empty() {
+            s.push_str(&format!(" \u{00B7} load {}", n.load));
+        }
+        s.push('\n');
+        for (i, g) in n.gpus.iter().enumerate() {
+            let temp = g.temp.map(|t| format!("  {}\u{00B0}C", t)).unwrap_or_default();
+            let power = g.power.map(|p| format!("  {}W", p)).unwrap_or_default();
+            s.push_str(&format!("  gpu{}  {} {:>3}%{}{}\n", i, spark_bar(g.util as f64, 16), g.util, temp, power));
+        }
+        if n.mem_total_mb > 0 {
+            let pct = n.mem_used_mb as f64 / n.mem_total_mb as f64 * 100.0;
+            s.push_str(&format!(
+                "  mem   {} {}/{} GB ({:.0}%)\n",
+                spark_bar(pct, 16),
+                n.mem_used_mb / 1024,
+                n.mem_total_mb / 1024,
+                pct
+            ));
+        }
     }
     s
 }
