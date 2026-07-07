@@ -558,6 +558,23 @@ fn orrery() -> Html {
     }
 }
 
+const FERRIS: &str = r#"       _~^~^~_
+   \) /  o o  \ (/
+     '_   -   _'
+     / '-----' \"#;
+
+#[function_component(RustBadge)]
+fn rust_badge() -> Html {
+    html! {
+        <div class="rustbadge">
+            <div class="rb-cmd">{ "$ file blog.wasm" }</div>
+            <pre class="rb-ferris">{ FERRIS }</pre>
+            <div class="rb-line">{ "blog.wasm: WebAssembly binary \u{2014} the app is 100% \u{1F980} Rust" }</div>
+            <div class="rb-sub">{ "yew + trunk \u{00B7} compiled to wasm32-unknown-unknown \u{00B7} no JS framework" }</div>
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -624,6 +641,7 @@ fn app() -> Html {
                 <div class="nf-cmd">{ "$ fortune" }</div>
                 <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
             </div>
+            <RustBadge />
             <WeatherCard />
             <AsciiClock />
             <BrainCard />

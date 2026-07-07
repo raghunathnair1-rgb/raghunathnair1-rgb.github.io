@@ -127,6 +127,16 @@ main { margin-top: 2.5rem; }
 }
 .orrery-face { color: var(--green); }
 
+/* 🦀 built-in-Rust badge (Ferris) */
+.rustbadge { max-width: 34rem; margin-bottom: 1.9rem; }
+.rb-cmd { color: var(--green); margin-bottom: .4rem; }
+.rb-ferris {
+  margin: 0 0 .55rem; color: #ff7a45; text-shadow: 0 0 9px rgba(255, 122, 69, .45);
+  font-size: .8rem; line-height: 1.12; white-space: pre; overflow-x: auto;
+}
+.rb-line { color: var(--fg); font-size: .9rem; }
+.rb-sub { color: var(--muted); font-size: .76rem; margin-top: .2rem; }
+
 /* ASCII clock */
 .clock { margin-bottom: 1.9rem; }
 .clock-cmd { color: var(--green); margin-bottom: .5rem; }
