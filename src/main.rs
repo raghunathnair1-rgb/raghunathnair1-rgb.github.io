@@ -150,6 +150,7 @@ fn terminal(props: &TermProps) -> Html {
                 <div class="t-inputline">
                     <span class="t-prompt">{ "$ " }</span>
                     <input class="t-input" type="text" value={(*value).clone()} {oninput} {onkeydown}
+                        aria-label="dark-factory shell: type a command"
                         spellcheck="false" autocomplete="off" placeholder="type a command..." />
                 </div>
             </div>
