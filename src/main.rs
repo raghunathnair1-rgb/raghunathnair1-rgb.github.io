@@ -12,7 +12,7 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  doomfire  warp  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  doomfire  warp  spark  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
         ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
@@ -26,6 +26,7 @@ fn run_command(cmd: &str) -> String {
         }
         ["doomfire"] | ["fire"] => "the fire burns above \u{2014} scroll to the '$ ./doomfire' panel \u{1F525}".to_string(),
         ["warp"] | ["starfield"] => "warp speed engaged \u{2014} scroll to the '$ ./warp' panel \u{2B50}".to_string(),
+        ["spark"] | ["nvidia-smi"] => "dgx-spark telemetry above \u{2014} scroll to the '$ ssh dgx-spark' panel. real GPU snapshot from the cluster that builds this site.".to_string(),
         ["now-playing", ..] => "\u{266B} Cornfield Chase \u{2014} Hans Zimmer \u{00B7} Interstellar (OST)".to_string(),
         ["fortune"] => "\u{201C}Do not go gentle into that good night...\u{201D} \u{2014} Interstellar".to_string(),
         ["uptime"] => "shipping since 2026-07-06 \u{00B7} brain online".to_string(),
@@ -1563,6 +1564,111 @@ fn dream_journal() -> Html {
     }
 }
 
+// --- DGX Spark live monitor (real GPU/mem snapshot from the cluster) ---
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct SparkGpu {
+    #[serde(default)]
+    name: String,
+    #[serde(default)]
+    util: i32,
+    #[serde(default)]
+    temp: Option<i32>,
+    #[serde(default)]
+    power: Option<i32>,
+}
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct SparkData {
+    #[serde(default)]
+    captured: String,
+    #[serde(default)]
+    host: String,
+    #[serde(default)]
+    reachable: bool,
+    #[serde(default)]
+    load: String,
+    #[serde(default)]
+    gpus: Vec<SparkGpu>,
+    #[serde(default)]
+    mem_used_mb: i64,
+    #[serde(default)]
+    mem_total_mb: i64,
+}
+
+fn spark_bar(pct: f64, width: usize) -> String {
+    let f = ((pct / 100.0) * width as f64).round().clamp(0.0, width as f64) as usize;
+    let mut s = String::with_capacity(width + 2);
+    s.push('[');
+    for _ in 0..f {
+        s.push('\u{2588}');
+    }
+    for _ in f..width {
+        s.push('\u{2591}');
+    }
+    s.push(']');
+    s
+}
+
+fn spark_text(d: &SparkData) -> String {
+    let host = if d.host.is_empty() { "dgx-spark" } else { d.host.as_str() };
+    let when = if d.captured.len() >= 16 { &d.captured[11..16] } else { "--:--" };
+    let status = if d.reachable { "online" } else { "last-known \u{00B7} unreachable now" };
+    let mut s = format!("{}  \u{00B7}  node 1/2  \u{00B7}  snapshot {} UTC  \u{00B7}  {}\n", host, when, status);
+    if !d.load.is_empty() {
+        s.push_str(&format!("load {}\n", d.load));
+    }
+    s.push('\n');
+    for (i, g) in d.gpus.iter().enumerate() {
+        s.push_str(&format!("GPU{}  {}\n", i, g.name));
+        let temp = g.temp.map(|t| format!("  {}\u{00B0}C", t)).unwrap_or_default();
+        let power = g.power.map(|p| format!("  {}W", p)).unwrap_or_default();
+        s.push_str(&format!("  util  {} {:>3}%{}{}\n", spark_bar(g.util as f64, 20), g.util, temp, power));
+    }
+    if d.mem_total_mb > 0 {
+        let pct = d.mem_used_mb as f64 / d.mem_total_mb as f64 * 100.0;
+        s.push_str(&format!(
+            "  mem   {} {}/{} GB ({:.0}%) unified\n",
+            spark_bar(pct, 20),
+            d.mem_used_mb / 1024,
+            d.mem_total_mb / 1024,
+            pct
+        ));
+    }
+    s
+}
+
+#[function_component(SparkMonitor)]
+fn spark_monitor() -> Html {
+    let data = use_state(|| None::<SparkData>);
+    let err = use_state(|| false);
+    {
+        let data = data.clone();
+        let err = err.clone();
+        use_effect_with((), move |_| {
+            wasm_bindgen_futures::spawn_local(async move {
+                match gloo_net::http::Request::get("/spark.json").send().await {
+                    Ok(resp) => match resp.json::<SparkData>().await {
+                        Ok(v) => data.set(Some(v)),
+                        Err(_) => err.set(true),
+                    },
+                    Err(_) => err.set(true),
+                }
+            });
+            || ()
+        });
+    }
+    let body = match (&*data, *err) {
+        (None, true) => html! { <div class="dj-loading">{ "dgx-spark monitor offline \u{2014} spark.json unreachable" }</div> },
+        (None, false) => html! { <div class="dj-loading">{ "polling dgx-spark\u{2026}" }</div> },
+        (Some(d), _) => html! { <pre class="ascii-face spark-face">{ spark_text(d) }</pre> },
+    };
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ ssh dgx-spark nvidia-smi  \u{00B7}  the machine that builds this" }</div>
+            { body }
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -1644,6 +1750,7 @@ fn app() -> Html {
             <AsciiClock />
             <BrainCard />
             <DreamJournal />
+            <SparkMonitor />
             <BrainViz />
             <Orrery />
             <SpinningDonut />

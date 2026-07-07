@@ -1,0 +1,16 @@
+{
+ "captured": "2026-07-07T21:41:35Z",
+ "host": "spark-fcfa",
+ "reachable": true,
+ "load": "0.26 0.30 0.28",
+ "gpus": [
+  {
+   "name": "NVIDIA GB10",
+   "util": 0,
+   "temp": 46,
+   "power": 10
+  }
+ ],
+ "mem_used_mb": 104938,
+ "mem_total_mb": 124610
+}

@@ -15,6 +15,9 @@ printf '{"healthy": %s, "service": "harness-brain.service", "started_epoch": %s,
   "$([ "$bstate" = active ] && echo true || echo false)" "${bepoch:-0}" "${bpid:-0}" "$(date +%s)" > status.json
 echo "🧠 brain snapshot: $bstate (pid ${bpid:-0})"
 
+# --- snapshot the DGX Spark GPU telemetry (fail-open; never blocks a deploy) ---
+timeout 25 python3 /home/raghu/harness/spark_stats.py 2>/dev/null || echo "⚡ spark snapshot skipped (unreachable)"
+
 # --- dark-factory pre-deploy security gate (SAST + secret scan) ---
 echo "🛡️  pre-deploy gate…"
 if [ -x "$SEC/bin/opengrep" ]; then
