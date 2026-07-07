@@ -575,6 +575,62 @@ fn rust_badge() -> Html {
     }
 }
 
+// --- animated ASCII brain (neurons ripple with a traveling wave of activity) ---
+const BRAIN: &str = r#"       .-~~~~~~~-.
+     .~ o  o  o o ~.
+   .~ o .-~~~-. o o ~.
+  / o  / o  o o \  o  \
+ | o  | o  o o o | o o |
+ |o o | o o  o o | o  o|
+ | o  | o  o o o | o o |
+  \ o  \ o o  o /  o  /
+   ~. o  ~-.-~  o o .~
+     ~. o  o  o  o.~
+       ~-._____.-~"#;
+
+fn brain_frame(t: f64) -> String {
+    let ramp = b" .:-+ioO@";
+    let mut s = String::with_capacity(BRAIN.len() + 16);
+    for (r, line) in BRAIN.lines().enumerate() {
+        for (c, ch) in line.bytes().enumerate() {
+            if ch == b'o' {
+                let phase = r as f64 * 0.7 + c as f64 * 0.32;
+                let b = 0.5 + 0.5 * (t * 3.5 - phase).sin();
+                let idx = ((b * (ramp.len() as f64 - 1.0)) as usize).min(ramp.len() - 1);
+                s.push(ramp[idx] as char);
+            } else {
+                s.push(ch as char);
+            }
+        }
+        s.push('\n');
+    }
+    s
+}
+
+#[function_component(BrainViz)]
+fn brain_viz() -> Html {
+    let f = use_state(|| 0u64);
+    {
+        let f = f.clone();
+        use_effect_with((), move |_| {
+            let iv = if reduced_motion() {
+                None
+            } else {
+                Some(gloo_timers::callback::Interval::new(80, move || f.set(0)))
+            };
+            move || drop(iv)
+        });
+    }
+    let t = js_sys::Date::now() / 1000.0;
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ ./brain --live" }</div>
+            <pre class="ascii-face brain-face">{ brain_frame(t) }</pre>
+            <div class="brain-sub">{ "neural mesh \u{00B7} synapses firing \u{00B7} \u{03B8}-wave online" }</div>
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -645,6 +701,7 @@ fn app() -> Html {
             <WeatherCard />
             <AsciiClock />
             <BrainCard />
+            <BrainViz />
             <Orrery />
             <SpinningDonut />
             <ul class="log">
