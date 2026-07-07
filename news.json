@@ -1,26 +1,26 @@
 [
  {
-  "title": "OfficeCLI: Office suite for AI agents to read and edit Microsoft Office files",
-  "date": "2026-07-06",
-  "tag": "agents",
-  "summary": "OfficeCLI is an open-source command-line tool that lets AI agents read, edit, and automate Word, Excel, and PowerPoint documents without requiring a Microsoft Office installation, shipping as a single self-contained binary. It targets a persistent gap in agent workflows: Office file formats are widely used but awkward for LLM-driven tools to manipulate reliably, and a CLI interface fits naturally ",
+  "title": "ZCode: Claude Code from the Makers of GLM",
+  "date": "2026-07-01",
+  "tag": "claude",
+  "summary": "ZCode is a new agentic coding tool from Zhipu AI, the team behind the GLM model family, positioned as their answer to Claude Code. It plugs AI agents into developers' existing toolchains to handle planning, coding, code review, and deployment inside familiar workflows.",
+  "source": "zcode.z.ai",
+  "url": "https://zcode.z.ai/cn"
+ },
+ {
+  "title": "Claude-real-video － any LLM can watch a video",
+  "date": "2026-07-02",
+  "tag": "claude",
+  "summary": "Claude-real-video is a new open-source tool that gives Claude or any LLM the ability to process video content by extracting scene-aware, deduplicated frames alongside the transcript, working from either a URL or a local file. Released under the MIT license and running entirely locally, it opens up video understanding to text-and-image models without any cloud dependency.",
   "source": "github.com",
-  "url": "https://github.com/iOfficeAI/OfficeCLI"
+  "url": "https://github.com/HUANGCHIHHUNGLeo/claude-real-video"
  },
  {
-  "title": "Agentic coding notes",
-  "date": "2026-07-04",
-  "tag": "agentic",
-  "summary": "A developer shares practical field notes from working with agentic coding tools, covering how autonomous coding agents behave in real projects and where they need guardrails or human oversight. It is useful reading for anyone integrating LLM-driven agents into a development workflow, since it reflects observed behavior rather than vendor claims.",
-  "source": "danluu.com",
-  "url": "https://danluu.com/ai-coding/#appendix-agentic-loops-and-writing-this-post"
- },
- {
-  "title": "Mark Zuckerberg tells staff that AI agents haven't progressed enough",
-  "date": "2026-07-05",
-  "tag": "agents",
-  "summary": "Meta CEO Mark Zuckerberg reportedly told employees at an internal meeting that the company's AI agent work is advancing more slowly than expected, a notable admission given Meta's heavy investment in the space. For teams building agentic systems, it is a useful data point that even frontier labs are finding reliable, autonomous agents harder to ship than roadmaps suggested.",
-  "source": "techcrunch.com",
-  "url": "https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/"
+  "title": "Launch HN: Manufact (YC S25) – MCP Cloud",
+  "date": "2026-07-02",
+  "tag": "release",
+  "summary": "Manufact, a Y Combinator S25 startup, launched MCP Cloud alongside its open-source mcp-use SDK, giving developers a way to build and deploy MCP servers, clients, and agents in TypeScript and Python without managing their own infrastructure. This lowers the barrier to shipping production MCP integrations, a fast-growing standard for connecting AI agents to tools and data.",
+  "source": "manufact.com",
+  "url": "https://manufact.com"
  }
 ]
