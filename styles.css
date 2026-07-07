@@ -66,10 +66,10 @@ body::before {
 /* matrix-rain canvas layer (drawn by the script in index.html) */
 #matrix {
   position: fixed; inset: 0; width: 100%; height: 100%;
-  z-index: -1; pointer-events: none; opacity: .28;
-  /* cool full-page rain, with only a gentle center softening so text stays legible */
-  -webkit-mask-image: radial-gradient(ellipse 45% 62% at 50% 46%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 45%, black 78%);
-  mask-image: radial-gradient(ellipse 45% 62% at 50% 46%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 45%, black 78%);
+  z-index: -1; pointer-events: none; opacity: .40;
+  /* bold full-page rain, only a whisper of center softening for legibility */
+  -webkit-mask-image: radial-gradient(ellipse 42% 58% at 50% 46%, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.9) 42%, black 74%);
+  mask-image: radial-gradient(ellipse 42% 58% at 50% 46%, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.9) 42%, black 74%);
 }
 header .logo {
   font-size: 2.4rem; font-weight: 700; letter-spacing: .04em;
