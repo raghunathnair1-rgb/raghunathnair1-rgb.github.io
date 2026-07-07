@@ -12,7 +12,7 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  dmesg  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  doomfire  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
         ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
@@ -20,6 +20,11 @@ fn run_command(cmd: &str) -> String {
         ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
         ["neofetch"] => "os: dark-factory \u{00B7} kernel: rust\u{2192}wasm \u{00B7} shell: harness brain \u{00B7} status: \u{25CF} online".to_string(),
         ["dmesg"] => "[dark-factory] dream log streams above \u{2014} scroll to the '$ dmesg | tail' panel. the machine narrates its own git log nightly (03:00 UTC).".to_string(),
+        ["moon"] => {
+            let p = moon_phase_frac(js_sys::Date::now());
+            format!("{} \u{00B7} {}% illuminated", moon_name(p), moon_illum(p))
+        }
+        ["doomfire"] | ["fire"] => "the fire burns above \u{2014} scroll to the '$ ./doomfire' panel \u{1F525}".to_string(),
         ["now-playing", ..] => "\u{266B} Cornfield Chase \u{2014} Hans Zimmer \u{00B7} Interstellar (OST)".to_string(),
         ["fortune"] => "\u{201C}Do not go gentle into that good night...\u{201D} \u{2014} Interstellar".to_string(),
         ["uptime"] => "shipping since 2026-07-06 \u{00B7} brain online".to_string(),
@@ -501,6 +506,136 @@ fn use_anim_tick(ms: u32) {
         };
         move || drop(iv)
     });
+}
+
+// --- DOOM fire (Fabien Sanglard's PSX algorithm, ported) — ASCII density, CSS-gradient color ---
+struct Fire {
+    w: usize,
+    h: usize,
+    px: Vec<u8>,
+    seed: u32,
+}
+impl Fire {
+    fn new(w: usize, h: usize) -> Self {
+        let mut px = vec![0u8; w * h];
+        for x in 0..w {
+            px[(h - 1) * w + x] = 36; // bottom row = the fire source
+        }
+        Fire { w, h, px, seed: 0x1357_9bdf }
+    }
+    fn rnd(&mut self) -> u32 {
+        let mut s = self.seed;
+        s ^= s << 13;
+        s ^= s >> 17;
+        s ^= s << 5;
+        self.seed = s;
+        s
+    }
+    fn step(&mut self) {
+        for x in 0..self.w {
+            for y in 1..self.h {
+                let src = y * self.w + x;
+                let pixel = self.px[src];
+                if pixel == 0 {
+                    self.px[src - self.w] = 0;
+                } else {
+                    let rand = (self.rnd() % 4) as usize;
+                    let dst = (src + 1).saturating_sub(rand);
+                    if dst >= self.w {
+                        self.px[dst - self.w] = pixel.saturating_sub((rand as u8) & 1);
+                    }
+                }
+            }
+        }
+    }
+    fn render(&self) -> String {
+        const RAMP: &[u8] = b" .:-=+*#%@";
+        let mut s = String::with_capacity((self.w + 1) * self.h);
+        for y in 0..self.h {
+            for x in 0..self.w {
+                let v = self.px[y * self.w + x] as usize;
+                let idx = ((v * (RAMP.len() - 1) + 18) / 36).min(RAMP.len() - 1);
+                s.push(RAMP[idx] as char);
+            }
+            s.push('\n');
+        }
+        s
+    }
+}
+
+#[function_component(DoomFire)]
+fn doom_fire() -> Html {
+    use_anim_tick(60);
+    let fire = use_mut_ref(|| Fire::new(60, 20));
+    let frame = {
+        let mut f = fire.borrow_mut();
+        f.step();
+        f.render()
+    };
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ ./doomfire" }</div>
+            <pre class="ascii-face doom-fire">{ frame }</pre>
+        </div>
+    }
+}
+
+// --- moon phase (computed from the current date) ---
+fn moon_phase_frac(now_ms: f64) -> f64 {
+    let synodic = 29.530_588_853 * 86_400_000.0;
+    let diff = now_ms - 947_182_440_000.0; // 2000-01-06 18:14 UTC — a known new moon
+    let mut p = (diff / synodic).fract();
+    if p < 0.0 {
+        p += 1.0;
+    }
+    p
+}
+fn moon_name(p: f64) -> &'static str {
+    match ((p * 8.0).round() as i64).rem_euclid(8) {
+        0 => "New Moon",
+        1 => "Waxing Crescent",
+        2 => "First Quarter",
+        3 => "Waxing Gibbous",
+        4 => "Full Moon",
+        5 => "Waning Gibbous",
+        6 => "Last Quarter",
+        _ => "Waning Crescent",
+    }
+}
+fn moon_illum(p: f64) -> u32 {
+    ((1.0 - (2.0 * std::f64::consts::PI * p).cos()) / 2.0 * 100.0).round() as u32
+}
+fn moon_art(p: f64) -> String {
+    let c = (2.0 * std::f64::consts::PI * p).cos();
+    let waxing = p <= 0.5;
+    let (rows, cols) = (11i32, 22i32);
+    let mut s = String::new();
+    for ry in 0..rows {
+        let ny = (ry as f64 - (rows as f64 - 1.0) / 2.0) / ((rows as f64 - 1.0) / 2.0);
+        for rx in 0..cols {
+            let nx = (rx as f64 - (cols as f64 - 1.0) / 2.0) / ((cols as f64 - 1.0) / 2.0);
+            if nx * nx + ny * ny <= 1.0 {
+                let lit = if waxing { nx >= c } else { nx <= -c };
+                s.push(if lit { '@' } else { '.' });
+            } else {
+                s.push(' ');
+            }
+        }
+        s.push('\n');
+    }
+    s
+}
+
+#[function_component(MoonPhase)]
+fn moon_phase() -> Html {
+    let p = moon_phase_frac(js_sys::Date::now());
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ moon" }</div>
+            <pre class="ascii-face moon-face">{ moon_art(p) }</pre>
+            <div class="moon-info">{ format!("{} \u{00B7} {}% illuminated", moon_name(p), moon_illum(p)) }</div>
+        </div>
+    }
 }
 
 // --- spinning ASCII donut (a1k0n donut.c, ported) ---
@@ -1433,6 +1568,8 @@ fn app() -> Html {
             <Orrery />
             <SpinningDonut />
             <CubeWireframe />
+            <DoomFire />
+            <MoonPhase />
             <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
             <NewsFeed />
             <ul class="log">

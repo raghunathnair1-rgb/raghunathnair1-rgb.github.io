@@ -195,6 +195,15 @@ main { margin-top: 2.5rem; }
 .orrery-face { color: var(--green); }
 .brain-face { color: #c792ea; text-shadow: 0 0 9px rgba(199, 146, 234, .45); }
 .cube-face { color: #7fd7ff; text-shadow: 0 0 8px rgba(127, 215, 255, .4); }
+/* DOOM fire: ASCII density shapes the flame, a vertical gradient paints it hot→cool */
+.doom-fire {
+  background: linear-gradient(to top, #ffffff 0%, #ffe36b 12%, #ff8a1f 32%, #e0341a 56%, #7a1005 78%, transparent 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow: none; line-height: 1.0;
+}
+.moon-face { color: #f5f3c0; text-shadow: 0 0 8px rgba(245, 243, 192, .5); line-height: 1.05; }
+.moon-info { color: var(--muted); margin-top: .35rem; font-size: .85rem; }
 .brain-sub { color: var(--muted); font-size: .76rem; margin-top: .3rem; }
 
 /* interactive force-directed knowledge graph */
