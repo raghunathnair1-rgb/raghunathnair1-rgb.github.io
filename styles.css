@@ -154,6 +154,7 @@ main { margin-top: 2.5rem; }
 .kg-clickable text { fill: var(--cyan); text-decoration: underline; }
 .kg-ring { fill: none; stroke: #e8fff1; stroke-width: 1.4; opacity: .9; }
 .kg-pulse { fill: #b8ffdb; opacity: .9; }
+.kg-surge { fill: #e8fff1; opacity: 1; filter: drop-shadow(0 0 2.6px rgba(184, 255, 219, .9)); }
 .kg-root, .kg-concept, .kg-post, .kg-tool { filter: drop-shadow(0 0 1.6px rgba(120, 255, 180, .4)); }
 
 /* knowledge-graph node detail panel */

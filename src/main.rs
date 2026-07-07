@@ -890,11 +890,28 @@ fn knowledge_graph(props: &KgProps) -> Html {
                 { for KG_EDGES.iter().enumerate().map(|(k, &(a, b))| {
                     let active = focus.map_or(true, |h| a == h || b == h);
                     if focus.is_some() && !active { return html! {}; }
-                    let (na, nb) = (&nodes[a], &nodes[b]);
-                    let ph = (t * 0.4 + k as f64 * 0.37).fract();
-                    let px = na.x + (nb.x - na.x) * ph;
-                    let py = na.y + (nb.y - na.y) * ph;
-                    html! { <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="1.6" class="kg-pulse" /> }
+                    // surge: when a node is focused, pulses on its edges speed up and flow OUTWARD from it
+                    let (surge, src, dst) = match focus {
+                        Some(h) if a == h => (true, a, b),
+                        Some(h) if b == h => (true, b, a),
+                        _ => (false, a, b),
+                    };
+                    let (ns, nd) = (&nodes[src], &nodes[dst]);
+                    let speed = if surge { 1.4 } else { 0.4 };
+                    let ph = (t * speed + k as f64 * 0.37).fract();
+                    let px = ns.x + (nd.x - ns.x) * ph;
+                    let py = ns.y + (nd.y - ns.y) * ph;
+                    if surge {
+                        let ph2 = (ph + 0.5).fract();
+                        let px2 = ns.x + (nd.x - ns.x) * ph2;
+                        let py2 = ns.y + (nd.y - ns.y) * ph2;
+                        html! { <>
+                            <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="2.4" class="kg-pulse kg-surge" />
+                            <circle cx={kg_fmt(px2)} cy={kg_fmt(py2)} r="1.9" class="kg-pulse kg-surge" />
+                        </> }
+                    } else {
+                        html! { <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="1.6" class="kg-pulse" /> }
+                    }
                 }) }
                 { for KG_NODES.iter().enumerate().map(|(i, &(label, kind))| {
                     let nd = &nodes[i];
