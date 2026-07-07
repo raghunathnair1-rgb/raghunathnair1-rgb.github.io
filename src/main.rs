@@ -1581,8 +1581,6 @@ struct SparkNode {
     #[serde(default)]
     host: String,
     #[serde(default)]
-    role: String,
-    #[serde(default)]
     reachable: bool,
     #[serde(default)]
     load: String,
@@ -1621,10 +1619,10 @@ fn spark_text(d: &SparkData) -> String {
     let when = if d.captured.len() >= 16 { &d.captured[11..16] } else { "--:--" };
     let mut s = format!("2-node GB10 cluster  \u{00B7}  snapshot {} UTC\n", when);
     for n in &d.nodes {
-        let host = if n.host.is_empty() { "node" } else { n.host.as_str() };
+        let host = if n.host.is_empty() { "spark" } else { n.host.as_str() };
         let st = if n.reachable { "online" } else { "unreachable" };
         s.push('\n');
-        s.push_str(&format!("{} \u{00B7} {} \u{00B7} {}", n.role, host, st));
+        s.push_str(&format!("{} \u{00B7} {}", host, st));
         if !n.load.is_empty() {
             s.push_str(&format!(" \u{00B7} load {}", n.load));
         }
