@@ -139,6 +139,22 @@ main { margin-top: 2.5rem; }
 .brain-face { color: #c792ea; text-shadow: 0 0 9px rgba(199, 146, 234, .45); }
 .brain-sub { color: var(--muted); font-size: .76rem; margin-top: .3rem; }
 
+/* interactive force-directed knowledge graph */
+.kg-wrap { margin-bottom: 1.9rem; }
+.kg {
+  width: 100%; max-width: 40rem; aspect-ratio: 360 / 280; height: auto; display: block;
+  border: 1px solid var(--line); border-radius: 12px; background: rgba(6, 12, 16, .45);
+}
+.kg-edge { stroke: rgba(120, 150, 160, .35); stroke-width: 1; }
+.kg-edge.dim { stroke: rgba(120, 150, 160, .07); }
+.kg-node { cursor: pointer; }
+.kg-node.dim { opacity: .2; }
+.kg-node text { fill: var(--muted); font: 8px ui-monospace, monospace; pointer-events: none; }
+.kg-root { fill: #e8fff1; }
+.kg-concept { fill: var(--green); }
+.kg-post { fill: var(--cyan); }
+.kg-tool { fill: #c792ea; }
+
 /* 🦀 built-in-Rust badge (Ferris) */
 .rustbadge { max-width: 34rem; margin-bottom: 1.9rem; }
 .rb-cmd { color: var(--green); margin-bottom: .4rem; }

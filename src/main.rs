@@ -644,6 +644,159 @@ fn brain_viz() -> Html {
     }
 }
 
+// --- interactive force-directed knowledge graph ---
+struct GNode {
+    x: f64,
+    y: f64,
+    vx: f64,
+    vy: f64,
+}
+
+const KG_NODES: &[(&str, u8)] = &[
+    ("dark-factory", 0), ("rust", 1), ("wasm", 1), ("llms", 1), ("automation", 1),
+    ("brain", 1), ("coffee", 1), ("maine-coon", 1), ("security", 1),
+    ("hello-world", 2), ("anatomy", 2), ("why-wasm", 2),
+    ("yew", 3), ("trunk", 3), ("gh-pages", 3), ("opengrep", 3),
+    ("dgx-spark", 1), ("vllm", 3), ("matrix", 1), ("terminal", 1), ("orrery", 1),
+];
+const KG_EDGES: &[(usize, usize)] = &[
+    (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8),
+    (1, 2), (1, 12), (2, 12), (2, 13), (2, 14),
+    (10, 4), (10, 8), (10, 0), (11, 2), (11, 1), (11, 9), (9, 0),
+    (8, 15), (3, 16), (16, 17), (3, 17), (5, 4), (5, 0),
+    (18, 19), (19, 0), (19, 2), (20, 2), (20, 0),
+];
+
+fn kg_build() -> Vec<GNode> {
+    let n = KG_NODES.len();
+    (0..n)
+        .map(|i| {
+            let a = i as f64 / n as f64 * std::f64::consts::TAU;
+            GNode {
+                x: 180.0 + 70.0 * a.cos() + (i as f64 * 13.0 % 7.0),
+                y: 140.0 + 55.0 * a.sin(),
+                vx: 0.0,
+                vy: 0.0,
+            }
+        })
+        .collect()
+}
+
+fn kg_step(nodes: &mut [GNode]) {
+    let n = nodes.len();
+    let mut fx = vec![0.0f64; n];
+    let mut fy = vec![0.0f64; n];
+    for i in 0..n {
+        for j in (i + 1)..n {
+            let dx = nodes[i].x - nodes[j].x;
+            let dy = nodes[i].y - nodes[j].y;
+            let d2 = (dx * dx + dy * dy).max(1.0);
+            let d = d2.sqrt();
+            let f = 1400.0 / d2;
+            let (ux, uy) = (dx / d, dy / d);
+            fx[i] += f * ux;
+            fy[i] += f * uy;
+            fx[j] -= f * ux;
+            fy[j] -= f * uy;
+        }
+    }
+    for &(a, b) in KG_EDGES {
+        let dx = nodes[b].x - nodes[a].x;
+        let dy = nodes[b].y - nodes[a].y;
+        let d = (dx * dx + dy * dy).sqrt().max(1.0);
+        let f = (d - 60.0) * 0.03;
+        let (ux, uy) = (dx / d, dy / d);
+        fx[a] += f * ux;
+        fy[a] += f * uy;
+        fx[b] -= f * ux;
+        fy[b] -= f * uy;
+    }
+    for i in 0..n {
+        fx[i] += (180.0 - nodes[i].x) * 0.02;
+        fy[i] += (140.0 - nodes[i].y) * 0.02;
+        nodes[i].vx = (nodes[i].vx + fx[i]) * 0.82;
+        nodes[i].vy = (nodes[i].vy + fy[i]) * 0.82;
+        nodes[i].x = (nodes[i].x + nodes[i].vx).clamp(14.0, 346.0);
+        nodes[i].y = (nodes[i].y + nodes[i].vy).clamp(12.0, 268.0);
+    }
+}
+
+fn kg_neighbor(h: usize, i: usize) -> bool {
+    KG_EDGES.iter().any(|&(a, b)| (a == h && b == i) || (b == h && a == i))
+}
+fn kg_r(kind: u8) -> f64 {
+    match kind {
+        0 => 8.0,
+        3 => 4.5,
+        _ => 6.0,
+    }
+}
+fn kg_cls(kind: u8) -> &'static str {
+    match kind {
+        0 => "kg-root",
+        2 => "kg-post",
+        3 => "kg-tool",
+        _ => "kg-concept",
+    }
+}
+fn kg_fmt(v: f64) -> String {
+    format!("{:.1}", v)
+}
+
+#[function_component(KnowledgeGraph)]
+fn knowledge_graph() -> Html {
+    let sim = use_mut_ref(kg_build);
+    let tick = use_state(|| 0u64);
+    let hovered = use_state(|| None::<usize>);
+    {
+        let sim = sim.clone();
+        let tick = tick.clone();
+        use_effect_with((), move |_| {
+            let iv = if reduced_motion() {
+                None
+            } else {
+                Some(gloo_timers::callback::Interval::new(33, move || {
+                    {
+                        let mut b = sim.borrow_mut();
+                        kg_step(&mut b);
+                    }
+                    tick.set(0);
+                }))
+            };
+            move || drop(iv)
+        });
+    }
+    let nodes = sim.borrow();
+    let hv = *hovered;
+    html! {
+        <div class="kg-wrap">
+            <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover a node" }</div>
+            <svg class="kg" viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet">
+                { for KG_EDGES.iter().map(|&(a, b)| {
+                    let (na, nb) = (&nodes[a], &nodes[b]);
+                    let active = hv.map_or(true, |h| a == h || b == h);
+                    let cls = if hv.is_some() && !active { "kg-edge dim" } else { "kg-edge" };
+                    html! { <line x1={kg_fmt(na.x)} y1={kg_fmt(na.y)} x2={kg_fmt(nb.x)} y2={kg_fmt(nb.y)} class={cls} /> }
+                }) }
+                { for KG_NODES.iter().enumerate().map(|(i, &(label, kind))| {
+                    let nd = &nodes[i];
+                    let active = hv.map_or(true, |h| h == i || kg_neighbor(h, i));
+                    let cls = if hv.is_some() && !active { "kg-node dim" } else { "kg-node" };
+                    let r = kg_r(kind);
+                    html! {
+                        <g class={cls}
+                           onmouseover={ let h = hovered.clone(); Callback::from(move |_| h.set(Some(i))) }
+                           onmouseout={ let h = hovered.clone(); Callback::from(move |_| h.set(None)) }>
+                            <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r)} class={kg_cls(kind)} />
+                            <text x={kg_fmt(nd.x + r + 2.0)} y={kg_fmt(nd.y + 2.5)}>{ label }</text>
+                        </g>
+                    }
+                }) }
+            </svg>
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -717,6 +870,7 @@ fn app() -> Html {
             <BrainViz />
             <Orrery />
             <SpinningDonut />
+            <KnowledgeGraph />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
