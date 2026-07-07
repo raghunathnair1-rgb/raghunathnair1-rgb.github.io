@@ -140,6 +140,14 @@ main { margin-top: 2.5rem; }
 .news-sum { color: var(--fg); font-size: .86rem; margin: .4rem 0 .35rem; line-height: 1.5; }
 .news-src { color: var(--muted); font-size: .76rem; text-decoration: none; }
 .news-src:hover { color: var(--fg); }
+.news-pager { display: flex; align-items: center; justify-content: center; gap: .9rem; margin-top: .9rem; }
+.np-btn {
+  background: var(--panel); border: 1px solid var(--line); color: var(--cyan);
+  font: inherit; font-size: .8rem; padding: .3rem .75rem; border-radius: 8px; cursor: pointer;
+}
+.np-btn:hover:not(:disabled) { border-color: var(--cyan); box-shadow: 0 0 8px rgba(34, 211, 238, .25); }
+.np-btn:disabled { opacity: .3; cursor: default; }
+.np-info { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
 
 /* 🍩🌍 spinning ASCII art (donut + globe) */
 .ascii-art { margin-bottom: 1.9rem; }

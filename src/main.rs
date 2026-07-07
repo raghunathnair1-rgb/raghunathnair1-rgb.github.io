@@ -1157,9 +1157,26 @@ struct NewsItem {
     url: String,
 }
 
+const NEWS_PER_PAGE: usize = 6;
+
+fn news_item(it: &NewsItem) -> Html {
+    html! {
+        <li class="news-item">
+            <div class="news-head">
+                <a class="news-title" href={it.url.clone()} target="_blank" rel="noopener">{ it.title.clone() }</a>
+                { if !it.tag.is_empty() { html! { <span class="news-tag">{ format!("#{}", it.tag) }</span> } } else { html! {} } }
+                { if !it.date.is_empty() { html! { <time class="news-date">{ it.date.clone() }</time> } } else { html! {} } }
+            </div>
+            { if !it.summary.is_empty() { html! { <p class="news-sum">{ it.summary.clone() }</p> } } else { html! {} } }
+            { if !it.source.is_empty() { html! { <a class="news-src" href={it.url.clone()} target="_blank" rel="noopener">{ format!("source: {} \u{2197}", it.source) }</a> } } else { html! {} } }
+        </li>
+    }
+}
+
 #[function_component(NewsFeed)]
 fn news_feed() -> Html {
     let items = use_state(|| None::<Vec<NewsItem>>);
+    let page = use_state(|| 0usize);
     {
         let items = items.clone();
         use_effect_with((), move |_| {
@@ -1173,28 +1190,35 @@ fn news_feed() -> Html {
             || ()
         });
     }
+    let body = match &*items {
+        None => html! { <div class="news-loading">{ "fetching the AI feed\u{2026}" }</div> },
+        Some(v) if v.is_empty() => html! { <div class="news-loading">{ "feed warming up \u{2014} the factory posts fresh AI / agentic / LLM stories here every day \u{1F5DE}\u{FE0F}" }</div> },
+        Some(v) => {
+            let total = v.len();
+            let pages = ((total + NEWS_PER_PAGE - 1) / NEWS_PER_PAGE).max(1);
+            let cur = (*page).min(pages - 1);
+            let start = cur * NEWS_PER_PAGE;
+            let end = (start + NEWS_PER_PAGE).min(total);
+            let prev = { let p = page.clone(); Callback::from(move |_: web_sys::MouseEvent| { if *p > 0 { p.set(*p - 1); } }) };
+            let next = { let p = page.clone(); Callback::from(move |_: web_sys::MouseEvent| { if *p + 1 < pages { p.set(*p + 1); } }) };
+            html! { <>
+                <ul class="news-list">
+                    { for v[start..end].iter().map(news_item) }
+                </ul>
+                { if pages > 1 { html! {
+                    <div class="news-pager">
+                        <button class="np-btn" disabled={cur == 0} onclick={prev}>{ "\u{25C0} prev" }</button>
+                        <span class="np-info">{ format!("page {}/{} \u{00B7} {} stories", cur + 1, pages, total) }</span>
+                        <button class="np-btn" disabled={cur + 1 >= pages} onclick={next}>{ "next \u{25B6}" }</button>
+                    </div>
+                } } else { html! {} } }
+            </> }
+        }
+    };
     html! {
         <div class="news">
-            <div class="nf-cmd">{ "$ ai-feed --daily  \u{00B7} auto-curated by the dark factory \u{1F916}" }</div>
-            {
-                match &*items {
-                    None => html! { <div class="news-loading">{ "fetching the AI feed\u{2026}" }</div> },
-                    Some(v) if v.is_empty() => html! { <div class="news-loading">{ "feed warming up \u{2014} the factory posts fresh AI / agentic / LLM stories here every day \u{1F5DE}\u{FE0F}" }</div> },
-                    Some(v) => html! { <ul class="news-list">
-                        { for v.iter().map(|it| html! {
-                            <li class="news-item">
-                                <div class="news-head">
-                                    <a class="news-title" href={it.url.clone()} target="_blank" rel="noopener">{ it.title.clone() }</a>
-                                    { if !it.tag.is_empty() { html! { <span class="news-tag">{ format!("#{}", it.tag) }</span> } } else { html! {} } }
-                                    { if !it.date.is_empty() { html! { <time class="news-date">{ it.date.clone() }</time> } } else { html! {} } }
-                                </div>
-                                { if !it.summary.is_empty() { html! { <p class="news-sum">{ it.summary.clone() }</p> } } else { html! {} } }
-                                { if !it.source.is_empty() { html! { <a class="news-src" href={it.url.clone()} target="_blank" rel="noopener">{ format!("source: {} \u{2197}", it.source) }</a> } } else { html! {} } }
-                            </li>
-                        }) }
-                    </ul> },
-                }
-            }
+            <div class="nf-cmd">{ "$ tail ai-feed.log  \u{00B7} auto-curated daily by the dark factory \u{1F916}" }</div>
+            { body }
         </div>
     }
 }
