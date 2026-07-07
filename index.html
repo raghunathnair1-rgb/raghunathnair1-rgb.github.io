@@ -134,24 +134,28 @@
   (function () {
     var c = document.getElementById('matrix'); if (!c) return;
     var x = c.getContext('2d');
-    var glyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃ0123456789<>{}[]=/#*+-'.split('');
-    var fs = 14, cols, drops;
+    var glyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ0123456789<>{}[]=/#*+-¦｜'.split('');
+    var fs = 15, cols, drops, spd, trail;
     function resize() {
       c.width = window.innerWidth; c.height = window.innerHeight;
-      cols = Math.ceil(c.width / fs); drops = [];
-      for (var i = 0; i < cols; i++) drops[i] = Math.random() * c.height / fs;
+      cols = Math.ceil(c.width / fs); drops = []; spd = []; trail = [];
+      for (var i = 0; i < cols; i++) { drops[i] = Math.random() * c.height / fs; spd[i] = 0.45 + Math.random() * 0.95; trail[i] = ' '; }
     }
     resize(); window.addEventListener('resize', resize);
+    function g() { return glyphs[(Math.random() * glyphs.length) | 0]; }
     function draw() {
-      x.fillStyle = 'rgba(10,14,20,0.09)'; x.fillRect(0, 0, c.width, c.height);
-      x.fillStyle = '#4ade80'; x.font = fs + 'px monospace';
-      for (var i = 0; i < drops.length; i++) {
-        x.fillText(glyphs[Math.floor(Math.random() * glyphs.length)], i * fs, drops[i] * fs);
-        if (drops[i] * fs > c.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
+      x.fillStyle = 'rgba(8,14,10,0.10)'; x.fillRect(0, 0, c.width, c.height); // green-tinted trail fade
+      x.font = fs + 'px monospace';
+      for (var i = 0; i < cols; i++) {
+        var yr = drops[i] | 0, xp = i * fs, ch = g();
+        x.fillStyle = '#31c96a'; x.fillText(trail[i], xp, (yr - 1) * fs);   // green trail cell
+        x.fillStyle = '#e8fff1'; x.fillText(ch, xp, yr * fs);              // bright white-green head
+        trail[i] = ch;
+        drops[i] += spd[i];
+        if (yr * fs > c.height && Math.random() > 0.962) { drops[i] = 0; spd[i] = 0.45 + Math.random() * 0.95; }
       }
     }
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(draw, 55);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(draw, 45);
   })();
   </script>
   <script>

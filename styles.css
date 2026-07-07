@@ -66,7 +66,7 @@ body::before {
 /* matrix-rain canvas layer (drawn by the script in index.html) */
 #matrix {
   position: fixed; inset: 0; width: 100%; height: 100%;
-  z-index: -1; pointer-events: none; opacity: .16;
+  z-index: -1; pointer-events: none; opacity: .22;
 }
 header .logo {
   font-size: 2.4rem; font-weight: 700; letter-spacing: .04em;
