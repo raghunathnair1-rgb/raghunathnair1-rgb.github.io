@@ -690,6 +690,7 @@ const KG_NODES: &[(&str, u8)] = &[
     ("hello-world", 2), ("anatomy", 2), ("why-wasm", 2),
     ("yew", 3), ("trunk", 3), ("gh-pages", 3), ("opengrep", 3),
     ("dgx-spark", 1), ("vllm", 3), ("matrix", 1), ("terminal", 1), ("orrery", 1),
+    ("ai-feed", 4),
 ];
 const KG_EDGES: &[(usize, usize)] = &[
     (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8),
@@ -697,6 +698,7 @@ const KG_EDGES: &[(usize, usize)] = &[
     (10, 4), (10, 8), (10, 0), (11, 2), (11, 1), (11, 9), (9, 0),
     (8, 15), (3, 16), (16, 17), (3, 17), (5, 4), (5, 0),
     (18, 19), (19, 0), (19, 2), (20, 2), (20, 0),
+    (21, 3), (21, 0), (21, 5),
 ];
 
 fn kg_build() -> Vec<GNode> {
@@ -765,6 +767,7 @@ fn kg_r(kind: u8) -> f64 {
     match kind {
         0 => 8.0,
         3 => 4.5,
+        4 => 7.0,
         _ => 6.0,
     }
 }
@@ -773,6 +776,7 @@ fn kg_cls(kind: u8) -> &'static str {
         0 => "kg-root",
         2 => "kg-post",
         3 => "kg-tool",
+        4 => "kg-feed",
         _ => "kg-concept",
     }
 }
@@ -843,6 +847,7 @@ fn kg_kind_name(kind: u8) -> &'static str {
         0 => "root",
         2 => "post",
         3 => "tool",
+        4 => "live feed",
         _ => "concept",
     }
 }
@@ -869,6 +874,7 @@ fn kg_desc(i: usize) -> &'static str {
         18 => "The falling-glyph rain behind everything.",
         19 => "The interactive shell \u{2014} type 'help'.",
         20 => "The spinning ASCII solar system widget.",
+        21 => "Live AI / agentic / LLM news, auto-curated daily by the dark factory.",
         _ => "",
     }
 }
@@ -887,7 +893,21 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let tick = use_state(|| 0u64);
     let hovered = use_state(|| None::<usize>);
     let sel_node = use_state(|| None::<usize>);
+    let feed_count = use_state(|| None::<usize>);
     let svg_ref = use_node_ref();
+    {
+        let feed_count = feed_count.clone();
+        use_effect_with((), move |_| {
+            wasm_bindgen_futures::spawn_local(async move {
+                if let Ok(resp) = gloo_net::http::Request::get("/news.json").send().await {
+                    if let Ok(v) = resp.json::<Vec<NewsItem>>().await {
+                        feed_count.set(Some(v.len()));
+                    }
+                }
+            });
+            || ()
+        });
+    }
     {
         let sim = sim.clone();
         let drag = drag.clone();
@@ -1041,6 +1061,14 @@ fn knowledge_graph(props: &KgProps) -> Html {
             </svg>
             { if let Some(i) = sn {
                 let (label, kind) = KG_NODES[i];
+                let desc = if Some(i) == kg_index("ai-feed") {
+                    match *feed_count {
+                        Some(n) => format!("Live AI / agentic / LLM news, auto-curated daily by the dark factory \u{2014} {} stories in the feed below \u{2193}", n),
+                        None => kg_desc(i).to_string(),
+                    }
+                } else {
+                    kg_desc(i).to_string()
+                };
                 html! {
                     <div class="kg-detail">
                         <div class="kg-d-head">
@@ -1048,7 +1076,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
                             <span class="kg-d-kind">{ kg_kind_name(kind) }</span>
                             <span class="kg-d-close" onclick={ let s = sel_node.clone(); Callback::from(move |_| s.set(None)) }>{ "\u{00D7}" }</span>
                         </div>
-                        <div class="kg-d-desc">{ kg_desc(i) }</div>
+                        <div class="kg-d-desc">{ desc }</div>
                         <div class="kg-d-links">
                             <span class="kg-d-lbl">{ "links \u{00B7} " }</span>
                             { for (0..KG_NODES.len()).filter(|&j| kg_neighbor(i, j)).map(|j| {
