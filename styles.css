@@ -84,6 +84,14 @@ body::before {
   -webkit-mask-image: radial-gradient(ellipse 42% 58% at 50% 46%, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.9) 42%, black 74%);
   mask-image: radial-gradient(ellipse 42% 58% at 50% 46%, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.9) 42%, black 74%);
 }
+/* weather-reactive sky layer — live wttr.in condition, behind content (see index.html) */
+#sky {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: -1; pointer-events: none; opacity: .55;
+  -webkit-mask-image: radial-gradient(ellipse 46% 62% at 50% 46%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.85) 45%, black 78%);
+  mask-image: radial-gradient(ellipse 46% 62% at 50% 46%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.85) 45%, black 78%);
+}
+@media (prefers-reduced-motion: reduce) { #sky { display: none !important; } }
 header .logo {
   font-family: "Space Mono", "JetBrains Mono", ui-monospace, monospace;
   font-size: 2.4rem; font-weight: 700; letter-spacing: .02em;
