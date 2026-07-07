@@ -1288,7 +1288,7 @@ fn news_feed() -> Html {
     }
 }
 
-#[derive(Deserialize, Clone, PartialEq)]
+#[derive(serde::Deserialize, Clone, PartialEq)]
 struct DreamLine {
     #[serde(default)]
     t: String,
