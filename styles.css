@@ -152,6 +152,23 @@ main { margin-top: 2.5rem; }
 .kg-node.dim { opacity: .2; }
 .kg-node text { fill: var(--muted); font: 8px ui-monospace, monospace; pointer-events: none; }
 .kg-clickable text { fill: var(--cyan); text-decoration: underline; }
+.kg-ring { fill: none; stroke: #e8fff1; stroke-width: 1.4; opacity: .9; }
+
+/* knowledge-graph node detail panel */
+.kg-detail {
+  margin-top: .7rem; max-width: 40rem; border: 1px solid var(--line);
+  border-radius: 10px; background: var(--panel); padding: .7rem .9rem;
+}
+.kg-d-head { display: flex; align-items: center; gap: .55rem; }
+.kg-d-title { font-weight: 700; color: var(--fg); }
+.kg-d-kind { font-size: .68rem; padding: .05rem .45rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+.kg-d-close { margin-left: auto; cursor: pointer; color: var(--muted); font-size: 1.15rem; line-height: 1; }
+.kg-d-close:hover { color: var(--fg); }
+.kg-d-desc { color: var(--fg); font-size: .86rem; margin: .45rem 0; }
+.kg-d-links { font-size: .8rem; color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; }
+.kg-chip { cursor: pointer; border: 1px solid var(--line); border-radius: 999px; padding: .05rem .45rem; color: var(--green); }
+.kg-chip:hover { background: rgba(74, 222, 128, .12); }
+.kg-d-open { display: inline-block; margin-top: .55rem; color: var(--cyan); cursor: pointer; text-decoration: underline; }
 .kg-root { fill: #e8fff1; }
 .kg-concept { fill: var(--green); }
 .kg-post { fill: var(--cyan); }

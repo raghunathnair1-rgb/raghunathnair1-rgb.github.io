@@ -757,6 +757,41 @@ fn kg_post_idx(i: usize) -> Option<usize> {
     }
 }
 
+fn kg_kind_name(kind: u8) -> &'static str {
+    match kind {
+        0 => "root",
+        2 => "post",
+        3 => "tool",
+        _ => "concept",
+    }
+}
+fn kg_desc(i: usize) -> &'static str {
+    match i {
+        0 => "The autonomous lights-out pipeline that builds and ships this blog.",
+        1 => "The systems language the entire app is written in.",
+        2 => "WebAssembly \u{2014} Rust compiled to run in your browser.",
+        3 => "Large language models \u{2014} incl. a 35B served on the DGX Spark.",
+        4 => "An unreasonable amount of it; the whole blog self-ships.",
+        5 => "The harness brain \u{2014} the AI that writes and deploys this blog.",
+        6 => "Primary fuel. Cups consumed: \u{221E}.",
+        7 => "The office cat. Loaf mode enabled.",
+        8 => "3-layer gate: secret scan \u{2192} SAST \u{2192} Fable AI review.",
+        9 => "Post: the factory goes live.",
+        10 => "Post: anatomy of a dark factory.",
+        11 => "Post: why compile a blog to WebAssembly.",
+        12 => "Rust framework rendering this UI to WASM.",
+        13 => "Bundler that builds the Rust \u{2192} WASM app.",
+        14 => "Static host \u{2014} GitHub Pages + Actions CI.",
+        15 => "Language-agnostic SAST in the security gate.",
+        16 => "A 2-node GB10 cluster under the desk, 200GbE-linked.",
+        17 => "Serving the 35B model on the Spark.",
+        18 => "The falling-glyph rain behind everything.",
+        19 => "The interactive shell \u{2014} type 'help'.",
+        20 => "The spinning ASCII solar system widget.",
+        _ => "",
+    }
+}
+
 #[derive(Properties, PartialEq)]
 struct KgProps {
     on_open: Callback<usize>,
@@ -769,6 +804,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let moved = use_mut_ref(|| false);
     let tick = use_state(|| 0u64);
     let hovered = use_state(|| None::<usize>);
+    let sel_node = use_state(|| None::<usize>);
     let svg_ref = use_node_ref();
     {
         let sim = sim.clone();
@@ -816,13 +852,11 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let onup = {
         let drag = drag.clone();
         let moved = moved.clone();
-        let on_open = props.on_open.clone();
+        let sel_node = sel_node.clone();
         Callback::from(move |_: web_sys::MouseEvent| {
             if let Some(i) = *drag.borrow() {
                 if !*moved.borrow() {
-                    if let Some(pi) = kg_post_idx(i) {
-                        on_open.emit(pi);
-                    }
+                    sel_node.set(Some(i));
                 }
             }
             *drag.borrow_mut() = None;
@@ -836,34 +870,61 @@ fn knowledge_graph(props: &KgProps) -> Html {
     };
     let nodes = sim.borrow();
     let hv = *hovered;
+    let sn = *sel_node;
+    let focus = hv.or(sn);
     html! {
         <div class="kg-wrap">
-            <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click a post" }</div>
+            <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click any node" }</div>
             <svg class="kg" ref={svg_ref.clone()} viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet"
                  onmousemove={onmove} onmouseup={onup} onmouseleave={onleave}>
                 { for KG_EDGES.iter().map(|&(a, b)| {
                     let (na, nb) = (&nodes[a], &nodes[b]);
-                    let active = hv.map_or(true, |h| a == h || b == h);
-                    let cls = if hv.is_some() && !active { "kg-edge dim" } else { "kg-edge" };
+                    let active = focus.map_or(true, |h| a == h || b == h);
+                    let cls = if focus.is_some() && !active { "kg-edge dim" } else { "kg-edge" };
                     html! { <line x1={kg_fmt(na.x)} y1={kg_fmt(na.y)} x2={kg_fmt(nb.x)} y2={kg_fmt(nb.y)} class={cls} /> }
                 }) }
                 { for KG_NODES.iter().enumerate().map(|(i, &(label, kind))| {
                     let nd = &nodes[i];
-                    let active = hv.map_or(true, |h| h == i || kg_neighbor(h, i));
-                    let is_post = kg_post_idx(i).is_some();
-                    let cls = if hv.is_some() && !active { "kg-node dim" } else if is_post { "kg-node kg-clickable" } else { "kg-node" };
+                    let active = focus.map_or(true, |h| h == i || kg_neighbor(h, i));
+                    let mut cls = String::from("kg-node");
+                    if kg_post_idx(i).is_some() { cls.push_str(" kg-clickable"); }
+                    if Some(i) == sn { cls.push_str(" kg-sel"); }
+                    if focus.is_some() && !active { cls.push_str(" dim"); }
                     let r = kg_r(kind);
                     html! {
                         <g class={cls}
                            onmouseover={ let h = hovered.clone(); Callback::from(move |_| h.set(Some(i))) }
                            onmouseout={ let h = hovered.clone(); Callback::from(move |_| h.set(None)) }
                            onmousedown={ let d = drag.clone(); let m = moved.clone(); Callback::from(move |e: web_sys::MouseEvent| { e.prevent_default(); *d.borrow_mut() = Some(i); *m.borrow_mut() = false; }) }>
+                            { if Some(i) == sn { html! { <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r + 3.0)} class="kg-ring" /> } } else { html! {} } }
                             <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r)} class={kg_cls(kind)} />
                             <text x={kg_fmt(nd.x + r + 2.0)} y={kg_fmt(nd.y + 2.5)}>{ label }</text>
                         </g>
                     }
                 }) }
             </svg>
+            { if let Some(i) = sn {
+                let (label, kind) = KG_NODES[i];
+                html! {
+                    <div class="kg-detail">
+                        <div class="kg-d-head">
+                            <span class="kg-d-title">{ label }</span>
+                            <span class="kg-d-kind">{ kg_kind_name(kind) }</span>
+                            <span class="kg-d-close" onclick={ let s = sel_node.clone(); Callback::from(move |_| s.set(None)) }>{ "\u{00D7}" }</span>
+                        </div>
+                        <div class="kg-d-desc">{ kg_desc(i) }</div>
+                        <div class="kg-d-links">
+                            <span class="kg-d-lbl">{ "links \u{00B7} " }</span>
+                            { for (0..KG_NODES.len()).filter(|&j| kg_neighbor(i, j)).map(|j| {
+                                html! { <span class="kg-chip" onclick={ let s = sel_node.clone(); Callback::from(move |_| s.set(Some(j))) }>{ KG_NODES[j].0 }</span> }
+                            }) }
+                        </div>
+                        { if let Some(pi) = kg_post_idx(i) {
+                            html! { <a class="kg-d-open" onclick={ let o = props.on_open.clone(); Callback::from(move |_| o.emit(pi)) }>{ "cat this post \u{2192}" }</a> }
+                          } else { html! {} } }
+                    </div>
+                }
+              } else { html! {} } }
         </div>
     }
 }
