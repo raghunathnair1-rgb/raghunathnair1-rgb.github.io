@@ -598,6 +598,7 @@ fn app() -> Html {
         }
         None => html! {
             <>
+            <RustBadge />
             <section class="about">
                 <div class="cmd">{ "$ whoami" }</div>
                 <div class="card">
@@ -641,7 +642,6 @@ fn app() -> Html {
                 <div class="nf-cmd">{ "$ fortune" }</div>
                 <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
             </div>
-            <RustBadge />
             <WeatherCard />
             <AsciiClock />
             <BrainCard />
