@@ -486,71 +486,57 @@ fn spinning_donut() -> Html {
     }
 }
 
-// --- rotating ASCII globe (shaded sphere sampling a low-res continent map) ---
-const GLOBE_MAP: [&str; 18] = [
-    "................................................................",
-    ".........#####..................................................",
-    ".......#########.........................#####..................",
-    "......###########.......########.......###########..............",
-    ".......#########.......###########....##############............",
-    ".......########.......############...################...........",
-    ".........####.........###.....###....###############............",
-    "...........###..........#.....#.......##############............",
-    ".............##.................#......###########....###.......",
-    "..............###................######..######........#........",
-    "...............####..............#####...####...................",
-    "................###...............####....###.........####......",
-    ".................###...............####....#........#######.....",
-    "..................####..............###.............####........",
-    "...................###...............##.........................",
-    "....................##................#.........................",
-    ".....................#..........................................",
-    "................................................................",
-];
-
-fn globe_sample(lon: f64, lat: f64) -> bool {
-    let h = GLOBE_MAP.len();
-    let w = GLOBE_MAP[0].len();
-    let mut c = (((lon / std::f64::consts::TAU) + 0.5) * w as f64) as isize;
-    c = ((c % w as isize) + w as isize) % w as isize;
-    let mut r = ((0.5 - lat / std::f64::consts::PI) * h as f64) as isize;
-    r = r.clamp(0, h as isize - 1);
-    GLOBE_MAP[r as usize].as_bytes()[c as usize] == b'#'
-}
-
-fn globe_frame(ang: f64) -> String {
-    const W: usize = 40;
-    const H: usize = 20;
-    let land = b".:-=+o*#%@";
-    let sea = b" ..::----";
-    let n = (0.5f64 * 0.5 + 0.6 * 0.6 + 0.8 * 0.8).sqrt();
-    let (lx, ly, lz) = (-0.5 / n, 0.6 / n, 0.8 / n);
+// --- solar-system orrery (concentric orbits + planets, distance-field rings) ---
+fn orrery_frame(t: f64) -> String {
+    const W: usize = 54;
+    const H: usize = 27;
+    let cx = (W as f64 - 1.0) / 2.0;
+    let cy = (H as f64 - 1.0) / 2.0;
+    let ax = 1.0f64;
+    let ay = 0.5f64;
+    // (orbit radius, symbol, angular speed)
+    let planets: [(f64, u8, f64); 8] = [
+        (4.5, b'o', 1.70),
+        (7.5, b'O', 1.25),
+        (10.5, b'o', 1.00),
+        (13.5, b'O', 0.82),
+        (17.5, b'#', 0.50),
+        (21.0, b'%', 0.38),
+        (24.0, b'o', 0.30),
+        (26.5, b'o', 0.24),
+    ];
+    let mut buf = [b' '; W * H];
+    for y in 0..H {
+        for x in 0..W {
+            let dx = (x as f64 - cx) / ax;
+            let dy = (y as f64 - cy) / ay;
+            let rr = (dx * dx + dy * dy).sqrt();
+            if planets.iter().any(|p| (rr - p.0).abs() < 0.55) {
+                buf[y * W + x] = b'.';
+            }
+        }
+    }
+    buf[cy.round() as usize * W + cx.round() as usize] = b'@';
+    for p in planets.iter() {
+        let a = t * p.2;
+        let x = (cx + p.0 * ax * a.cos()).round() as isize;
+        let y = (cy + p.0 * ay * a.sin()).round() as isize;
+        if x >= 0 && (x as usize) < W && y >= 0 && (y as usize) < H {
+            buf[y as usize * W + x as usize] = p.1;
+        }
+    }
     let mut s = String::with_capacity((W + 1) * H);
     for r in 0..H {
         for c in 0..W {
-            let nx = (c as f64 - W as f64 / 2.0) / (W as f64 / 2.0);
-            let ny = (r as f64 - H as f64 / 2.0) / (H as f64 / 2.0);
-            if nx * nx + ny * ny <= 1.0 {
-                let z = (1.0 - nx * nx - ny * ny).max(0.0).sqrt();
-                let b = (nx * lx + ny * ly + z * lz).max(0.0);
-                let lat = ny.clamp(-1.0, 1.0).asin();
-                let lon = nx.atan2(z) + ang;
-                if globe_sample(lon, lat) {
-                    s.push(land[((b * land.len() as f64) as usize).min(land.len() - 1)] as char);
-                } else {
-                    s.push(sea[((b * sea.len() as f64) as usize).min(sea.len() - 1)] as char);
-                }
-            } else {
-                s.push(' ');
-            }
+            s.push(buf[r * W + c] as char);
         }
         s.push('\n');
     }
     s
 }
 
-#[function_component(RotatingGlobe)]
-fn rotating_globe() -> Html {
+#[function_component(Orrery)]
+fn orrery() -> Html {
     let f = use_state(|| 0u64);
     {
         let f = f.clone();
@@ -566,8 +552,8 @@ fn rotating_globe() -> Html {
     let t = js_sys::Date::now() / 1000.0;
     html! {
         <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ ./earth" }</div>
-            <pre class="ascii-face globe-face">{ globe_frame(t * 0.4) }</pre>
+            <div class="ascii-cmd">{ "$ ./orrery" }</div>
+            <pre class="ascii-face orrery-face">{ orrery_frame(t) }</pre>
         </div>
     }
 }
@@ -641,7 +627,7 @@ fn app() -> Html {
             <WeatherCard />
             <AsciiClock />
             <BrainCard />
-            <RotatingGlobe />
+            <Orrery />
             <SpinningDonut />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {

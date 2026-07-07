@@ -125,7 +125,7 @@ main { margin-top: 2.5rem; }
   font-size: clamp(.42rem, 1.7vw, .72rem); line-height: 1.2; letter-spacing: 0;
   white-space: pre; overflow-x: auto;
 }
-.globe-face { color: var(--green); }
+.orrery-face { color: var(--green); }
 
 /* ASCII clock */
 .clock { margin-bottom: 1.9rem; }
