@@ -410,6 +410,168 @@ fn brain_card() -> Html {
     }
 }
 
+fn reduced_motion() -> bool {
+    web_sys::window()
+        .and_then(|w| w.match_media("(prefers-reduced-motion: reduce)").ok().flatten())
+        .map(|m| m.matches())
+        .unwrap_or(false)
+}
+
+// --- spinning ASCII donut (a1k0n donut.c, ported) ---
+fn donut_frame(a: f64, b: f64) -> String {
+    const W: usize = 44;
+    const H: usize = 22;
+    let k1 = W as f64 * 5.0 / 12.0;
+    let chars = b".,-~:;=!*#$@";
+    let mut out = [b' '; W * H];
+    let mut zb = [0f64; W * H];
+    let (ca, sa) = (a.cos(), a.sin());
+    let (cb, sb) = (b.cos(), b.sin());
+    let mut th = 0.0f64;
+    while th < std::f64::consts::TAU {
+        let (ct, st) = (th.cos(), th.sin());
+        let mut ph = 0.0f64;
+        while ph < std::f64::consts::TAU {
+            let (cp, sp) = (ph.cos(), ph.sin());
+            let cx = 2.0 + ct;
+            let cy = st;
+            let x = cx * (cb * cp + sa * sb * sp) - cy * ca * sb;
+            let y = cx * (sb * cp - sa * cb * sp) + cy * ca * cb;
+            let zz = 5.0 + ca * cx * sp + cy * sa;
+            let ooz = 1.0 / zz;
+            let xp = (W as f64 / 2.0 + k1 * ooz * x) as isize;
+            let yp = (H as f64 / 2.0 - k1 * ooz * y * 0.5) as isize;
+            let l = cp * ct * sb - ca * ct * sp - sa * st + cb * (ca * st - ct * sa * sp);
+            if l > 0.0 && xp >= 0 && (xp as usize) < W && yp >= 0 && (yp as usize) < H {
+                let idx = xp as usize + yp as usize * W;
+                if ooz > zb[idx] {
+                    zb[idx] = ooz;
+                    out[idx] = chars[((l * 8.0) as usize).min(11)];
+                }
+            }
+            ph += 0.02;
+        }
+        th += 0.07;
+    }
+    let mut s = String::with_capacity((W + 1) * H);
+    for r in 0..H {
+        for c in 0..W {
+            s.push(out[r * W + c] as char);
+        }
+        s.push('\n');
+    }
+    s
+}
+
+#[function_component(SpinningDonut)]
+fn spinning_donut() -> Html {
+    let f = use_state(|| 0u64);
+    {
+        let f = f.clone();
+        use_effect_with((), move |_| {
+            let iv = if reduced_motion() {
+                None
+            } else {
+                Some(gloo_timers::callback::Interval::new(50, move || f.set(0)))
+            };
+            move || drop(iv)
+        });
+    }
+    let t = js_sys::Date::now() / 1000.0;
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ ./donut" }</div>
+            <pre class="ascii-face">{ donut_frame(t, t * 0.5) }</pre>
+        </div>
+    }
+}
+
+// --- rotating ASCII globe (shaded sphere sampling a low-res continent map) ---
+const GLOBE_MAP: [&str; 18] = [
+    "................................................................",
+    ".........#####..................................................",
+    ".......#########.........................#####..................",
+    "......###########.......########.......###########..............",
+    ".......#########.......###########....##############............",
+    ".......########.......############...################...........",
+    ".........####.........###.....###....###############............",
+    "...........###..........#.....#.......##############............",
+    ".............##.................#......###########....###.......",
+    "..............###................######..######........#........",
+    "...............####..............#####...####...................",
+    "................###...............####....###.........####......",
+    ".................###...............####....#........#######.....",
+    "..................####..............###.............####........",
+    "...................###...............##.........................",
+    "....................##................#.........................",
+    ".....................#..........................................",
+    "................................................................",
+];
+
+fn globe_sample(lon: f64, lat: f64) -> bool {
+    let h = GLOBE_MAP.len();
+    let w = GLOBE_MAP[0].len();
+    let mut c = (((lon / std::f64::consts::TAU) + 0.5) * w as f64) as isize;
+    c = ((c % w as isize) + w as isize) % w as isize;
+    let mut r = ((0.5 - lat / std::f64::consts::PI) * h as f64) as isize;
+    r = r.clamp(0, h as isize - 1);
+    GLOBE_MAP[r as usize].as_bytes()[c as usize] == b'#'
+}
+
+fn globe_frame(ang: f64) -> String {
+    const W: usize = 40;
+    const H: usize = 20;
+    let land = b".:-=+o*#%@";
+    let sea = b" ..::----";
+    let n = (0.5f64 * 0.5 + 0.6 * 0.6 + 0.8 * 0.8).sqrt();
+    let (lx, ly, lz) = (-0.5 / n, 0.6 / n, 0.8 / n);
+    let mut s = String::with_capacity((W + 1) * H);
+    for r in 0..H {
+        for c in 0..W {
+            let nx = (c as f64 - W as f64 / 2.0) / (W as f64 / 2.0);
+            let ny = (r as f64 - H as f64 / 2.0) / (H as f64 / 2.0);
+            if nx * nx + ny * ny <= 1.0 {
+                let z = (1.0 - nx * nx - ny * ny).max(0.0).sqrt();
+                let b = (nx * lx + ny * ly + z * lz).max(0.0);
+                let lat = ny.clamp(-1.0, 1.0).asin();
+                let lon = nx.atan2(z) + ang;
+                if globe_sample(lon, lat) {
+                    s.push(land[((b * land.len() as f64) as usize).min(land.len() - 1)] as char);
+                } else {
+                    s.push(sea[((b * sea.len() as f64) as usize).min(sea.len() - 1)] as char);
+                }
+            } else {
+                s.push(' ');
+            }
+        }
+        s.push('\n');
+    }
+    s
+}
+
+#[function_component(RotatingGlobe)]
+fn rotating_globe() -> Html {
+    let f = use_state(|| 0u64);
+    {
+        let f = f.clone();
+        use_effect_with((), move |_| {
+            let iv = if reduced_motion() {
+                None
+            } else {
+                Some(gloo_timers::callback::Interval::new(60, move || f.set(0)))
+            };
+            move || drop(iv)
+        });
+    }
+    let t = js_sys::Date::now() / 1000.0;
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ ./earth" }</div>
+            <pre class="ascii-face globe-face">{ globe_frame(t * 0.4) }</pre>
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -479,6 +641,8 @@ fn app() -> Html {
             <WeatherCard />
             <AsciiClock />
             <BrainCard />
+            <RotatingGlobe />
+            <SpinningDonut />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
                     let s = selected.clone();
