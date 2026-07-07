@@ -12,13 +12,14 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  dmesg  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
         ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
         ["ls"] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
         ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
         ["neofetch"] => "os: dark-factory \u{00B7} kernel: rust\u{2192}wasm \u{00B7} shell: harness brain \u{00B7} status: \u{25CF} online".to_string(),
+        ["dmesg"] => "[dark-factory] dream log streams above \u{2014} scroll to the '$ dmesg | tail' panel. the machine narrates its own git log nightly (03:00 UTC).".to_string(),
         ["now-playing", ..] => "\u{266B} Cornfield Chase \u{2014} Hans Zimmer \u{00B7} Interstellar (OST)".to_string(),
         ["fortune"] => "\u{201C}Do not go gentle into that good night...\u{201D} \u{2014} Interstellar".to_string(),
         ["uptime"] => "shipping since 2026-07-06 \u{00B7} brain online".to_string(),
@@ -1287,6 +1288,66 @@ fn news_feed() -> Html {
     }
 }
 
+#[derive(Deserialize, Clone, PartialEq)]
+struct DreamLine {
+    #[serde(default)]
+    t: String,
+    #[serde(default)]
+    level: String,
+    #[serde(default)]
+    msg: String,
+}
+
+fn dream_line(l: &DreamLine) -> Html {
+    let cls = match l.level.as_str() {
+        "ok" => "dj-ok",
+        "warn" => "dj-warn",
+        "dream" => "dj-dream",
+        _ => "dj-info",
+    };
+    let t = if l.t.is_empty() { "--:--" } else { l.t.as_str() };
+    html! {
+        <li class="dj-line">
+            <span class="dj-t">{ format!("[{}]", t) }</span>
+            <span class={format!("dj-msg {}", cls)}>{ l.msg.clone() }</span>
+        </li>
+    }
+}
+
+#[function_component(DreamJournal)]
+fn dream_journal() -> Html {
+    let lines = use_state(|| None::<Vec<DreamLine>>);
+    let err = use_state(|| false);
+    {
+        let lines = lines.clone();
+        let err = err.clone();
+        use_effect_with((), move |_| {
+            wasm_bindgen_futures::spawn_local(async move {
+                match gloo_net::http::Request::get("/dmesg.json").send().await {
+                    Ok(resp) => match resp.json::<Vec<DreamLine>>().await {
+                        Ok(v) => lines.set(Some(v)),
+                        Err(_) => err.set(true),
+                    },
+                    Err(_) => err.set(true),
+                }
+            });
+            || ()
+        });
+    }
+    let body = match (&*lines, *err) {
+        (None, true) => html! { <div class="dj-loading">{ "dream log offline \u{2014} dmesg.json unreachable" }</div> },
+        (None, false) => html! { <div class="dj-loading">{ "reading the factory's dream log\u{2026}" }</div> },
+        (Some(v), _) if v.is_empty() => html! { <div class="dj-loading">{ "the factory hasn't dreamt yet tonight" }</div> },
+        (Some(v), _) => html! { <ul class="dj-list">{ for v.iter().map(dream_line) }</ul> },
+    };
+    html! {
+        <div class="dj">
+            <div class="dj-cmd">{ "$ dmesg | tail  \u{00B7} the factory dreams \u{1F319}" }</div>
+            { body }
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -1367,6 +1428,7 @@ fn app() -> Html {
             <WeatherCard />
             <AsciiClock />
             <BrainCard />
+            <DreamJournal />
             <BrainViz />
             <Orrery />
             <SpinningDonut />

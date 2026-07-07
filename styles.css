@@ -143,6 +143,19 @@ main { margin-top: 2.5rem; }
 
 /* 🤖 AI daily feed (auto-curated by the dark factory) */
 .news { margin-bottom: 1.9rem; }
+
+/* dmesg — the factory's dream journal */
+.dj { max-width: 42rem; margin-bottom: 1.9rem; }
+.dj-cmd { color: var(--green); margin-bottom: .5rem; }
+.dj-loading { color: var(--muted); font-style: italic; }
+.dj-list { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
+.dj-line { display: flex; gap: .55rem; padding: .13rem 0 .13rem .7rem; font-size: .82rem; line-height: 1.5; }
+.dj-t { color: var(--muted); flex: 0 0 auto; opacity: .65; }
+.dj-msg { color: var(--fg); }
+.dj-ok { color: var(--green); }
+.dj-info { color: var(--fg); opacity: .82; }
+.dj-warn { color: #f59e0b; }
+.dj-dream { color: #c4a3ff; font-style: italic; opacity: .92; }
 .news-loading { color: var(--muted); font-size: .85rem; margin-top: .3rem; }
 .news-list { list-style: none; padding: 0; margin: .5rem 0 0; display: grid; gap: .7rem; }
 .news-item { border: 1px solid var(--line); border-radius: 10px; padding: .7rem .9rem; background: var(--panel); }
