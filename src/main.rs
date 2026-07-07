@@ -747,6 +747,9 @@ fn kg_cls(kind: u8) -> &'static str {
 fn kg_fmt(v: f64) -> String {
     format!("{:.1}", v)
 }
+fn kg_degree(i: usize) -> usize {
+    KG_EDGES.iter().filter(|&&(a, b)| a == i || b == i).count()
+}
 
 fn kg_post_idx(i: usize) -> Option<usize> {
     match i {
@@ -872,6 +875,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let hv = *hovered;
     let sn = *sel_node;
     let focus = hv.or(sn);
+    let t = js_sys::Date::now() / 1000.0;
     html! {
         <div class="kg-wrap">
             <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click any node" }</div>
@@ -883,6 +887,15 @@ fn knowledge_graph(props: &KgProps) -> Html {
                     let cls = if focus.is_some() && !active { "kg-edge dim" } else { "kg-edge" };
                     html! { <line x1={kg_fmt(na.x)} y1={kg_fmt(na.y)} x2={kg_fmt(nb.x)} y2={kg_fmt(nb.y)} class={cls} /> }
                 }) }
+                { for KG_EDGES.iter().enumerate().map(|(k, &(a, b))| {
+                    let active = focus.map_or(true, |h| a == h || b == h);
+                    if focus.is_some() && !active { return html! {}; }
+                    let (na, nb) = (&nodes[a], &nodes[b]);
+                    let ph = (t * 0.4 + k as f64 * 0.37).fract();
+                    let px = na.x + (nb.x - na.x) * ph;
+                    let py = na.y + (nb.y - na.y) * ph;
+                    html! { <circle cx={kg_fmt(px)} cy={kg_fmt(py)} r="1.6" class="kg-pulse" /> }
+                }) }
                 { for KG_NODES.iter().enumerate().map(|(i, &(label, kind))| {
                     let nd = &nodes[i];
                     let active = focus.map_or(true, |h| h == i || kg_neighbor(h, i));
@@ -890,7 +903,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
                     if kg_post_idx(i).is_some() { cls.push_str(" kg-clickable"); }
                     if Some(i) == sn { cls.push_str(" kg-sel"); }
                     if focus.is_some() && !active { cls.push_str(" dim"); }
-                    let r = kg_r(kind);
+                    let r = kg_r(kind) + (kg_degree(i) as f64).sqrt() * 1.1;
                     html! {
                         <g class={cls}
                            onmouseover={ let h = hovered.clone(); Callback::from(move |_| h.set(Some(i))) }
