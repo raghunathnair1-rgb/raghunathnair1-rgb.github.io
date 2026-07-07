@@ -12,7 +12,7 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  build <x>  reboot  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
         ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
@@ -36,7 +36,6 @@ fn run_command(cmd: &str) -> String {
             _ => "path: unknown node \u{2014} pick from the graph (e.g. rust, wasm, brain, dgx-spark, coffee)".to_string(),
         },
         ["path", ..] => "usage: path <a> <b>  \u{2014} e.g. 'path coffee wasm'".to_string(),
-        ["build"] => "usage: build <feature>  \u{2014} e.g. 'build a neon clock' (watch the dark factory ship it)".to_string(),
         ["history"] => "1  git init life\n2  cargo build --release\n3  ./deploy.sh dreams".to_string(),
         ["coffee"] | ["make", "coffee"] => "       ) )\n      ( (\n    ........\n    |      |]\n    \\      /\n     `----'   \u{2615} caffeine loaded \u{00B7} \u{221E} cups shipped".to_string(),
         ["brew"] => "brewing \u{2615} ... [\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}\u{2588}] done \u{2014} enjoy. (this shell runs on coffee too)".to_string(),
@@ -131,40 +130,6 @@ fn terminal(props: &TermProps) -> Html {
                         Vec::new()
                     };
                     on_path.emit(p);
-                }
-                if let Some(feat) = cmd.strip_prefix("build ") {
-                    let feat = feat.trim();
-                    if !feat.is_empty() {
-                        let feat: String = feat.chars().take(48).collect();
-                        let stages = vec![
-                            format!("\u{1F9E0} brain: drafting \u{2018}{}\u{2019} \u{2026}", feat),
-                            "\u{1F6E1}\u{FE0F}  security gate: scanning diff (secrets + SAST) \u{2026}".to_string(),
-                            "   \u{2705} no secrets \u{00B7} opengrep clean".to_string(),
-                            "\u{1F50D} fable review (claude-fable-5): analyzing changes \u{2026}".to_string(),
-                            "   \u{2705} verdict: pass \u{00B7} severity none \u{00B7} no vulnerabilities".to_string(),
-                            "\u{1F980} cargo build --release \u{2192} wasm32-unknown-unknown \u{2026}".to_string(),
-                            "   \u{2705} compiled \u{00B7} trunk bundled".to_string(),
-                            "\u{1F680} deploying to GitHub Pages via Actions \u{2026}".to_string(),
-                            format!("   \u{2705} \u{2018}{}\u{2019} shipped \u{2014} this is exactly how the real dark factory ships this blog \u{1F389}", feat),
-                        ];
-                        let mut base = (*history).clone();
-                        base.push(Line::Cmd(cmd.clone()));
-                        history.set(base.clone());
-                        for k in 0..stages.len() {
-                            let history = history.clone();
-                            let base = base.clone();
-                            let stages = stages.clone();
-                            gloo_timers::callback::Timeout::new((k as u32 + 1) * 620, move || {
-                                let mut h = base.clone();
-                                for s in stages.iter().take(k + 1) {
-                                    h.push(Line::Out(s.clone()));
-                                }
-                                history.set(h);
-                            })
-                            .forget();
-                        }
-                        return;
-                    }
                 }
                 let mut h = (*history).clone();
                 h.push(Line::Cmd(cmd.clone()));
