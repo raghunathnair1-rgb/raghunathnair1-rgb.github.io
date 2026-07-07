@@ -129,6 +129,7 @@
   </script>
   <canvas id="matrix"></canvas>
   <div id="app"></div>
+  <canvas id="crtfx"></canvas>
   <script>
   (function () {
     var c = document.getElementById('matrix'); if (!c) return;
@@ -151,6 +152,54 @@
       }
     }
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(draw, 55);
+  })();
+  </script>
+  <script>
+  // Cinematic WebGL CRT shader overlay (curvature vignette, scanlines, rolling bar,
+  // phosphor tint, chromatic fringe, flicker, grain) blended over the page.
+  (function () {
+    var reduce = false;
+    try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    var cv = document.getElementById('crtfx');
+    if (!cv || reduce) { if (cv) cv.style.display = 'none'; return; }
+    var gl = cv.getContext('webgl') || cv.getContext('experimental-webgl');
+    if (!gl) { cv.style.display = 'none'; return; }
+    function resize() { cv.width = innerWidth; cv.height = innerHeight; gl.viewport(0, 0, cv.width, cv.height); }
+    var VS = 'attribute vec2 a; void main(){ gl_Position = vec4(a,0.0,1.0); }';
+    var FS = `precision mediump float;
+      uniform float u_time; uniform vec2 u_res;
+      float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7)))*43758.5453); }
+      void main(){
+        vec2 uv = gl_FragCoord.xy / u_res.xy;
+        vec2 p = uv*2.0-1.0;
+        float v = clamp(1.0 - dot(p*0.70, p*0.70), 0.0, 1.0); v = pow(v, 0.30);
+        float sl = mix(1.0, 0.5+0.5*sin(gl_FragCoord.y*2.0 - u_time*24.0), 0.10);
+        float roll = fract(uv.y + u_time*0.05);
+        float bar = smoothstep(0.0,0.05,roll)*(1.0-smoothstep(0.05,0.11,roll))*0.08;
+        float fl = 1.0 + 0.015*sin(u_time*50.0);
+        float g = (hash(gl_FragCoord.xy + fract(u_time*13.0))-0.5)*0.05;
+        float lum = 0.5; lum *= v; lum *= sl; lum *= fl; lum += bar; lum += g;
+        float ca = length(p)*0.015;
+        vec3 col = vec3(lum); col.r *= 1.0-ca; col.b *= 1.0+ca; col *= vec3(0.98,1.0,0.99);
+        gl_FragColor = vec4(col, 1.0);
+      }`;
+    function sh(t, src) { var s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+    var prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS));
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(prog); gl.useProgram(prog);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var uT = gl.getUniformLocation(prog, 'u_time'), uR = gl.getUniformLocation(prog, 'u_res');
+    resize(); addEventListener('resize', resize);
+    var t0 = performance.now();
+    (function frame() {
+      var t = (performance.now() - t0) / 1000;
+      gl.uniform1f(uT, t); gl.uniform2f(uR, cv.width, cv.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      requestAnimationFrame(frame);
+    })();
   })();
   </script>
 </body>
