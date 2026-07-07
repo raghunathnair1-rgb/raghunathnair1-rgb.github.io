@@ -5,10 +5,13 @@ set -euo pipefail
 cd "$(dirname "$0")"
 msg="${1:-blog: update $(date -u +%FT%TZ)}"
 SEC=/home/raghu/harness/security
+# cron has no login session -> give systemctl --user a runtime dir so the brain snapshot works
+# (and can't kill set -e). This is why the cron silently stopped deploying before.
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 
 # --- snapshot the real harness-brain status for the blog's brain widget ---
 bstate=$(systemctl --user is-active harness-brain 2>/dev/null || echo unknown)
-bstart=$(systemctl --user show harness-brain -p ActiveEnterTimestamp --value 2>/dev/null)
+bstart=$(systemctl --user show harness-brain -p ActiveEnterTimestamp --value 2>/dev/null || echo "")
 bepoch=$(date -d "$bstart" +%s 2>/dev/null || echo 0)
 bpid=$(systemctl --user show harness-brain -p MainPID --value 2>/dev/null || echo 0)
 printf '{"healthy": %s, "service": "harness-brain.service", "started_epoch": %s, "pid": %s, "updated_epoch": %s}\n' \
