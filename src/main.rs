@@ -12,7 +12,7 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  doomfire  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  doomfire  warp  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
         ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
@@ -25,6 +25,7 @@ fn run_command(cmd: &str) -> String {
             format!("{} \u{00B7} {}% illuminated", moon_name(p), moon_illum(p))
         }
         ["doomfire"] | ["fire"] => "the fire burns above \u{2014} scroll to the '$ ./doomfire' panel \u{1F525}".to_string(),
+        ["warp"] | ["starfield"] => "warp speed engaged \u{2014} scroll to the '$ ./warp' panel \u{2B50}".to_string(),
         ["now-playing", ..] => "\u{266B} Cornfield Chase \u{2014} Hans Zimmer \u{00B7} Interstellar (OST)".to_string(),
         ["fortune"] => "\u{201C}Do not go gentle into that good night...\u{201D} \u{2014} Interstellar".to_string(),
         ["uptime"] => "shipping since 2026-07-06 \u{00B7} brain online".to_string(),
@@ -634,6 +635,85 @@ fn moon_phase() -> Html {
             <div class="ascii-cmd">{ "$ moon" }</div>
             <pre class="ascii-face moon-face">{ moon_art(p) }</pre>
             <div class="moon-info">{ format!("{} \u{00B7} {}% illuminated", moon_name(p), moon_illum(p)) }</div>
+        </div>
+    }
+}
+
+// --- 3D starfield warp (completes the ASCII-3D set: donut, orrery, cube, warp) ---
+struct Stars {
+    n: usize,
+    x: Vec<f64>,
+    y: Vec<f64>,
+    z: Vec<f64>,
+    seed: u32,
+    w: usize,
+    h: usize,
+}
+impl Stars {
+    fn new(n: usize, w: usize, h: usize) -> Self {
+        let mut s = Stars { n, x: vec![0.0; n], y: vec![0.0; n], z: vec![0.0; n], seed: 0x2468_ace0, w, h };
+        for i in 0..n {
+            s.x[i] = s.rnd() * 2.0 - 1.0;
+            s.y[i] = s.rnd() * 2.0 - 1.0;
+            s.z[i] = s.rnd() * 0.9 + 0.1;
+        }
+        s
+    }
+    fn rnd(&mut self) -> f64 {
+        let mut v = self.seed;
+        v ^= v << 13;
+        v ^= v >> 17;
+        v ^= v << 5;
+        self.seed = v;
+        (v as f64) / (u32::MAX as f64)
+    }
+    fn step(&mut self) {
+        for i in 0..self.n {
+            self.z[i] -= 0.012;
+            if self.z[i] <= 0.02 {
+                self.x[i] = self.rnd() * 2.0 - 1.0;
+                self.y[i] = self.rnd() * 2.0 - 1.0;
+                self.z[i] = 1.0;
+            }
+        }
+    }
+    fn render(&self) -> String {
+        const RAMP: &[u8] = b".:+*#@";
+        let (w, h) = (self.w, self.h);
+        let mut grid = vec![b' '; w * h];
+        let (cx, cy) = (w as f64 / 2.0, h as f64 / 2.0);
+        let (fx, fy) = (w as f64 * 0.5, h as f64 * 0.5);
+        for i in 0..self.n {
+            let z = self.z[i];
+            let sx = cx + (self.x[i] / z) * fx;
+            let sy = cy + (self.y[i] / z) * fy;
+            if sx >= 0.0 && sx < w as f64 && sy >= 0.0 && sy < h as f64 {
+                let bi = (((1.0 - z) * RAMP.len() as f64) as usize).min(RAMP.len() - 1);
+                grid[sy as usize * w + sx as usize] = RAMP[bi];
+            }
+        }
+        let mut s = String::with_capacity((w + 1) * h);
+        for row in 0..h {
+            s.push_str(std::str::from_utf8(&grid[row * w..row * w + w]).unwrap_or(""));
+            s.push('\n');
+        }
+        s
+    }
+}
+
+#[function_component(Starfield)]
+fn starfield() -> Html {
+    use_anim_tick(50);
+    let stars = use_mut_ref(|| Stars::new(150, 60, 22));
+    let frame = {
+        let mut s = stars.borrow_mut();
+        s.step();
+        s.render()
+    };
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ ./warp" }</div>
+            <pre class="ascii-face star-face">{ frame }</pre>
         </div>
     }
 }
@@ -1570,6 +1650,7 @@ fn app() -> Html {
             <CubeWireframe />
             <DoomFire />
             <MoonPhase />
+            <Starfield />
             <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
             <NewsFeed />
             <ul class="log">

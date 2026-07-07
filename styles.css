@@ -204,6 +204,7 @@ main { margin-top: 2.5rem; }
 }
 .moon-face { color: #f5f3c0; text-shadow: 0 0 8px rgba(245, 243, 192, .5); line-height: 1.05; }
 .moon-info { color: var(--muted); margin-top: .35rem; font-size: .85rem; }
+.star-face { color: #cfe8ff; text-shadow: 0 0 6px rgba(180, 220, 255, .5); line-height: 1.0; }
 .brain-sub { color: var(--muted); font-size: .76rem; margin-top: .3rem; }
 
 /* interactive force-directed knowledge graph */
