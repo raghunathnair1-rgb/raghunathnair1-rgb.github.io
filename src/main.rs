@@ -1300,16 +1300,16 @@ struct DreamLine {
 
 fn dream_line(l: &DreamLine) -> Html {
     let cls = match l.level.as_str() {
-        "ok" => "dj-ok",
-        "warn" => "dj-warn",
-        "dream" => "dj-dream",
-        _ => "dj-info",
+        "ok" => "dj-msg dj-ok",
+        "warn" => "dj-msg dj-warn",
+        "dream" => "dj-msg dj-dream",
+        _ => "dj-msg dj-info",
     };
     let t = if l.t.is_empty() { "--:--" } else { l.t.as_str() };
     html! {
         <li class="dj-line">
             <span class="dj-t">{ format!("[{}]", t) }</span>
-            <span class={format!("dj-msg {}", cls)}>{ l.msg.clone() }</span>
+            <span class={cls}>{ l.msg.clone() }</span>
         </li>
     }
 }
