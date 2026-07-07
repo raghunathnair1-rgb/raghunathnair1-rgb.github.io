@@ -1065,6 +1065,83 @@ fn knowledge_graph(props: &KgProps) -> Html {
     }
 }
 
+// --- rotating wireframe cube (3D projection + line raster) ---
+fn cube_frame(a: f64, b: f64) -> String {
+    const W: usize = 44;
+    const H: usize = 22;
+    let (cx, cy) = (W as f64 / 2.0, H as f64 / 2.0);
+    let verts = [
+        (-1.0, -1.0, -1.0), (1.0, -1.0, -1.0), (1.0, 1.0, -1.0), (-1.0, 1.0, -1.0),
+        (-1.0, -1.0, 1.0), (1.0, -1.0, 1.0), (1.0, 1.0, 1.0), (-1.0, 1.0, 1.0),
+    ];
+    let edges = [
+        (0, 1), (1, 2), (2, 3), (3, 0), (4, 5), (5, 6), (6, 7), (7, 4),
+        (0, 4), (1, 5), (2, 6), (3, 7),
+    ];
+    let (ca, sa) = (a.cos(), a.sin());
+    let (cb, sb) = (b.cos(), b.sin());
+    let mut proj = [(0.0f64, 0.0f64); 8];
+    for (i, &(x, y, z)) in verts.iter().enumerate() {
+        let x1 = x * cb + z * sb;
+        let z1 = -x * sb + z * cb;
+        let y2 = y * ca - z1 * sa;
+        let z2 = y * sa + z1 * ca;
+        let sc = 32.0 / (3.2 + z2);
+        proj[i] = (cx + x1 * sc, cy - y2 * sc * 0.5);
+    }
+    let mut buf = vec![b' '; W * H];
+    let mut plot = |px: f64, py: f64, ch: u8, buf: &mut [u8]| {
+        let (x, y) = (px.round() as isize, py.round() as isize);
+        if x >= 0 && (x as usize) < W && y >= 0 && (y as usize) < H {
+            buf[y as usize * W + x as usize] = ch;
+        }
+    };
+    for &(u, v) in edges.iter() {
+        let (x0, y0) = proj[u];
+        let (x1, y1) = proj[v];
+        let (dx, dy) = (x1 - x0, y1 - y0);
+        let steps = dx.abs().max(dy.abs()).max(1.0) as usize;
+        for s in 0..=steps {
+            let t = s as f64 / steps as f64;
+            plot(x0 + dx * t, y0 + dy * t, b'#', &mut buf);
+        }
+    }
+    for &(px, py) in proj.iter() {
+        plot(px, py, b'@', &mut buf);
+    }
+    let mut out = String::with_capacity((W + 1) * H);
+    for r in 0..H {
+        for c in 0..W {
+            out.push(buf[r * W + c] as char);
+        }
+        out.push('\n');
+    }
+    out
+}
+
+#[function_component(CubeWireframe)]
+fn cube_wireframe() -> Html {
+    let f = use_state(|| 0u64);
+    {
+        let f = f.clone();
+        use_effect_with((), move |_| {
+            let iv = if reduced_motion() {
+                None
+            } else {
+                Some(gloo_timers::callback::Interval::new(60, move || f.set(0)))
+            };
+            move || drop(iv)
+        });
+    }
+    let t = js_sys::Date::now() / 1000.0;
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ ./cube" }</div>
+            <pre class="ascii-face cube-face">{ cube_frame(t * 0.7, t * 0.9) }</pre>
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -1139,6 +1216,7 @@ fn app() -> Html {
             <BrainViz />
             <Orrery />
             <SpinningDonut />
+            <CubeWireframe />
             <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
             <ul class="log">
                 { for list.iter().enumerate().map(|(i, p)| {
