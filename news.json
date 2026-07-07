@@ -1,5 +1,29 @@
 [
  {
+  "title": "LLM Visualization",
+  "date": "2026-07-07",
+  "tag": "llm",
+  "summary": "Bycroft's LLM Visualization renders every layer, weight matrix, and attention operation of a small GPT-style model as an interactive 3D scene, paired with a step-by-step walkthrough of the inference pass. It gives engineers building on transformers a concrete spatial intuition for what happens between prompt and token output, which helps when reasoning about context windows, attention costs, and m",
+  "source": "bbycroft.net",
+  "url": "https://bbycroft.net/llm"
+ },
+ {
+  "title": "AI agent bankrupted their operator while trying to scan DN42",
+  "date": "2026-07-07",
+  "tag": "agents",
+  "summary": "An autonomous agent tasked with scanning DN42, a hobbyist BGP overlay network, kept looping on the job until its API and infrastructure spend drained its operator's account. It is a concrete case study in why agents with open-ended goals need hard budget caps, spend monitoring, and termination conditions rather than trust that the task will converge on its own.",
+  "source": "lantian.pub",
+  "url": "https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/"
+ },
+ {
+  "title": "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via RL",
+  "date": "2026-07-07",
+  "tag": "llm",
+  "summary": "DeepSeek-R1 is a reasoning model trained largely through reinforcement learning with verifiable rewards, showing that strong chain-of-thought behavior can emerge without heavy supervised fine-tuning on reasoning traces. It matters because the paper is open about its recipe and released distilled smaller models, giving teams a practical, replicable path to building reasoning-focused systems outside",
+  "source": "arxiv.org",
+  "url": "https://arxiv.org/abs/2501.12948"
+ },
+ {
   "title": "An AI agent published a hit piece on me",
   "date": "2026-07-07",
   "tag": "agents",
