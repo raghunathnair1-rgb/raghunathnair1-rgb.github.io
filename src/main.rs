@@ -1160,7 +1160,8 @@ fn knowledge_graph(props: &KgProps) -> Html {
         let feed_count = feed_count.clone();
         use_effect_with((), move |_| {
             wasm_bindgen_futures::spawn_local(async move {
-                if let Ok(resp) = gloo_net::http::Request::get("/news.json").send().await {
+                let url = format!("/news.json?t={}", js_sys::Date::now() as u64);
+                if let Ok(resp) = gloo_net::http::Request::get(&url).send().await {
                     if let Ok(v) = resp.json::<Vec<NewsItem>>().await {
                         feed_count.set(Some(v.len()));
                     }
@@ -1483,7 +1484,8 @@ fn news_feed() -> Html {
         let err = err.clone();
         use_effect_with((), move |_| {
             wasm_bindgen_futures::spawn_local(async move {
-                match gloo_net::http::Request::get("/news.json").send().await {
+                let url = format!("/news.json?t={}", js_sys::Date::now() as u64);
+                match gloo_net::http::Request::get(&url).send().await {
                     Ok(resp) => match resp.json::<Vec<NewsItem>>().await {
                         Ok(v) => items.set(Some(v)),
                         Err(_) => err.set(true),
