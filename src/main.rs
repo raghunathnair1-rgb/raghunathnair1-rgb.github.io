@@ -1693,6 +1693,75 @@ fn spark_monitor() -> Html {
     }
 }
 
+// --- router cost meter (on-device Spark vs cloud Opus, from brain.log) ---
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct RouterStats {
+    #[serde(default)]
+    spark: i64,
+    #[serde(default)]
+    cloud_hard: i64,
+    #[serde(default)]
+    cloud_fallback: i64,
+    #[serde(default)]
+    spark_today: i64,
+    #[serde(default)]
+    cloud_today: i64,
+    #[serde(default)]
+    avg_ms_spark: i64,
+    #[serde(default)]
+    avg_ms_cloud: i64,
+    #[serde(default)]
+    saved_usd_est: f64,
+}
+
+fn router_text(s: &RouterStats) -> String {
+    let cloud = s.cloud_hard + s.cloud_fallback;
+    let total = s.spark + cloud;
+    let pct = if total > 0 { (s.spark as f64 / total as f64 * 100.0).round() as i64 } else { 0 };
+    let fb = if s.cloud_fallback > 0 { format!(" + {} fallback", s.cloud_fallback) } else { String::new() };
+    format!(
+        "on-device  {} {:>3}%  {} easy on GB10 (free)\ncloud/opus {}       {} hard{}\nlatency    spark ~{:.1}s \u{00B7} cloud ~{:.1}s\ntoday      {} on-device \u{00B7} {} cloud   \u{00B7}   est. saved ~${:.2}",
+        spark_bar(pct as f64, 16), pct, s.spark,
+        spark_bar((100 - pct) as f64, 16), s.cloud_hard, fb,
+        s.avg_ms_spark as f64 / 1000.0, s.avg_ms_cloud as f64 / 1000.0,
+        s.spark_today, s.cloud_today, s.saved_usd_est
+    )
+}
+
+#[function_component(RouterMeter)]
+fn router_meter() -> Html {
+    let data = use_state(|| None::<RouterStats>);
+    let err = use_state(|| false);
+    {
+        let data = data.clone();
+        let err = err.clone();
+        use_effect_with((), move |_| {
+            wasm_bindgen_futures::spawn_local(async move {
+                let url = format!("/router.json?t={}", js_sys::Date::now() as u64);
+                match gloo_net::http::Request::get(&url).send().await {
+                    Ok(resp) => match resp.json::<RouterStats>().await {
+                        Ok(v) => data.set(Some(v)),
+                        Err(_) => err.set(true),
+                    },
+                    Err(_) => err.set(true),
+                }
+            });
+            || ()
+        });
+    }
+    let body = match (&*data, *err) {
+        (None, true) => html! { <div class="dj-loading">{ "router meter offline \u{2014} router.json unreachable" }</div> },
+        (None, false) => html! { <div class="dj-loading">{ "reading brain.log\u{2026}" }</div> },
+        (Some(s), _) => html! { <pre class="ascii-face spark-face">{ router_text(s) }</pre> },
+    };
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ tail brain.log | routerstat  \u{00B7}  easy\u{2192}Spark  hard\u{2192}Opus" }</div>
+            { body }
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -1775,6 +1844,7 @@ fn app() -> Html {
             <BrainCard />
             <DreamJournal />
             <SparkMonitor />
+            <RouterMeter />
             <BrainViz />
             <Orrery />
             <SpinningDonut />
