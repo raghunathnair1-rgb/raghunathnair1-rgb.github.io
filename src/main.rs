@@ -12,7 +12,16 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  doomfire  warp  spark  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  cd <console>  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  doomfire  warp  spark  now-playing  coffee  brew  fortune  theme <name>  crt  path <a> <b>  reboot  uptime  echo <x>  clear".to_string(),
+        ["cd", rest @ ..] => {
+            let name = rest.join(" ");
+            let name = name.trim_start_matches("~/").trim_matches('/');
+            match name {
+                "" | "~" | "home" => "\u{2192} ~/ (home)".to_string(),
+                "posts" | "lab" | "factory" | "feed" => format!("\u{2192} ~/{}", name),
+                other => format!("cd: {}: no such console (try: ~ posts lab factory feed)", other),
+            }
+        }
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
         ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
@@ -71,6 +80,7 @@ fn run_command(cmd: &str) -> String {
 #[derive(Properties, PartialEq)]
 struct TermProps {
     on_path: Callback<Vec<usize>>,
+    on_cd: Callback<usize>,
 }
 
 #[function_component(Terminal)]
@@ -91,6 +101,7 @@ fn terminal(props: &TermProps) -> Html {
         let value = value.clone();
         let hist_idx = hist_idx.clone();
         let on_path = props.on_path.clone();
+        let on_cd = props.on_cd.clone();
         Callback::from(move |e: web_sys::KeyboardEvent| {
             let key = e.key();
             if key == "ArrowUp" || key == "ArrowDown" {
@@ -167,6 +178,19 @@ fn terminal(props: &TermProps) -> Html {
                         Vec::new()
                     };
                     on_path.emit(p);
+                }
+                if cmd == "cd" || cmd.starts_with("cd ") {
+                    let name = cmd[2..].trim().trim_start_matches("~/").trim_matches('/');
+                    if let Some(i) = match name {
+                        "" | "~" | "home" => Some(0usize),
+                        "posts" => Some(1),
+                        "lab" => Some(2),
+                        "factory" => Some(3),
+                        "feed" => Some(4),
+                        _ => None,
+                    } {
+                        on_cd.emit(i);
+                    }
                 }
                 let mut h = (*history).clone();
                 h.push(Line::Cmd(cmd.clone()));
@@ -1766,6 +1790,7 @@ fn router_meter() -> Html {
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
     let path_hl = use_state(|| Vec::<usize>::new());
+    let tab = use_state(|| 0usize); // TTY console: 0=~/ 1=~/posts 2=~/lab 3=~/factory 4=~/feed
     let list = posts();
 
     let view = match *selected {
@@ -1793,85 +1818,114 @@ fn app() -> Html {
                 </article>
             }
         }
-        None => html! {
-            <>
-            <RustBadge />
-            <section class="about">
-                <div class="cmd">{ "$ whoami" }</div>
-                <div class="card">
-                    <div class="avatar-wrap">
-                        <img class="avatar" src="/assets/raghu.jpg" alt="Raghu Nair"/>
+        None => {
+            let tt = *tab;
+            let content = match tt {
+                1 => html! { <>
+                    <div class="cmd">{ "$ ls ~/posts" }</div>
+                    <ul class="log">
+                        { for list.iter().enumerate().map(|(i, p)| {
+                            let open = { let s = selected.clone(); Callback::from(move |_: web_sys::MouseEvent| s.set(Some(i))) };
+                            let keyopen = { let s = selected.clone(); Callback::from(move |e: web_sys::KeyboardEvent| {
+                                if e.key() == "Enter" || e.key() == " " { e.prevent_default(); s.set(Some(i)); }
+                            }) };
+                            html! {
+                                <li onclick={open} onkeydown={keyopen} tabindex="0" role="button">
+                                    <span class="prompt">{ "›" }</span>
+                                    <span class="title">{ p.title }</span>
+                                    <span class="tag">{ format!("#{}", p.tag) }</span>
+                                    <time>{ p.date }</time>
+                                </li>
+                            }
+                        }) }
+                    </ul>
+                </> },
+                2 => html! { <>
+                    <div class="cmd">{ "$ ls ~/lab  \u{00B7} generative toys (donut, orrery, cube, fire, warp, graph)" }</div>
+                    <BrainViz />
+                    <Orrery />
+                    <SpinningDonut />
+                    <CubeWireframe />
+                    <DoomFire />
+                    <Starfield />
+                    <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
+                </> },
+                3 => html! { <>
+                    <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
+                    <DreamJournal />
+                    <SparkMonitor />
+                    <RouterMeter />
+                </> },
+                4 => html! { <NewsFeed /> },
+                _ => html! { <>
+                    <RustBadge />
+                    <section class="about">
+                        <div class="cmd">{ "$ whoami" }</div>
+                        <div class="card">
+                            <div class="avatar-wrap">
+                                <img class="avatar" src="/assets/raghu.jpg" alt="Raghu Nair"/>
+                            </div>
+                            <div class="bio">
+                                <div class="line"><span class="key">{ "user " }</span>{ "raghu nair" }</div>
+                                <div class="line"><span class="key">{ "role " }</span>{ "builder · tinkerer · runs an AI dark factory for fun" }</div>
+                                <div class="line"><span class="key">{ "stack" }</span>{ " rust · wasm · llms · an unreasonable amount of automation" }</div>
+                                <div class="line"><span class="key">{ "stat " }</span>{ "brain \u{1F9E0} online \u{00B7} hover the pic to declassify" }</div>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="np">
+                        <div class="np-cmd">{ "$ now-playing" }</div>
+                        <div class="np-out">
+                            <span class="np-note">{ "\u{266B}" }</span>
+                            <span class="eq"><i></i><i></i><i></i><i></i></span>
+                            <span class="np-track">{ "Cornfield Chase" }</span>
+                            <span class="np-artist">{ "\u{00B7} Hans Zimmer \u{2014} Interstellar (OST)" }</span>
+                            <a href="https://music.apple.com/nl/album/cornfield-chase/1533983552?i=1533984393" target="_blank" rel="noopener">{ "[listen \u{2197}]" }</a>
+                        </div>
                     </div>
-                    <div class="bio">
-                        <div class="line"><span class="key">{ "user " }</span>{ "raghu nair" }</div>
-                        <div class="line"><span class="key">{ "role " }</span>{ "builder · tinkerer · runs an AI dark factory for fun" }</div>
-                        <div class="line"><span class="key">{ "stack" }</span>{ " rust · wasm · llms · an unreasonable amount of automation" }</div>
-                        <div class="line"><span class="key">{ "stat " }</span>{ "brain \u{1F9E0} online \u{00B7} hover the pic to declassify" }</div>
+                    <div class="nf-cmd">{ "$ neofetch" }</div>
+                    <div class="neofetch">
+                        <pre class="nf-art">{ "   ╷ ╷ ╷\n  ┌┴─┴─┴┐\n  │ ▓▓▓ │\n  │dark-f│\n  └─────┘" }</pre>
+                        <div class="nf-info">
+                            <div class="nf-line"><span class="k">{ "os" }</span>{ "dark-factory (lights-out)" }</div>
+                            <div class="nf-line"><span class="k">{ "host" }</span>{ "raghunathnair1-rgb.github.io" }</div>
+                            <div class="nf-line"><span class="k">{ "kernel" }</span>{ "rust \u{2192} wasm (yew + trunk)" }</div>
+                            <div class="nf-line"><span class="k">{ "shell" }</span>{ "the harness brain" }</div>
+                            <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
+                            <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
+                            <div class="nf-line"><span class="k">{ "fuel" }</span>{ "\u{2615} coffee \u{00B7} \u{221E} cups" }</div>
+                            <div class="nf-line"><span class="k">{ "pet" }</span>{ "Maine Coon \u{1F408} (loaf mode)" }</div>
+                            <div class="nf-line"><span class="k">{ "status" }</span><span class="nf-ok">{ "\u{25CF} online" }</span></div>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <div class="np">
-                <div class="np-cmd">{ "$ now-playing" }</div>
-                <div class="np-out">
-                    <span class="np-note">{ "\u{266B}" }</span>
-                    <span class="eq"><i></i><i></i><i></i><i></i></span>
-                    <span class="np-track">{ "Cornfield Chase" }</span>
-                    <span class="np-artist">{ "\u{00B7} Hans Zimmer \u{2014} Interstellar (OST)" }</span>
-                    <a href="https://music.apple.com/nl/album/cornfield-chase/1533983552?i=1533984393" target="_blank" rel="noopener">{ "[listen \u{2197}]" }</a>
-                </div>
-            </div>
-            <div class="nf-cmd">{ "$ neofetch" }</div>
-            <div class="neofetch">
-                <pre class="nf-art">{ "   ╷ ╷ ╷\n  ┌┴─┴─┴┐\n  │ ▓▓▓ │\n  │dark-f│\n  └─────┘" }</pre>
-                <div class="nf-info">
-                    <div class="nf-line"><span class="k">{ "os" }</span>{ "dark-factory (lights-out)" }</div>
-                    <div class="nf-line"><span class="k">{ "host" }</span>{ "raghunathnair1-rgb.github.io" }</div>
-                    <div class="nf-line"><span class="k">{ "kernel" }</span>{ "rust \u{2192} wasm (yew + trunk)" }</div>
-                    <div class="nf-line"><span class="k">{ "shell" }</span>{ "the harness brain" }</div>
-                    <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
-                    <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
-                    <div class="nf-line"><span class="k">{ "fuel" }</span>{ "\u{2615} coffee \u{00B7} \u{221E} cups" }</div>
-                    <div class="nf-line"><span class="k">{ "pet" }</span>{ "Maine Coon \u{1F408} (loaf mode)" }</div>
-                    <div class="nf-line"><span class="k">{ "status" }</span><span class="nf-ok">{ "\u{25CF} online" }</span></div>
-                </div>
-            </div>
-            <div class="fortune">
-                <div class="nf-cmd">{ "$ fortune" }</div>
-                <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
-            </div>
-            <WeatherCard />
-            <AsciiClock />
-            <BrainCard />
-            <DreamJournal />
-            <SparkMonitor />
-            <RouterMeter />
-            <BrainViz />
-            <Orrery />
-            <SpinningDonut />
-            <CubeWireframe />
-            <DoomFire />
-            <MoonPhase />
-            <Starfield />
-            <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
-            <NewsFeed />
-            <ul class="log">
-                { for list.iter().enumerate().map(|(i, p)| {
-                    let open = { let s = selected.clone(); Callback::from(move |_: web_sys::MouseEvent| s.set(Some(i))) };
-                    let keyopen = { let s = selected.clone(); Callback::from(move |e: web_sys::KeyboardEvent| {
-                        if e.key() == "Enter" || e.key() == " " { e.prevent_default(); s.set(Some(i)); }
-                    }) };
-                    html! {
-                        <li onclick={open} onkeydown={keyopen} tabindex="0" role="button">
-                            <span class="prompt">{ "›" }</span>
-                            <span class="title">{ p.title }</span>
-                            <span class="tag">{ format!("#{}", p.tag) }</span>
-                            <time>{ p.date }</time>
-                        </li>
-                    }
-                }) }
-            </ul>
-            <Terminal on_path={ let p = path_hl.clone(); Callback::from(move |pv: Vec<usize>| p.set(pv)) } />
-            </>
+                    <div class="fortune">
+                        <div class="nf-cmd">{ "$ fortune" }</div>
+                        <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
+                    </div>
+                    <WeatherCard />
+                    <AsciiClock />
+                    <MoonPhase />
+                    <BrainCard />
+                </> },
+            };
+            let items = [("~/", 0usize), ("~/posts", 1usize), ("~/lab", 2usize), ("~/factory", 3usize), ("~/feed", 4usize)];
+            html! {
+                <>
+                <nav class="tty-bar">
+                    { for items.iter().map(|(label, idx)| {
+                        let idx = *idx;
+                        let t = tab.clone();
+                        let onclick = Callback::from(move |_: web_sys::MouseEvent| t.set(idx));
+                        let cls = if tt == idx { "tty-tab active" } else { "tty-tab" };
+                        html! { <button class={cls} {onclick}>{ format!("[{}] {}", idx + 1, label) }</button> }
+                    }) }
+                </nav>
+                <div class="console">{ content }</div>
+                <Terminal
+                    on_path={ let p = path_hl.clone(); Callback::from(move |pv: Vec<usize>| p.set(pv)) }
+                    on_cd={ let t = tab.clone(); Callback::from(move |i: usize| t.set(i)) } />
+                </>
+            }
         },
     };
 
