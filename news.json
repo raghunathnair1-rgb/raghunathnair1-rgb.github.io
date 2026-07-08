@@ -16,14 +16,6 @@
   "url": "https://github.com/Trystan-SA/claude-design-system-prompt"
  },
  {
-  "title": "Show HN: KiCad in the Browser",
-  "date": "2026-07-05",
-  "tag": "release",
-  "summary": "PCBJam launches as an early-access alpha that runs KiCad directly in the browser, allowing users to open and edit PCB projects without installation or data uploads. This tool provides a convenient, accessible way to work with KiCad files locally without compromising privacy or requiring setup.",
-  "source": "demo.pcbjam.com",
-  "url": "https://demo.pcbjam.com/"
- },
- {
   "title": "ZCode: Claude Code from the Makers of GLM",
   "date": "2026-07-01",
   "tag": "claude",

@@ -1786,11 +1786,25 @@ fn router_meter() -> Html {
     }
 }
 
+/// Initial TTY console from the URL hash (#posts/#lab/#factory/#feed) — so shared links deep-link.
+fn initial_tab() -> usize {
+    web_sys::window()
+        .and_then(|w| w.location().hash().ok())
+        .map(|h| match h.trim_start_matches('#') {
+            "posts" => 1,
+            "lab" => 2,
+            "factory" => 3,
+            "feed" => 4,
+            _ => 0,
+        })
+        .unwrap_or(0)
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
     let path_hl = use_state(|| Vec::<usize>::new());
-    let tab = use_state(|| 0usize); // TTY console: 0=~/ 1=~/posts 2=~/lab 3=~/factory 4=~/feed
+    let tab = use_state(initial_tab); // TTY console: 0=~/ 1=~/posts 2=~/lab 3=~/factory 4=~/feed
     let list = posts();
 
     let view = match *selected {
