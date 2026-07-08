@@ -54,6 +54,15 @@
 .pipe-log { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
 .pipe-commit { padding: .1rem 0 .1rem .7rem; font-size: .84rem; color: var(--fg); }
 .pipe-sha { color: #22d3ee; }
+.pipe-evt { padding: .09rem 0 .09rem .7rem; font-size: .82rem; color: var(--fg); }
+.pipe-t { color: var(--muted); margin-right: .5rem; }
+.pipe-k { display: inline-block; min-width: 6.2em; }
+.pipe-k-router { color: #22d3ee; }
+.pipe-k-post { color: #7effb0; }
+.pipe-k-improve { color: #c792ea; }
+.pipe-k-deploy { color: #ff9d5c; }
+.pipe-ok { color: #7effb0; }
+.pipe-fail { color: #ff5f56; }
 @media (prefers-reduced-motion: reduce) { .pipe-conn { animation: none; } }
 
 /* cinematic WebGL CRT shader overlay */

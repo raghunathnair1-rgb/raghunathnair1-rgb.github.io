@@ -1771,15 +1771,30 @@ fn router_meter() -> Html {
 }
 
 #[derive(serde::Deserialize)]
-struct Commit {
-    sha: String,
-    msg: String,
-}
-#[derive(serde::Deserialize)]
 struct DeployInfo {
     current: String,
     updated: String,
-    commits: Vec<Commit>,
+}
+#[derive(serde::Deserialize)]
+struct LogEvent {
+    t: String,
+    kind: String,
+    text: String,
+    ok: bool,
+}
+#[derive(serde::Deserialize)]
+struct Activity {
+    events: Vec<LogEvent>,
+}
+
+fn evt_cls(kind: &str) -> &'static str {
+    match kind {
+        "router" => "pipe-k pipe-k-router",
+        "autopost" => "pipe-k pipe-k-post",
+        "self-improve" => "pipe-k pipe-k-improve",
+        "deploy" => "pipe-k pipe-k-deploy",
+        _ => "pipe-k",
+    }
 }
 
 // factory pipeline stages: (label, x-center within the 644-wide viewBox)
@@ -1795,6 +1810,7 @@ const PIPE_STAGES: [(&str, f64); 6] = [
 #[function_component(PipelineViz)]
 fn pipeline_viz() -> Html {
     let (data, _err) = use_polled_json::<DeployInfo>("/deploy.json", Some(20_000));
+    let (act, _ae) = use_polled_json::<Activity>("/activity.json", Some(15_000));
     use_anim_tick(66);
     let t = js_sys::Date::now() / 1000.0;
     let phase = (t / 5.5).fract();
@@ -1804,19 +1820,26 @@ fn pipeline_viz() -> Html {
         .collect();
     let n = PIPE_STAGES.len();
 
-    let readout = match &*data {
-        Some(d) => {
-            let log = d.commits.iter().take(6).map(|c| {
-                html! { <li class="pipe-commit"><span class="pipe-sha">{ c.sha.clone() }</span>{ " " }{ c.msg.clone() }</li> }
-            });
-            html! { <>
-                <div class="pipe-latest">{ "\u{25B8} shipped: " }<span class="pipe-cur">{ d.current.clone() }</span></div>
-                <div class="pipe-updated">{ format!("factory clock \u{00B7} snapshot {}", d.updated) }</div>
-                <div class="pipe-loghead">{ "$ git log --oneline -6" }</div>
-                <ul class="pipe-log">{ for log }</ul>
-            </> }
-        }
+    let headline = match &*data {
+        Some(d) => html! { <>
+            <div class="pipe-latest">{ "\u{25B8} shipped: " }<span class="pipe-cur">{ d.current.clone() }</span></div>
+            <div class="pipe-updated">{ format!("factory clock \u{00B7} snapshot {}", d.updated) }</div>
+        </> },
         None => html! { <div class="dj-loading">{ "connecting to the factory floor\u{2026}" }</div> },
+    };
+    let feed = match &*act {
+        Some(a) => html! { <>
+            <div class="pipe-loghead">{ "$ tail -f factory.log  \u{00B7}  live execution" }</div>
+            <ul class="pipe-log">{ for a.events.iter().map(|e| html! {
+                <li class="pipe-evt">
+                    <span class="pipe-t">{ e.t.clone() }</span>
+                    <span class={evt_cls(&e.kind)}>{ e.kind.clone() }</span>
+                    { " " }{ e.text.clone() }
+                    { if e.ok { html! { <span class="pipe-ok">{ " \u{2713}" }</span> } } else { html! { <span class="pipe-fail">{ " \u{2717}" }</span> } } }
+                </li>
+            }) }</ul>
+        </> },
+        None => html! {},
     };
 
     html! {
@@ -1839,7 +1862,8 @@ fn pipeline_viz() -> Html {
                 }) }
                 { for packets.iter().map(|&x| html! { <circle cx={kg_fmt(x)} cy="40" r="5" class="pipe-packet" /> }) }
             </svg>
-            { readout }
+            { headline }
+            { feed }
         </div>
     }
 }
