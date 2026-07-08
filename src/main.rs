@@ -995,6 +995,18 @@ const KG_EDGES: &[(usize, usize)] = &[
 
 // --- domain clustering (understand-anything style): group nodes into named domains ---
 const DOMAIN_NAMES: [&str; 6] = ["core", "brain & AI", "pipeline", "frontend", "distribution", "writing"];
+// guided tour: (node index to spotlight, title, narration) — walks the factory cluster by cluster
+const TOUR: [(usize, &str, &str); 9] = [
+    (0, "the dark factory", "An AI that writes, curates, and ships this blog \u{2014} no human on the floor. Follow the highlights for a quick tour of how it works."),
+    (5, "the brain", "A Claude harness running unattended on a VPS. You drop a task; it works in small, verifiable steps until it's done."),
+    (22, "the router", "It sends easy, high-volume jobs to a local 35B model on the GPU cluster, and only the hard ones to a frontier model. Most work never leaves the box."),
+    (23, "the pipeline", "Every change runs a secret scan, a SAST, and an AI review that can block the push \u{2014} before CI compiles and ships it."),
+    (2, "rust \u{2192} wasm", "The blog is Rust compiled to WebAssembly. The VPS has no C compiler, so GitHub Actions builds it on every push and deploys to Pages."),
+    (21, "the AI feed", "It curates positive AI news daily, writes an original take on each pick, then de-slops the prose so it reads like a human wrote it."),
+    (26, "linkedin", "Those picks auto-publish to LinkedIn on a reach-tuned weekly schedule \u{2014} five posts a week, hands-off."),
+    (24, "self-improvement", "Every night it reviews its own code and opens improvement proposals. Then the loop starts over."),
+    (0, "your turn", "That's the factory. Drag the nodes, hover to trace a connection, or type 'path brain linkedin' in the terminal below."),
+];
 const DOMAIN_ANCHORS: [(f64, f64); 6] = [
     (180.0, 140.0), // 0 core (center)
     (92.0, 78.0),   // 1 brain & AI (top-left)
@@ -1237,6 +1249,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let hovered = use_state(|| None::<usize>);
     let sel_node = use_state(|| None::<usize>);
     let feed_count = use_state(|| None::<usize>);
+    let tour = use_state(|| None::<usize>);
     let svg_ref = use_node_ref();
     {
         let feed_count = feed_count.clone();
@@ -1340,13 +1353,14 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let nodes = sim.borrow();
     let hv = *hovered;
     let sn = *sel_node;
-    let focus = hv.or(sn);
+    let focus = (*tour).map(|s| TOUR[s].0).or(hv).or(sn);
     let t = js_sys::Date::now() / 1000.0;
     let path = props.path.clone();
     let pmode = !path.is_empty();
     html! {
         <div class="kg-wrap">
             <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click \u{00B7} try 'path a b'" }</div>
+            { if (*tour).is_none() { let t = tour.clone(); let start = Callback::from(move |_: web_sys::MouseEvent| t.set(Some(0))); html! { <button class="kg-tour-btn" onclick={start}>{ "\u{25B6} guided tour" }</button> } } else { html! {} } }
             <svg class="kg" ref={svg_ref.clone()} viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet"
                  onmousemove={onmove} onmouseup={onup} onmouseleave={onleave}>
                 <defs>
@@ -1427,6 +1441,30 @@ fn knowledge_graph(props: &KgProps) -> Html {
             <div class="kg-legend">{ for (0..6).map(|d| html! {
                 <span class="kg-leg"><span class={kg_dom_cls(d)}>{ "\u{25CF}" }</span>{ " " }{ DOMAIN_NAMES[d] }</span>
             }) }</div>
+            { if let Some(s) = *tour {
+                let (_, title, text) = TOUR[s];
+                let n = TOUR.len();
+                let close = { let t = tour.clone(); Callback::from(move |_: web_sys::MouseEvent| t.set(None)) };
+                html! {
+                    <div class="kg-tour">
+                        <div class="kg-tour-hd">
+                            { format!("guided tour \u{00B7} {}/{}", s + 1, n) }
+                            <button class="kg-tour-x" onclick={close.clone()}>{ "\u{2715}" }</button>
+                        </div>
+                        <div class="kg-tour-title">{ title }</div>
+                        <div class="kg-tour-text">{ text }</div>
+                        <div class="kg-tour-nav">
+                            { if s > 0 { let t = tour.clone(); let prev = Callback::from(move |_: web_sys::MouseEvent| t.set(Some(s - 1))); html! { <button class="kg-tour-b" onclick={prev}>{ "\u{2039} back" }</button> } } else { html! {} } }
+                            { if s + 1 < n {
+                                let t = tour.clone(); let next = Callback::from(move |_: web_sys::MouseEvent| t.set(Some(s + 1)));
+                                html! { <button class="kg-tour-b" onclick={next}>{ "next \u{203A}" }</button> }
+                            } else {
+                                html! { <button class="kg-tour-b" onclick={close}>{ "done \u{2713}" }</button> }
+                            } }
+                        </div>
+                    </div>
+                }
+            } else { html! {} } }
             { if let Some(i) = sn {
                 let (label, kind) = KG_NODES[i];
                 let desc = if Some(i) == kg_index("ai-feed") {

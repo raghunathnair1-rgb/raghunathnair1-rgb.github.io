@@ -290,6 +290,18 @@ main { margin-top: 2.5rem; }
 .kg-legend { display: flex; flex-wrap: wrap; gap: .25rem .9rem; margin: .5rem 0 .2rem; font-size: .76rem; color: var(--muted); }
 .kg-leg { white-space: nowrap; }
 .kg-leg > span:first-child { margin-right: .12rem; font-size: .7rem; }
+/* guided tour */
+.kg-tour-btn { font: inherit; font-size: .78rem; background: transparent; color: var(--cyan); border: 1px solid var(--line); border-radius: 5px; padding: .18rem .55rem; margin: .1rem 0 .3rem; cursor: pointer; }
+.kg-tour-btn:hover { border-color: var(--cyan); text-shadow: var(--glow); }
+.kg-tour { border: 1px solid var(--cyan); border-radius: 8px; padding: .7rem .9rem; margin: .5rem 0; background: rgba(34,211,238,.05); box-shadow: var(--glow); }
+.kg-tour-hd { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: .74rem; }
+.kg-tour-x { background: transparent; border: none; color: var(--muted); cursor: pointer; font-size: .9rem; line-height: 1; }
+.kg-tour-x:hover { color: var(--cyan); }
+.kg-tour-title { color: var(--cyan); font-size: 1.05rem; margin: .3rem 0 .25rem; text-shadow: var(--glow); }
+.kg-tour-text { color: var(--fg); font-size: .88rem; line-height: 1.5; }
+.kg-tour-nav { display: flex; gap: .5rem; margin-top: .65rem; }
+.kg-tour-b { font: inherit; font-size: .8rem; background: transparent; color: var(--cyan); border: 1px solid var(--cyan); border-radius: 5px; padding: .25rem .75rem; cursor: pointer; }
+.kg-tour-b:hover { background: rgba(34,211,238,.12); }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 
