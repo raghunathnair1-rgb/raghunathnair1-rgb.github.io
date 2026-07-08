@@ -30,6 +30,15 @@
 /* keep block/box ASCII (█ ▓ ─ ┌) on a self-consistent monospace so it stays aligned */
 .clock-face, .nf-art { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 
+/* --- TTY consoles (tab navigation) --- */
+.tty-bar { display: flex; flex-wrap: wrap; gap: .35rem; margin: 1.1rem 0 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: .4rem; }
+.tty-tab { font: inherit; font-size: .82rem; background: transparent; color: var(--muted); border: 1px solid var(--line); border-bottom: none; border-radius: 6px 6px 0 0; padding: .35rem .75rem; cursor: pointer; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; }
+.tty-tab:hover { color: var(--fg); border-color: var(--cyan); }
+.tty-tab.active { color: var(--cyan); border-color: var(--cyan); background: rgba(255,255,255,.04); text-shadow: var(--glow); }
+.console { animation: console-in .22s ease; }
+@keyframes console-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .console { animation: none; } }
+
 /* cinematic WebGL CRT shader overlay */
 #crtfx {
   position: fixed; inset: 0; width: 100vw; height: 100vh;
