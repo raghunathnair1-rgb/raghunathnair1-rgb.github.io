@@ -1,5 +1,29 @@
 [
  {
+  "title": "Mistral's Robostral Navigate: a state of the art robotics navigation model",
+  "date": "2026-07-08",
+  "tag": "release",
+  "summary": "Robostral Navigate posts 76.6% on R2R-CE — the continuous-environment version of vision-and-language navigation where an agent has to actually walk to a described goal, not teleport between nodes — using nothing but a single RGB feed. That's the notable part: most competitive VLN-CE stacks lean on depth maps or LiDAR to recover geometry, but an 8B model hitting SOTA monocular means it's inferring the spatial structure from pixels and language alone. For anyone building robots, that collapses the sensor bill of materials to a commodity webcam and shifts the hard part back where it belongs — the",
+  "source": "mistral.ai",
+  "url": "https://mistral.ai/news/robostral-navigate/"
+ },
+ {
+  "title": "Geosql: A Claude/Codex skill for geospatial data",
+  "date": "2026-07-08",
+  "tag": "claude",
+  "summary": "Geosql wires Claude/Codex into DuckDB's spatial stack as a skill, so the model writes SQL against GeoParquet and PostGIS instead of hand-rolling shapely loops — spatial joins, buffers, and H3 indexing pushed down to the engine that's actually good at them. The interesting bit is the division of labor: the LLM handles intent and query composition while DuckDB does the geometry math, which keeps big point-in-polygon and nearest-neighbor work off the token budget. For builders, it's a clean template for any domain skill — hand the model a capable query engine and a schema, not a pile of bespoke P",
+  "source": "github.com",
+  "url": "https://github.com/dekart-xyz/geosql"
+ },
+ {
+  "title": "Show HN: Pulpie – Models for Cleaning the Web",
+  "date": "2026-07-06",
+  "tag": "open-source",
+  "summary": "Boilerplate stripping is the unglamorous first mile of every scraping, RAG, and pretraining pipeline, still mostly handled by brittle DOM heuristics like Readability or a wasteful full-LLM pass. Pulpie ships a family of purpose-built extractors positioned along a Pareto frontier, so you dial in the accuracy-versus-latency point you actually need instead of paying frontier-model rates to decide which div is the article. For anyone cleaning web data at scale, a small model that only does main-content extraction is exactly the right-sized tool — and the benchmark to beat is trafilatura, not GPT.",
+  "source": "usefeyn.com",
+  "url": "https://usefeyn.com/blog/pulpie-pareto-optimal-models-for-cleaning-the-web/"
+ },
+ {
   "title": "Show HN: Rowboat – Open-source, local-first alternative to Claude Desktop",
   "date": "2026-07-07",
   "tag": "claude",
