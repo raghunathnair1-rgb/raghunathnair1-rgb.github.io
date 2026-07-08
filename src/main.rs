@@ -993,6 +993,40 @@ const KG_EDGES: &[(usize, usize)] = &[
     (24, 5), (24, 4), (25, 14), (25, 2), (26, 21), (26, 4),
 ];
 
+// --- domain clustering (understand-anything style): group nodes into named domains ---
+const DOMAIN_NAMES: [&str; 6] = ["core", "brain & AI", "pipeline", "frontend", "distribution", "writing"];
+const DOMAIN_ANCHORS: [(f64, f64); 6] = [
+    (180.0, 140.0), // 0 core (center)
+    (92.0, 78.0),   // 1 brain & AI (top-left)
+    (268.0, 78.0),  // 2 pipeline (top-right)
+    (92.0, 202.0),  // 3 frontend (bottom-left)
+    (268.0, 202.0), // 4 distribution (bottom-right)
+    (180.0, 236.0), // 5 writing (bottom)
+];
+
+fn kg_domain(i: usize) -> usize {
+    match i {
+        0 | 4 => 0,                     // dark-factory, automation
+        3 | 5 | 16 | 17 | 22 | 24 => 1, // llms, brain, dgx-spark, vllm, router, self-improve
+        8 | 13 | 14 | 15 | 23 => 2,     // security, trunk, gh-pages, opengrep, pipeline
+        1 | 2 | 12 | 18 | 19 | 20 => 3, // rust, wasm, yew, matrix, terminal, orrery
+        21 | 25 | 26 => 4,              // ai-feed, seo, linkedin
+        6 | 7 | 9 | 10 | 11 => 5,       // coffee, maine-coon, posts
+        _ => 0,
+    }
+}
+
+fn kg_dom_cls(d: usize) -> &'static str {
+    match d {
+        1 => "kg-d1",
+        2 => "kg-d2",
+        3 => "kg-d3",
+        4 => "kg-d4",
+        5 => "kg-d5",
+        _ => "kg-d0",
+    }
+}
+
 fn kg_build() -> Vec<GNode> {
     let n = KG_NODES.len();
     (0..n)
@@ -1057,8 +1091,10 @@ fn kg_step(nodes: &mut [GNode], pinned: Option<usize>, mouse: Option<(f64, f64)>
             nodes[i].vy = 0.0;
             continue;
         }
-        fx[i] += (180.0 - nodes[i].x) * 0.02;
-        fy[i] += (140.0 - nodes[i].y) * 0.02;
+        // pull each node toward its DOMAIN anchor -> spatial clusters form
+        let (ax, ay) = DOMAIN_ANCHORS[kg_domain(i)];
+        fx[i] += (ax - nodes[i].x) * 0.028;
+        fy[i] += (ay - nodes[i].y) * 0.028;
         nodes[i].vx = (nodes[i].vx + fx[i]) * 0.82;
         nodes[i].vy = (nodes[i].vy + fy[i]) * 0.82;
         nodes[i].x = (nodes[i].x + nodes[i].vx).clamp(14.0, 346.0);
@@ -1382,12 +1418,15 @@ fn knowledge_graph(props: &KgProps) -> Html {
                            onmouseout={ let h = hovered.clone(); Callback::from(move |_| h.set(None)) }
                            onmousedown={ let d = drag.clone(); let m = moved.clone(); Callback::from(move |e: web_sys::MouseEvent| { e.prevent_default(); *d.borrow_mut() = Some(i); *m.borrow_mut() = false; }) }>
                             { if ringed { html! { <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r + 3.0)} class="kg-ring" /> } } else { html! {} } }
-                            <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r)} class={kg_cls(kind)} />
+                            <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r)} class={kg_dom_cls(kg_domain(i))} />
                             <text x={kg_fmt(nd.x + r + 2.0)} y={kg_fmt(nd.y + 2.5)}>{ label }</text>
                         </g>
                     }
                 }) }
             </svg>
+            <div class="kg-legend">{ for (0..6).map(|d| html! {
+                <span class="kg-leg"><span class={kg_dom_cls(d)}>{ "\u{25CF}" }</span>{ " " }{ DOMAIN_NAMES[d] }</span>
+            }) }</div>
             { if let Some(i) = sn {
                 let (label, kind) = KG_NODES[i];
                 let desc = if Some(i) == kg_index("ai-feed") {
