@@ -28,6 +28,9 @@ pushes → Actions builds+deploys**.
 
 ## Non-negotiable workflow
 1. Make the change (edit `blog/src/main.rs`, `index.html`, `styles.css`, etc.).
+   - **For any VISUAL/design change** (new widget, CSS, layout, colour, type, motion), first consult the
+     **`impeccable`** skill — a design-language + AI-slop check. Apply its bans + craft rules and run the
+     "could someone tell an AI made this?" test, always **preserving the terminal/CRT register**.
 2. Run `./deploy.sh "clear message"` from `blog/`. It gates, commits, pushes.
 3. **Verify — do not trust "pushed".** Poll until you have ALL of:
    - the **build job** step = `success` (not just the run "completed"),
