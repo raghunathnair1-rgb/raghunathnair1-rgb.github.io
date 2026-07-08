@@ -10,9 +10,12 @@ permissions:
   pages: write
   id-token: write
 
+# Queue runs instead of cancelling: a frequent telemetry deploy must never kill an
+# in-progress code build/deploy. Runs serialize on the "pages" group (no pile-up at
+# the ~5-min cron cadence since a build+deploy finishes in well under 5 min).
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
