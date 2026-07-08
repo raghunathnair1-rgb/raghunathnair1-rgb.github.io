@@ -1,5 +1,29 @@
 [
  {
+  "title": "Show HN: Rowboat – Open-source, local-first alternative to Claude Desktop",
+  "date": "2026-07-07",
+  "tag": "claude",
+  "summary": "Rowboat is an open-source, local-first alternative to Claude Desktop that functions as an AI coworker with persistent memory capabilities.",
+  "source": "github.com",
+  "url": "https://github.com/rowboatlabs/rowboat"
+ },
+ {
+  "title": "Claude Design System Prompt",
+  "date": "2026-07-05",
+  "tag": "claude",
+  "summary": "Trystan-SA released an open-source system prompt and skill library that transforms Claude into an opinionated, accessibility-aware design collaborator, helping developers create high-quality, AI-slop-resistant interfaces.",
+  "source": "github.com",
+  "url": "https://github.com/Trystan-SA/claude-design-system-prompt"
+ },
+ {
+  "title": "Show HN: KiCad in the Browser",
+  "date": "2026-07-05",
+  "tag": "release",
+  "summary": "PCBJam launches as an early-access alpha that runs KiCad directly in the browser, allowing users to open and edit PCB projects without installation or data uploads. This tool provides a convenient, accessible way to work with KiCad files locally without compromising privacy or requiring setup.",
+  "source": "demo.pcbjam.com",
+  "url": "https://demo.pcbjam.com/"
+ },
+ {
   "title": "ZCode: Claude Code from the Makers of GLM",
   "date": "2026-07-01",
   "tag": "claude",
