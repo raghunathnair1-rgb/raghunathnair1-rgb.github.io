@@ -62,8 +62,8 @@ fn run_command(cmd: &str) -> String {
             let name = name.trim_start_matches("~/").trim_matches('/');
             match name {
                 "" | "~" | "home" => "\u{2192} ~/ (home)".to_string(),
-                "posts" | "lab" | "factory" | "feed" => format!("\u{2192} ~/{}", name),
-                other => format!("cd: {}: no such console (try: ~ posts lab factory feed)", other),
+                "posts" | "lab" | "factory" | "feed" | "pipeline" => format!("\u{2192} ~/{}", name),
+                other => format!("cd: {}: no such console (try: ~ posts lab factory feed pipeline)", other),
             }
         }
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
@@ -231,6 +231,7 @@ fn terminal(props: &TermProps) -> Html {
                         "lab" => Some(2),
                         "factory" => Some(3),
                         "feed" => Some(4),
+                        "pipeline" => Some(5),
                         _ => None,
                     } {
                         on_cd.emit(i);
@@ -1769,6 +1770,80 @@ fn router_meter() -> Html {
     }
 }
 
+#[derive(serde::Deserialize)]
+struct Commit {
+    sha: String,
+    msg: String,
+}
+#[derive(serde::Deserialize)]
+struct DeployInfo {
+    current: String,
+    updated: String,
+    commits: Vec<Commit>,
+}
+
+// factory pipeline stages: (label, x-center within the 644-wide viewBox)
+const PIPE_STAGES: [(&str, f64); 6] = [
+    ("task", 52.0),
+    ("brain", 160.0),
+    ("router", 268.0),
+    ("gate", 376.0),
+    ("wasm", 484.0),
+    ("pages", 592.0),
+];
+
+#[function_component(PipelineViz)]
+fn pipeline_viz() -> Html {
+    let (data, _err) = use_polled_json::<DeployInfo>("/deploy.json", Some(20_000));
+    use_anim_tick(66);
+    let t = js_sys::Date::now() / 1000.0;
+    let phase = (t / 5.5).fract();
+    // three build-jobs flowing down the line, staggered
+    let packets: Vec<f64> = (0..3)
+        .map(|k| 52.0 + 540.0 * (phase + k as f64 * 0.34).fract())
+        .collect();
+    let n = PIPE_STAGES.len();
+
+    let readout = match &*data {
+        Some(d) => {
+            let log = d.commits.iter().take(6).map(|c| {
+                html! { <li class="pipe-commit"><span class="pipe-sha">{ c.sha.clone() }</span>{ " " }{ c.msg.clone() }</li> }
+            });
+            html! { <>
+                <div class="pipe-latest">{ "\u{25B8} shipped: " }<span class="pipe-cur">{ d.current.clone() }</span></div>
+                <div class="pipe-updated">{ format!("factory clock \u{00B7} snapshot {}", d.updated) }</div>
+                <div class="pipe-loghead">{ "$ git log --oneline -6" }</div>
+                <ul class="pipe-log">{ for log }</ul>
+            </> }
+        }
+        None => html! { <div class="dj-loading">{ "connecting to the factory floor\u{2026}" }</div> },
+    };
+
+    html! {
+        <div class="pipe-wrap">
+            <div class="ascii-cmd">{ "$ watch factory | pipeline  \u{00B7}  task \u{2192} brain \u{2192} router \u{2192} gate \u{2192} wasm \u{2192} pages" }</div>
+            <svg class="pipe" viewBox="0 0 644 78" preserveAspectRatio="xMidYMid meet">
+                { for (0..n-1).map(|i| {
+                    let x1 = PIPE_STAGES[i].1 + 30.0;
+                    let x2 = PIPE_STAGES[i+1].1 - 30.0;
+                    html! { <line x1={kg_fmt(x1)} y1="40" x2={kg_fmt(x2)} y2="40" class="pipe-conn" /> }
+                }) }
+                { for PIPE_STAGES.iter().map(|&(label, cx)| {
+                    let active = packets.iter().any(|&x| (x - cx).abs() < 34.0);
+                    let cls = if active { "pipe-box active" } else { "pipe-box" };
+                    let lx = cx - (label.len() as f64) * 3.5;   // approx-center the monospace label
+                    html! { <>
+                        <rect x={kg_fmt(cx - 30.0)} y="26" width="60" height="28" rx="6" class={cls} />
+                        <text x={kg_fmt(lx)} y="44" class="pipe-label">{ label }</text>
+                    </> }
+                }) }
+                { for packets.iter().map(|&x| html! { <circle cx={kg_fmt(x)} cy="40" r="5" class="pipe-packet" /> }) }
+            </svg>
+            { readout }
+        </div>
+    }
+}
+
 /// Initial TTY console from the URL hash (#posts/#lab/#factory/#feed) — so shared links deep-link.
 fn initial_tab() -> usize {
     web_sys::window()
@@ -1778,6 +1853,7 @@ fn initial_tab() -> usize {
             "lab" => 2,
             "factory" => 3,
             "feed" => 4,
+            "pipeline" => 5,
             _ => 0,
         })
         .unwrap_or(0)
@@ -1854,6 +1930,10 @@ fn app() -> Html {
                     <RouterMeter />
                 </> },
                 4 => html! { <NewsFeed /> },
+                5 => html! { <>
+                    <div class="cmd">{ "$ systemctl status dark-factory.pipeline \u{00B7} live" }</div>
+                    <PipelineViz />
+                </> },
                 _ => html! { <>
                     <RustBadge />
                     <section class="about">
@@ -1905,7 +1985,7 @@ fn app() -> Html {
                     <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
                 </> },
             };
-            let items = [("~/", 0usize), ("~/posts", 1usize), ("~/lab", 2usize), ("~/factory", 3usize), ("~/feed", 4usize)];
+            let items = [("~/", 0usize), ("~/posts", 1usize), ("~/lab", 2usize), ("~/factory", 3usize), ("~/feed", 4usize), ("~/pipeline", 5usize)];
             html! {
                 <>
                 <nav class="tty-bar">

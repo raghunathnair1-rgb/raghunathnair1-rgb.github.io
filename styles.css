@@ -39,6 +39,23 @@
 @keyframes console-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .console { animation: none; } }
 
+/* --- pipeline console (watch the factory work) --- */
+.pipe-wrap { margin: .8rem 0 1.4rem; }
+.pipe { width: 100%; height: auto; max-height: 130px; display: block; margin: .3rem 0 .9rem; }
+.pipe-conn { stroke: rgba(126,255,176,.35); stroke-width: 2; stroke-dasharray: 5 4; animation: kg-flow .8s linear infinite; }
+.pipe-box { fill: #0c1211; stroke: #1c4030; stroke-width: 1.4; transition: fill .2s, stroke .2s, filter .2s; }
+.pipe-box.active { fill: rgba(126,255,176,.15); stroke: #7effb0; filter: drop-shadow(0 0 5px rgba(126,255,176,.7)); }
+.pipe-label { fill: #cfe8db; font: 12px ui-monospace, monospace; }
+.pipe-packet { fill: #b8ffdb; filter: drop-shadow(0 0 4px rgba(184,255,219,.95)); }
+.pipe-latest { color: var(--fg); margin-top: .4rem; }
+.pipe-cur { color: #7effb0; }
+.pipe-updated { color: var(--muted); font-size: .8rem; margin: .15rem 0 .7rem; }
+.pipe-loghead { color: var(--muted); font-size: .82rem; margin-bottom: .2rem; }
+.pipe-log { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
+.pipe-commit { padding: .1rem 0 .1rem .7rem; font-size: .84rem; color: var(--fg); }
+.pipe-sha { color: #22d3ee; }
+@media (prefers-reduced-motion: reduce) { .pipe-conn { animation: none; } }
+
 /* cinematic WebGL CRT shader overlay */
 #crtfx {
   position: fixed; inset: 0; width: 100vw; height: 100vh;
