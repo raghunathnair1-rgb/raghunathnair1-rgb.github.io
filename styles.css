@@ -240,7 +240,7 @@ main { margin-top: 2.5rem; }
 .kg-pulse { fill: #b8ffdb; opacity: .95; filter: drop-shadow(0 0 2px rgba(184, 255, 219, .8)); }
 .kg-surge { fill: #e8fff1; opacity: 1; filter: drop-shadow(0 0 3.5px rgba(184, 255, 219, 1)) drop-shadow(0 0 7px rgba(120, 255, 180, .55)); }
 .kg-path-edge { stroke: #b8ffdb; stroke-width: 2; filter: drop-shadow(0 0 3px rgba(184, 255, 219, .9)); animation: kg-flow .5s linear infinite; }
-.kg-root, .kg-concept, .kg-post, .kg-tool, .kg-feed { filter: drop-shadow(0 0 2px rgba(120, 255, 180, .6)) drop-shadow(0 0 5px rgba(120, 255, 180, .28)); }
+.kg-root, .kg-concept, .kg-post, .kg-tool, .kg-feed { filter: url(#kg-bloom); }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 

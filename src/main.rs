@@ -977,7 +977,7 @@ fn kg_build() -> Vec<GNode> {
         .collect()
 }
 
-fn kg_step(nodes: &mut [GNode], pinned: Option<usize>) {
+fn kg_step(nodes: &mut [GNode], pinned: Option<usize>, mouse: Option<(f64, f64)>) {
     let n = nodes.len();
     let mut fx = vec![0.0f64; n];
     let mut fy = vec![0.0f64; n];
@@ -1005,6 +1005,20 @@ fn kg_step(nodes: &mut [GNode], pinned: Option<usize>) {
         fy[a] += f * uy;
         fx[b] -= f * ux;
         fy[b] -= f * uy;
+    }
+    // cursor gravity: nodes near the mouse get pushed away (a force field you can shove nodes with)
+    if let Some((mx, my)) = mouse {
+        for i in 0..n {
+            let dx = nodes[i].x - mx;
+            let dy = nodes[i].y - my;
+            let d2 = (dx * dx + dy * dy).max(4.0);
+            if d2 < 4900.0 {
+                let d = d2.sqrt();
+                let f = 6000.0 / d2;
+                fx[i] += f * dx / d;
+                fy[i] += f * dy / d;
+            }
+        }
     }
     for i in 0..n {
         if Some(i) == pinned {
@@ -1151,6 +1165,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let sim = use_mut_ref(kg_build);
     let drag = use_mut_ref(|| None::<usize>);
     let moved = use_mut_ref(|| false);
+    let mouse = use_mut_ref(|| None::<(f64, f64)>);
     let tick = use_state(|| 0u64);
     let hovered = use_state(|| None::<usize>);
     let sel_node = use_state(|| None::<usize>);
@@ -1173,6 +1188,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
     {
         let sim = sim.clone();
         let drag = drag.clone();
+        let mouse = mouse.clone();
         let tick = tick.clone();
         use_effect_with((), move |_| {
             let iv = if reduced_motion() {
@@ -1180,9 +1196,10 @@ fn knowledge_graph(props: &KgProps) -> Html {
             } else {
                 Some(gloo_timers::callback::Interval::new(33, move || {
                     let pinned = *drag.borrow();
+                    let m = *mouse.borrow();
                     {
                         let mut b = sim.borrow_mut();
-                        kg_step(&mut b, pinned);
+                        kg_step(&mut b, pinned, m);
                     }
                     tick.set(0);
                 }))
@@ -1205,21 +1222,29 @@ fn knowledge_graph(props: &KgProps) -> Html {
         let sim = sim.clone();
         let drag = drag.clone();
         let moved = moved.clone();
+        let mouse = mouse.clone();
         let svg_ref = svg_ref.clone();
         Callback::from(move |e: web_sys::MouseEvent| {
+            let coord = svg_ref.cast::<web_sys::Element>().and_then(|el| {
+                let rect = el.get_bounding_client_rect();
+                if rect.width() > 0.0 && rect.height() > 0.0 {
+                    Some((
+                        (e.client_x() as f64 - rect.left()) / rect.width() * 360.0,
+                        (e.client_y() as f64 - rect.top()) / rect.height() * 280.0,
+                    ))
+                } else {
+                    None
+                }
+            });
+            *mouse.borrow_mut() = coord;
             if let Some(i) = *drag.borrow() {
                 *moved.borrow_mut() = true;
-                if let Some(el) = svg_ref.cast::<web_sys::Element>() {
-                    let rect = el.get_bounding_client_rect();
-                    if rect.width() > 0.0 && rect.height() > 0.0 {
-                        let sx = (e.client_x() as f64 - rect.left()) / rect.width() * 360.0;
-                        let sy = (e.client_y() as f64 - rect.top()) / rect.height() * 280.0;
-                        let mut b = sim.borrow_mut();
-                        b[i].x = sx.clamp(14.0, 346.0);
-                        b[i].y = sy.clamp(12.0, 268.0);
-                        b[i].vx = 0.0;
-                        b[i].vy = 0.0;
-                    }
+                if let Some((sx, sy)) = coord {
+                    let mut b = sim.borrow_mut();
+                    b[i].x = sx.clamp(14.0, 346.0);
+                    b[i].y = sy.clamp(12.0, 268.0);
+                    b[i].vx = 0.0;
+                    b[i].vy = 0.0;
                 }
             }
         })
@@ -1239,8 +1264,10 @@ fn knowledge_graph(props: &KgProps) -> Html {
     };
     let onleave = {
         let drag = drag.clone();
+        let mouse = mouse.clone();
         Callback::from(move |_: web_sys::MouseEvent| {
             *drag.borrow_mut() = None;
+            *mouse.borrow_mut() = None;
         })
     };
     let nodes = sim.borrow();
@@ -1255,6 +1282,15 @@ fn knowledge_graph(props: &KgProps) -> Html {
             <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click \u{00B7} try 'path a b'" }</div>
             <svg class="kg" ref={svg_ref.clone()} viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet"
                  onmousemove={onmove} onmouseup={onup} onmouseleave={onleave}>
+                <defs>
+                    <filter id="kg-bloom" x="-60%" y="-60%" width="220%" height="220%">
+                        <feGaussianBlur stdDeviation="1.6" result="glow" />
+                        <feMerge>
+                            <feMergeNode in="glow" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
                 { for KG_EDGES.iter().map(|&(a, b)| {
                     let (na, nb) = (&nodes[a], &nodes[b]);
                     let active = if pmode { kg_on_path(&path, a, b) } else { focus.map_or(true, |h| a == h || b == h) };
