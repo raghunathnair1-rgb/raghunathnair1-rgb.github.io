@@ -1841,14 +1841,14 @@ fn app() -> Html {
                     </ul>
                 </> },
                 2 => html! { <>
-                    <div class="cmd">{ "$ ls ~/lab  \u{00B7} generative toys (donut, orrery, cube, fire, warp, graph)" }</div>
+                    <div class="cmd">{ "$ ls ~/lab  \u{00B7} generative toys (donut, orrery, cube, fire, warp, moon)" }</div>
                     <BrainViz />
                     <Orrery />
                     <SpinningDonut />
                     <CubeWireframe />
                     <DoomFire />
                     <Starfield />
-                    <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
+                    <MoonPhase />
                 </> },
                 3 => html! { <>
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
@@ -1904,8 +1904,8 @@ fn app() -> Html {
                     </div>
                     <WeatherCard />
                     <AsciiClock />
-                    <MoonPhase />
                     <BrainCard />
+                    <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
                 </> },
             };
             let items = [("~/", 0usize), ("~/posts", 1usize), ("~/lab", 2usize), ("~/factory", 3usize), ("~/feed", 4usize)];
