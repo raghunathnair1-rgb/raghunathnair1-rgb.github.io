@@ -1,6 +1,50 @@
 use yew::prelude::*;
 use yew::TargetCast;
 
+/// Fetch (and optionally poll) a JSON endpoint into (data, err) state. Always cache-busts —
+/// GitHub Pages caches these files up to 10min — so no widget ever serves a stale snapshot.
+/// Returns the same (Option<T>, bool) shape the widgets already render, so call sites drop in
+/// without touching their view code.
+#[hook]
+fn use_polled_json<T>(url: &'static str, every_ms: Option<u32>) -> (UseStateHandle<Option<T>>, UseStateHandle<bool>)
+where
+    T: serde::de::DeserializeOwned + 'static,
+{
+    let data = use_state(|| None::<T>);
+    let err = use_state(|| false);
+    {
+        let data = data.clone();
+        let err = err.clone();
+        use_effect_with((), move |_| {
+            let go = move |data: UseStateHandle<Option<T>>, err: UseStateHandle<bool>| {
+                let sep = if url.contains('?') { "&" } else { "?" };
+                let u = format!("{}{}t={}", url, sep, js_sys::Date::now() as u64);
+                wasm_bindgen_futures::spawn_local(async move {
+                    match gloo_net::http::Request::get(&u).send().await {
+                        Ok(resp) => match resp.json::<T>().await {
+                            Ok(v) => {
+                                data.set(Some(v));
+                                err.set(false);
+                            }
+                            Err(_) => err.set(true),
+                        },
+                        Err(_) => err.set(true),
+                    }
+                });
+            };
+            go(data.clone(), err.clone());
+            let interval = every_ms.map(|ms| {
+                let go = go.clone();
+                let data = data.clone();
+                let err = err.clone();
+                gloo_timers::callback::Interval::new(ms, move || go(data.clone(), err.clone()))
+            });
+            move || drop(interval)
+        });
+    }
+    (data, err)
+}
+
 #[derive(Clone)]
 enum Line {
     Cmd(String),
@@ -458,25 +502,8 @@ struct BrainStatus {
 
 #[function_component(BrainCard)]
 fn brain_card() -> Html {
-    let st = use_state(|| None::<BrainStatus>);
-    let err = use_state(|| false);
+    let (st, err) = use_polled_json::<BrainStatus>("/status.json", None);
     let tick = use_state(|| 0u64);
-    {
-        let st = st.clone();
-        let err = err.clone();
-        use_effect_with((), move |_| {
-            wasm_bindgen_futures::spawn_local(async move {
-                match gloo_net::http::Request::get("/status.json").send().await {
-                    Ok(resp) => match resp.json::<BrainStatus>().await {
-                        Ok(b) => st.set(Some(b)),
-                        Err(_) => err.set(true),
-                    },
-                    Err(_) => err.set(true),
-                }
-            });
-            || ()
-        });
-    }
     {
         let tick = tick.clone();
         use_effect_with((), move |_| {
@@ -1512,26 +1539,8 @@ fn news_item(it: &NewsItem) -> Html {
 
 #[function_component(NewsFeed)]
 fn news_feed() -> Html {
-    let items = use_state(|| None::<Vec<NewsItem>>);
+    let (items, err) = use_polled_json::<Vec<NewsItem>>("/news.json", None);
     let page = use_state(|| 0usize);
-    let err = use_state(|| false);
-    {
-        let items = items.clone();
-        let err = err.clone();
-        use_effect_with((), move |_| {
-            wasm_bindgen_futures::spawn_local(async move {
-                let url = format!("/news.json?t={}", js_sys::Date::now() as u64);
-                match gloo_net::http::Request::get(&url).send().await {
-                    Ok(resp) => match resp.json::<Vec<NewsItem>>().await {
-                        Ok(v) => items.set(Some(v)),
-                        Err(_) => err.set(true),
-                    },
-                    Err(_) => err.set(true),
-                }
-            });
-            || ()
-        });
-    }
     let body = match (&*items, *err) {
         (None, true) => html! { <div class="news-loading">{ "ai-feed offline \u{2014} couldn't load news.json" }</div> },
         (None, false) => html! { <div class="news-loading">{ "fetching the AI feed\u{2026}" }</div> },
@@ -1594,24 +1603,7 @@ fn dream_line(l: &DreamLine) -> Html {
 
 #[function_component(DreamJournal)]
 fn dream_journal() -> Html {
-    let lines = use_state(|| None::<Vec<DreamLine>>);
-    let err = use_state(|| false);
-    {
-        let lines = lines.clone();
-        let err = err.clone();
-        use_effect_with((), move |_| {
-            wasm_bindgen_futures::spawn_local(async move {
-                match gloo_net::http::Request::get("/dmesg.json").send().await {
-                    Ok(resp) => match resp.json::<Vec<DreamLine>>().await {
-                        Ok(v) => lines.set(Some(v)),
-                        Err(_) => err.set(true),
-                    },
-                    Err(_) => err.set(true),
-                }
-            });
-            || ()
-        });
-    }
+    let (lines, err) = use_polled_json::<Vec<DreamLine>>("/dmesg.json", None);
     let body = match (&*lines, *err) {
         (None, true) => html! { <div class="dj-loading">{ "dream log offline \u{2014} dmesg.json unreachable" }</div> },
         (None, false) => html! { <div class="dj-loading">{ "reading the factory's dream log\u{2026}" }</div> },
@@ -1712,36 +1704,7 @@ const SPARK_POLL_MS: u32 = 30_000;
 
 #[function_component(SparkMonitor)]
 fn spark_monitor() -> Html {
-    let data = use_state(|| None::<SparkData>);
-    let err = use_state(|| false);
-    {
-        let data = data.clone();
-        let err = err.clone();
-        use_effect_with((), move |_| {
-            // poll every 30s with a cache-buster (GitHub Pages caches spark.json for 10min);
-            // keep the last frame on any error so the panel never blanks.
-            let poll = move || {
-                let data = data.clone();
-                let err = err.clone();
-                wasm_bindgen_futures::spawn_local(async move {
-                    let url = format!("/spark.json?t={}", js_sys::Date::now() as u64);
-                    match gloo_net::http::Request::get(&url).send().await {
-                        Ok(resp) => match resp.json::<SparkData>().await {
-                            Ok(v) => {
-                                data.set(Some(v));
-                                err.set(false);
-                            }
-                            Err(_) => err.set(true),
-                        },
-                        Err(_) => err.set(true),
-                    }
-                });
-            };
-            poll();
-            let interval = gloo_timers::callback::Interval::new(SPARK_POLL_MS, poll);
-            move || drop(interval)
-        });
-    }
+    let (data, err) = use_polled_json::<SparkData>("/spark.json", Some(SPARK_POLL_MS));
     let body = match (&*data, *err) {
         (None, true) => html! { <div class="dj-loading">{ "dgx-spark monitor offline \u{2014} spark.json unreachable" }</div> },
         (None, false) => html! { <div class="dj-loading">{ "polling dgx-spark\u{2026}" }</div> },
@@ -1792,25 +1755,7 @@ fn router_text(s: &RouterStats) -> String {
 
 #[function_component(RouterMeter)]
 fn router_meter() -> Html {
-    let data = use_state(|| None::<RouterStats>);
-    let err = use_state(|| false);
-    {
-        let data = data.clone();
-        let err = err.clone();
-        use_effect_with((), move |_| {
-            wasm_bindgen_futures::spawn_local(async move {
-                let url = format!("/router.json?t={}", js_sys::Date::now() as u64);
-                match gloo_net::http::Request::get(&url).send().await {
-                    Ok(resp) => match resp.json::<RouterStats>().await {
-                        Ok(v) => data.set(Some(v)),
-                        Err(_) => err.set(true),
-                    },
-                    Err(_) => err.set(true),
-                }
-            });
-            || ()
-        });
-    }
+    let (data, err) = use_polled_json::<RouterStats>("/router.json", None);
     let body = match (&*data, *err) {
         (None, true) => html! { <div class="dj-loading">{ "router meter offline \u{2014} router.json unreachable" }</div> },
         (None, false) => html! { <div class="dj-loading">{ "reading brain.log\u{2026}" }</div> },
