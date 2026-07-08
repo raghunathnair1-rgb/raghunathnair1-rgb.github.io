@@ -18,6 +18,10 @@ printf '{"healthy": %s, "service": "harness-brain.service", "started_epoch": %s,
   "$([ "$bstate" = active ] && echo true || echo false)" "${bepoch:-0}" "${bpid:-0}" "$(date +%s)" > status.json
 echo "🧠 brain snapshot: $bstate (pid ${bpid:-0})"
 
+# --- factory status-light signal (green = brain healthy, red = down) — polled by a physical device ---
+printf '{"color":"%s","brain":"%s","updated_epoch":%s}\n' \
+  "$([ "$bstate" = active ] && echo green || echo red)" "$bstate" "$(date +%s)" > light.json
+
 # --- snapshot the DGX Spark GPU telemetry (fail-open; never blocks a deploy) ---
 timeout 25 python3 /home/raghu/harness/spark_stats.py 2>/dev/null || echo "⚡ spark snapshot skipped (unreachable)"
 # --- aggregate the router's brain.log (on-device vs cloud split) for the cost-meter widget ---
@@ -40,7 +44,7 @@ fi
 if command -v claude >/dev/null 2>&1; then
   echo "🔍 fable security review…"
   # exclude telemetry data files: a telemetry-only refresh has an empty diff here -> AI review skipped (no model cost)
-  DIFF=$(git --no-pager diff HEAD -- . ':(exclude)status.json' ':(exclude)spark.json' ':(exclude)router.json' 2>/dev/null | head -c 10000 || true)
+  DIFF=$(git --no-pager diff HEAD -- . ':(exclude)status.json' ':(exclude)spark.json' ':(exclude)router.json' ':(exclude)light.json' 2>/dev/null | head -c 10000 || true)
   if [ -n "$DIFF" ]; then
     RES=$(timeout 90 claude -p "You are a STRICT application-security reviewer for a PUBLIC Rust/WASM blog on GitHub Pages. Review ONLY the git diff below for REAL, exploitable problems: hardcoded secrets/tokens/keys, XSS or HTML/JS injection, unsafe raw-HTML built from untrusted input, dangerous eval/fetch, data exfiltration, or supply-chain risk. Ignore style, naming and non-security nits. Reply with ONE line of JSON and nothing else: {\"verdict\":\"pass\"|\"fail\",\"severity\":\"none|low|medium|high\",\"reason\":\"short\"}. Set verdict=fail ONLY for a medium or high severity real security problem.
 
