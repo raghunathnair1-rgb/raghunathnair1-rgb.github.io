@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://raghunathnair1-rgb.github.io/sitemap.xml

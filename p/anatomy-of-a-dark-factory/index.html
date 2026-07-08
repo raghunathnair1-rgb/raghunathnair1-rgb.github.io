@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anatomy of a dark factory — the dark factory</title>
+<meta name="description" content="A &#x27;dark factory&#x27; runs lights-out — no humans on the floor. Mine is a Claude harness brain on a VPS with a task queue (backlog → current → done), a…">
+<link rel="canonical" href="https://raghunathnair1-rgb.github.io/p/anatomy-of-a-dark-factory/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="the dark factory">
+<meta property="og:title" content="Anatomy of a dark factory — the dark factory">
+<meta property="og:description" content="A &#x27;dark factory&#x27; runs lights-out — no humans on the floor. Mine is a Claude harness brain on a VPS with a task queue (backlog → current → done), a…">
+<meta property="og:url" content="https://raghunathnair1-rgb.github.io/p/anatomy-of-a-dark-factory/">
+<meta property="og:image" content="https://raghunathnair1-rgb.github.io/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raghunathnair1-rgb.github.io/assets/og.png">
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#090d0c;color:#cfe8db;font:16px/1.7 ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace}
+a{color:#7effb0;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:2.4rem 1.2rem 4rem}
+header{border-bottom:1px solid #1c3029;padding-bottom:.8rem;margin-bottom:2rem;font-size:.9rem}
+header .muted{color:#6d8a7e}
+h1{color:#eafff3;font-size:1.7rem;line-height:1.3;margin:.2rem 0 .4rem}
+h2{color:#eafff3;font-size:1.15rem;margin:2rem 0 .3rem}
+.meta{color:#6d8a7e;font-size:.82rem;margin-bottom:1.4rem}
+.tag{color:#22d3ee}
+article p{margin:0 0 1.1rem}
+.card{border:1px solid #1c3029;border-radius:8px;padding:1rem 1.1rem;margin:0 0 1rem;background:#0c1211}
+.card h2{margin:.1rem 0 .3rem;font-size:1.05rem}
+.card .src{font-size:.8rem;color:#6d8a7e}
+.cta{display:inline-block;margin:1.6rem 0;padding:.55rem .9rem;border:1px solid #7effb0;border-radius:6px;color:#7effb0}
+footer{border-top:1px solid #1c3029;margin-top:2.4rem;padding-top:1rem;color:#6d8a7e;font-size:.82rem}
+.prompt::before{content:"$ ";color:#4ebe82}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Anatomy of a dark factory", "datePublished": "2026-07-06", "author": {"@type": "Person", "name": "Raghu"}, "url": "https://raghunathnair1-rgb.github.io/p/anatomy-of-a-dark-factory/", "description": "A 'dark factory' runs lights-out \u2014 no humans on the floor. Mine is a Claude harness brain on a VPS with a task queue (backlog \u2192 current \u2192 done), a\u2026"}</script>
+</head>
+<body><div class="wrap">
+<header><a href="https://raghunathnair1-rgb.github.io/">raghu@dark-factory</a> <span class="muted">:~/p/anatomy-of-a-dark-factory $ cat</span></header>
+<article><h1>Anatomy of a dark factory</h1><div class="meta">2026-07-06 · <span class="tag">#systems</span></div><p>A &#x27;dark factory&#x27; runs lights-out — no humans on the floor. Mine is a Claude harness brain on a VPS with a task queue (backlog → current → done), a security gate that scans for secrets and runs a language-agnostic SAST, a QA gate that runs tests and checks an ontology for consistency, plus a kill switch and a circuit breaker. You drop a task; the brain works in small verifiable steps; the gates block anything unsafe or broken; only then does it ship. This post went through all of it before you could read it.</p><a class="cta" href="https://raghunathnair1-rgb.github.io/#posts">Read it in the live terminal &rarr;</a></article>
+<footer>Shipped by an autonomous AI 'dark factory'. <a href="https://raghunathnair1-rgb.github.io/">Open the live terminal blog &rarr;</a></footer>
+</div></body>
+</html>

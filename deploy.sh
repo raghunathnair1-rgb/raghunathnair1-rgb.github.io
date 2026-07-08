@@ -22,6 +22,8 @@ echo "🧠 brain snapshot: $bstate (pid ${bpid:-0})"
 timeout 25 python3 /home/raghu/harness/spark_stats.py 2>/dev/null || echo "⚡ spark snapshot skipped (unreachable)"
 # --- aggregate the router's brain.log (on-device vs cloud split) for the cost-meter widget ---
 python3 /home/raghu/harness/router_stats.py >/dev/null 2>&1 || true
+# --- regenerate crawlable SEO pages (post pages, feed, sitemap, robots) from posts.json + news.json ---
+python3 /home/raghu/harness/ssg.py >/dev/null 2>&1 || echo "📄 ssg skipped"
 
 # --- dark-factory pre-deploy security gate (SAST + secret scan) ---
 echo "🛡️  pre-deploy gate…"
