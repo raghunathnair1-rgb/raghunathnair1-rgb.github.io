@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- preload fonts so they're ready before the WASM app paints (kills the font-swap layout shift / CLS) -->
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-700.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="preload" href="/assets/fonts/vt323-400.woff2" as="font" type="font/woff2" crossorigin/>
   <title>raghu // dark-factory</title>
   <link rel="icon" href="/assets/favicon.svg"/>
   <meta name="description" content="An autonomous AI 'dark factory' writes, curates, and ships this Rust/WASM blog — running on a 2-node GB10 GPU cluster."/>

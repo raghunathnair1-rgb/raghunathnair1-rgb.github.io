@@ -450,7 +450,7 @@ a { color: var(--cyan); }
 .t-bar .d.y { background: #ffbd2e; }
 .t-bar .d.g { background: #27c93f; }
 .t-name { color: var(--muted); font-size: .74rem; margin-left: .35rem; }
-.t-body { max-height: 260px; overflow-y: auto; }
+.t-body { min-height: 92px; max-height: 260px; overflow-y: auto; }
 .t-line { white-space: pre-wrap; word-break: break-word; }
 .t-out { margin: .1rem 0 .55rem; white-space: pre-wrap; color: var(--fg); font: inherit; }
 .t-prompt { color: var(--green); }
