@@ -1966,6 +1966,126 @@ fn pipeline_viz() -> Html {
     }
 }
 
+// --- sunrise/sunset arc (visitor-local, from wttr.in astronomy) ---
+#[derive(serde::Deserialize)]
+struct Astro {
+    sunrise: String,
+    sunset: String,
+}
+#[derive(serde::Deserialize)]
+struct WDay {
+    astronomy: Vec<Astro>,
+}
+#[derive(serde::Deserialize)]
+struct WttrSun {
+    weather: Vec<WDay>,
+}
+
+/// "06:14 AM" -> minutes since local midnight.
+fn parse_clock(s: &str) -> Option<i32> {
+    let s = s.trim();
+    let (hm, ap) = s.split_once(' ')?;
+    let (h, m) = hm.split_once(':')?;
+    let mut h: i32 = h.trim().parse().ok()?;
+    let m: i32 = m.trim().parse().ok()?;
+    let ap = ap.to_ascii_uppercase();
+    if ap.starts_with("PM") && h != 12 { h += 12; }
+    if ap.starts_with("AM") && h == 12 { h = 0; }
+    Some(h * 60 + m)
+}
+
+/// ASCII day-arc; the sun 'O' sits at `frac` (0=sunrise .. 1=sunset), or hidden at night (None).
+fn sun_arc(frac: Option<f64>) -> String {
+    const W: usize = 23;
+    const H: usize = 6;
+    let arc: Vec<usize> = (0..W)
+        .map(|x| {
+            let s = (std::f64::consts::PI * x as f64 / (W - 1) as f64).sin();
+            ((H - 1) as f64 * (1.0 - s)).round() as usize
+        })
+        .collect();
+    let sun_x = frac.map(|f| (f.clamp(0.0, 1.0) * (W - 1) as f64).round() as usize);
+    let mut out = String::new();
+    for row in 0..H {
+        for x in 0..W {
+            if sun_x == Some(x) && arc[x] == row {
+                out.push('O');
+            } else if arc[x] == row && x % 2 == 0 {
+                out.push('.');
+            } else {
+                out.push(' ');
+            }
+        }
+        out.push('\n');
+    }
+    for _ in 0..W {
+        out.push('\u{2500}');
+    }
+    out
+}
+
+#[function_component(SunArc)]
+fn sun_arc_widget() -> Html {
+    let (wttr, err) = use_polled_json::<WttrSun>("https://wttr.in/?format=j1", None);
+    let tick = use_state(|| 0u64);
+    {
+        let tick = tick.clone();
+        use_effect_with((), move |_| {
+            let iv = gloo_timers::callback::Interval::new(60_000, move || tick.set(0));
+            move || drop(iv)
+        });
+    }
+    let now = js_sys::Date::new_0();
+    let now_min = now.get_hours() as i32 * 60 + now.get_minutes() as i32;
+    let astro = wttr.as_ref().and_then(|w| w.weather.first()).and_then(|d| d.astronomy.first());
+    let body = match (astro, *err) {
+        (Some(a), _) => match (parse_clock(&a.sunrise), parse_clock(&a.sunset)) {
+            (Some(sr), Some(ss)) if ss > sr => {
+                let daytime = now_min >= sr && now_min <= ss;
+                let frac = if daytime { Some((now_min - sr) as f64 / (ss - sr) as f64) } else { None };
+                let (pname, pcls) = if now_min < sr - 45 || now_min > ss + 45 {
+                    ("night", "ascii-face sun-face sun-night")
+                } else if now_min <= sr + 45 {
+                    ("dawn", "ascii-face sun-face sun-dawn")
+                } else if now_min >= ss - 45 {
+                    ("dusk", "ascii-face sun-face sun-dusk")
+                } else {
+                    ("daytime", "ascii-face sun-face sun-day")
+                };
+                let (clabel, cmin) = if now_min < sr {
+                    ("to sunrise", sr - now_min)
+                } else if now_min <= ss {
+                    ("to sunset", ss - now_min)
+                } else {
+                    ("to sunrise", 1440 - now_min + sr)
+                };
+                let pct = ((now_min - sr).max(0).min(ss - sr)) * 100 / (ss - sr);
+                let line2 = if daytime {
+                    format!("{} \u{00B7} {}% through \u{00B7} {}h{:02}m to sunset", pname, pct, (ss - now_min) / 60, (ss - now_min) % 60)
+                } else {
+                    format!("{} \u{00B7} {}h{:02}m {}", pname, cmin / 60, cmin % 60, clabel)
+                };
+                html! { <>
+                    <pre class={pcls}>{ sun_arc(frac) }</pre>
+                    <div class="sun-info">
+                        <div>{ format!("\u{2191} {}   \u{2193} {}", a.sunrise.trim(), a.sunset.trim()) }</div>
+                        <div>{ line2 }</div>
+                    </div>
+                </> }
+            }
+            _ => html! { <div class="sun-info">{ "sun times unavailable" }</div> },
+        },
+        (None, true) => html! { <div class="sun-info">{ "sun offline: wttr.in unreachable" }</div> },
+        (None, false) => html! { <div class="sun-info">{ "locating the sun\u{2026}" }</div> },
+    };
+    html! {
+        <div class="ascii-art sun-wrap">
+            <div class="ascii-cmd">{ "$ sun --arc  \u{00B7} your local sky, right now" }</div>
+            { body }
+        </div>
+    }
+}
+
 /// Initial TTY console from the URL hash (#posts/#lab/#factory/#feed) — so shared links deep-link.
 fn initial_tab() -> usize {
     web_sys::window()
@@ -2104,6 +2224,7 @@ fn app() -> Html {
                         <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
                     </div>
                     <WeatherCard />
+                    <SunArc />
                     <AsciiClock />
                     <BrainCard />
                     <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />

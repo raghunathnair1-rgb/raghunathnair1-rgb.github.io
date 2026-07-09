@@ -316,6 +316,14 @@ main { margin-top: 2.5rem; }
 .nf-chip.active { color: var(--cyan); border-color: var(--cyan); box-shadow: var(--glow); }
 .nf-rss { display: inline-block; margin-top: 1rem; color: var(--muted); font-size: .78rem; }
 .nf-rss:hover { color: #ff9d5c; }
+/* sunrise/sunset arc */
+.sun-wrap { margin: 1rem 0 1.6rem; }
+.sun-face { line-height: 1.02; font-size: .82rem; letter-spacing: .12em; margin: 0; }
+.sun-face.sun-day { color: #ffd86b; text-shadow: 0 0 8px rgba(255,216,107,.45); }
+.sun-face.sun-dawn { color: #ffb057; text-shadow: 0 0 8px rgba(255,176,87,.45); }
+.sun-face.sun-dusk { color: #ff7a59; text-shadow: 0 0 8px rgba(255,122,89,.45); }
+.sun-face.sun-night { color: #6d8fb8; text-shadow: 0 0 7px rgba(109,143,184,.4); }
+.sun-info { color: var(--muted); font-size: .82rem; margin-top: .45rem; line-height: 1.55; }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 
