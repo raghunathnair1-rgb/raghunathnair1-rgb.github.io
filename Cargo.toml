@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2021"
 description = "Personal blog in Rust/WASM, shipped by an AI harness brain."
 
+[workspace]
+members = ["logic"]
+resolver = "2"
+
 [dependencies]
 yew = { version = "0.21", features = ["csr"] }
 gloo-utils = "0.2"
@@ -14,6 +18,7 @@ serde = { version = "1", features = ["derive"] }
 js-sys = "0.3"
 gloo-timers = "0.3"
 gloo-render = "0.2"
+blog-logic = { path = "logic" }
 
 [profile.release]
 opt-level = "z"

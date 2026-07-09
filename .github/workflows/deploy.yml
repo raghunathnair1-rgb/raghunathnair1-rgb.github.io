@@ -20,7 +20,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  coverage:
+    name: 100% coverage gate (blog-logic)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: llvm-tools-preview
+      - uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@cargo-llvm-cov
+      # Gate ONLY the pure-logic crate at 100% lines. It has no web deps, so it builds and
+      # tests on the native host (no wasm target / browser needed). A drop below 100% fails
+      # this job, which blocks `build` (needs: coverage) and therefore the deploy.
+      - name: cargo llvm-cov — fail under 100% lines
+        run: cargo llvm-cov -p blog-logic --lib --fail-under-lines 100 --summary-only
+
   build:
+    needs: coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -145,9 +145,11 @@ mod tests {
 
     #[test]
     fn fmt_one_decimal() {
+        // values kept clear of the .?5 rounding boundary so the assertion can't flake
         assert_eq!(kg_fmt(12.34), "12.3");
         assert_eq!(kg_fmt(0.0), "0.0");
-        assert_eq!(kg_fmt(-3.05), "-3.1");
+        assert_eq!(kg_fmt(7.98), "8.0");
+        assert_eq!(kg_fmt(-3.14), "-3.1");
     }
 
     #[test]

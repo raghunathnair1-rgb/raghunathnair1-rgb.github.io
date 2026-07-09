@@ -1,5 +1,7 @@
 use yew::prelude::*;
 use yew::TargetCast;
+// pure logic lives in the coverage-gated blog-logic crate (tested code == shipped code)
+use blog_logic::{evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r, moon_illum, moon_name, moon_phase_frac};
 
 /// Fetch (and optionally poll) a JSON endpoint into (data, err) state. Always cache-busts —
 /// GitHub Pages caches these files up to 10min — so no widget ever serves a stale snapshot.
@@ -666,30 +668,7 @@ fn doom_fire() -> Html {
 }
 
 // --- moon phase (computed from the current date) ---
-fn moon_phase_frac(now_ms: f64) -> f64 {
-    let synodic = 29.530_588_853 * 86_400_000.0;
-    let diff = now_ms - 947_182_440_000.0; // 2000-01-06 18:14 UTC — a known new moon
-    let mut p = (diff / synodic).fract();
-    if p < 0.0 {
-        p += 1.0;
-    }
-    p
-}
-fn moon_name(p: f64) -> &'static str {
-    match ((p * 8.0).round() as i64).rem_euclid(8) {
-        0 => "New Moon",
-        1 => "Waxing Crescent",
-        2 => "First Quarter",
-        3 => "Waxing Gibbous",
-        4 => "Full Moon",
-        5 => "Waning Gibbous",
-        6 => "Last Quarter",
-        _ => "Waning Crescent",
-    }
-}
-fn moon_illum(p: f64) -> u32 {
-    ((1.0 - (2.0 * std::f64::consts::PI * p).cos()) / 2.0 * 100.0).round() as u32
-}
+// moon_phase_frac / moon_name / moon_illum live in blog-logic (pure, 100% coverage-gated)
 fn moon_art(p: f64) -> String {
     let c = (2.0 * std::f64::consts::PI * p).cos();
     let waxing = p <= 0.5;
@@ -1049,29 +1028,7 @@ const DOMAIN_ANCHORS: [(f64, f64); 6] = [
     (180.0, 236.0), // 5 writing (bottom)
 ];
 
-fn kg_domain(i: usize) -> usize {
-    match i {
-        0 | 4 => 0,                     // dark-factory, automation
-        3 | 5 | 16 | 17 | 22 | 24 => 1, // llms, brain, dgx-spark, vllm, router, self-improve
-        8 | 13 | 14 | 15 | 23 => 2,     // security, trunk, gh-pages, opengrep, pipeline
-        1 | 2 | 12 | 18 | 19 | 20 => 3, // rust, wasm, yew, matrix, terminal, orrery
-        21 | 25 | 26 => 4,              // ai-feed, seo, linkedin
-        6 | 7 | 9 | 10 | 11 => 5,       // coffee, maine-coon, posts
-        _ => 0,
-    }
-}
-
-fn kg_dom_cls(d: usize) -> &'static str {
-    match d {
-        1 => "kg-d1",
-        2 => "kg-d2",
-        3 => "kg-d3",
-        4 => "kg-d4",
-        5 => "kg-d5",
-        _ => "kg-d0",
-    }
-}
-
+// kg_domain / kg_dom_cls live in blog-logic (pure, 100% coverage-gated)
 fn kg_build() -> Vec<GNode> {
     let n = KG_NODES.len();
     (0..n)
@@ -1147,26 +1104,7 @@ fn kg_step(nodes: &mut [GNode], pinned: Option<usize>, mouse: Option<(f64, f64)>
 fn kg_neighbor(h: usize, i: usize) -> bool {
     KG_EDGES.iter().any(|&(a, b)| (a == h && b == i) || (b == h && a == i))
 }
-fn kg_r(kind: u8) -> f64 {
-    match kind {
-        0 => 8.0,
-        3 => 4.5,
-        4 => 7.0,
-        _ => 6.0,
-    }
-}
-fn kg_cls(kind: u8) -> &'static str {
-    match kind {
-        0 => "kg-root",
-        2 => "kg-post",
-        3 => "kg-tool",
-        4 => "kg-feed",
-        _ => "kg-concept",
-    }
-}
-fn kg_fmt(v: f64) -> String {
-    format!("{:.1}", v)
-}
+// kg_r / kg_cls / kg_fmt live in blog-logic (pure, 100% coverage-gated)
 fn kg_degree(i: usize) -> usize {
     KG_EDGES.iter().filter(|&&(a, b)| a == i || b == i).count()
 }
@@ -2009,15 +1947,7 @@ struct Activity {
     events: Vec<LogEvent>,
 }
 
-fn evt_cls(kind: &str) -> &'static str {
-    match kind {
-        "router" => "pipe-k pipe-k-router",
-        "autopost" => "pipe-k pipe-k-post",
-        "self-improve" => "pipe-k pipe-k-improve",
-        "deploy" => "pipe-k pipe-k-deploy",
-        _ => "pipe-k",
-    }
-}
+// evt_cls lives in blog-logic (pure, 100% coverage-gated)
 
 // factory pipeline stages: (label, x-center within the 644-wide viewBox)
 const PIPE_STAGES: [(&str, f64); 6] = [
