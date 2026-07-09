@@ -2381,6 +2381,76 @@ fn idea_backlog() -> Html {
     }
 }
 
+// --- interactive blog-logic playground: the site running its own 100%-tested Rust, live ---
+#[function_component(LogicPlayground)]
+fn logic_playground() -> Html {
+    let moon_p = use_state(|| 0.5_f64);
+    let sr = use_state(|| 330_i32);
+    let ss = use_state(|| 1321_i32);
+
+    let on_moon = {
+        let m = moon_p.clone();
+        Callback::from(move |e: web_sys::InputEvent| {
+            let el: web_sys::HtmlInputElement = e.target_unchecked_into();
+            if let Ok(v) = el.value().parse::<f64>() {
+                m.set((v / 1000.0).clamp(0.0, 1.0));
+            }
+        })
+    };
+    let on_sr = {
+        let s = sr.clone();
+        Callback::from(move |e: web_sys::InputEvent| {
+            let el: web_sys::HtmlInputElement = e.target_unchecked_into();
+            if let Ok(v) = el.value().parse::<i32>() {
+                s.set(v);
+            }
+        })
+    };
+    let on_ss = {
+        let s = ss.clone();
+        Callback::from(move |e: web_sys::InputEvent| {
+            let el: web_sys::HtmlInputElement = e.target_unchecked_into();
+            if let Ok(v) = el.value().parse::<i32>() {
+                s.set(v);
+            }
+        })
+    };
+
+    let p = *moon_p;
+    let (srv, ssv) = (*sr, *ss);
+    let clk = |m: i32| format!("{:02}:{:02}", m / 60, m % 60);
+
+    html! {
+        <div class="ascii-art play">
+            <div class="ascii-cmd">{ "$ ./blog-logic --interactive \u{00B7} drag a slider \u{2014} every result is the site's own 100%-tested Rust, run live in your browser" }</div>
+            <div class="play-row">
+                <label class="play-lbl">{ "\u{1F319} moon phase" }</label>
+                <input type="range" min="0" max="1000" value={((p * 1000.0) as i32).to_string()} oninput={on_moon} class="play-slider" />
+                <span class="play-val">{ format!("p = {:.2}", p) }</span>
+            </div>
+            <pre class="ascii-face moon-face play-moon">{ moon_art(p) }</pre>
+            <div class="play-out">
+                <code>{ "moon_name(p)" }</code>{ " \u{2192} " }<b>{ moon_name(p) }</b>
+                { "   \u{00B7}   " }
+                <code>{ "moon_illum(p)" }</code>{ " \u{2192} " }<b>{ format!("{}%", moon_illum(p)) }</b>
+            </div>
+            <div class="play-row">
+                <label class="play-lbl">{ "\u{2600} sunrise" }</label>
+                <input type="range" min="0" max="720" value={srv.to_string()} oninput={on_sr} class="play-slider" />
+                <span class="play-val">{ clk(srv) }</span>
+            </div>
+            <div class="play-row">
+                <label class="play-lbl">{ "\u{1F311} sunset" }</label>
+                <input type="range" min="720" max="1439" value={ssv.to_string()} oninput={on_ss} class="play-slider" />
+                <span class="play-val">{ clk(ssv) }</span>
+            </div>
+            <div class="play-out">
+                <code>{ "day_length_hm(sunrise, sunset)" }</code>{ " \u{2192} " }<b>{ day_length_hm(srv, ssv) }</b>
+            </div>
+        </div>
+    }
+}
+
 #[function_component(SiteFooter)]
 fn site_footer() -> Html {
     // uptime since first ship (2026-07-06 UTC); auto-increments, no server needed
@@ -2470,6 +2540,7 @@ fn app() -> Html {
                 </> },
                 2 => html! { <>
                     <div class="cmd">{ "$ ls ~/lab  \u{00B7} generative toys \u{00B7} every frame computed live" }</div>
+                    <div class="lab-item"><LogicPlayground /><div class="lab-cap">{ "\u{1F52C} the site running its OWN 100%-tested Rust: drag to recompute moon phase + daylight live" }</div></div>
                     <div class="lab-item"><BrainViz /><div class="lab-cap">{ "neural activity: nodes pulsing on a shifting sine field" }</div></div>
                     <div class="lab-item"><Orrery /><div class="lab-cap">{ "orrery: planets tracing parametric orbits in ASCII" }</div></div>
                     <div class="lab-item"><SpinningDonut /><div class="lab-cap">{ "the spinning donut: a torus lit by a rotating depth buffer" }</div></div>

@@ -443,6 +443,16 @@ a, .log li, .news-item, .news-title, .news-src, .pipe-commit, .kg-node, .kg-edge
 .idea-why { color: var(--muted); font-size: .8rem; margin: .28rem 0 .22rem; line-height: 1.45; }
 .idea-metrics { display: flex; flex-wrap: wrap; gap: .4rem; font-size: .68rem; color: var(--muted); }
 .idea-metrics span { border: 1px solid var(--line); border-radius: 4px; padding: 0 .35rem; }
+
+/* --- ~/lab blog-logic playground --- */
+.play-row { display: flex; align-items: center; gap: .6rem; margin: .45rem 0; flex-wrap: wrap; }
+.play-lbl { min-width: 6.5rem; color: var(--fg); font-size: .85rem; }
+.play-slider { flex: 1; min-width: 8rem; accent-color: var(--green); cursor: ew-resize; }
+.play-val { color: var(--cyan); font-size: .82rem; min-width: 4.8rem; }
+.play-moon { text-align: center; margin: .35rem 0; color: #ffe36b; }
+.play-out { margin: .55rem 0; font-size: .88rem; color: var(--muted); }
+.play-out code { color: var(--cyan); }
+.play-out b { color: var(--green); font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 
