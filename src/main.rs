@@ -1380,6 +1380,56 @@ fn knowledge_graph(props: &KgProps) -> Html {
             *mouse.borrow_mut() = None;
         })
     };
+    // --- touch equivalents so the graph is fully interactive on mobile ---
+    let ontouchmove = {
+        let sim = sim.clone();
+        let drag = drag.clone();
+        let moved = moved.clone();
+        let mouse = mouse.clone();
+        let svg_ref = svg_ref.clone();
+        Callback::from(move |e: web_sys::TouchEvent| {
+            let coord = e.touches().get(0).and_then(|t| {
+                svg_ref.cast::<web_sys::Element>().and_then(|el| {
+                    let rect = el.get_bounding_client_rect();
+                    if rect.width() > 0.0 && rect.height() > 0.0 {
+                        Some((
+                            (t.client_x() as f64 - rect.left()) / rect.width() * 360.0,
+                            (t.client_y() as f64 - rect.top()) / rect.height() * 280.0,
+                        ))
+                    } else {
+                        None
+                    }
+                })
+            });
+            *mouse.borrow_mut() = coord;
+            if let Some(i) = *drag.borrow() {
+                e.prevent_default();
+                *moved.borrow_mut() = true;
+                if let Some((sx, sy)) = coord {
+                    let mut b = sim.borrow_mut();
+                    b[i].x = sx.clamp(14.0, 346.0);
+                    b[i].y = sy.clamp(12.0, 268.0);
+                    b[i].vx = 0.0;
+                    b[i].vy = 0.0;
+                }
+            }
+        })
+    };
+    let ontouchend = {
+        let drag = drag.clone();
+        let moved = moved.clone();
+        let sel_node = sel_node.clone();
+        let mouse = mouse.clone();
+        Callback::from(move |_: web_sys::TouchEvent| {
+            if let Some(i) = *drag.borrow() {
+                if !*moved.borrow() {
+                    sel_node.set(Some(i));
+                }
+            }
+            *drag.borrow_mut() = None;
+            *mouse.borrow_mut() = None;
+        })
+    };
     let nodes = sim.borrow();
     let hv = *hovered;
     let sn = *sel_node;
@@ -1392,7 +1442,8 @@ fn knowledge_graph(props: &KgProps) -> Html {
             <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click \u{00B7} try 'path a b'" }</div>
             { if (*tour).is_none() { let t = tour.clone(); let start = Callback::from(move |_: web_sys::MouseEvent| t.set(Some(0))); html! { <button class="kg-tour-btn" onclick={start}>{ "\u{25B6} guided tour" }</button> } } else { html! {} } }
             <svg class="kg" ref={svg_ref.clone()} viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet"
-                 onmousemove={onmove} onmouseup={onup} onmouseleave={onleave}>
+                 onmousemove={onmove} onmouseup={onup} onmouseleave={onleave}
+                 ontouchmove={ontouchmove} ontouchend={ontouchend}>
                 <defs>
                     <filter id="kg-bloom" x="-60%" y="-60%" width="220%" height="220%">
                         <feGaussianBlur stdDeviation="1.6" result="glow" />
@@ -1460,7 +1511,8 @@ fn knowledge_graph(props: &KgProps) -> Html {
                         <g class={cls}
                            onmouseover={ let h = hovered.clone(); Callback::from(move |_| h.set(Some(i))) }
                            onmouseout={ let h = hovered.clone(); Callback::from(move |_| h.set(None)) }
-                           onmousedown={ let d = drag.clone(); let m = moved.clone(); Callback::from(move |e: web_sys::MouseEvent| { e.prevent_default(); *d.borrow_mut() = Some(i); *m.borrow_mut() = false; }) }>
+                           onmousedown={ let d = drag.clone(); let m = moved.clone(); Callback::from(move |e: web_sys::MouseEvent| { e.prevent_default(); *d.borrow_mut() = Some(i); *m.borrow_mut() = false; }) }
+                           ontouchstart={ let d = drag.clone(); let m = moved.clone(); Callback::from(move |e: web_sys::TouchEvent| { e.prevent_default(); *d.borrow_mut() = Some(i); *m.borrow_mut() = false; }) }>
                             { if ringed { html! { <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r + 3.0)} class="kg-ring" /> } } else { html! {} } }
                             <circle cx={kg_fmt(nd.x)} cy={kg_fmt(nd.y)} r={kg_fmt(r)} class={kg_dom_cls(kg_domain(i))} />
                             <text x={kg_fmt(nd.x + r + 2.0)} y={kg_fmt(nd.y + 2.5)}>{ label }</text>
