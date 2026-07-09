@@ -2051,6 +2051,11 @@ struct IdeaData {
 #[function_component(IdeaBacklog)]
 fn idea_backlog() -> Html {
     let (data, err) = use_polled_json::<IdeaData>("/ideas.json", Some(300_000));
+    // Hide the whole panel until the idea engine has proposed something (empty/reset = nothing).
+    // It reappears on its own when a scheduled 04:07 run writes a fresh backlog to ideas.json.
+    if !matches!(&*data, Some(d) if !d.ideas.is_empty()) {
+        return html! {};
+    }
     let body = match (&*data, *err) {
         (None, true) => html! { <div class="dj-loading">{ "backlog unavailable \u{2014} ideas.json unreachable" }</div> },
         (None, false) => html! { <div class="dj-loading">{ "the factory is thinking\u{2026}" }</div> },
