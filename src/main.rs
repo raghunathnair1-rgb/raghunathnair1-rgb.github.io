@@ -2066,7 +2066,8 @@ fn pipeline_viz() -> Html {
     }
 }
 
-// --- sunrise/sunset arc (visitor-local, from wttr.in astronomy) ---
+// --- sunrise/sunset arc (factory-local Amsterdam; proxied server-side to /sun.json so it
+//     never depends on a per-visitor wttr.in call that rate-limits) ---
 #[derive(serde::Deserialize)]
 struct Astro {
     sunrise: String,
@@ -2126,7 +2127,7 @@ fn sun_arc(frac: Option<f64>) -> String {
 
 #[function_component(SunArc)]
 fn sun_arc_widget() -> Html {
-    let (wttr, err) = use_polled_json::<WttrSun>("https://wttr.in/?format=j1", None);
+    let (wttr, err) = use_polled_json::<WttrSun>("/sun.json", None);
     let tick = use_state(|| 0u64);
     {
         let tick = tick.clone();
