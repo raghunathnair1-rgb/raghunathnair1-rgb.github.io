@@ -10,12 +10,14 @@ permissions:
   pages: write
   id-token: write
 
-# Queue runs instead of cancelling: a frequent telemetry deploy must never kill an
-# in-progress code build/deploy. Runs serialize on the "pages" group (no pile-up at
-# the ~5-min cron cadence since a build+deploy finishes in well under 5 min).
+# Latest-wins: cancel any in-progress run when a newer commit arrives. Safe here because
+# telemetry commits STACK on top of code commits, so the NEWEST commit always contains all
+# content — a cancelled build's changes still ship via the next build. 'false' (queue) caused
+# thrashing: with a 5-min telemetry cron flooding the group, pending runs kept getting
+# superseded and nothing deployed. Builds finish in ~90s, well inside the cron gap.
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
