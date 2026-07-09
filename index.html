@@ -70,7 +70,7 @@
     function typeLines() {
       if (i < lines.length) {
         out.push(lines[i]); i++; render();
-        setTimeout(typeLines, 100 + Math.random() * 80);
+        setTimeout(typeLines, 42 + Math.random() * 26);
       } else { progress(); }
     }
     function progress() {
@@ -79,7 +79,7 @@
         var fill = Math.min(f, 20);
         out[idx] = 'loading kernel  [' + '█'.repeat(fill) + '░'.repeat(20 - fill) + '] ' + (fill * 5) + '%';
         render();
-        if (f < 20) { f++; setTimeout(bar, 55); } else { finish(); }
+        if (f < 20) { f++; setTimeout(bar, 24); } else { finish(); }
       })();
     }
     function finish() {
@@ -87,8 +87,8 @@
       boot.classList.add('boot-typed');
       setTimeout(function () {
         boot.classList.add('boot-done');
-        setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 700);
-      }, 1100);
+        setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 300);
+      }, 400);
     }
     function bootSound() {
       try {
