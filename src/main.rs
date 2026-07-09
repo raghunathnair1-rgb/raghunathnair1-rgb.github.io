@@ -2225,6 +2225,30 @@ fn initial_tab() -> usize {
         .unwrap_or(0)
 }
 
+#[function_component(SiteFooter)]
+fn site_footer() -> Html {
+    // uptime since first ship (2026-07-06 UTC); auto-increments, no server needed
+    let days = {
+        let now = js_sys::Date::now();
+        (((now - 1783296000000.0_f64) / 86_400_000.0).floor() as i64).max(0)
+    };
+    let year = js_sys::Date::new_0().get_full_year();
+    html! {
+        <footer class="site-footer">
+            <div class="foot-rule">{ "\u{2500}\u{2500}\u{2500}\u{2500}\u{2500} EOF \u{2500}\u{2500}\u{2500}\u{2500}\u{2500}" }</div>
+            <div class="foot-line"><span class="fp">{ "$" }</span>{ " uptime" }</div>
+            <div class="foot-out">{ format!("dark-factory \u{00B7} up {days}d \u{00B7} brain \u{1F9E0} online \u{00B7} 0 downtime tolerated") }</div>
+            <div class="foot-line"><span class="fp">{ "$" }</span>{ " cat stack.txt" }</div>
+            <div class="foot-out foot-stack">
+                <span>{ "rust" }</span><span>{ "wasm" }</span><span>{ "yew" }</span><span>{ "trunk" }</span><span>{ "gh-actions" }</span><span>{ "pages" }</span>
+            </div>
+            <div class="foot-sign">{ format!("/* \u{00A9} {year} raghu nair \u{2014} built in Rust \u{2192} WebAssembly, rendered by Yew, no React harmed */") }</div>
+            <div class="foot-fine">{ "cookieless analytics \u{00B7} no ad-trackers \u{00B7} shipped by an AI harness brain while I sleep" }</div>
+            <div class="foot-line"><span class="fp">{ "$" }</span>{ " " }<span class="foot-cur"></span></div>
+        </footer>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -2410,9 +2434,7 @@ fn app() -> Html {
                 <p class="boot">{ "// dark-factory online · brain healthy · shipping from wasm" }</p>
             </header>
             <main>{ view }</main>
-            <footer>
-                { "built in Rust \u{2192} WebAssembly · shipped by an AI harness brain" }
-            </footer>
+            <SiteFooter />
         </>
     }
 }
