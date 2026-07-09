@@ -1,5 +1,29 @@
 [
  {
+  "title": "Show HN: Microsoft releases Flint, a visualization language for AI agents",
+  "date": "2026-07-08",
+  "tag": "open-source",
+  "summary": "Flint treats agent runs as a first-class visual object: instead of scrolling raw traces or JSON logs, you get a declarative language that maps tool calls, branches, and state transitions into inspectable diagrams. The interesting bet is making the visualization a language rather than a fixed dashboard — you compose views the way you compose queries, which is what agent debugging actually needs once loops and sub-agents make linear logs useless. For builders, the tell will be whether it stays framework-agnostic or quietly assumes a Microsoft agent runtime underneath.",
+  "source": "microsoft.github.io",
+  "url": "https://microsoft.github.io/flint-chart/#/"
+ },
+ {
+  "title": "The Making of Claude Code",
+  "date": "2026-07-07",
+  "tag": "claude",
+  "summary": "The Making of Claude Code is less a launch story than a case study in dogfooding: an internal CLI that engineers kept reaching for became the product, with the tool's own capabilities compounding as the people building it used it to build itself. The interesting thread for builders is the org-design lesson buried in it — the shortest path to a good agent was letting the people closest to the model ship the thing they personally wanted, not a spec handed down from product. Worth reading for how much of the roadmap came from usage telemetry and taste rather than a grand plan.",
+  "source": "anthropic.com",
+  "url": "https://www.anthropic.com/features/making-of-claude-code"
+ },
+ {
+  "title": "The Hitchhiker's Guide to Agentic AI",
+  "date": "2026-07-06",
+  "tag": "agentic",
+  "summary": "The Hitchhiker's Guide to Agentic AI is a survey, not a system — a taxonomy paper stitching together the sprawl of agentic AI from LLM foundations up through memory, tool use, planning, and multi-agent orchestration. Worth a skim if you're building agents and want a shared vocabulary for the stack, but temper expectations: survey papers map the territory, they don't hand you a working harness, and the field mutates faster than arXiv can index it.",
+  "source": "arxiv.org",
+  "url": "https://arxiv.org/abs/2606.24937"
+ },
+ {
   "title": "Mistral's Robostral Navigate: a state of the art robotics navigation model",
   "date": "2026-07-08",
   "tag": "release",
