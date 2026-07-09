@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use yew::TargetCast;
 // pure logic lives in the coverage-gated blog-logic crate (tested code == shipped code)
-use blog_logic::{evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r, moon_illum, moon_name, moon_phase_frac};
+use blog_logic::{day_length_hm, evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r, moon_illum, moon_name, moon_phase_frac};
 
 /// Fetch (and optionally poll) a JSON endpoint into (data, err) state. Always cache-busts —
 /// GitHub Pages caches these files up to 10min — so no widget ever serves a stale snapshot.
@@ -2169,14 +2169,14 @@ fn sun_arc_widget() -> Html {
                 html! { <>
                     <pre class={pcls}>{ sun_arc(frac) }</pre>
                     <div class="sun-info">
-                        <div>{ format!("\u{2191} {}   \u{2193} {}", a.sunrise.trim(), a.sunset.trim()) }</div>
+                        <div>{ format!("\u{2191} {}   \u{2193} {}   \u{2600} {} of daylight", a.sunrise.trim(), a.sunset.trim(), day_length_hm(sr, ss)) }</div>
                         <div>{ line2 }</div>
                     </div>
                 </> }
             }
             _ => html! { <div class="sun-info">{ "sun times unavailable" }</div> },
         },
-        (None, true) => html! { <div class="sun-info">{ "sun offline: wttr.in unreachable" }</div> },
+        (None, true) => html! { <div class="sun-info">{ "sun offline: wx.json unreachable" }</div> },
         (None, false) => html! { <div class="sun-info">{ "locating the sun\u{2026}" }</div> },
     };
     html! {

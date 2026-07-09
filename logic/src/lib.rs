@@ -99,6 +99,13 @@ pub fn moon_illum(p: f64) -> u32 {
     ((1.0 - (2.0 * std::f64::consts::PI * p).cos()) / 2.0 * 100.0).round() as u32
 }
 
+/// Minutes of daylight (sunset - sunrise, both minutes-since-midnight) as "16h 31m".
+/// Proposed by the Idea Engine (2026-07-09); a fully-testable extension of the astronomy set.
+pub fn day_length_hm(sunrise_min: i32, sunset_min: i32) -> String {
+    let d = (sunset_min - sunrise_min).max(0);
+    format!("{}h {:02}m", d / 60, d % 60)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -189,5 +196,12 @@ mod tests {
     fn illumination_endpoints() {
         assert_eq!(moon_illum(0.0), 0); // new moon -> dark
         assert_eq!(moon_illum(0.5), 100); // full moon -> lit
+    }
+
+    #[test]
+    fn daylight_length() {
+        assert_eq!(day_length_hm(330, 1321), "16h 31m"); // 05:30 -> 22:01
+        assert_eq!(day_length_hm(360, 1080), "12h 00m"); // 06:00 -> 18:00
+        assert_eq!(day_length_hm(1000, 500), "0h 00m"); // clamped: sunset before sunrise
     }
 }
