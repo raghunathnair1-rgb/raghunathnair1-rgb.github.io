@@ -283,12 +283,12 @@ main { margin-top: 2.5rem; }
 .kg-path-edge { stroke: #b8ffdb; stroke-width: 2; filter: drop-shadow(0 0 3px rgba(184, 255, 219, .9)); animation: kg-flow .5s linear infinite; }
 .kg-root, .kg-concept, .kg-post, .kg-tool, .kg-feed { filter: url(#kg-bloom); }
 /* domain clustering: node fill (SVG) + legend dot (text) colored by domain */
-.kg-d0 { fill: #ffffff; color: #ffffff; }
-.kg-d1 { fill: #c15cff; color: #c15cff; }
-.kg-d2 { fill: #18e0ff; color: #18e0ff; }
-.kg-d3 { fill: #35ff93; color: #35ff93; }
-.kg-d4 { fill: #ff7d2e; color: #ff7d2e; }
-.kg-d5 { fill: #ffd028; color: #ffd028; }
+.kg-d0 { fill: #ffffff; color: #ffffff; }   /* core        — white hub */
+.kg-d1 { fill: #e14dff; color: #e14dff; }   /* brain & AI  — magenta */
+.kg-d2 { fill: #00d9ff; color: #00d9ff; }   /* pipeline    — electric cyan */
+.kg-d3 { fill: #19f07a; color: #19f07a; }   /* frontend    — neon green */
+.kg-d4 { fill: #ff6a1a; color: #ff6a1a; }   /* distribution— bold orange */
+.kg-d5 { fill: #ffc400; color: #ffc400; }   /* writing     — amber */
 .kg .kg-d0, .kg .kg-d1, .kg .kg-d2, .kg .kg-d3, .kg .kg-d4, .kg .kg-d5 { filter: url(#kg-bloom); }
 .kg-legend { display: flex; flex-wrap: wrap; gap: .25rem .9rem; margin: .5rem 0 .2rem; font-size: .76rem; color: var(--muted); }
 .kg-leg { white-space: nowrap; }
