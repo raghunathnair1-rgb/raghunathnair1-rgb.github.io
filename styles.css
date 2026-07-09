@@ -435,6 +435,7 @@ a, .log li, .news-item, .news-title, .news-src, .pipe-commit, .kg-node, .kg-edge
 .idea-score { font-weight: 700; color: var(--green); background: rgba(74, 222, 128, .1); border: 1px solid rgba(74, 222, 128, .3); border-radius: 5px; padding: .02rem .4rem; font-size: .82rem; min-width: 2.6ch; text-align: center; }
 .idea-title { font-weight: 600; font-size: .9rem; }
 .idea-auto { margin-left: auto; font-size: .68rem; color: var(--cyan); border: 1px solid rgba(34, 211, 238, .3); border-radius: 5px; padding: .02rem .35rem; white-space: nowrap; }
+.idea-big { margin-left: auto; font-size: .68rem; color: #e14dff; border: 1px solid rgba(225, 77, 255, .4); border-radius: 5px; padding: .02rem .35rem; white-space: nowrap; }
 .idea-why { color: var(--muted); font-size: .8rem; margin: .28rem 0 .22rem; line-height: 1.45; }
 .idea-metrics { display: flex; flex-wrap: wrap; gap: .4rem; font-size: .68rem; color: var(--muted); }
 .idea-metrics span { border: 1px solid var(--line); border-radius: 4px; padding: 0 .35rem; }

@@ -2039,6 +2039,8 @@ struct Idea {
     score: f64,
     #[serde(default)]
     auto: bool,
+    #[serde(default)]
+    big: bool,
 }
 #[derive(serde::Deserialize, Clone, PartialEq)]
 struct IdeaData {
@@ -2059,7 +2061,7 @@ fn idea_backlog() -> Html {
                         <div class="idea-head">
                             <span class="idea-score">{ format!("{:.1}", it.score) }</span>
                             <span class="idea-title">{ it.title.clone() }</span>
-                            { if it.auto { html! { <span class="idea-auto">{ "\u{1F916} self-build" }</span> } } else { html! {} } }
+                            { if it.big { html! { <span class="idea-big">{ "\u{1F680} big" }</span> } } else if it.auto { html! { <span class="idea-auto">{ "\u{1F916} self-build" }</span> } } else { html! {} } }
                         </div>
                         <div class="idea-why">{ it.why.clone() }</div>
                         <div class="idea-metrics">
