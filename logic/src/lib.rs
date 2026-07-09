@@ -42,17 +42,6 @@ pub fn kg_r(kind: u8) -> f64 {
     }
 }
 
-/// Node kind -> legacy kind CSS class.
-pub fn kg_cls(kind: u8) -> &'static str {
-    match kind {
-        0 => "kg-root",
-        2 => "kg-post",
-        3 => "kg-tool",
-        4 => "kg-feed",
-        _ => "kg-concept",
-    }
-}
-
 /// Format an SVG coordinate to one decimal place.
 pub fn kg_fmt(v: f64) -> String {
     format!("{:.1}", v)
@@ -139,15 +128,6 @@ mod tests {
         assert_eq!(kg_r(3), 4.5);
         assert_eq!(kg_r(4), 7.0);
         assert_eq!(kg_r(1), 6.0); // default arm
-    }
-
-    #[test]
-    fn kind_class() {
-        assert_eq!(kg_cls(0), "kg-root");
-        assert_eq!(kg_cls(2), "kg-post");
-        assert_eq!(kg_cls(3), "kg-tool");
-        assert_eq!(kg_cls(4), "kg-feed");
-        assert_eq!(kg_cls(1), "kg-concept"); // default arm
     }
 
     #[test]

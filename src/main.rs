@@ -695,57 +695,8 @@ impl Fire {
     }
 }
 
-#[function_component(DoomFire)]
-fn doom_fire() -> Html {
-    use_anim_tick(60);
-    let fire = use_mut_ref(|| Fire::new(60, 20));
-    let frame = {
-        let mut f = fire.borrow_mut();
-        f.step();
-        f.render()
-    };
-    html! {
-        <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ ./doomfire" }</div>
-            <pre class="ascii-face doom-fire">{ frame }</pre>
-        </div>
-    }
-}
 
-// --- moon phase (computed from the current date) ---
-// moon_phase_frac / moon_name / moon_illum live in blog-logic (pure, 100% coverage-gated)
-fn moon_art(p: f64) -> String {
-    let c = (2.0 * std::f64::consts::PI * p).cos();
-    let waxing = p <= 0.5;
-    let (rows, cols) = (11i32, 22i32);
-    let mut s = String::new();
-    for ry in 0..rows {
-        let ny = (ry as f64 - (rows as f64 - 1.0) / 2.0) / ((rows as f64 - 1.0) / 2.0);
-        for rx in 0..cols {
-            let nx = (rx as f64 - (cols as f64 - 1.0) / 2.0) / ((cols as f64 - 1.0) / 2.0);
-            if nx * nx + ny * ny <= 1.0 {
-                let lit = if waxing { nx >= c } else { nx <= -c };
-                s.push(if lit { '@' } else { '.' });
-            } else {
-                s.push(' ');
-            }
-        }
-        s.push('\n');
-    }
-    s
-}
 
-#[function_component(MoonPhase)]
-fn moon_phase() -> Html {
-    let p = moon_phase_frac(js_sys::Date::now());
-    html! {
-        <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ moon" }</div>
-            <pre class="ascii-face moon-face">{ moon_art(p) }</pre>
-            <div class="moon-info">{ format!("{} \u{00B7} {}% illuminated", moon_name(p), moon_illum(p)) }</div>
-        </div>
-    }
-}
 
 // --- 3D starfield warp (completes the ASCII-3D set: donut, orrery, cube, warp) ---
 struct Stars {
@@ -809,141 +760,10 @@ impl Stars {
     }
 }
 
-#[function_component(Starfield)]
-fn starfield() -> Html {
-    use_anim_tick(50);
-    let stars = use_mut_ref(|| Stars::new(150, 60, 22));
-    let frame = {
-        let mut s = stars.borrow_mut();
-        s.step();
-        s.render()
-    };
-    html! {
-        <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ ./warp" }</div>
-            <pre class="ascii-face star-face">{ frame }</pre>
-        </div>
-    }
-}
 
-// --- spinning ASCII donut (a1k0n donut.c, ported) ---
-fn donut_frame(a: f64, b: f64) -> String {
-    const W: usize = 44;
-    const H: usize = 22;
-    let k1 = W as f64 * 5.0 / 12.0;
-    let chars = b".,-~:;=!*#$@";
-    let mut out = [b' '; W * H];
-    let mut zb = [0f64; W * H];
-    let (ca, sa) = (a.cos(), a.sin());
-    let (cb, sb) = (b.cos(), b.sin());
-    let mut th = 0.0f64;
-    while th < std::f64::consts::TAU {
-        let (ct, st) = (th.cos(), th.sin());
-        let mut ph = 0.0f64;
-        while ph < std::f64::consts::TAU {
-            let (cp, sp) = (ph.cos(), ph.sin());
-            let cx = 2.0 + ct;
-            let cy = st;
-            let x = cx * (cb * cp + sa * sb * sp) - cy * ca * sb;
-            let y = cx * (sb * cp - sa * cb * sp) + cy * ca * cb;
-            let zz = 5.0 + ca * cx * sp + cy * sa;
-            let ooz = 1.0 / zz;
-            let xp = (W as f64 / 2.0 + k1 * ooz * x) as isize;
-            let yp = (H as f64 / 2.0 - k1 * ooz * y * 0.5) as isize;
-            let l = cp * ct * sb - ca * ct * sp - sa * st + cb * (ca * st - ct * sa * sp);
-            if l > 0.0 && xp >= 0 && (xp as usize) < W && yp >= 0 && (yp as usize) < H {
-                let idx = xp as usize + yp as usize * W;
-                if ooz > zb[idx] {
-                    zb[idx] = ooz;
-                    out[idx] = chars[((l * 8.0) as usize).min(11)];
-                }
-            }
-            ph += 0.02;
-        }
-        th += 0.07;
-    }
-    let mut s = String::with_capacity((W + 1) * H);
-    for r in 0..H {
-        for c in 0..W {
-            s.push(out[r * W + c] as char);
-        }
-        s.push('\n');
-    }
-    s
-}
 
-#[function_component(SpinningDonut)]
-fn spinning_donut() -> Html {
-    use_anim_tick(50);
-    let t = js_sys::Date::now() / 1000.0;
-    html! {
-        <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ ./donut" }</div>
-            <pre class="ascii-face">{ donut_frame(t, t * 0.5) }</pre>
-        </div>
-    }
-}
 
-// --- solar-system orrery (concentric orbits + planets, distance-field rings) ---
-fn orrery_frame(t: f64) -> String {
-    const W: usize = 54;
-    const H: usize = 27;
-    let cx = (W as f64 - 1.0) / 2.0;
-    let cy = (H as f64 - 1.0) / 2.0;
-    let ax = 1.0f64;
-    let ay = 0.5f64;
-    // (orbit radius, symbol, angular speed)
-    let planets: [(f64, u8, f64); 8] = [
-        (4.5, b'o', 1.70),
-        (7.5, b'O', 1.25),
-        (10.5, b'o', 1.00),
-        (13.5, b'O', 0.82),
-        (17.5, b'#', 0.50),
-        (21.0, b'%', 0.38),
-        (24.0, b'o', 0.30),
-        (26.5, b'o', 0.24),
-    ];
-    let mut buf = [b' '; W * H];
-    for y in 0..H {
-        for x in 0..W {
-            let dx = (x as f64 - cx) / ax;
-            let dy = (y as f64 - cy) / ay;
-            let rr = (dx * dx + dy * dy).sqrt();
-            if planets.iter().any(|p| (rr - p.0).abs() < 0.55) {
-                buf[y * W + x] = b'.';
-            }
-        }
-    }
-    buf[cy.round() as usize * W + cx.round() as usize] = b'@';
-    for p in planets.iter() {
-        let a = t * p.2;
-        let x = (cx + p.0 * ax * a.cos()).round() as isize;
-        let y = (cy + p.0 * ay * a.sin()).round() as isize;
-        if x >= 0 && (x as usize) < W && y >= 0 && (y as usize) < H {
-            buf[y as usize * W + x as usize] = p.1;
-        }
-    }
-    let mut s = String::with_capacity((W + 1) * H);
-    for r in 0..H {
-        for c in 0..W {
-            s.push(buf[r * W + c] as char);
-        }
-        s.push('\n');
-    }
-    s
-}
 
-#[function_component(Orrery)]
-fn orrery() -> Html {
-    use_anim_tick(60);
-    let t = js_sys::Date::now() / 1000.0;
-    html! {
-        <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ ./orrery" }</div>
-            <pre class="ascii-face orrery-face">{ orrery_frame(t) }</pre>
-        </div>
-    }
-}
 
 const FERRIS: &str = r#"       _~^~^~_
    \) /  o o  \ (/
@@ -963,62 +783,8 @@ fn rust_badge() -> Html {
 }
 
 // --- animated ASCII brain (neurons ripple with a traveling wave of activity) ---
-const BRAIN: &str = r#"       .-~~~~~~~-.
-     .~ o  o  o o ~.
-   .~ o .-~~~-. o o ~.
-  / o  / o  o o \  o  \
- | o  | o  o o o | o o |
- |o o | o o  o o | o  o|
- | o  | o  o o o | o o |
-  \ o  \ o o  o /  o  /
-   ~. o  ~-.-~  o o .~
-     ~. o  o  o  o.~
-       ~-._____.-~"#;
 
-fn brain_frame(t: f64) -> String {
-    let ramp = b" .:-+ioO@";
-    let front = (t / 2.6).fract() * 14.0; // bright spike sweeping across every 2.6s
-    let mut s = String::with_capacity(BRAIN.len() + 16);
-    for (r, line) in BRAIN.lines().enumerate() {
-        for (c, ch) in line.bytes().enumerate() {
-            if ch == b'o' {
-                let phase = r as f64 * 0.7 + c as f64 * 0.32;
-                let base = 0.5 + 0.5 * (t * 3.5 - phase).sin();
-                let d = phase - front;
-                let boost = (-(d * d) / 2.42).exp(); // gaussian spike front (2*1.1^2)
-                let b = base.max(boost);
-                let idx = ((b * (ramp.len() as f64 - 1.0)) as usize).min(ramp.len() - 1);
-                s.push(ramp[idx] as char);
-            } else {
-                s.push(ch as char);
-            }
-        }
-        s.push('\n');
-    }
-    s
-}
 
-#[function_component(BrainViz)]
-fn brain_viz() -> Html {
-    use_anim_tick(80);
-    let t = js_sys::Date::now() / 1000.0;
-    let frame = brain_frame(t);
-    let active = frame.bytes().filter(|&b| b == b'O' || b == b'@').count();
-    let bright = frame.bytes().filter(|&b| b == b'@').count();
-    let hz = 7.0 + 1.6 * (t * 0.5).sin();
-    let sub = if bright > 1 {
-        format!("\u{03B8} {:.1} Hz \u{00B7} {} firing \u{00B7} \u{21AF} spike", hz, active)
-    } else {
-        format!("\u{03B8} {:.1} Hz \u{00B7} {} firing", hz, active)
-    };
-    html! {
-        <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ ./brain --live" }</div>
-            <pre class="ascii-face brain-face">{ frame }</pre>
-            <div class="brain-sub">{ sub }</div>
-        </div>
-    }
-}
 
 // --- interactive force-directed knowledge graph ---
 struct GNode {
@@ -1606,71 +1372,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
     }
 }
 
-// --- rotating wireframe cube (3D projection + line raster) ---
-fn cube_frame(a: f64, b: f64) -> String {
-    const W: usize = 44;
-    const H: usize = 22;
-    let (cx, cy) = (W as f64 / 2.0, H as f64 / 2.0);
-    let verts = [
-        (-1.0, -1.0, -1.0), (1.0, -1.0, -1.0), (1.0, 1.0, -1.0), (-1.0, 1.0, -1.0),
-        (-1.0, -1.0, 1.0), (1.0, -1.0, 1.0), (1.0, 1.0, 1.0), (-1.0, 1.0, 1.0),
-    ];
-    let edges = [
-        (0, 1), (1, 2), (2, 3), (3, 0), (4, 5), (5, 6), (6, 7), (7, 4),
-        (0, 4), (1, 5), (2, 6), (3, 7),
-    ];
-    let (ca, sa) = (a.cos(), a.sin());
-    let (cb, sb) = (b.cos(), b.sin());
-    let mut proj = [(0.0f64, 0.0f64); 8];
-    for (i, &(x, y, z)) in verts.iter().enumerate() {
-        let x1 = x * cb + z * sb;
-        let z1 = -x * sb + z * cb;
-        let y2 = y * ca - z1 * sa;
-        let z2 = y * sa + z1 * ca;
-        let sc = 32.0 / (3.2 + z2);
-        proj[i] = (cx + x1 * sc, cy - y2 * sc * 0.5);
-    }
-    let mut buf = vec![b' '; W * H];
-    let mut plot = |px: f64, py: f64, ch: u8, buf: &mut [u8]| {
-        let (x, y) = (px.round() as isize, py.round() as isize);
-        if x >= 0 && (x as usize) < W && y >= 0 && (y as usize) < H {
-            buf[y as usize * W + x as usize] = ch;
-        }
-    };
-    for &(u, v) in edges.iter() {
-        let (x0, y0) = proj[u];
-        let (x1, y1) = proj[v];
-        let (dx, dy) = (x1 - x0, y1 - y0);
-        let steps = dx.abs().max(dy.abs()).max(1.0) as usize;
-        for s in 0..=steps {
-            let t = s as f64 / steps as f64;
-            plot(x0 + dx * t, y0 + dy * t, b'#', &mut buf);
-        }
-    }
-    for &(px, py) in proj.iter() {
-        plot(px, py, b'@', &mut buf);
-    }
-    let mut out = String::with_capacity((W + 1) * H);
-    for r in 0..H {
-        for c in 0..W {
-            out.push(buf[r * W + c] as char);
-        }
-        out.push('\n');
-    }
-    out
-}
 
-#[function_component(CubeWireframe)]
-fn cube_wireframe() -> Html {
-    use_anim_tick(60);
-    let t = js_sys::Date::now() / 1000.0;
-    html! {
-        <div class="ascii-art">
-            <div class="ascii-cmd">{ "$ ./cube" }</div>
-            <pre class="ascii-face cube-face">{ cube_frame(t * 0.7, t * 0.9) }</pre>
-        </div>
-    }
-}
 
 #[derive(serde::Deserialize)]
 struct NewsItem {
@@ -2378,75 +2080,6 @@ fn idea_backlog() -> Html {
     }
 }
 
-// --- interactive blog-logic playground: the site running its own 100%-tested Rust, live ---
-#[function_component(LogicPlayground)]
-fn logic_playground() -> Html {
-    let moon_p = use_state(|| 0.5_f64);
-    let sr = use_state(|| 330_i32);
-    let ss = use_state(|| 1321_i32);
-
-    let on_moon = {
-        let m = moon_p.clone();
-        Callback::from(move |e: web_sys::InputEvent| {
-            let el: web_sys::HtmlInputElement = e.target_unchecked_into();
-            if let Ok(v) = el.value().parse::<f64>() {
-                m.set((v / 1000.0).clamp(0.0, 1.0));
-            }
-        })
-    };
-    let on_sr = {
-        let s = sr.clone();
-        Callback::from(move |e: web_sys::InputEvent| {
-            let el: web_sys::HtmlInputElement = e.target_unchecked_into();
-            if let Ok(v) = el.value().parse::<i32>() {
-                s.set(v);
-            }
-        })
-    };
-    let on_ss = {
-        let s = ss.clone();
-        Callback::from(move |e: web_sys::InputEvent| {
-            let el: web_sys::HtmlInputElement = e.target_unchecked_into();
-            if let Ok(v) = el.value().parse::<i32>() {
-                s.set(v);
-            }
-        })
-    };
-
-    let p = *moon_p;
-    let (srv, ssv) = (*sr, *ss);
-    let clk = |m: i32| format!("{:02}:{:02}", m / 60, m % 60);
-
-    html! {
-        <div class="ascii-art play">
-            <div class="ascii-cmd">{ "$ ./blog-logic --interactive \u{00B7} drag a slider \u{2014} every result is the site's own 100%-tested Rust, run live in your browser" }</div>
-            <div class="play-row">
-                <label class="play-lbl">{ "\u{1F319} moon phase" }</label>
-                <input type="range" min="0" max="1000" value={((p * 1000.0) as i32).to_string()} oninput={on_moon} class="play-slider" />
-                <span class="play-val">{ format!("p = {:.2}", p) }</span>
-            </div>
-            <pre class="ascii-face moon-face play-moon">{ moon_art(p) }</pre>
-            <div class="play-out">
-                <code>{ "moon_name(p)" }</code>{ " \u{2192} " }<b>{ moon_name(p) }</b>
-                { "   \u{00B7}   " }
-                <code>{ "moon_illum(p)" }</code>{ " \u{2192} " }<b>{ format!("{}%", moon_illum(p)) }</b>
-            </div>
-            <div class="play-row">
-                <label class="play-lbl">{ "\u{2600} sunrise" }</label>
-                <input type="range" min="0" max="720" value={srv.to_string()} oninput={on_sr} class="play-slider" />
-                <span class="play-val">{ clk(srv) }</span>
-            </div>
-            <div class="play-row">
-                <label class="play-lbl">{ "\u{1F311} sunset" }</label>
-                <input type="range" min="720" max="1439" value={ssv.to_string()} oninput={on_ss} class="play-slider" />
-                <span class="play-val">{ clk(ssv) }</span>
-            </div>
-            <div class="play-out">
-                <code>{ "day_length_hm(sunrise, sunset)" }</code>{ " \u{2192} " }<b>{ day_length_hm(srv, ssv) }</b>
-            </div>
-        </div>
-    }
-}
 
 #[function_component(SiteFooter)]
 fn site_footer() -> Html {
