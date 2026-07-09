@@ -2222,6 +2222,46 @@ fn watchdog_status() -> Html {
     }
 }
 
+// --- coverage gate badge: blog-logic line coverage (CI-enforced floor) ---
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct CoverageData {
+    #[serde(default)]
+    pct: u32,
+    #[serde(default)]
+    threshold: u32,
+    #[serde(default, rename = "crate")]
+    name: String,
+    #[serde(default)]
+    functions: u32,
+    #[serde(default)]
+    tests: u32,
+}
+
+#[function_component(CoverageBadge)]
+fn coverage_badge() -> Html {
+    let (data, err) = use_polled_json::<CoverageData>("/coverage.json", Some(120_000));
+    let body = match (&*data, *err) {
+        (None, true) => html! { <div class="dj-loading">{ "coverage unavailable \u{2014} coverage.json unreachable" }</div> },
+        (None, false) => html! { <div class="dj-loading">{ "reading coverage\u{2026}" }</div> },
+        (Some(d), _) => {
+            let pct = d.pct.min(100);
+            html! { <>
+                <div class="cov-row">
+                    <span class="cov-pct">{ format!("{}%", pct) }</span>
+                    <span class="cov-bar"><span class="cov-fill" style={format!("width:{}%", pct)}></span></span>
+                </div>
+                <div class="cov-meta">{ format!("{} \u{00B7} {} pure fns \u{00B7} {} tests \u{00B7} gate blocks deploy below {}%", d.name, d.functions, d.tests, d.threshold) }</div>
+            </> }
+        }
+    };
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ cargo llvm-cov -p blog-logic \u{00B7} CI-enforced coverage gate" }</div>
+            { body }
+        </div>
+    }
+}
+
 #[function_component(SiteFooter)]
 fn site_footer() -> Html {
     // uptime since first ship (2026-07-06 UTC); auto-increments, no server needed
@@ -2315,6 +2355,7 @@ fn app() -> Html {
                 3 => html! { <>
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
                     <WatchdogStatus />
+                    <CoverageBadge />
                     <DreamJournal />
                     <SparkMonitor />
                     <RouterMeter />

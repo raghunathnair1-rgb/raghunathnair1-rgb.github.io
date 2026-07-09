@@ -423,6 +423,14 @@ a, .log li, .news-item, .news-title, .news-src, .pipe-commit, .kg-node, .kg-edge
 .wd-detail { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .wd-foot { margin-top: .6rem; font-size: .72rem; color: var(--muted); opacity: .72; }
 @media (prefers-reduced-motion: reduce) { .wd-dot { animation: none !important; } }
+
+/* --- ~/factory coverage badge --- */
+.cov-row { display: flex; align-items: center; gap: .7rem; margin: .35rem 0 .5rem; }
+.cov-pct { font-weight: 700; font-size: 1.15rem; color: var(--green); min-width: 3.4ch; }
+.cov-bar { flex: 1; height: 10px; background: rgba(255, 255, 255, .06); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.cov-fill { display: block; height: 100%; background: linear-gradient(90deg, var(--green), var(--cyan)); box-shadow: 0 0 8px rgba(74, 222, 128, .5); transition: width .6s cubic-bezier(.16, 1, .3, 1); }
+.cov-meta { color: var(--muted); font-size: .8rem; }
+@media (prefers-reduced-motion: reduce) { .cov-fill { transition: none; } }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 
