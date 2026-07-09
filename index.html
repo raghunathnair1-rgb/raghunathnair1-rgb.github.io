@@ -180,7 +180,7 @@
         if (yr * fs > c.height && Math.random() > 0.962) { drops[i] = 0; spd[i] = 0.45 + Math.random() * 0.95; }
       }
     }
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(draw, 45);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(draw, 70);
   })();
   </script>
   <script>
@@ -218,7 +218,9 @@
       }
     }
     function resize() { W = c.width = innerWidth; H = c.height = innerHeight; if (mode) seed(); }
+    var _skf = 0;
     function frame() {
+      if ((_skf ^= 1)) { requestAnimationFrame(frame); return; }  // ~30fps: halve main-thread cost for INP
       x.clearRect(0, 0, W, H);
       var i, p;
       if (mode === 'rain' || mode === 'storm') {

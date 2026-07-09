@@ -1274,7 +1274,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
             let iv = if reduced_motion() {
                 None
             } else {
-                Some(gloo_timers::callback::Interval::new(33, move || {
+                Some(gloo_timers::callback::Interval::new(50, move || {
                     let pinned = *drag.borrow();
                     let m = *mouse.borrow();
                     {
