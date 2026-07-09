@@ -1,0 +1,9 @@
+[package]
+name = "blog-logic"
+version = "0.1.0"
+edition = "2021"
+description = "Pure, host-testable logic extracted from the blog wasm crate. 100% coverage-gated in CI."
+
+[lib]
+name = "blog_logic"
+path = "src/lib.rs"
