@@ -997,8 +997,10 @@ fn brain_viz() -> Html {
 
 // --- interactive force-directed knowledge graph ---
 struct GNode {
-    x: f64,
+    x: f64,  // displayed position (eased toward tx/ty at 60fps)
     y: f64,
+    tx: f64, // physics target position (stepped at the sim rate)
+    ty: f64,
     vx: f64,
     vy: f64,
 }
@@ -1074,12 +1076,9 @@ fn kg_build() -> Vec<GNode> {
     (0..n)
         .map(|i| {
             let a = i as f64 / n as f64 * std::f64::consts::TAU;
-            GNode {
-                x: 180.0 + 70.0 * a.cos() + (i as f64 * 13.0 % 7.0),
-                y: 140.0 + 55.0 * a.sin(),
-                vx: 0.0,
-                vy: 0.0,
-            }
+            let sx = 180.0 + 70.0 * a.cos() + (i as f64 * 13.0 % 7.0);
+            let sy = 140.0 + 55.0 * a.sin();
+            GNode { x: sx, y: sy, tx: sx, ty: sy, vx: 0.0, vy: 0.0 }
         })
         .collect()
 }
@@ -1090,8 +1089,8 @@ fn kg_step(nodes: &mut [GNode], pinned: Option<usize>, mouse: Option<(f64, f64)>
     let mut fy = vec![0.0f64; n];
     for i in 0..n {
         for j in (i + 1)..n {
-            let dx = nodes[i].x - nodes[j].x;
-            let dy = nodes[i].y - nodes[j].y;
+            let dx = nodes[i].tx - nodes[j].tx;
+            let dy = nodes[i].ty - nodes[j].ty;
             let d2 = (dx * dx + dy * dy).max(1.0);
             let d = d2.sqrt();
             let f = 1400.0 / d2;
@@ -1103,8 +1102,8 @@ fn kg_step(nodes: &mut [GNode], pinned: Option<usize>, mouse: Option<(f64, f64)>
         }
     }
     for &(a, b) in KG_EDGES {
-        let dx = nodes[b].x - nodes[a].x;
-        let dy = nodes[b].y - nodes[a].y;
+        let dx = nodes[b].tx - nodes[a].tx;
+        let dy = nodes[b].ty - nodes[a].ty;
         let d = (dx * dx + dy * dy).sqrt().max(1.0);
         let f = (d - 60.0) * 0.03;
         let (ux, uy) = (dx / d, dy / d);
@@ -1116,8 +1115,8 @@ fn kg_step(nodes: &mut [GNode], pinned: Option<usize>, mouse: Option<(f64, f64)>
     // cursor gravity: nodes near the mouse get pushed away (a force field you can shove nodes with)
     if let Some((mx, my)) = mouse {
         for i in 0..n {
-            let dx = nodes[i].x - mx;
-            let dy = nodes[i].y - my;
+            let dx = nodes[i].tx - mx;
+            let dy = nodes[i].ty - my;
             let d2 = (dx * dx + dy * dy).max(4.0);
             if d2 < 4900.0 {
                 let d = d2.sqrt();
@@ -1135,12 +1134,12 @@ fn kg_step(nodes: &mut [GNode], pinned: Option<usize>, mouse: Option<(f64, f64)>
         }
         // pull each node toward its DOMAIN anchor -> spatial clusters form
         let (ax, ay) = DOMAIN_ANCHORS[kg_domain(i)];
-        fx[i] += (ax - nodes[i].x) * 0.028;
-        fy[i] += (ay - nodes[i].y) * 0.028;
+        fx[i] += (ax - nodes[i].tx) * 0.028;
+        fy[i] += (ay - nodes[i].ty) * 0.028;
         nodes[i].vx = (nodes[i].vx + fx[i]) * 0.82;
         nodes[i].vy = (nodes[i].vy + fy[i]) * 0.82;
-        nodes[i].x = (nodes[i].x + nodes[i].vx).clamp(14.0, 346.0);
-        nodes[i].y = (nodes[i].y + nodes[i].vy).clamp(12.0, 268.0);
+        nodes[i].tx = (nodes[i].tx + nodes[i].vx).clamp(14.0, 346.0);
+        nodes[i].ty = (nodes[i].ty + nodes[i].vy).clamp(12.0, 268.0);
     }
 }
 
@@ -1318,6 +1317,44 @@ fn knowledge_graph(props: &KgProps) -> Html {
         });
     }
     {
+        // 60fps display interpolation: ease shown x/y toward the physics target tx/ty each frame
+        let sim = sim.clone();
+        let tick = tick.clone();
+        use_effect_with((), move |_| {
+            let running = std::rc::Rc::new(std::cell::Cell::new(!reduced_motion()));
+            let holder: std::rc::Rc<std::cell::RefCell<Option<gloo_render::AnimationFrame>>> =
+                std::rc::Rc::new(std::cell::RefCell::new(None));
+            fn ease(
+                sim: std::rc::Rc<std::cell::RefCell<Vec<GNode>>>,
+                tick: yew::UseStateHandle<u64>,
+                running: std::rc::Rc<std::cell::Cell<bool>>,
+                holder: std::rc::Rc<std::cell::RefCell<Option<gloo_render::AnimationFrame>>>,
+            ) {
+                if !running.get() {
+                    return;
+                }
+                let (s2, t2, r2, h2) = (sim.clone(), tick.clone(), running.clone(), holder.clone());
+                let af = gloo_render::request_animation_frame(move |_| {
+                    if !r2.get() {
+                        return;
+                    }
+                    {
+                        let mut b = s2.borrow_mut();
+                        for nd in b.iter_mut() {
+                            nd.x += (nd.tx - nd.x) * 0.4;
+                            nd.y += (nd.ty - nd.y) * 0.4;
+                        }
+                    }
+                    t2.set(0);
+                    ease(s2.clone(), t2.clone(), r2.clone(), h2.clone());
+                });
+                *holder.borrow_mut() = Some(af);
+            }
+            ease(sim.clone(), tick.clone(), running.clone(), holder.clone());
+            move || running.set(false)
+        });
+    }
+    {
         let svg_ref = svg_ref.clone();
         use_effect_with(props.path.clone(), move |p| {
             if !p.is_empty() {
@@ -1351,8 +1388,10 @@ fn knowledge_graph(props: &KgProps) -> Html {
                 *moved.borrow_mut() = true;
                 if let Some((sx, sy)) = coord {
                     let mut b = sim.borrow_mut();
-                    b[i].x = sx.clamp(14.0, 346.0);
-                    b[i].y = sy.clamp(12.0, 268.0);
+                    b[i].tx = sx.clamp(14.0, 346.0);
+                    b[i].ty = sy.clamp(12.0, 268.0);
+                    b[i].x = b[i].tx;
+                    b[i].y = b[i].ty;
                     b[i].vx = 0.0;
                     b[i].vy = 0.0;
                 }
@@ -1407,8 +1446,10 @@ fn knowledge_graph(props: &KgProps) -> Html {
                 *moved.borrow_mut() = true;
                 if let Some((sx, sy)) = coord {
                     let mut b = sim.borrow_mut();
-                    b[i].x = sx.clamp(14.0, 346.0);
-                    b[i].y = sy.clamp(12.0, 268.0);
+                    b[i].tx = sx.clamp(14.0, 346.0);
+                    b[i].ty = sy.clamp(12.0, 268.0);
+                    b[i].x = b[i].tx;
+                    b[i].y = b[i].ty;
                     b[i].vx = 0.0;
                     b[i].vy = 0.0;
                 }
