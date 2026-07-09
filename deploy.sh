@@ -3,6 +3,14 @@
 # the WASM and deploys to Pages. Uses the scoped blog deploy key (core.sshCommand).
 set -euo pipefail
 cd "$(dirname "$0")"
+# Serialize deploys across ALL crons (spark/autopost/dream + armed watchdog/autofix/idea-engine):
+# any two that fire close together queue on this lock instead of racing on `git add`/`push`.
+# Wait up to 300s, then fail-open (skip) — a stuck peer can never wedge the pipeline, and flock
+# auto-releases if the holder dies, so there are no stale locks.
+exec 9>/tmp/darkfactory-deploy.lock
+if ! flock -w 300 9; then
+  echo "⏳ another deploy held the lock >300s — skipping this run (next cron retries)"; exit 0
+fi
 msg="${1:-blog: update $(date -u +%FT%TZ)}"
 SEC=/home/raghu/harness/security
 # cron has no login session -> give systemctl --user a runtime dir so the brain snapshot works
