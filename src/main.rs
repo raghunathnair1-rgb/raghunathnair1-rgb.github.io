@@ -2150,9 +2150,23 @@ fn initial_tab() -> usize {
             "factory" => 3,
             "feed" => 4,
             "pipeline" => 5,
+            "contact" => 6,
             _ => 0,
         })
         .unwrap_or(0)
+}
+
+/// Reverse of initial_tab: tab index -> URL hash name (so refresh/share restores the tab).
+fn tab_hash(i: usize) -> &'static str {
+    match i {
+        1 => "posts",
+        2 => "lab",
+        3 => "factory",
+        4 => "feed",
+        5 => "pipeline",
+        6 => "contact",
+        _ => "home",
+    }
 }
 
 // --- self-healing watchdog: live site + pipeline vitals from watchdog.json ---
@@ -2349,6 +2363,13 @@ fn app() -> Html {
     let selected = use_state(|| None::<usize>);
     let path_hl = use_state(|| Vec::<usize>::new());
     let tab = use_state(initial_tab); // TTY console: 0=~/ 1=~/posts 2=~/lab 3=~/factory 4=~/feed
+    // keep the URL hash in sync with the active tab, so a refresh (or shared link) restores it
+    use_effect_with(*tab, |t| {
+        if let Some(w) = web_sys::window() {
+            let _ = w.location().set_hash(tab_hash(*t));
+        }
+        || ()
+    });
     let list = posts();
 
     let view = match *selected {
