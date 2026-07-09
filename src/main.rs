@@ -2324,7 +2324,7 @@ fn app() -> Html {
                         html! { <button class={cls} {onclick}>{ format!("[{}] {}", idx + 1, label) }</button> }
                     }) }
                 </nav>
-                <div class="console">{ content }</div>
+                <div class="console" key={tt.to_string()}>{ content }</div>
                 <Terminal
                     on_path={ let p = path_hl.clone(); Callback::from(move |pv: Vec<usize>| p.set(pv)) }
                     on_cd={ let t = tab.clone(); Callback::from(move |i: usize| t.set(i)) } />
