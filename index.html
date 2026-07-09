@@ -6,7 +6,7 @@
   <!-- Security: lock down what can load/run. GitHub Pages can't set HTTP headers, so this
        is a <meta> CSP (note: frame-ancestors/clickjacking needs a real header — see Cloudflare
        runbook). Allowlist is exact: self + wasm + the CF beacon + wttr.in weather, nothing else. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://wttr.in https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'"/>
   <meta name="referrer" content="strict-origin-when-cross-origin"/>
   <!-- preload fonts so they're ready before the WASM app paints (kills the font-swap layout shift / CLS) -->
   <link rel="preload" href="/assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin/>
@@ -41,7 +41,7 @@
   <link data-trunk rel="copy-file" href="watchdog.json"/>
   <link data-trunk rel="copy-file" href="coverage.json"/>
   <link data-trunk rel="copy-file" href="ideas.json"/>
-  <link data-trunk rel="copy-file" href="sun.json"/>
+  <link data-trunk rel="copy-file" href="wx.json"/>
   <link data-trunk rel="copy-dir" href="p"/>
   <link data-trunk rel="copy-dir" href="feed"/>
   <link data-trunk rel="copy-file" href="sitemap.xml"/>
@@ -276,7 +276,7 @@
     resize(); addEventListener('resize', resize);
     mode = 'clear'; seed(); requestAnimationFrame(frame);
     try {
-      fetch('https://wttr.in/?format=j1').then(function (r) { return r.json(); }).then(function (d) {
+      fetch('/wx.json').then(function (r) { return r.json(); }).then(function (d) {
         var cc = d.current_condition[0];
         mode = classify(cc.weatherDesc[0].value);
         try { document.documentElement.dataset.sky = mode; } catch (e) {}

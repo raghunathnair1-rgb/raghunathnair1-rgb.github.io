@@ -38,8 +38,8 @@ python3 /home/raghu/harness/gen_deploy.py "$msg" >/dev/null 2>&1 || echo "📦 d
 python3 /home/raghu/harness/gen_activity.py >/dev/null 2>&1 || echo "📡 activity.json skipped"
 # --- coverage-gate snapshot (blog-logic 100% floor) for the factory tab ---
 python3 /home/raghu/harness/gen_coverage.py >/dev/null 2>&1 || echo "📊 coverage.json skipped"
-# --- sun-arc astronomy proxied from wttr.in (server-side; avoids per-visitor rate limits) ---
-python3 /home/raghu/harness/gen_sun.py >/dev/null 2>&1 || echo "🌅 sun.json skipped"
+# --- weather + astronomy proxied from wttr.in (server-side; avoids per-visitor rate limits) ---
+python3 /home/raghu/harness/gen_wttr.py >/dev/null 2>&1 || echo "🌦️ wx.json skipped"
 
 # --- dark-factory pre-deploy security gate (SAST + secret scan) ---
 echo "🛡️  pre-deploy gate…"
@@ -58,7 +58,7 @@ fi
 if command -v claude >/dev/null 2>&1; then
   echo "🔍 fable security review…"
   # exclude telemetry data files: a telemetry-only refresh has an empty diff here -> AI review skipped (no model cost)
-  DIFF=$(git --no-pager diff HEAD -- . ':(exclude)status.json' ':(exclude)spark.json' ':(exclude)router.json' ':(exclude)deploy.json' ':(exclude)activity.json' ':(exclude)watchdog.json' ':(exclude)coverage.json' ':(exclude)ideas.json' ':(exclude)sun.json' 2>/dev/null | head -c 10000 || true)
+  DIFF=$(git --no-pager diff HEAD -- . ':(exclude)status.json' ':(exclude)spark.json' ':(exclude)router.json' ':(exclude)deploy.json' ':(exclude)activity.json' ':(exclude)watchdog.json' ':(exclude)coverage.json' ':(exclude)ideas.json' ':(exclude)wx.json' 2>/dev/null | head -c 10000 || true)
   if [ -n "$DIFF" ]; then
     RES=$(timeout 90 claude -p "You are a STRICT application-security reviewer for a PUBLIC Rust/WASM blog on GitHub Pages. Review ONLY the git diff below for REAL, exploitable problems: hardcoded secrets/tokens/keys, XSS or HTML/JS injection, unsafe raw-HTML built from untrusted input, dangerous eval/fetch, data exfiltration, or supply-chain risk. Ignore style, naming and non-security nits. Reply with ONE line of JSON and nothing else: {\"verdict\":\"pass\"|\"fail\",\"severity\":\"none|low|medium|high\",\"reason\":\"short\"}. Set verdict=fail ONLY for a medium or high severity real security problem.
 

@@ -447,7 +447,7 @@ fn weather_card() -> Html {
         let wx = wx.clone();
         use_effect_with((), move |_| {
             wasm_bindgen_futures::spawn_local(async move {
-                let msg = match gloo_net::http::Request::get("https://wttr.in/?format=j1").send().await {
+                let msg = match gloo_net::http::Request::get("/wx.json").send().await {
                     Ok(resp) => match resp.json::<Wttr>().await {
                         Ok(d) => match (d.current_condition.first(), d.nearest_area.first()) {
                             (Some(c), Some(a)) => {
@@ -460,9 +460,9 @@ fn weather_card() -> Html {
                             }
                             _ => "weather offline \u{00B7} unexpected response".to_string(),
                         },
-                        Err(_) => "weather offline \u{00B7} couldn't parse wttr.in".to_string(),
+                        Err(_) => "weather offline \u{00B7} couldn't parse wx.json".to_string(),
                     },
-                    Err(_) => "weather offline \u{00B7} couldn't reach wttr.in".to_string(),
+                    Err(_) => "weather offline \u{00B7} couldn't reach wx.json".to_string(),
                 };
                 wx.set(Some(msg));
             });
@@ -2127,7 +2127,7 @@ fn sun_arc(frac: Option<f64>) -> String {
 
 #[function_component(SunArc)]
 fn sun_arc_widget() -> Html {
-    let (wttr, err) = use_polled_json::<WttrSun>("/sun.json", None);
+    let (wttr, err) = use_polled_json::<WttrSun>("/wx.json", None);
     let tick = use_state(|| 0u64);
     {
         let tick = tick.clone();
