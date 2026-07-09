@@ -309,6 +309,13 @@ main { margin-top: 2.5rem; }
 /* lab captions */
 .lab-item { margin: 0 0 1.3rem; }
 .lab-cap { color: var(--muted); font-size: .8rem; margin-top: .25rem; }
+/* feed tag filters + RSS */
+.nf-filters { display: flex; flex-wrap: wrap; gap: .3rem; margin: 0 0 .85rem; }
+.nf-chip { font: inherit; font-size: .76rem; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: .12rem .62rem; cursor: pointer; transition: color .15s, border-color .15s; }
+.nf-chip:hover { color: var(--fg); border-color: var(--cyan); }
+.nf-chip.active { color: var(--cyan); border-color: var(--cyan); box-shadow: var(--glow); }
+.nf-rss { display: inline-block; margin-top: 1rem; color: var(--muted); font-size: .78rem; }
+.nf-rss:hover { color: #ff9d5c; }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 

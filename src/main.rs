@@ -1622,21 +1622,38 @@ fn news_item(it: &NewsItem) -> Html {
 fn news_feed() -> Html {
     let (items, err) = use_polled_json::<Vec<NewsItem>>("/news.json", None);
     let page = use_state(|| 0usize);
+    let filter = use_state(|| None::<String>);
     let body = match (&*items, *err) {
         (None, true) => html! { <div class="news-loading">{ "ai-feed offline \u{2014} couldn't load news.json" }</div> },
         (None, false) => html! { <div class="news-loading">{ "fetching the AI feed\u{2026}" }</div> },
         (Some(v), _) if v.is_empty() => html! { <div class="news-loading">{ "feed warming up \u{2014} the factory posts fresh AI / agentic / LLM stories here every day \u{1F5DE}\u{FE0F}" }</div> },
         (Some(v), _) => {
-            let total = v.len();
+            let f = (*filter).clone();
+            let mut tags: Vec<String> = Vec::new();
+            for it in v.iter() {
+                if !it.tag.is_empty() && !tags.contains(&it.tag) { tags.push(it.tag.clone()); }
+            }
+            let fv: Vec<&NewsItem> = v.iter().filter(|it| f.as_deref().map_or(true, |t| it.tag == t)).collect();
+            let total = fv.len();
             let pages = ((total + NEWS_PER_PAGE - 1) / NEWS_PER_PAGE).max(1);
             let cur = (*page).min(pages - 1);
             let start = cur * NEWS_PER_PAGE;
             let end = (start + NEWS_PER_PAGE).min(total);
             let prev = { let p = page.clone(); Callback::from(move |_: web_sys::MouseEvent| { if *p > 0 { p.set(*p - 1); } }) };
             let next = { let p = page.clone(); Callback::from(move |_: web_sys::MouseEvent| { if *p + 1 < pages { p.set(*p + 1); } }) };
+            let all_cls = if f.is_none() { "nf-chip active" } else { "nf-chip" };
+            let all_click = { let fl = filter.clone(); let pg = page.clone(); Callback::from(move |_: web_sys::MouseEvent| { fl.set(None); pg.set(0); }) };
             html! { <>
+                <div class="nf-filters">
+                    <button class={all_cls} onclick={all_click}>{ "all" }</button>
+                    { for tags.iter().map(|t| {
+                        let cls = if f.as_deref() == Some(t.as_str()) { "nf-chip active" } else { "nf-chip" };
+                        let onclick = { let fl = filter.clone(); let pg = page.clone(); let tt = t.clone(); Callback::from(move |_: web_sys::MouseEvent| { fl.set(Some(tt.clone())); pg.set(0); }) };
+                        html! { <button class={cls} {onclick}>{ format!("#{}", t) }</button> }
+                    }) }
+                </div>
                 <ul class="news-list">
-                    { for v[start..end].iter().map(news_item) }
+                    { for fv[start..end].iter().map(|&it| news_item(it)) }
                 </ul>
                 { if pages > 1 { html! {
                     <div class="news-pager">
@@ -1652,6 +1669,7 @@ fn news_feed() -> Html {
         <div class="news">
             <div class="nf-cmd">{ "$ tail ai-feed.log  \u{00B7} auto-curated daily by the dark factory \u{1F916}" }</div>
             { body }
+            <a class="nf-rss" href="/rss.xml" target="_blank" rel="noopener">{ "\u{1F4E1} subscribe via RSS" }</a>
         </div>
     }
 }
