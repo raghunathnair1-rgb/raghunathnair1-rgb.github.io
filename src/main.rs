@@ -2262,6 +2262,64 @@ fn coverage_badge() -> Html {
     }
 }
 
+// --- the Idea Engine's self-authored backlog (scored impact × ease ÷ risk) ---
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct Idea {
+    #[serde(default)]
+    title: String,
+    #[serde(default)]
+    why: String,
+    #[serde(default)]
+    impact: u32,
+    #[serde(default)]
+    ease: u32,
+    #[serde(default)]
+    risk: u32,
+    #[serde(default)]
+    score: f64,
+    #[serde(default)]
+    auto: bool,
+}
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct IdeaData {
+    #[serde(default)]
+    ideas: Vec<Idea>,
+}
+
+#[function_component(IdeaBacklog)]
+fn idea_backlog() -> Html {
+    let (data, err) = use_polled_json::<IdeaData>("/ideas.json", Some(300_000));
+    let body = match (&*data, *err) {
+        (None, true) => html! { <div class="dj-loading">{ "backlog unavailable \u{2014} ideas.json unreachable" }</div> },
+        (None, false) => html! { <div class="dj-loading">{ "the factory is thinking\u{2026}" }</div> },
+        (Some(d), _) => html! {
+            <ul class="idea-list">
+                { for d.ideas.iter().map(|it| html! {
+                    <li class="idea">
+                        <div class="idea-head">
+                            <span class="idea-score">{ format!("{:.1}", it.score) }</span>
+                            <span class="idea-title">{ it.title.clone() }</span>
+                            { if it.auto { html! { <span class="idea-auto">{ "\u{1F916} self-build" }</span> } } else { html! {} } }
+                        </div>
+                        <div class="idea-why">{ it.why.clone() }</div>
+                        <div class="idea-metrics">
+                            <span>{ format!("impact {}", it.impact) }</span>
+                            <span>{ format!("ease {}", it.ease) }</span>
+                            <span>{ format!("risk {}", it.risk) }</span>
+                        </div>
+                    </li>
+                }) }
+            </ul>
+        },
+    };
+    html! {
+        <div class="ascii-art">
+            <div class="ascii-cmd">{ "$ ./idea_engine.py \u{00B7} the factory's self-authored backlog (impact \u{00D7} ease \u{00F7} risk)" }</div>
+            { body }
+        </div>
+    }
+}
+
 #[function_component(SiteFooter)]
 fn site_footer() -> Html {
     // uptime since first ship (2026-07-06 UTC); auto-increments, no server needed
@@ -2356,6 +2414,7 @@ fn app() -> Html {
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
                     <WatchdogStatus />
                     <CoverageBadge />
+                    <IdeaBacklog />
                     <DreamJournal />
                     <SparkMonitor />
                     <RouterMeter />
