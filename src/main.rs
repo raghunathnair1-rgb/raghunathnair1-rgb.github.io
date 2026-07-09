@@ -64,8 +64,8 @@ fn run_command(cmd: &str) -> String {
             let name = name.trim_start_matches("~/").trim_matches('/');
             match name {
                 "" | "~" | "home" => "\u{2192} ~/ (home)".to_string(),
-                "posts" | "lab" | "factory" | "feed" | "pipeline" | "contact" => format!("\u{2192} ~/{}", name),
-                other => format!("cd: {}: no such console (try: ~ posts lab factory feed pipeline contact)", other),
+                "posts" | "factory" | "feed" | "pipeline" | "contact" => format!("\u{2192} ~/{}", name),
+                other => format!("cd: {}: no such console (try: ~ posts factory feed pipeline contact)", other),
             }
         }
         ["reboot"] => "rebooting the dark factory\u{2026}".to_string(),
@@ -230,7 +230,6 @@ fn terminal(props: &TermProps) -> Html {
                     if let Some(i) = match name {
                         "" | "~" | "home" => Some(0usize),
                         "posts" => Some(1),
-                        "lab" => Some(2),
                         "factory" => Some(3),
                         "feed" => Some(4),
                         "pipeline" => Some(5),
@@ -2193,7 +2192,6 @@ fn initial_tab() -> usize {
         .and_then(|w| w.location().hash().ok())
         .map(|h| match h.trim_start_matches('#') {
             "posts" => 1,
-            "lab" => 2,
             "factory" => 3,
             "feed" => 4,
             "pipeline" => 5,
@@ -2207,7 +2205,6 @@ fn initial_tab() -> usize {
 fn tab_hash(i: usize) -> &'static str {
     match i {
         1 => "posts",
-        2 => "lab",
         3 => "factory",
         4 => "feed",
         5 => "pipeline",
@@ -2538,17 +2535,6 @@ fn app() -> Html {
                         }) }
                     </ul>
                 </> },
-                2 => html! { <>
-                    <div class="cmd">{ "$ ls ~/lab  \u{00B7} generative toys \u{00B7} every frame computed live" }</div>
-                    <div class="lab-item"><LogicPlayground /><div class="lab-cap">{ "\u{1F52C} the site running its OWN 100%-tested Rust: drag to recompute moon phase + daylight live" }</div></div>
-                    <div class="lab-item"><BrainViz /><div class="lab-cap">{ "neural activity: nodes pulsing on a shifting sine field" }</div></div>
-                    <div class="lab-item"><Orrery /><div class="lab-cap">{ "orrery: planets tracing parametric orbits in ASCII" }</div></div>
-                    <div class="lab-item"><SpinningDonut /><div class="lab-cap">{ "the spinning donut: a torus lit by a rotating depth buffer" }</div></div>
-                    <div class="lab-item"><CubeWireframe /><div class="lab-cap">{ "wireframe cube: 3D points rotated and projected to characters" }</div></div>
-                    <div class="lab-item"><DoomFire /><div class="lab-cap">{ "the 1993 DOOM fire: per-cell heat diffusion, hottest at the base" }</div></div>
-                    <div class="lab-item"><Starfield /><div class="lab-cap">{ "warp starfield: stars streaking out from a vanishing point" }</div></div>
-                    <div class="lab-item"><MoonPhase /><div class="lab-cap">{ "live moon phase: computed from the current point in the lunar cycle" }</div></div>
-                </> },
                 3 => html! { <>
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
                     <WatchdogStatus />
@@ -2643,16 +2629,16 @@ fn app() -> Html {
                     <KnowledgeGraph on_open={ let s = selected.clone(); Callback::from(move |i: usize| s.set(Some(i))) } path={(*path_hl).clone()} />
                 </> },
             };
-            let items = [("~/", 0usize), ("~/posts", 1usize), ("~/lab", 2usize), ("~/factory", 3usize), ("~/feed", 4usize), ("~/pipeline", 5usize), ("~/contact", 6usize)];
+            let items = [("~/", 0usize), ("~/posts", 1usize), ("~/factory", 3usize), ("~/feed", 4usize), ("~/pipeline", 5usize), ("~/contact", 6usize)];
             html! {
                 <>
                 <nav class="tty-bar">
-                    { for items.iter().map(|(label, idx)| {
+                    { for items.iter().enumerate().map(|(pos, (label, idx))| {
                         let idx = *idx;
                         let t = tab.clone();
                         let onclick = Callback::from(move |_: web_sys::MouseEvent| t.set(idx));
                         let cls = if tt == idx { "tty-tab active" } else { "tty-tab" };
-                        html! { <button class={cls} {onclick}>{ format!("[{}] {}", idx + 1, label) }</button> }
+                        html! { <button class={cls} {onclick}>{ format!("[{}] {}", pos + 1, label) }</button> }
                     }) }
                 </nav>
                 <div class="console" key={tt.to_string()}>{ content }</div>
