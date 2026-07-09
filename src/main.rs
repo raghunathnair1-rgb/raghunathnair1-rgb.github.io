@@ -2012,20 +2012,22 @@ fn app() -> Html {
                                     <span class="title">{ p.title }</span>
                                     <span class="tag">{ format!("#{}", p.tag) }</span>
                                     <time>{ p.date }</time>
+                                    <span class="rt">{ format!("{} min", (p.body.split_whitespace().count() / 200).max(1)) }</span>
+                                    <div class="post-excerpt">{ format!("{}\u{2026}", p.body.chars().take(96).collect::<String>()) }</div>
                                 </li>
                             }
                         }) }
                     </ul>
                 </> },
                 2 => html! { <>
-                    <div class="cmd">{ "$ ls ~/lab  \u{00B7} generative toys (donut, orrery, cube, fire, warp, moon)" }</div>
-                    <BrainViz />
-                    <Orrery />
-                    <SpinningDonut />
-                    <CubeWireframe />
-                    <DoomFire />
-                    <Starfield />
-                    <MoonPhase />
+                    <div class="cmd">{ "$ ls ~/lab  \u{00B7} generative toys \u{00B7} every frame computed live" }</div>
+                    <div class="lab-item"><BrainViz /><div class="lab-cap">{ "neural activity: nodes pulsing on a shifting sine field" }</div></div>
+                    <div class="lab-item"><Orrery /><div class="lab-cap">{ "orrery: planets tracing parametric orbits in ASCII" }</div></div>
+                    <div class="lab-item"><SpinningDonut /><div class="lab-cap">{ "the spinning donut: a torus lit by a rotating depth buffer" }</div></div>
+                    <div class="lab-item"><CubeWireframe /><div class="lab-cap">{ "wireframe cube: 3D points rotated and projected to characters" }</div></div>
+                    <div class="lab-item"><DoomFire /><div class="lab-cap">{ "the 1993 DOOM fire: per-cell heat diffusion, hottest at the base" }</div></div>
+                    <div class="lab-item"><Starfield /><div class="lab-cap">{ "warp starfield: stars streaking out from a vanishing point" }</div></div>
+                    <div class="lab-item"><MoonPhase /><div class="lab-cap">{ "live moon phase: computed from the current point in the lunar cycle" }</div></div>
                 </> },
                 3 => html! { <>
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>

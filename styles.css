@@ -302,6 +302,13 @@ main { margin-top: 2.5rem; }
 .kg-tour-nav { display: flex; gap: .5rem; margin-top: .65rem; }
 .kg-tour-b { font: inherit; font-size: .8rem; background: transparent; color: var(--cyan); border: 1px solid var(--cyan); border-radius: 5px; padding: .25rem .75rem; cursor: pointer; }
 .kg-tour-b:hover { background: rgba(34,211,238,.12); }
+
+/* richer post cards */
+.post-excerpt { color: var(--muted); font-size: .82rem; margin: .3rem 0 0 1.1rem; line-height: 1.45; }
+.rt { color: var(--muted); font-size: .75rem; margin-left: .5rem; opacity: .8; }
+/* lab captions */
+.lab-item { margin: 0 0 1.3rem; }
+.lab-cap { color: var(--muted); font-size: .8rem; margin-top: .25rem; }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 
