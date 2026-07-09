@@ -1775,7 +1775,7 @@ fn news_feed() -> Html {
                         html! { <button class={cls} {onclick}>{ format!("#{}", t) }</button> }
                     }) }
                 </div>
-                <ul class="news-list">
+                <ul class="news-list" key={format!("p{}-{}", cur, f.as_deref().unwrap_or("all"))}>
                     { for fv[start..end].iter().map(|&it| news_item(it)) }
                 </ul>
                 { if pages > 1 { html! {
