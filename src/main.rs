@@ -550,15 +550,45 @@ fn reduced_motion() -> bool {
 
 /// Re-render every `ms` to animate a widget — unless the user prefers reduced motion.
 #[hook]
-fn use_anim_tick(ms: u32) {
+fn use_anim_tick(min_ms: u32) {
+    // requestAnimationFrame loop, throttled to min_ms. Display-synced (fluid), auto-pauses
+    // when the tab is hidden, and yields to the browser under load (kind to INP).
     let f = use_state(|| 0u64);
     use_effect_with((), move |_| {
-        let iv = if reduced_motion() {
-            None
-        } else {
-            Some(gloo_timers::callback::Interval::new(ms, move || f.set(0)))
-        };
-        move || drop(iv)
+        let running = std::rc::Rc::new(std::cell::Cell::new(!reduced_motion()));
+        let holder: std::rc::Rc<std::cell::RefCell<Option<gloo_render::AnimationFrame>>> =
+            std::rc::Rc::new(std::cell::RefCell::new(None));
+        let last = std::rc::Rc::new(std::cell::Cell::new(0.0f64));
+
+        fn arm(
+            f: yew::UseStateHandle<u64>,
+            running: std::rc::Rc<std::cell::Cell<bool>>,
+            holder: std::rc::Rc<std::cell::RefCell<Option<gloo_render::AnimationFrame>>>,
+            last: std::rc::Rc<std::cell::Cell<f64>>,
+            min_ms: f64,
+        ) {
+            if !running.get() {
+                return;
+            }
+            let (f2, r2, h2, l2) = (f.clone(), running.clone(), holder.clone(), last.clone());
+            let af = gloo_render::request_animation_frame(move |ts| {
+                if !r2.get() {
+                    return;
+                }
+                if l2.get() <= 0.0 || ts - l2.get() >= min_ms {
+                    l2.set(ts);
+                    f2.set(0);
+                }
+                arm(f2.clone(), r2.clone(), h2.clone(), l2.clone(), min_ms);
+            });
+            *holder.borrow_mut() = Some(af);
+        }
+
+        arm(f.clone(), running.clone(), holder.clone(), last.clone(), min_ms as f64);
+        move || {
+            running.set(false);
+            holder.borrow_mut().take();
+        }
     });
 }
 
