@@ -283,12 +283,12 @@ main { margin-top: 2.5rem; }
 .kg-path-edge { stroke: #b8ffdb; stroke-width: 2; filter: drop-shadow(0 0 3px rgba(184, 255, 219, .9)); animation: kg-flow .5s linear infinite; }
 .kg-root, .kg-concept, .kg-post, .kg-tool, .kg-feed { filter: url(#kg-bloom); }
 /* domain clustering: node fill (SVG) + legend dot (text) colored by domain */
-.kg-d0 { fill: #e8fff1; color: #e8fff1; }
-.kg-d1 { fill: #c792ea; color: #c792ea; }
-.kg-d2 { fill: #22d3ee; color: #22d3ee; }
-.kg-d3 { fill: #7effb0; color: #7effb0; }
-.kg-d4 { fill: #ff9d5c; color: #ff9d5c; }
-.kg-d5 { fill: #ffe36b; color: #ffe36b; }
+.kg-d0 { fill: #ffffff; color: #ffffff; }
+.kg-d1 { fill: #c15cff; color: #c15cff; }
+.kg-d2 { fill: #18e0ff; color: #18e0ff; }
+.kg-d3 { fill: #35ff93; color: #35ff93; }
+.kg-d4 { fill: #ff7d2e; color: #ff7d2e; }
+.kg-d5 { fill: #ffd028; color: #ffd028; }
 .kg .kg-d0, .kg .kg-d1, .kg .kg-d2, .kg .kg-d3, .kg .kg-d4, .kg .kg-d5 { filter: url(#kg-bloom); }
 .kg-legend { display: flex; flex-wrap: wrap; gap: .25rem .9rem; margin: .5rem 0 .2rem; font-size: .76rem; color: var(--muted); }
 .kg-leg { white-space: nowrap; }
