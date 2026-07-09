@@ -130,7 +130,7 @@ body::before {
 /* --- Stranger Things header: red neon serif (ITC Benguiat vibe) with a flickering-sign glow --- */
 header .logo {
   font-family: Georgia, "Book Antiqua", "Times New Roman", serif;
-  font-size: 3.6rem; font-weight: 700; letter-spacing: -.03em;
+  font-size: clamp(2rem, 9vw, 3.6rem); font-weight: 700; letter-spacing: -.03em;
   color: #d40a1e;
   -webkit-text-stroke: 1px #ff5a5f;
   text-shadow: 0 0 4px #ff2d2d, 0 0 13px #e8091c, 0 0 28px #b00610, 0 0 48px #6e0008;
@@ -324,6 +324,16 @@ main { margin-top: 2.5rem; }
 .sun-face.sun-dusk { color: #ff7a59; text-shadow: 0 0 8px rgba(255,122,89,.45); }
 .sun-face.sun-night { color: #6d8fb8; text-shadow: 0 0 7px rgba(109,143,184,.4); }
 .sun-info { color: var(--muted); font-size: .82rem; margin-top: .45rem; line-height: 1.55; }
+/* --- responsive + fluid polish --- */
+html { scroll-behavior: smooth; }
+.ascii-face, .t-body, .kg-wrap, .news-list, .console pre { -webkit-overflow-scrolling: touch; }
+@media (max-width: 34rem) {
+  .tty-tab { font-size: .74rem; padding: .3rem .55rem; }
+  .term { margin: 1.5rem 0; }
+  .kg-legend { gap: .2rem .55rem; font-size: .7rem; }
+  .sun-info, .pipe-latest, .pipe-evt { font-size: .78rem; }
+  main { margin-top: 1.6rem; }
+}
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 
