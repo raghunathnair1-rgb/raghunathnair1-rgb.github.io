@@ -398,6 +398,31 @@ a, .log li, .news-item, .news-title, .news-src, .pipe-commit, .kg-node, .kg-edge
 .foot-fine { margin-top: .35rem; font-size: .72rem; opacity: .68; }
 .foot-cur { display: inline-block; width: .5ch; height: 1em; background: var(--green); vertical-align: text-bottom; animation: cc-blink 1.05s steps(1) infinite; }
 @media (prefers-reduced-motion: reduce) { .foot-cur { animation: none; } .foot-stack span:hover { transform: none; } }
+
+/* --- ~/factory watchdog vitals --- */
+.wd-head { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; margin: .3rem 0 .75rem; font-size: .95rem; }
+.wd-dot { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
+.wd-status { font-weight: 700; letter-spacing: .02em; }
+.wd-summary { color: var(--muted); font-size: .82rem; }
+.wd-ok   .wd-dot { background: var(--green); animation: wd-pulse-g 2s infinite; }
+.wd-ok   .wd-status { color: var(--green); }
+.wd-warn .wd-dot { background: #ffc400; animation: wd-pulse-a 1.4s infinite; }
+.wd-warn .wd-status { color: #ffc400; }
+.wd-down .wd-dot { background: #ff5470; animation: wd-pulse-r .9s infinite; }
+.wd-down .wd-status { color: #ff5470; }
+@keyframes wd-pulse-g { 0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, .7); } 70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); } }
+@keyframes wd-pulse-a { 0% { box-shadow: 0 0 0 0 rgba(255, 196, 0, .7); } 70% { box-shadow: 0 0 0 8px rgba(255, 196, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 196, 0, 0); } }
+@keyframes wd-pulse-r { 0% { box-shadow: 0 0 0 0 rgba(255, 84, 112, .7); } 70% { box-shadow: 0 0 0 8px rgba(255, 84, 112, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 84, 112, 0); } }
+.wd-checks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .25rem .9rem; }
+@media (max-width: 34rem) { .wd-checks { grid-template-columns: 1fr; } }
+.wd-check { display: flex; align-items: baseline; gap: .5rem; font-size: .82rem; padding: .2rem 0; border-bottom: 1px dotted rgba(255, 255, 255, .05); }
+.wd-mark { flex: 0 0 auto; font-weight: 700; width: 1ch; }
+.wd-check.ok  .wd-mark { color: var(--green); }
+.wd-check.bad .wd-mark { color: #ff5470; }
+.wd-name { color: var(--fg); min-width: 3.4em; }
+.wd-detail { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wd-foot { margin-top: .6rem; font-size: .72rem; color: var(--muted); opacity: .72; }
+@media (prefers-reduced-motion: reduce) { .wd-dot { animation: none !important; } }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
 .kg-feed { fill: #ff9d5c; }
 

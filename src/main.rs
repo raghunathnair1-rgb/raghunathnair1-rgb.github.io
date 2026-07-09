@@ -2225,6 +2225,73 @@ fn initial_tab() -> usize {
         .unwrap_or(0)
 }
 
+// --- self-healing watchdog: live site + pipeline vitals from watchdog.json ---
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct WdCheck {
+    #[serde(default)]
+    name: String,
+    #[serde(default)]
+    ok: bool,
+    #[serde(default)]
+    detail: String,
+}
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct WatchdogData {
+    #[serde(default)]
+    status: String,
+    #[serde(default)]
+    summary: String,
+    #[serde(default)]
+    updated: String,
+    #[serde(default)]
+    checks: Vec<WdCheck>,
+}
+
+#[function_component(WatchdogStatus)]
+fn watchdog_status() -> Html {
+    let (data, err) = use_polled_json::<WatchdogData>("/watchdog.json", Some(60_000));
+    let body = match (&*data, *err) {
+        (None, true) => html! { <div class="dj-loading">{ "watchdog offline \u{2014} watchdog.json unreachable" }</div> },
+        (None, false) => html! { <div class="dj-loading">{ "reading vitals\u{2026}" }</div> },
+        (Some(d), _) => {
+            let head_cls = match d.status.as_str() {
+                "green" => "wd-head wd-ok",
+                "down" => "wd-head wd-down",
+                _ => "wd-head wd-warn",
+            };
+            let label = match d.status.as_str() {
+                "green" => "all systems nominal",
+                "down" => "DOWN \u{2014} self-heal armed",
+                "degraded" => "degraded",
+                _ => "unknown",
+            };
+            html! { <>
+                <div class={head_cls}>
+                    <span class="wd-dot"></span>
+                    <span class="wd-status">{ label }</span>
+                    <span class="wd-summary">{ format!("\u{00B7} {}", d.summary) }</span>
+                </div>
+                <ul class="wd-checks">
+                    { for d.checks.iter().map(|c| html! {
+                        <li class={ if c.ok { "wd-check ok" } else { "wd-check bad" } }>
+                            <span class="wd-mark">{ if c.ok { "\u{2713}" } else { "\u{2717}" } }</span>
+                            <span class="wd-name">{ c.name.clone() }</span>
+                            <span class="wd-detail">{ c.detail.clone() }</span>
+                        </li>
+                    }) }
+                </ul>
+                <div class="wd-foot">{ format!("last self-check {} \u{00B7} probes every 15 min \u{00B7} rolls back to last-green on breach", d.updated) }</div>
+            </> }
+        }
+    };
+    html! {
+        <div class="ascii-art wd-box">
+            <div class="ascii-cmd">{ "$ ./watchdog.py \u{00B7} live site + pipeline health \u{00B7} self-healing" }</div>
+            { body }
+        </div>
+    }
+}
+
 #[function_component(SiteFooter)]
 fn site_footer() -> Html {
     // uptime since first ship (2026-07-06 UTC); auto-increments, no server needed
@@ -2317,6 +2384,7 @@ fn app() -> Html {
                 </> },
                 3 => html! { <>
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
+                    <WatchdogStatus />
                     <DreamJournal />
                     <SparkMonitor />
                     <RouterMeter />
