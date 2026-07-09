@@ -915,7 +915,7 @@ fn kg_step(nodes: &mut [GNode], pinned: Option<usize>, mouse: Option<(f64, f64)>
 fn kg_neighbor(h: usize, i: usize) -> bool {
     KG_EDGES.iter().any(|&(a, b)| (a == h && b == i) || (b == h && a == i))
 }
-// kg_r / kg_cls / kg_fmt live in blog-logic (pure, 100% coverage-gated)
+// kg_r / kg_fmt live in blog-logic (pure, 100% coverage-gated)
 fn kg_degree(i: usize) -> usize {
     KG_EDGES.iter().filter(|&&(a, b)| a == i || b == i).count()
 }

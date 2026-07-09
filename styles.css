@@ -252,9 +252,7 @@ main { margin-top: 2.5rem; }
   -webkit-text-fill-color: transparent; color: transparent;
   text-shadow: none; line-height: 1.0;
 }
-.moon-face { color: #f5f3c0; text-shadow: 0 0 8px rgba(245, 243, 192, .5); line-height: 1.05; }
 .moon-info { color: var(--muted); margin-top: .35rem; font-size: .85rem; }
-.star-face { color: #cfe8ff; text-shadow: 0 0 6px rgba(180, 220, 255, .5); line-height: 1.0; }
 /* DGX Spark monitor: real telemetry readout — system-mono so █/░ bars align with labels */
 .spark-face {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -281,7 +279,6 @@ main { margin-top: 2.5rem; }
 .kg-pulse { fill: #b8ffdb; opacity: .95; filter: drop-shadow(0 0 2px rgba(184, 255, 219, .8)); }
 .kg-surge { fill: #e8fff1; opacity: 1; filter: drop-shadow(0 0 3.5px rgba(184, 255, 219, 1)) drop-shadow(0 0 7px rgba(120, 255, 180, .55)); }
 .kg-path-edge { stroke: #b8ffdb; stroke-width: 2; filter: drop-shadow(0 0 3px rgba(184, 255, 219, .9)); animation: kg-flow .5s linear infinite; }
-.kg-root, .kg-concept, .kg-post, .kg-tool, .kg-feed { filter: url(#kg-bloom); }
 /* domain clustering: node fill (SVG) + legend dot (text) colored by domain */
 .kg-d0 { fill: #ffffff; color: #ffffff; }   /* core        — white hub */
 .kg-d1 { fill: #e14dff; color: #e14dff; }   /* brain & AI  — magenta */
@@ -310,8 +307,6 @@ main { margin-top: 2.5rem; }
 .post-excerpt { color: var(--muted); font-size: .82rem; margin: .3rem 0 0 1.1rem; line-height: 1.45; }
 .rt { color: var(--muted); font-size: .75rem; margin-left: .5rem; opacity: .8; }
 /* lab captions */
-.lab-item { margin: 0 0 1.3rem; }
-.lab-cap { color: var(--muted); font-size: .8rem; margin-top: .25rem; }
 /* feed tag filters + RSS */
 .nf-filters { display: flex; flex-wrap: wrap; gap: .3rem; margin: 0 0 .85rem; }
 .nf-chip { font: inherit; font-size: .76rem; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: .12rem .62rem; cursor: pointer; transition: color .15s, border-color .15s; }
@@ -444,17 +439,7 @@ a, .log li, .news-item, .news-title, .news-src, .pipe-commit, .kg-node, .kg-edge
 .idea-metrics { display: flex; flex-wrap: wrap; gap: .4rem; font-size: .68rem; color: var(--muted); }
 .idea-metrics span { border: 1px solid var(--line); border-radius: 4px; padding: 0 .35rem; }
 
-/* --- ~/lab blog-logic playground --- */
-.play-row { display: flex; align-items: center; gap: .6rem; margin: .45rem 0; flex-wrap: wrap; }
-.play-lbl { min-width: 6.5rem; color: var(--fg); font-size: .85rem; }
-.play-slider { flex: 1; min-width: 8rem; accent-color: var(--green); cursor: ew-resize; }
-.play-val { color: var(--cyan); font-size: .82rem; min-width: 4.8rem; }
-.play-moon { text-align: center; margin: .35rem 0; color: #ffe36b; }
-.play-out { margin: .55rem 0; font-size: .88rem; color: var(--muted); }
-.play-out code { color: var(--cyan); }
-.play-out b { color: var(--green); font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { .kg-edge, .kg-path-edge { animation: none; } }
-.kg-feed { fill: #ff9d5c; }
 
 /* knowledge-graph node detail panel */
 .kg-detail {
@@ -471,10 +456,6 @@ a, .log li, .news-item, .news-title, .news-src, .pipe-commit, .kg-node, .kg-edge
 .kg-chip { cursor: pointer; border: 1px solid var(--line); border-radius: 999px; padding: .05rem .45rem; color: var(--green); }
 .kg-chip:hover { background: rgba(74, 222, 128, .12); }
 .kg-d-open { display: inline-block; margin-top: .55rem; color: var(--cyan); cursor: pointer; text-decoration: underline; }
-.kg-root { fill: #e8fff1; }
-.kg-concept { fill: var(--green); }
-.kg-post { fill: var(--cyan); }
-.kg-tool { fill: #c792ea; }
 
 /* 🦀 built-in-Rust badge (Ferris) */
 .rustbadge { max-width: 34rem; margin-bottom: 1.9rem; }
