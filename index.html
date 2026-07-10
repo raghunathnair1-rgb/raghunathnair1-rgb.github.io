@@ -156,8 +156,10 @@
     pre.textContent = '  ▶ press any key or click to power on';
     boot.classList.add('boot-idle');
     var started = false;
+    var autoTimer = null;
     function powerOn() {
       if (started) return; started = true;
+      if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
       document.removeEventListener('pointerdown', powerOn);
       document.removeEventListener('keydown', powerOn);
       try { sessionStorage.setItem('booted', '1'); } catch (e) {}
@@ -168,6 +170,7 @@
     }
     document.addEventListener('pointerdown', powerOn, { once: true });
     document.addEventListener('keydown', powerOn, { once: true });
+    autoTimer = setTimeout(powerOn, 6000);
   })();
   </script>
   <canvas id="matrix" aria-hidden="true" role="presentation"></canvas>
