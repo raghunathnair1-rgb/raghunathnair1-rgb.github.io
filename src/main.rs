@@ -95,6 +95,7 @@ fn run_command(cmd: &str) -> String {
         ["now-playing", ..] => "\u{266B} Cornfield Chase \u{2014} Hans Zimmer \u{00B7} Interstellar (OST)".to_string(),
         ["fortune"] => "\u{201C}Do not go gentle into that good night...\u{201D} \u{2014} Interstellar".to_string(),
         ["uptime"] => "shipping since 2026-07-06 \u{00B7} brain online".to_string(),
+        ["nodes"] | ["graph"] => { let names: Vec<&str> = KG_NODES.iter().map(|n| n.0).collect(); format!("graph nodes: {} \u{00B7} trace with 'path <a> <b>'", names.join("  ")) }
         ["path", a, b] => match (kg_index(a), kg_index(b)) {
             (Some(fi), Some(ti)) => {
                 let pth = kg_path(fi, ti);
