@@ -200,7 +200,7 @@
       cols = Math.ceil(c.width / fs); drops = []; spd = []; trail = [];
       for (var i = 0; i < cols; i++) { drops[i] = Math.random() * c.height / fs; spd[i] = 0.45 + Math.random() * 0.95; trail[i] = ' '; }
     }
-    resize(); window.addEventListener('resize', resize);
+    resize(); var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(resize, 150); });
     function g() { return glyphs[(Math.random() * glyphs.length) | 0]; }
     function draw() {
       var amber = document.documentElement.getAttribute('data-theme') === 'amber';
