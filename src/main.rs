@@ -2208,7 +2208,7 @@ fn idea_backlog() -> Html {
 fn brain_gl() -> Html {
     html! {
         <div class="brain-gl-wrap">
-            <div class="ascii-cmd">{ "$ ./brain --render \u{00B7} live neural activity \u{00B7} knowledge \u{00B7} learning \u{00B7} hallucinations" }</div>
+            <div class="ascii-cmd">{ "$ ./brain --render \u{00B7} drag to rotate \u{00B7} knowledge \u{00B7} learning \u{00B7} hallucinations" }</div>
             <div class="brain-gl-stage">
                 <canvas id="brain-gl" class="brain-gl"></canvas>
                 <div class="brain-gl-hud">

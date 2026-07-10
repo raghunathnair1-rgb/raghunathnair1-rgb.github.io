@@ -59,7 +59,8 @@
 /* --- WebGL neural-brain (~/factory) --- */
 .brain-gl-wrap { margin: .3rem 0 1.1rem; }
 .brain-gl-stage { position: relative; width: 100%; aspect-ratio: 2 / 1; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #05070c; }
-.brain-gl { display: block; width: 100%; height: 100%; }
+.brain-gl { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.brain-gl:active { cursor: grabbing; }
 .brain-gl-hud { position: absolute; left: .65rem; bottom: .5rem; font-size: .72rem; line-height: 1.55; color: var(--fg); text-shadow: 0 0 6px #000, 0 0 3px #000; pointer-events: none; }
 .bgl-row { display: flex; align-items: center; gap: .45rem; }
 .bgl-dot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
