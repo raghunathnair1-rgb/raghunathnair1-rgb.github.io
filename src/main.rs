@@ -164,6 +164,11 @@ fn terminal(props: &TermProps) -> Html {
         let on_cd = props.on_cd.clone();
         Callback::from(move |e: web_sys::KeyboardEvent| {
             let key = e.key();
+            if e.ctrl_key() && key == "l" {
+                e.prevent_default();
+                history.set(Vec::new());
+                return;
+            }
             if key == "ArrowUp" || key == "ArrowDown" {
                 e.prevent_default();
                 let cmds: Vec<String> = (*history)
