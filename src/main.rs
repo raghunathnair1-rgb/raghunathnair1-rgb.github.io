@@ -58,7 +58,7 @@ const MAINE_COON: &str = "      |\\      _,,,---,,_\n     /,`.-'`'    -.  ;-;;,_
 fn run_command(cmd: &str) -> String {
     let p: Vec<&str> = cmd.split_whitespace().collect();
     match p.as_slice() {
-        ["help"] => "commands: help  cd <console>  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  doomfire  warp  spark  now-playing  coffee  brew  fortune  theme <name>  crt  nodes  path <a> <b>  reboot  uptime  history  echo <x>  clear".to_string(),
+        ["help"] => "commands: help  cd <console>  whoami  ls  cat <post>  meow  neofetch  dmesg  moon  date  doomfire  warp  spark  now-playing  coffee  brew  fortune  theme <name>  crt  nodes  path <a> <b>  reboot  uptime  history  echo <x>  clear".to_string(),
         ["cd", rest @ ..] => {
             let name = rest.join(" ");
             let name = name.trim_start_matches("~/").trim_matches('/');
