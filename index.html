@@ -47,6 +47,7 @@
   <link data-trunk rel="copy-file" href="activity.json"/>
   <link data-trunk rel="copy-file" href="watchdog.json"/>
   <link data-trunk rel="copy-file" href="coverage.json"/>
+  <link data-trunk rel="copy-file" href="brain.json"/>
   <link data-trunk rel="copy-file" href="ideas.json"/>
   <link data-trunk rel="copy-file" href="wx.json"/>
   <link data-trunk rel="copy-dir" href="p"/>
@@ -442,6 +443,12 @@
       }`;
     var gl=null, prog=null, uT, uR, uL, uH, uRot, bound=null, t0=performance.now(), ok=false;
     var rot={x:0.5,y:-0.15}, vel={x:0.003,y:0.0}, drag=false, last=null;
+    // real brain telemetry: knowledge (monotonic ↑) + gated hallucination rate (low), refreshed periodically
+    var bd={knowledge:0.66, learn:0.6, hallu:0.03};
+    function loadBrain(){ try{ fetch('/brain.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
+      if(j){ if(typeof j.knowledge==='number')bd.knowledge=j.knowledge; if(typeof j.learn==='number')bd.learn=j.learn; if(typeof j.hallu==='number')bd.hallu=j.hallu; }
+    }).catch(function(){}); }catch(_){} }
+    loadBrain(); setInterval(loadBrain, 30000);
     function compile(g, type, src){ var s=g.createShader(type); g.shaderSource(s, src); g.compileShader(s);
       return g.getShaderParameter(s, g.COMPILE_STATUS) ? s : null; }
     function attach(c){
@@ -480,8 +487,9 @@
       gl.viewport(0,0,c.width,c.height);
       if (!drag && !reduce) { rot.x+=vel.x; rot.y+=vel.y; vel.x*=0.95; vel.y*=0.95; rot.x+=0.0018; rot.y+=(-0.05-rot.y)*0.002; }
       var t = reduce ? 4.2 : (now-t0)/1000.0;
-      var learn = 0.55 + 0.30*Math.sin(t*0.6) + 0.15*Math.sin(t*0.17+1.0);
-      var hallu = Math.pow(Math.max(0.0, Math.sin(t*0.28)), 8.0); // bigger, periodic hallucination flares
+      // knowledge (rising) brightens + densifies the pulse; hallucinations (gated, low) drive the red flares
+      var learn = 0.32 + 0.52*bd.knowledge + 0.12*bd.learn + 0.05*Math.sin(t*0.6);
+      var hallu = bd.hallu * (0.55 + 0.45*Math.pow(Math.max(0.0, Math.sin(t*0.5)), 6.0));
       gl.uniform1f(uT,t); gl.uniform2f(uR,c.width,c.height); gl.uniform1f(uL,learn); gl.uniform1f(uH,hallu); gl.uniform2f(uRot,rot.x,rot.y);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }

@@ -2209,18 +2209,58 @@ struct BrainGlProps {
     #[prop_or_default]
     hero: bool,
 }
+// live brain telemetry (brain_metrics.py → brain.json): knowledge climbs, hallucination rate stays low
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct BrainMetrics {
+    #[serde(default)]
+    knowledge: f64,
+    #[serde(default)]
+    facts: u64,
+    #[serde(default)]
+    delta: u64,
+    #[serde(default)]
+    nodes: u32,
+    #[serde(default)]
+    synapses: u32,
+    #[serde(default)]
+    hallu_pct: f64,
+    #[serde(default)]
+    caught: u64,
+    #[serde(default)]
+    coverage: u32,
+}
+
 #[function_component(BrainGl)]
 fn brain_gl(props: &BrainGlProps) -> Html {
     let stage = if props.hero { "brain-gl-stage hero" } else { "brain-gl-stage" };
+    let (data, _err) = use_polled_json::<BrainMetrics>("/brain.json", Some(30_000));
+    let (krow, lrow, hrow) = match &*data {
+        Some(d) => {
+            let nodes = if d.nodes > 0 { d.nodes as usize } else { KG_NODES.len() };
+            let syn = if d.synapses > 0 { d.synapses as usize } else { KG_EDGES.len() };
+            let kn = (d.knowledge * 100.0).round().clamp(0.0, 100.0) as u32;
+            let delta = if d.delta > 0 { format!(" \u{00B7} +{} \u{2191}", d.delta) } else { String::new() };
+            (
+                format!("knowledge \u{00B7} {} facts \u{00B7} {} nodes \u{00B7} {} synapses{}", d.facts, nodes, syn, delta),
+                format!("learning \u{00B7} {}% mastery \u{00B7} {}% tested \u{00B7} climbing", kn, d.coverage.min(100)),
+                format!("hallucinations \u{00B7} {:.1}% \u{00B7} {} caught & gated", d.hallu_pct, d.caught),
+            )
+        }
+        None => (
+            format!("knowledge \u{00B7} {} nodes \u{00B7} {} synapses", KG_NODES.len(), KG_EDGES.len()),
+            "learning \u{00B7} 100% tested \u{00B7} always-on".to_string(),
+            "hallucinations \u{00B7} gated \u{00B7} red = flagged & caught".to_string(),
+        ),
+    };
     html! {
         <div class="brain-gl-wrap">
             <div class="ascii-cmd">{ "$ ./brain --render \u{00B7} drag to rotate \u{00B7} knowledge \u{00B7} learning \u{00B7} hallucinations" }</div>
             <div class={stage}>
                 <canvas id="brain-gl" class="brain-gl"></canvas>
                 <div class="brain-gl-hud">
-                    <div class="bgl-row"><span class="bgl-dot bgl-k"></span>{ format!("knowledge \u{00B7} {} nodes \u{00B7} {} synapses", KG_NODES.len(), KG_EDGES.len()) }</div>
-                    <div class="bgl-row"><span class="bgl-dot bgl-l"></span>{ "learning \u{00B7} 100% tested \u{00B7} always-on" }</div>
-                    <div class="bgl-row"><span class="bgl-dot bgl-h"></span>{ "hallucinations \u{00B7} gated \u{00B7} red = flagged & caught" }</div>
+                    <div class="bgl-row"><span class="bgl-dot bgl-k"></span>{ krow }</div>
+                    <div class="bgl-row"><span class="bgl-dot bgl-l"></span>{ lrow }</div>
+                    <div class="bgl-row"><span class="bgl-dot bgl-h"></span>{ hrow }</div>
                 </div>
             </div>
         </div>
