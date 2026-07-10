@@ -1,5 +1,12 @@
 [
 {
+"slug": "show-hn-rowboat-open-source-local-first-alternative-to-claude-desktop",
+"title": "Signal: Show HN: Rowboat – Open-source, local-first alternative to Claude Desktop",
+"date": "2026-07-10",
+"tag": "mcp",
+"body": "github.com reports on Rowboat, an open-source (Apache-2.0) desktop AI coworker that stores everything locally as plain Markdown. The part worth paying attention to if you build agents: instead of reconstructing context on demand by searching transcripts or documents, Rowboat maintains a long-lived, Obsidian-style backlinked knowledge graph that it indexes from email, meetings, Slack, and assistant conversations. According to github.com the pitch is memory that compounds over time rather than retrieval that starts cold each run, with relationships that are explicit and inspectable and notes that you can edit directly rather than having them hidden inside a model.\n\nThe agent surface is what makes this more than a note vault. github.com reports you can set up background agents that fire on events like new email or on a schedule like 8am daily, and that these agents can connect to tools, search the web, drive a browser, and write code using Claude Code or Codex. There is also a Code Mode that spins up parallel coding agents with Claude Code or Codex and has Rowboat drive them with work context. So the knowledge graph is not just for reading, it is the context source the agents act from.\n\nA few design choices matter for anyone wiring this into a harness. External tools come through Model Context Protocol, with github.com listing Exa, Twitter/X, ElevenLabs, Slack, Linear/Jira, and GitHub as examples, plus Composio. Models are bring-your-own: github.com says it runs local models via Ollama or LM Studio or hosted models with your own key, swappable anytime while data stays in the local vault. Optional services like Deepgram voice input, ElevenLabs voice output, and Exa search are configured by dropping an apiKey JSON file under ~/.rowboat/config.\n\nThe built-in browser is isolated from your main browser, which per github.com means you log in only the accounts you want the assistant to touch. Meeting Notes taps mic and speaker locally, produces a live transcript, and writes a Markdown summary back into the graph. github.com lists the repo at 16k stars and 1.6k forks, with the codebase 97.1% TypeScript, and it ships downloads for Mac, Windows, and Linux."
+},
+{
 "slug": "state-of-the-agentic-harness-2026",
 "title": "The State of the Agentic Harness, 2026",
 "date": "2026-07-10",
