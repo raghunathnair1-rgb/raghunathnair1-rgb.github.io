@@ -193,7 +193,7 @@ fn terminal(props: &TermProps) -> Html {
                 let v = (*value).trim().to_string();
                 if !v.is_empty() && !v.contains(' ') {
                     const CMDS: &[&str] = &[
-                        "help", "whoami", "ls", "cd", "cat", "meow", "neofetch", "dmesg", "moon",
+                        "help", "whoami", "ls", "cd", "cat", "meow", "neofetch", "dmesg", "moon", "date",
                         "doomfire", "warp", "spark", "now-playing", "coffee", "brew", "fortune",
                         "theme", "crt", "nodes", "path", "reboot", "uptime", "echo", "clear", "history",
                     ];
