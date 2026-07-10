@@ -787,7 +787,7 @@ impl Fire {
 
 
 
-// --- 3D starfield warp (completes the ASCII-3D set: donut, orrery, cube, warp) ---
+// --- 3D starfield warp (the `warp` terminal command) ---
 struct Stars {
     n: usize,
     x: Vec<f64>,
@@ -890,7 +890,7 @@ const KG_NODES: &[(&str, u8)] = &[
     ("brain", 1), ("coffee", 1), ("maine-coon", 1), ("security", 1),
     ("hello-world", 2), ("anatomy", 2), ("why-wasm", 2),
     ("yew", 3), ("trunk", 3), ("gh-pages", 3), ("opengrep", 3),
-    ("dgx-spark", 1), ("vllm", 3), ("matrix", 1), ("terminal", 1), ("orrery", 1),
+    ("dgx-spark", 1), ("vllm", 3), ("matrix", 1), ("terminal", 1),
     ("ai-feed", 4),
     ("router", 1), ("pipeline", 1), ("self-improve", 1), ("seo", 1), ("linkedin", 3),
     // --- live AI-agentic-engineering context (2026), grounded from current sources ---
@@ -901,21 +901,17 @@ const KG_NODES: &[(&str, u8)] = &[
     ("paged-attn", 1),
 ];
 const KG_EDGES: &[(usize, usize)] = &[
+
+    // AI-agentic + core wiring (orrery removed, indices renumbered)
     (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8),
-    (1, 2), (1, 12), (2, 12), (2, 13), (2, 14),
-    (10, 4), (10, 8), (10, 0), (11, 2), (11, 1), (11, 9), (9, 0),
-    (8, 15), (3, 16), (16, 17), (3, 17), (5, 4), (5, 0),
-    (18, 19), (19, 0), (19, 2), (20, 2), (20, 0),
-    (21, 3), (21, 0), (21, 5),
-    (22, 3), (22, 16), (22, 5), (23, 4), (23, 14), (23, 8),
-    (24, 5), (24, 4), (25, 14), (25, 2), (26, 21), (26, 4),
-    // AI-agentic context wiring (2026): the brain IS a harness; protocols; frameworks; the loop.
-    (27, 5), (27, 0), (27, 33), (22, 27),
-    (28, 27), (28, 3), (29, 28), (29, 27),
-    (30, 27), (30, 33), (31, 5), (31, 27), (31, 28),
-    (32, 27), (32, 30), (33, 24), (33, 23),
-    (34, 27), (34, 3), (35, 23), (35, 36), (35, 27),
-    (36, 8), (36, 23), (37, 17), (37, 16),
+    (1, 2), (1, 12), (2, 12), (2, 13), (2, 14), (10, 4), (10, 8), (10, 0),
+    (11, 2), (11, 1), (11, 9), (9, 0), (8, 15), (3, 16), (16, 17), (3, 17),
+    (5, 4), (5, 0), (18, 19), (19, 0), (19, 2), (20, 3), (20, 0), (20, 5),
+    (21, 3), (21, 16), (21, 5), (22, 4), (22, 14), (22, 8), (23, 5), (23, 4),
+    (24, 14), (24, 2), (25, 20), (25, 4), (26, 5), (26, 0), (26, 32), (21, 26),
+    (27, 26), (27, 3), (28, 27), (28, 26), (29, 26), (29, 32), (30, 5), (30, 26),
+    (30, 27), (31, 26), (31, 29), (32, 23), (32, 22), (33, 26), (33, 3), (34, 22),
+    (34, 35), (34, 26), (35, 8), (35, 22), (36, 17), (36, 16),
 ];
 
 // --- domain clustering (understand-anything style): group nodes into named domains ---
@@ -924,12 +920,12 @@ const DOMAIN_NAMES: [&str; 6] = ["core", "brain & AI", "pipeline", "frontend", "
 const TOUR: [(usize, &str, &str); 9] = [
     (0, "the dark factory", "An AI that writes, curates, and ships this blog \u{2014} no human on the floor. Follow the highlights for a quick tour of how it works."),
     (5, "the brain", "A Claude harness running unattended on a VPS. You drop a task; it works in small, verifiable steps until it's done."),
-    (22, "the router", "It sends easy, high-volume jobs to a local 35B model on the GPU cluster, and only the hard ones to a frontier model. Most work never leaves the box."),
-    (23, "the pipeline", "Every change runs a secret scan, a SAST, and an AI review that can block the push \u{2014} before CI compiles and ships it."),
+    (21, "the router", "It sends easy, high-volume jobs to a local 35B model on the GPU cluster, and only the hard ones to a frontier model. Most work never leaves the box."),
+    (22, "the pipeline", "Every change runs a secret scan, a SAST, and an AI review that can block the push \u{2014} before CI compiles and ships it."),
     (2, "rust \u{2192} wasm", "The blog is Rust compiled to WebAssembly. The VPS has no C compiler, so GitHub Actions builds it on every push and deploys to Pages."),
-    (21, "the AI feed", "It curates positive AI news daily, writes an original take on each pick, then de-slops the prose so it reads like a human wrote it."),
-    (26, "linkedin", "Those picks auto-publish to LinkedIn on a reach-tuned weekly schedule \u{2014} five posts a week, hands-off."),
-    (24, "self-improvement", "Every night it reviews its own code and opens improvement proposals. Then the loop starts over."),
+    (20, "the AI feed", "It curates positive AI news daily, writes an original take on each pick, then de-slops the prose so it reads like a human wrote it."),
+    (25, "linkedin", "Those picks auto-publish to LinkedIn on a reach-tuned weekly schedule \u{2014} five posts a week, hands-off."),
+    (23, "self-improvement", "Every night it reviews its own code and opens improvement proposals. Then the loop starts over."),
     (0, "your turn", "That's the factory. Drag the nodes, hover to trace a connection, or type 'path brain linkedin' in the terminal below."),
 ];
 const DOMAIN_ANCHORS: [(f64, f64); 6] = [

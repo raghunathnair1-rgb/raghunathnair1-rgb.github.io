@@ -263,7 +263,6 @@ main { margin-top: 2.5rem; }
   font-size: clamp(.42rem, 1.7vw, .72rem); line-height: 1.2; letter-spacing: 0;
   white-space: pre; overflow-x: auto;
 }
-.orrery-face { color: var(--green); }
 .brain-face { color: #c792ea; text-shadow: 0 0 9px rgba(199, 146, 234, .45); }
 .cube-face { color: #7fd7ff; text-shadow: 0 0 8px rgba(127, 215, 255, .4); }
 /* DOOM fire: ASCII density shapes the flame, a vertical gradient paints it hot→cool */
