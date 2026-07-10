@@ -11,7 +11,7 @@ exec 9>/tmp/darkfactory-deploy.lock
 if ! flock -w 300 9; then
   echo "⏳ another deploy held the lock >300s — skipping this run (next cron retries)"; exit 0
 fi
-msg="${1:-blog: update $(date -u +%FT%TZ)}"
+msg="${1:-blog: update $(TZ=Europe/Amsterdam date +'%Y-%m-%dT%H:%M:%S%z')}"
 SEC=/home/raghu/harness/security
 # cron has no login session -> give systemctl --user a runtime dir so the brain snapshot works
 # (and can't kill set -e). This is why the cron silently stopped deploying before.
