@@ -322,6 +322,43 @@ struct Post {
 fn posts() -> Vec<Post> {
     vec![
         Post {
+            title: "What is an AI agentic harness? I built one that ships this blog",
+            date: "2026-07-10",
+            tag: "systems",
+            body: "An AI agentic harness is the boring, load-bearing part everyone skips: the \
+                   scaffolding that lets an autonomous agent take real actions safely, on a \
+                   schedule, with no human watching. Not the model \u{2014} the harness around it. \
+                   This blog is written, reviewed, and shipped by one, so here is what actually \
+                   goes into an AI agentic harness that runs in production.\n\n\
+                   Strip away the hype and an agentic harness is four things: a trigger (a cron or \
+                   an event that wakes the agent), a bounded set of actions it is allowed to take \
+                   (a task, a gate, a deploy), a safety layer that can say no (a security review, \
+                   a test suite, a kill switch), and a memory of what it did. Miss any one and you \
+                   do not have a harness. You have a script that occasionally sets things on \
+                   fire.\n\n\
+                   The model is the easy part now; you can rent frontier reasoning by the token. \
+                   The hard part of an AI agentic harness is everything around it: what is the \
+                   agent allowed to touch, how do you stop it shipping something broken, what \
+                   happens when it fails at 3am. That is where autonomy becomes either useful or a \
+                   liability.\n\n\
+                   Mine runs lights-out on a small VPS. A tiered router sends easy calls to a \
+                   local 35B model on a 2-node GPU cluster and hard ones to a frontier model. \
+                   Every change the harness makes passes the same gate a human change would: a \
+                   static-analysis pass, a secret scan, an AI security review of the diff, and a \
+                   100 percent coverage check on the pure logic. It watches its own health, \
+                   repairs its own failed builds, and proposes its own next tasks. When it ships \
+                   code without me, it ships through that gate or it does not ship at all.\n\n\
+                   The rule that makes an agentic harness trustworthy is simple: propose before \
+                   you act, and gate every action that reaches production. The agent can be as \
+                   autonomous as you like, as long as the harness bounds what autonomous is allowed \
+                   to mean. Remove the gate and you have not built an AI agentic harness. You have \
+                   automated your own outages.\n\n\
+                   So an AI agentic harness is not a product you install. It is the discipline \
+                   around an agent: a trigger, bounded actions, a gate that can refuse, and a \
+                   record. Build it well and the agent runs your factory while you sleep. Build it \
+                   badly and it will too, just not the way you wanted.",
+        },
+        Post {
             title: "Teaching the factory to heal itself",
             date: "2026-07-09",
             tag: "systems",
