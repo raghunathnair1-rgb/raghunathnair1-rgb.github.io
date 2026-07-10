@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <!-- Security: lock down what can load/run. GitHub Pages can't set HTTP headers, so this
        is a <meta> CSP (note: frame-ancestors/clickjacking needs a real header — see Cloudflare
-       runbook). Allowlist is exact: self + wasm + the CF beacon + wttr.in weather, nothing else. -->
+       runbook). Allowlist is exact: self + wasm + the CF beacon + the GitHub API (api.github.com), nothing else. -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://api.github.com; object-src 'none'; base-uri 'self'; form-action 'self'"/>
   <meta name="referrer" content="strict-origin-when-cross-origin"/>
   <meta name="google-site-verification" content="_MxHj_1IduhAGiyqhptX8ICJb92LgohYW5dkfAb4zoo"/>
