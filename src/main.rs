@@ -192,9 +192,9 @@ fn terminal(props: &TermProps) -> Html {
                 let v = (*value).trim().to_string();
                 if !v.is_empty() && !v.contains(' ') {
                     const CMDS: &[&str] = &[
-                        "help", "whoami", "ls", "cat", "meow", "neofetch", "dmesg", "moon",
+                        "help", "whoami", "ls", "cd", "cat", "meow", "neofetch", "dmesg", "moon",
                         "doomfire", "warp", "spark", "now-playing", "coffee", "brew", "fortune",
-                        "theme", "crt", "path", "reboot", "uptime", "echo", "clear", "history",
+                        "theme", "crt", "nodes", "path", "reboot", "uptime", "echo", "clear", "history",
                     ];
                     let matches: Vec<&str> = CMDS.iter().copied().filter(|c| c.starts_with(v.as_str())).collect();
                     if let Some(first) = matches.first() {
