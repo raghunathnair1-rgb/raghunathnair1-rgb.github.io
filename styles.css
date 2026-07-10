@@ -615,3 +615,12 @@ ul.log li:nth-child(4) { animation-delay: .66s; }
   .eq i { animation: none !important; height: 8px !important; }
   .am-fill { animation: none !important; width: 38% !important; }
 }
+
+/* ---------- print: clean man-page hardcopy ---------- */
+@media print {
+  body { background: #fff !important; color: #000 !important; max-width: none; }
+  body::before { display: none !important; }
+  #matrix, #sky, #crtfx, #boot { display: none !important; }
+  .logo { text-shadow: none !important; animation: none !important; }
+  .np-out a, a { color: #000 !important; text-decoration: underline !important; }
+}
