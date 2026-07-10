@@ -1787,10 +1787,28 @@ const PIPE_STAGES: [(&str, f64); 6] = [
     ("pages", 592.0),
 ];
 
+// live GitHub Actions state -> real-time pipeline highlighting
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct CiRun {
+    #[serde(default)]
+    status: String, // queued | in_progress | completed
+    #[serde(default)]
+    conclusion: Option<String>, // success | failure | cancelled | null
+}
+#[derive(serde::Deserialize, Clone, PartialEq)]
+struct CiRuns {
+    #[serde(default)]
+    workflow_runs: Vec<CiRun>,
+}
+
 #[function_component(PipelineViz)]
 fn pipeline_viz() -> Html {
     let (data, _err) = use_polled_json::<DeployInfo>("/deploy.json", Some(20_000));
     let (act, _ae) = use_polled_json::<Activity>("/activity.json", Some(15_000));
+    // poll the real CI state (rate-safe: 75s, and only while this tab is mounted)
+    let (ci, _ce) = use_polled_json::<CiRuns>(
+        "https://api.github.com/repos/raghunathnair1-rgb/raghunathnair1-rgb.github.io/actions/runs?per_page=1",
+        Some(75_000));
     use_anim_tick(66);
     let t = js_sys::Date::now() / 1000.0;
     let phase = (t / 5.5).fract();
@@ -1799,6 +1817,20 @@ fn pipeline_viz() -> Html {
         .map(|k| 52.0 + 540.0 * (phase + k as f64 * 0.34).fract())
         .collect();
     let n = PIPE_STAGES.len();
+
+    // real pipeline state from GitHub Actions
+    let run = ci.as_ref().and_then(|c| c.workflow_runs.first());
+    let running = run.map_or(false, |r| r.status != "completed");
+    let failed = run.map_or(false, |r| r.conclusion.as_deref() == Some("failure"));
+    // while a run is genuinely in flight, march the highlight through the stages in real time
+    let sweep = ((t / 0.7) as usize) % n;
+    let (pill_cls, pill_txt) = if failed {
+        ("pipe-pill fail", "\u{25CF} build failed")
+    } else if running {
+        ("pipe-pill run", "\u{25CF} pipeline running\u{2026}")
+    } else {
+        ("pipe-pill ok", "\u{25CF} idle \u{00B7} last deploy live")
+    };
 
     let headline = match &*data {
         Some(d) => html! { <>
@@ -1825,15 +1857,17 @@ fn pipeline_viz() -> Html {
     html! {
         <div class="pipe-wrap">
             <div class="ascii-cmd">{ "$ watch factory | pipeline  \u{00B7}  task \u{2192} brain \u{2192} router \u{2192} gate \u{2192} wasm \u{2192} pages" }</div>
+            <div class={pill_cls}>{ pill_txt }</div>
             <svg class="pipe" viewBox="0 0 644 78" preserveAspectRatio="xMidYMid meet">
                 { for (0..n-1).map(|i| {
                     let x1 = PIPE_STAGES[i].1 + 30.0;
                     let x2 = PIPE_STAGES[i+1].1 - 30.0;
                     html! { <line x1={kg_fmt(x1)} y1="40" x2={kg_fmt(x2)} y2="40" class="pipe-conn" /> }
                 }) }
-                { for PIPE_STAGES.iter().map(|&(label, cx)| {
-                    let active = packets.iter().any(|&x| (x - cx).abs() < 34.0);
-                    let cls = if active { "pipe-box active" } else { "pipe-box" };
+                { for PIPE_STAGES.iter().enumerate().map(|(i, &(label, cx))| {
+                    let active = if running { i == sweep } else { packets.iter().any(|&x| (x - cx).abs() < 34.0) };
+                    let cls = if failed && i == n - 1 { "pipe-box fail" }
+                              else if active { "pipe-box active" } else { "pipe-box" };
                     let lx = cx - (label.len() as f64) * 3.5;   // approx-center the monospace label
                     html! { <>
                         <rect x={kg_fmt(cx - 30.0)} y="26" width="60" height="28" rx="6" class={cls} />
