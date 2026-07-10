@@ -2356,7 +2356,6 @@ fn app() -> Html {
                 </> },
                 3 => html! { <>
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
-                    <BrainGl />
                     <WatchdogStatus />
                     <CoverageBadge />
                     <IdeaBacklog />
