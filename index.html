@@ -209,7 +209,13 @@
         if (yr * fs > c.height && Math.random() > 0.962) { drops[i] = 0; spd[i] = 0.45 + Math.random() * 0.95; }
       }
     }
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(draw, 70);
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    var timer = null;
+    function start() { if (!timer && !reduce) timer = setInterval(draw, 70); }
+    function stop() { clearInterval(timer); timer = null; }
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+    start();
   })();
   </script>
   <script>
