@@ -25,7 +25,6 @@
 
 /* keyboard focus indicators (mouse users unaffected) */
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
-.t-input:focus-visible { outline: none; box-shadow: 0 0 0 1px var(--cyan), var(--glow); }
 
 /* keep block/box ASCII (█ ▓ ─ ┌) on a self-consistent monospace so it stays aligned */
 .clock-face, .nf-art { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
@@ -347,7 +346,6 @@ html { scroll-behavior: smooth; }
 .ascii-face, .t-body, .kg-wrap, .news-list, .console pre { -webkit-overflow-scrolling: touch; }
 @media (max-width: 34rem) {
   .tty-tab { font-size: .74rem; padding: .3rem .55rem; }
-  .term { margin: 1.5rem 0; }
   .kg-legend { gap: .2rem .55rem; font-size: .7rem; }
   .sun-info, .pipe-latest, .pipe-evt { font-size: .78rem; }
   main { margin-top: 1.6rem; }
@@ -359,7 +357,6 @@ a, .log li, .news-item, .news-title, .news-src, .pipe-commit, .kg-node, .kg-edge
 }
 .log li:hover { background: rgba(255, 255, 255, .035); border-radius: 6px; }
 .news-item:hover .news-title { color: var(--cyan); text-shadow: var(--glow); }
-.t-body { scroll-behavior: smooth; }
 .news-list { animation: nf-fade .26s ease; }
 @keyframes nf-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .news-list { animation: none; } }
@@ -570,27 +567,6 @@ article .meta { color: var(--muted); margin-bottom: 1.2rem; }
 
 a { color: var(--cyan); }
 
-/* interactive terminal */
-.term {
-  border: 1px solid var(--cyan); border-radius: 10px; background: #060a10;
-  padding: .7rem .9rem; margin: 2.2rem 0; box-shadow: var(--glow); font-size: .88rem;
-}
-.t-bar { display: flex; align-items: center; gap: 6px; margin-bottom: .6rem; }
-.t-bar .d { width: 10px; height: 10px; border-radius: 50%; }
-.t-bar .d.r { background: #ff5f56; }
-.t-bar .d.y { background: #ffbd2e; }
-.t-bar .d.g { background: #27c93f; }
-.t-name { color: var(--muted); font-size: .74rem; margin-left: .35rem; }
-.t-body { min-height: 92px; max-height: 260px; overflow-y: auto; }
-.t-line { white-space: pre-wrap; word-break: break-word; }
-.t-out { margin: .1rem 0 .55rem; white-space: pre-wrap; color: var(--fg); font: inherit; }
-.t-prompt { color: var(--green); }
-.t-inputline { display: flex; align-items: center; }
-.t-input {
-  flex: 1; min-width: 0; background: transparent; border: none; outline: none;
-  color: var(--fg); font: inherit; caret-color: var(--cyan);
-}
-.t-input::placeholder { color: var(--muted); opacity: .6; }
 footer {
   margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
   color: var(--muted); font-size: .82rem;
