@@ -55,6 +55,17 @@
 .pipe-pill.fail { color: #ff5f56; border-color: rgba(255,95,86,.55); }
 @keyframes pipe-pulse { 50% { opacity: .5; } }
 @media (prefers-reduced-motion: reduce) { .pipe-pill.run { animation: none; } }
+
+/* --- WebGL neural-brain (~/factory) --- */
+.brain-gl-wrap { margin: .3rem 0 1.1rem; }
+.brain-gl-stage { position: relative; width: 100%; aspect-ratio: 2 / 1; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #05070c; }
+.brain-gl { display: block; width: 100%; height: 100%; }
+.brain-gl-hud { position: absolute; left: .65rem; bottom: .5rem; font-size: .72rem; line-height: 1.55; color: var(--fg); text-shadow: 0 0 6px #000, 0 0 3px #000; pointer-events: none; }
+.bgl-row { display: flex; align-items: center; gap: .45rem; }
+.bgl-dot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+.bgl-k { background: #22d3ee; box-shadow: 0 0 6px #22d3ee; }
+.bgl-l { background: #7effb0; box-shadow: 0 0 6px #7effb0; }
+.bgl-h { background: #ff5470; box-shadow: 0 0 6px #ff5470; }
 .pipe-label { fill: #cfe8db; font: 12px ui-monospace, monospace; }
 .pipe-packet { fill: #b8ffdb; filter: drop-shadow(0 0 4px rgba(184,255,219,.95)); }
 .pipe-latest { color: var(--fg); margin-top: .4rem; }

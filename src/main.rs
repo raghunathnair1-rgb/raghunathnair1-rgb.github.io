@@ -2203,6 +2203,24 @@ fn idea_backlog() -> Html {
 }
 
 
+// --- WebGL neural-brain (the GPU shader lives in index.html; this mounts its canvas + HUD) ---
+#[function_component(BrainGl)]
+fn brain_gl() -> Html {
+    html! {
+        <div class="brain-gl-wrap">
+            <div class="ascii-cmd">{ "$ ./brain --render \u{00B7} live neural activity \u{00B7} knowledge \u{00B7} learning \u{00B7} hallucinations" }</div>
+            <div class="brain-gl-stage">
+                <canvas id="brain-gl" class="brain-gl"></canvas>
+                <div class="brain-gl-hud">
+                    <div class="bgl-row"><span class="bgl-dot bgl-k"></span>{ format!("knowledge \u{00B7} {} nodes \u{00B7} {} synapses", KG_NODES.len(), KG_EDGES.len()) }</div>
+                    <div class="bgl-row"><span class="bgl-dot bgl-l"></span>{ "learning \u{00B7} 100% tested \u{00B7} always-on" }</div>
+                    <div class="bgl-row"><span class="bgl-dot bgl-h"></span>{ "hallucinations \u{00B7} gated \u{00B7} red = flagged & caught" }</div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
 #[function_component(SiteFooter)]
 fn site_footer() -> Html {
     // uptime since first ship (2026-07-06 UTC); auto-increments, no server needed
@@ -2292,6 +2310,7 @@ fn app() -> Html {
                 </> },
                 3 => html! { <>
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
+                    <BrainGl />
                     <WatchdogStatus />
                     <CoverageBadge />
                     <IdeaBacklog />
