@@ -12,11 +12,11 @@ pub fn kg_domain(i: usize) -> usize {
     match i {
         0 | 4 => 0,                     // dark-factory, automation
         // brain & AI: llms, brain, dgx-spark, vllm, router, self-improve + 2026 agentic context
-        3 | 5 | 16 | 17 | 21 | 23 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 36 => 1,
+        3 | 5 | 16 | 17 | 20 | 22 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 35 => 1,
         // pipeline: security, trunk, gh-pages, opengrep, pipeline + evals/guardrails
-        8 | 13 | 14 | 15 | 22 | 34 | 35 => 2,
-        1 | 2 | 12 | 18 | 19 => 3,      // rust, wasm, yew, matrix, terminal
-        20 | 24 | 25 => 4,              // ai-feed, seo, linkedin
+        8 | 13 | 14 | 15 | 21 | 33 | 34 => 2,
+        1 | 2 | 12 | 18 => 3,           // rust, wasm, yew, matrix
+        19 | 23 | 24 => 4,              // ai-feed, seo, linkedin
         6 | 7 | 9 | 10 | 11 => 5,       // coffee, maine-coon, posts
         _ => 0,
     }
@@ -108,7 +108,7 @@ mod tests {
         assert_eq!(kg_domain(3), 1);
         assert_eq!(kg_domain(8), 2);
         assert_eq!(kg_domain(1), 3);
-        assert_eq!(kg_domain(20), 4);
+        assert_eq!(kg_domain(19), 4);
         assert_eq!(kg_domain(6), 5);
         assert_eq!(kg_domain(999), 0); // default arm — unlisted index
     }
