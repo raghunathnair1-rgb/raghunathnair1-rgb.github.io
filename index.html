@@ -430,7 +430,9 @@
         col += neural*pow(clamp(deep,0.0,1.0),1.8)*0.30*dome;
         col += neural * smoothstep(0.55,1.0,dome) * (0.16 + 0.12*u_learn);   // bright bloom core
         float rim=pow(1.0-dome, 2.5);
-        col += neural*rim*0.5;
+        // CHROMATIC fresnel edge: split the rim into RGB for a holographic dispersed outline
+        vec3 disp=vec3(pow(1.0-dome,2.2), pow(1.0-dome,2.7), pow(1.0-dome,3.3));
+        col += mix(neural, vec3(0.45,0.7,1.0), 0.5)*disp*0.55;
         // GLOSS: specular highlight (glossy wet-brain sheen)
         vec3 L=normalize(vec3(-0.5,0.6,0.7));
         float spec=pow(max(0.0, dot(reflect(-L, N), vec3(0.0,0.0,1.0))), 26.0);
@@ -454,7 +456,10 @@
         // soft cyan halo hugging the brain outline
         float halo=(1.0-m)*smoothstep(-0.16, 0.0, bf);
         col += neural*0.16*halo;
-        gl_FragColor=vec4(col, 1.0);
+        col *= 0.93 + 0.07*sin(t*1.2);                 // subtle 'breathing' — alive even at rest
+        col *= 1.12;                                    // exposure
+        col = (col*(2.51*col+0.03))/(col*(2.43*col+0.59)+0.14);   // ACES filmic tone-map (rich, no blowout)
+        gl_FragColor=vec4(clamp(col,0.0,1.0), 1.0);
       }`;
     var gl=null, prog=null, uT, uR, uL, uH, uRot, uPt, bound=null, t0=performance.now(), ok=false;
     var rot={x:0.5,y:-0.15}, vel={x:0.003,y:0.0}, drag=false, last=null, pt=[999,999];
