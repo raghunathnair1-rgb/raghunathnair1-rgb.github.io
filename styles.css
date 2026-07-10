@@ -159,6 +159,7 @@ header .logo {
   text-shadow: 0 0 4px #ff2d2d, 0 0 13px #e8091c, 0 0 28px #b00610, 0 0 48px #6e0008;
 }
 .logo-name { animation: st-flicker 5s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .logo-name { animation: none; } }
 @keyframes st-flicker {
   0%, 88%, 100% { opacity: 1; }
   89% { opacity: .35; }
