@@ -224,6 +224,7 @@ main { margin-top: 2.5rem; }
 .brain .dot.ok { background: var(--green); box-shadow: 0 0 7px var(--green); animation: brain-pulse 1.6s ease-in-out infinite; }
 .brain .dot.bad { background: #ff5f56; box-shadow: 0 0 7px #ff5f56; }
 @keyframes brain-pulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .brain .dot.ok { animation: none; } }
 .brain-up { color: var(--cyan); font-variant-numeric: tabular-nums; margin-left: auto; }
 .brain-pid { color: var(--muted); font-size: .76rem; }
 .brain-loading { color: var(--muted); font-size: .85rem; }
