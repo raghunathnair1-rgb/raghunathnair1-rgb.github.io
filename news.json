@@ -1,5 +1,29 @@
 [
  {
+  "title": "Show HN: Getting GLM 5.2 running on my slow computer",
+  "date": "2026-07-09",
+  "tag": "model",
+  "summary": "GLM-5.2 is a 744B-parameter mixture-of-experts model, and the trick here is that MoE only activates a handful of experts per token — so colibri keeps the router and active weights in 25GB of RAM and streams the cold experts off disk on demand, all in dependency-free C. It won't be fast, but it reframes the memory wall as a bandwidth problem: the question stops being can I fit this model and becomes how patient am I. Worth a look if you want to reason about inference cost from first principles instead of trusting a framework to hide the plumbing.",
+  "source": "github.com",
+  "url": "https://github.com/JustVugg/colibri"
+ },
+ {
+  "title": "Muse Spark 1.1",
+  "date": "2026-07-09",
+  "tag": "release",
+  "summary": "I can only see a title — Muse Spark 1.1 — with no story, spec sheet, benchmark, or release notes attached. Writing the blurb you're describing means leading with what's technically notable (the actual capability, architecture, or numbers), and I don't have any of that here. If I invented plausible-sounding details, I'd be manufacturing exactly the hype the brief tells me to avoid. Paste the release notes, blog post, or a few concrete facts about what Muse Spark 1.1 actually is and does, and I'll turn it into a tight 2-3 sentence take.",
+  "source": "ai.meta.com",
+  "url": "https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/"
+ },
+ {
+  "title": "We made Grok 4.5, GPT-5.5, and Claude build the same apps",
+  "date": "2026-07-08",
+  "tag": "claude",
+  "summary": "Grok 4.5 ships and the reflex is to argue benchmarks; running all four models one-shot the same interactive apps and then charting latency and cost per build is the more honest test, since a leaderboard MMLU point says nothing about whether the thing renders a working UI on the first try. The interesting signal isn't the winner but the spread: one-shot success on a real app plus tokens-to-first-render is the axis builders actually feel, and it rarely tracks the eval scores everyone quotes.",
+  "source": "tryai.dev",
+  "url": "https://www.tryai.dev/blog/grok-4.5-vs-gpt-5.5-vs-claude-build-off"
+ },
+ {
   "title": "Show HN: Microsoft releases Flint, a visualization language for AI agents",
   "date": "2026-07-08",
   "tag": "open-source",
