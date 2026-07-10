@@ -72,7 +72,17 @@ fn run_command(cmd: &str) -> String {
         ["crt"] | ["crt", "on"] | ["crt", "off"] => "CRT mode \u{1F4FA} toggled".to_string(),
         ["whoami"] => "raghu \u{2014} builder \u{00B7} tinkerer \u{00B7} runs an AI dark factory for fun".to_string(),
         ["ls"] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
-        ["ls", "posts"] | ["ls", "posts/"] => "hello-world.md   anatomy-of-a-dark-factory.md   why-webassembly.md".to_string(),
+        ["ls", "posts"] | ["ls", "posts/"] => {
+            // derive from the real posts so `ls posts` always matches what `cat <post>` can open
+            let mut names: Vec<String> = Vec::new();
+            for p in posts() {
+                let n = format!("{}.md", p.tag);
+                if !names.contains(&n) {
+                    names.push(n);
+                }
+            }
+            names.join("   ")
+        }
         ["neofetch"] => "os: dark-factory \u{00B7} kernel: rust\u{2192}wasm \u{00B7} shell: harness brain \u{00B7} status: \u{25CF} online".to_string(),
         ["dmesg"] => "[dark-factory] dream log streams above \u{2014} scroll to the '$ dmesg | tail' panel. the machine narrates its own git log nightly (03:00 UTC).".to_string(),
         ["moon"] => {
@@ -134,6 +144,7 @@ fn terminal(props: &TermProps) -> Html {
     let history = use_state(|| vec![Line::Out("dark-factory shell \u{2014} type 'help' for commands.".to_string())]);
     let value = use_state(String::new);
     let hist_idx = use_state(|| None::<usize>);
+    let input_ref = use_node_ref();
 
     let oninput = {
         let value = value.clone();
@@ -173,6 +184,29 @@ fn terminal(props: &TermProps) -> Html {
                     None => value.set(String::new()),
                 }
                 hist_idx.set(new_idx);
+                return;
+            }
+            if key == "Tab" {
+                e.prevent_default();
+                let v = (*value).trim().to_string();
+                if !v.is_empty() && !v.contains(' ') {
+                    const CMDS: &[&str] = &[
+                        "help", "whoami", "ls", "cat", "meow", "neofetch", "dmesg", "moon",
+                        "doomfire", "warp", "spark", "now-playing", "coffee", "brew", "fortune",
+                        "theme", "crt", "path", "reboot", "uptime", "echo", "clear", "history",
+                    ];
+                    let matches: Vec<&str> = CMDS.iter().copied().filter(|c| c.starts_with(v.as_str())).collect();
+                    if let Some(first) = matches.first() {
+                        // complete to the longest common prefix of all matches
+                        let mut lcp = first.to_string();
+                        for m in &matches[1..] {
+                            while !m.starts_with(lcp.as_str()) {
+                                lcp.pop();
+                            }
+                        }
+                        value.set(lcp);
+                    }
+                }
                 return;
             }
             if key == "Enter" {
@@ -246,18 +280,27 @@ fn terminal(props: &TermProps) -> Html {
             }
         })
     };
+    // click anywhere in the terminal body -> focus the prompt (like a real TTY)
+    let onfocus_input = {
+        let input_ref = input_ref.clone();
+        Callback::from(move |_: web_sys::MouseEvent| {
+            if let Some(inp) = input_ref.cast::<web_sys::HtmlInputElement>() {
+                let _ = inp.focus();
+            }
+        })
+    };
 
     html! {
         <section class="term">
             <div class="t-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="t-name">{ "visitor@dark-factory \u{2014} try it \u{2193}" }</span></div>
-            <div class="t-body">
+            <div class="t-body" onclick={onfocus_input} aria-live="polite" aria-atomic="false">
                 { for (*history).iter().map(|l| match l {
                     Line::Cmd(s) => html! { <div class="t-line"><span class="t-prompt">{ "$ " }</span>{ s.clone() }</div> },
                     Line::Out(s) => html! { <pre class="t-out">{ s.clone() }</pre> },
                 }) }
                 <div class="t-inputline">
                     <span class="t-prompt">{ "$ " }</span>
-                    <input class="t-input" type="text" value={(*value).clone()} {oninput} {onkeydown}
+                    <input ref={input_ref} class="t-input" type="text" value={(*value).clone()} {oninput} {onkeydown}
                         aria-label="dark-factory shell: type a command"
                         spellcheck="false" autocomplete="off" placeholder="type a command..." />
                 </div>
