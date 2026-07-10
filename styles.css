@@ -5,14 +5,15 @@
 @font-face { font-family: "Space Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/space-mono-700.woff2") format("woff2"); }
 
 :root {
-  --bg: #0a0e14;
-  --panel: #0e131b;
-  --fg: #c9d1d9;
-  --muted: #6b7685;
-  --cyan: #22d3ee;
-  --green: #4ade80;
-  --line: #1b2430;
-  --glow: 0 0 8px rgba(34, 211, 238, .45);
+  /* Matrix theme: phosphor green on near-black — cascades to the whole site */
+  --bg: #010601;
+  --panel: #04140a;
+  --fg: #48f56e;          /* readable matrix-green body text */
+  --muted: #2b8f4d;       /* dim green for secondary text */
+  --cyan: #00ffb0;        /* accent (links / active tab / prompts) — brighter terminal green */
+  --green: #00ff41;       /* classic Matrix green for highlights */
+  --line: #0d3c22;        /* green-tinted borders */
+  --glow: 0 0 8px rgba(0, 255, 65, .5);
   font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 /* amber theme (toggle via terminal: `theme amber` / `theme green`) */
@@ -120,7 +121,7 @@ html, body { height: 100%; }
 body {
   margin: 0;
   background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(34,211,238,.06), transparent 60%),
+    radial-gradient(1200px 600px at 50% -10%, rgba(0,255,65,.08), transparent 60%),
     var(--bg);
   color: var(--fg);
   line-height: 1.7;
@@ -136,7 +137,7 @@ body::before {
 /* matrix-rain canvas layer (drawn by the script in index.html) */
 #matrix {
   position: fixed; inset: 0; width: 100%; height: 100%;
-  z-index: -1; pointer-events: none; opacity: .40;
+  z-index: -1; pointer-events: none; opacity: .55;
   /* bold full-page rain, only a whisper of center softening for legibility */
   -webkit-mask-image: radial-gradient(ellipse 42% 58% at 50% 46%, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.9) 42%, black 74%);
   mask-image: radial-gradient(ellipse 42% 58% at 50% 46%, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.9) 42%, black 74%);
@@ -299,12 +300,13 @@ main { margin-top: 2.5rem; }
 .kg-surge { fill: #e8fff1; opacity: 1; filter: drop-shadow(0 0 3.5px rgba(184, 255, 219, 1)) drop-shadow(0 0 7px rgba(120, 255, 180, .55)); }
 .kg-path-edge { stroke: #b8ffdb; stroke-width: 2; filter: drop-shadow(0 0 3px rgba(184, 255, 219, .9)); animation: kg-flow .5s linear infinite; }
 /* domain clustering: node fill (SVG) + legend dot (text) colored by domain */
-.kg-d0 { fill: #ffffff; color: #ffffff; }   /* core        — white hub */
-.kg-d1 { fill: #e14dff; color: #e14dff; }   /* brain & AI  — magenta */
-.kg-d2 { fill: #00d9ff; color: #00d9ff; }   /* pipeline    — electric cyan */
-.kg-d3 { fill: #19f07a; color: #19f07a; }   /* frontend    — neon green */
-.kg-d4 { fill: #ff6a1a; color: #ff6a1a; }   /* distribution— bold orange */
-.kg-d5 { fill: #ffc400; color: #ffc400; }   /* writing     — amber */
+/* Matrix theme: green-family domain palette (teal → lime → chartreuse), still distinguishable */
+.kg-d0 { fill: #eaffe0; color: #eaffe0; }   /* core        — white-green hub */
+.kg-d1 { fill: #00ffb0; color: #00ffb0; }   /* brain & AI  — teal-green */
+.kg-d2 { fill: #34ffd6; color: #34ffd6; }   /* pipeline    — aqua-green */
+.kg-d3 { fill: #00ff41; color: #00ff41; }   /* frontend    — matrix green */
+.kg-d4 { fill: #c6ff00; color: #c6ff00; }   /* distribution— chartreuse */
+.kg-d5 { fill: #7dff4d; color: #7dff4d; }   /* writing     — lime */
 .kg .kg-d0, .kg .kg-d1, .kg .kg-d2, .kg .kg-d3, .kg .kg-d4, .kg .kg-d5 { filter: url(#kg-bloom); }
 .kg-legend { display: flex; flex-wrap: wrap; gap: .25rem .9rem; margin: .5rem 0 .2rem; font-size: .76rem; color: var(--muted); }
 .kg-leg { white-space: nowrap; }
