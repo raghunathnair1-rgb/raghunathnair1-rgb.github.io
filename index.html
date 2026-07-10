@@ -379,35 +379,53 @@
       mat3 rotX(float a){ float c=cos(a),s=sin(a); return mat3(1.0,0.0,0.0, 0.0,c,s, 0.0,-s,c); }
       void main(){
         vec2 uv=(gl_FragCoord.xy-0.5*u_res)/u_res.y; float t=u_time;
-        float R=0.60;
-        // WILD flares warp the whole orb
+        float R=0.44;
+        // hallucination warps the whole shape
         vec2 duv=uv + u_hallu*0.028*vec2(sin(uv.y*28.0+t*12.0), cos(uv.x*28.0-t*11.0));
-        float len=length(duv);
-        float m=smoothstep(R, R-0.05, len);
-        vec2 pp=duv/R; float z=sqrt(max(0.0, 1.0-dot(pp,pp)));
-        vec3 N=vec3(pp, z);                 // view normal (for gloss)
+        vec2 c=duv/R + vec2(0.0, 0.06);     // brain-space coords (shifted so it sits centered)
+        float ang=atan(c.y, c.x);
+        // ---- BRAIN SILHOUETTE: cerebrum ovoid + gyri-bumped rim + top cleft + cerebellum + stem ----
+        float rim0 = 0.86 + 0.05*sin(ang*7.0+0.4) + 0.032*sin(ang*13.0-1.1);   // lumpy gyri outline
+        float cx=c.x/0.16; rim0 -= 0.12*exp(-cx*cx)*smoothstep(0.30,0.92,c.y);  // frontal-lobe cleft (two hemispheres)
+        float body = rim0 - length(c*vec2(1.05,1.07));
+        float cbl  = 0.30 - length((c-vec2(0.0,-0.74))*vec2(1.15,1.35));        // cerebellum
+        float stem = 0.15 - length((c-vec2(0.0,-0.92))*vec2(2.3,1.25));         // brainstem nub
+        float bf = max(max(body, cbl), stem);
+        float m = smoothstep(0.0, 0.02, bf);
+        float dome = sqrt(clamp(bf*1.7, 0.0, 1.0));                             // pseudo-3D height
+        // interhemispheric fissure (median groove down the middle)
+        float fis = smoothstep(0.085, 0.0, abs(c.x + 0.03*sin(c.y*3.0)));
+        fis *= smoothstep(-0.62,-0.30,c.y) * smoothstep(0.90,0.55,c.y);
+        float zc = dome - 0.30*fis;                                            // grooved height for lighting
+        vec2 pp=c;
+        vec3 N=normalize(vec3(pp*0.95, zc+0.20));
         mat3 rotM=rotX(u_rot.y)*rotY(u_rot.x);
-        vec3 sp=rotM*N;
+        vec3 sp=rotM*vec3(pp, dome);
         // DENSE synapses: warped fbm + fine + micro filaments
         vec3 w=vec3(fbm(sp*2.0+t*0.10), fbm(sp*2.0+vec3(4.0)-t*0.08), fbm(sp*2.0+vec3(9.0)));
         float f=fbm(sp*5.0 + w*1.3 + t*0.06);
         float fil=pow(clamp(1.0-abs(f-0.5)*2.0,0.0,1.0),3.0);
         float fine=fbm(sp*11.0 + w*0.6);
         fil += pow(clamp(1.0-abs(fine-0.5)*2.3,0.0,1.0),4.0)*0.7;
+        // gyri/sulci folds: ridged noise darkens the grooves so the surface reads as folded
+        float ridge=abs(fbm(sp*3.4 + w*0.5)-0.5);
+        float gyri=0.6 + 0.72*smoothstep(0.0,0.22,ridge);
         // FAST pulses
         float pulse=pow(0.5+0.5*sin(f*36.0 - t*7.5), 5.0)*(0.5+u_learn);
         vec3 neural=mix(vec3(0.15,0.92,1.0), vec3(0.72,0.35,1.0), fbm(sp*1.3+t*0.02));
-        vec3 col=neural*(fil*1.0 + pulse*1.9);
+        vec3 col=neural*(fil*1.0 + pulse*1.9)*gyri;
         // VOLUMETRIC deep glow (a second inner shell) + fresnel rim
-        float deep=fbm(rotM*vec3(pp*1.12, z*0.5)*3.4 + t*0.05);
-        col += neural*pow(clamp(deep,0.0,1.0),1.8)*0.30*z;
-        float rim=pow(1.0-z, 2.5);
+        float deep=fbm(rotM*vec3(pp*1.12, dome*0.5)*3.4 + t*0.05);
+        col += neural*pow(clamp(deep,0.0,1.0),1.8)*0.30*dome;
+        float rim=pow(1.0-dome, 2.5);
         col += neural*rim*0.5;
         // GLOSS: specular highlight (glossy wet-brain sheen)
         vec3 L=normalize(vec3(-0.5,0.6,0.7));
         float spec=pow(max(0.0, dot(reflect(-L, N), vec3(0.0,0.0,1.0))), 26.0);
-        col += vec3(0.85,0.95,1.0)*spec*0.75;
+        col += vec3(0.85,0.95,1.0)*spec*0.7*m;
         col += neural*0.2*u_learn*(0.5+0.5*sin(t*2.0));
+        // darken the median fissure so the two hemispheres read clearly
+        col *= (1.0 - 0.72*fis);
         // WILD hallucination: two rotating red blobs + sparks + red rim, over-bright
         vec3 hc1=rotY(t*0.7)*vec3(0.5,0.2,0.5);
         vec3 hc2=rotX(t*0.9)*vec3(-0.4,0.3,0.4);
@@ -417,7 +435,9 @@
         col=mix(col, vec3(1.5,0.15,0.22), clamp(flare,0.0,1.0)*0.95);
         col += vec3(1.0,0.12,0.18)*u_hallu*rim*0.8;
         col*=m;
-        col += neural*0.14*smoothstep(R+0.08, R, len)*(1.0-m);
+        // soft cyan halo hugging the brain outline
+        float halo=(1.0-m)*smoothstep(-0.16, 0.0, bf);
+        col += neural*0.16*halo;
         gl_FragColor=vec4(col, 1.0);
       }`;
     var gl=null, prog=null, uT, uR, uL, uH, uRot, bound=null, t0=performance.now(), ok=false;
