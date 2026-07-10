@@ -374,7 +374,7 @@
       #else
       precision mediump float;
       #endif
-      uniform float u_time; uniform vec2 u_res; uniform float u_learn; uniform float u_hallu; uniform vec2 u_rot;
+      uniform float u_time; uniform vec2 u_res; uniform float u_learn; uniform float u_hallu; uniform vec2 u_rot; uniform vec2 u_point;
       float hash(vec3 p){ return fract(sin(dot(p, vec3(127.1,311.7,74.7)))*43758.5453); }
       float noise(vec3 p){ vec3 i=floor(p), f=fract(p); vec3 u=f*f*(3.0-2.0*f);
         return mix(mix(mix(hash(i+vec3(0.,0.,0.)),hash(i+vec3(1.,0.,0.)),u.x),
@@ -414,6 +414,9 @@
         float fil=pow(clamp(1.0-abs(f-0.5)*2.0,0.0,1.0),3.0);
         float fine=fbm(sp*11.0 + w*0.6);
         fil += pow(clamp(1.0-abs(fine-0.5)*2.3,0.0,1.0),4.0)*0.7;
+        // TRAVELING SIGNALS: bright pulses racing along the synapse network (thoughts firing)
+        float sig = pow(0.5+0.5*sin(f*22.0 - t*5.0 + w.x*6.28), 12.0)
+                  + pow(0.5+0.5*sin(fine*30.0 - t*8.0 + w.y*6.28), 18.0)*0.7;
         // gyri/sulci folds: ridged noise darkens the grooves so the surface reads as folded
         float ridge=abs(fbm(sp*3.4 + w*0.5)-0.5);
         float gyri=0.6 + 0.72*smoothstep(0.0,0.22,ridge);
@@ -421,15 +424,18 @@
         float pulse=pow(0.5+0.5*sin(f*36.0 - t*7.5), 5.0)*(0.5+u_learn);
         vec3 neural=mix(vec3(0.15,0.92,1.0), vec3(0.72,0.35,1.0), fbm(sp*1.3+t*0.02));
         vec3 col=neural*(fil*1.0 + pulse*1.9)*gyri;
+        col += vec3(0.75,1.0,1.0) * sig * fil * (0.7 + u_learn);   // firing signals ride the filaments
         // VOLUMETRIC deep glow (a second inner shell) + fresnel rim
         float deep=fbm(rotM*vec3(pp*1.12, dome*0.5)*3.4 + t*0.05);
         col += neural*pow(clamp(deep,0.0,1.0),1.8)*0.30*dome;
+        col += neural * smoothstep(0.55,1.0,dome) * (0.16 + 0.12*u_learn);   // bright bloom core
         float rim=pow(1.0-dome, 2.5);
         col += neural*rim*0.5;
         // GLOSS: specular highlight (glossy wet-brain sheen)
         vec3 L=normalize(vec3(-0.5,0.6,0.7));
         float spec=pow(max(0.0, dot(reflect(-L, N), vec3(0.0,0.0,1.0))), 26.0);
-        col += vec3(0.85,0.95,1.0)*spec*0.7*m;
+        vec3 iri = 0.6 + 0.4*cos(vec3(0.0,2.1,4.2) + dome*7.0 + t*0.4 + sp.x*2.0);
+        col += iri*spec*0.95*m;   // iridescent wet-brain sheen
         col += neural*0.2*u_learn*(0.5+0.5*sin(t*2.0));
         // darken the median fissure so the two hemispheres read clearly
         col *= (1.0 - 0.72*fis);
@@ -442,13 +448,16 @@
         col=mix(col, vec3(1.5,0.15,0.22), clamp(flare,0.0,1.0)*0.95);
         col += vec3(1.0,0.12,0.18)*u_hallu*rim*0.8;
         col*=m;
+        // TOUCH-REACTIVE: hover/press anywhere and the brain lights up under your finger
+        float touch = smoothstep(0.22, 0.0, length(uv - u_point)) * m;
+        col += vec3(0.6,1.0,0.95) * touch * (0.6 + pulse*1.5);
         // soft cyan halo hugging the brain outline
         float halo=(1.0-m)*smoothstep(-0.16, 0.0, bf);
         col += neural*0.16*halo;
         gl_FragColor=vec4(col, 1.0);
       }`;
-    var gl=null, prog=null, uT, uR, uL, uH, uRot, bound=null, t0=performance.now(), ok=false;
-    var rot={x:0.5,y:-0.15}, vel={x:0.003,y:0.0}, drag=false, last=null;
+    var gl=null, prog=null, uT, uR, uL, uH, uRot, uPt, bound=null, t0=performance.now(), ok=false;
+    var rot={x:0.5,y:-0.15}, vel={x:0.003,y:0.0}, drag=false, last=null, pt=[999,999];
     // real brain telemetry: knowledge (monotonic ↑) + gated hallucination rate (low), refreshed periodically
     var bd={knowledge:0.66, learn:0.6, hallu:0.03};
     function loadBrain(){ try{ fetch('/brain.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
@@ -459,10 +468,13 @@
       return g.getShaderParameter(s, g.COMPILE_STATUS) ? s : null; }
     function attach(c){
       c.style.touchAction='none';
-      c.addEventListener('pointerdown', function(e){ drag=true; last=[e.clientX,e.clientY]; try{ c.setPointerCapture(e.pointerId); }catch(_){} });
-      c.addEventListener('pointermove', function(e){ if(!drag||!last) return; var dx=e.clientX-last[0], dy=e.clientY-last[1];
+      // map a pointer event to the shader's uv space so the brain lights up under the cursor/finger
+      function setPt(e){ var r=c.getBoundingClientRect(); if(!r.width||!r.height){ return; } var asp=r.width/r.height;
+        pt=[((e.clientX-r.left)/r.width-0.5)*asp, 0.5-(e.clientY-r.top)/r.height]; }
+      c.addEventListener('pointerdown', function(e){ drag=true; last=[e.clientX,e.clientY]; setPt(e); try{ c.setPointerCapture(e.pointerId); }catch(_){} });
+      c.addEventListener('pointermove', function(e){ setPt(e); if(!drag||!last) return; var dx=e.clientX-last[0], dy=e.clientY-last[1];
         rot.x+=dx*0.007; rot.y+=dy*0.007; rot.y=Math.max(-1.3, Math.min(1.3, rot.y)); vel.x=dx*0.007; vel.y=dy*0.007; last=[e.clientX,e.clientY]; });
-      var end=function(){ drag=false; last=null; };
+      var end=function(){ drag=false; last=null; pt=[999,999]; };
       c.addEventListener('pointerup', end); c.addEventListener('pointercancel', end); c.addEventListener('pointerleave', end);
     }
     function init(c){
@@ -477,7 +489,7 @@
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
       var loc=gl.getAttribLocation(prog,'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
       uT=gl.getUniformLocation(prog,'u_time'); uR=gl.getUniformLocation(prog,'u_res');
-      uL=gl.getUniformLocation(prog,'u_learn'); uH=gl.getUniformLocation(prog,'u_hallu'); uRot=gl.getUniformLocation(prog,'u_rot');
+      uL=gl.getUniformLocation(prog,'u_learn'); uH=gl.getUniformLocation(prog,'u_hallu'); uRot=gl.getUniformLocation(prog,'u_rot'); uPt=gl.getUniformLocation(prog,'u_point');
       attach(c);
       return true;
     }
@@ -496,7 +508,7 @@
       // knowledge (rising) brightens + densifies the pulse; hallucinations (gated, low) drive the red flares
       var learn = 0.32 + 0.52*bd.knowledge + 0.12*bd.learn + 0.05*Math.sin(t*0.6);
       var hallu = bd.hallu * (0.55 + 0.45*Math.pow(Math.max(0.0, Math.sin(t*0.5)), 6.0));
-      gl.uniform1f(uT,t); gl.uniform2f(uR,c.width,c.height); gl.uniform1f(uL,learn); gl.uniform1f(uH,hallu); gl.uniform2f(uRot,rot.x,rot.y);
+      gl.uniform1f(uT,t); gl.uniform2f(uR,c.width,c.height); gl.uniform1f(uL,learn); gl.uniform1f(uH,hallu); gl.uniform2f(uRot,rot.x,rot.y); gl.uniform2f(uPt,pt[0],pt[1]);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
     requestAnimationFrame(frame);
