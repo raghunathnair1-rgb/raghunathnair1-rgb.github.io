@@ -2204,12 +2204,18 @@ fn idea_backlog() -> Html {
 
 
 // --- WebGL neural-brain (the GPU shader lives in index.html; this mounts its canvas + HUD) ---
+#[derive(Properties, PartialEq)]
+struct BrainGlProps {
+    #[prop_or_default]
+    hero: bool,
+}
 #[function_component(BrainGl)]
-fn brain_gl() -> Html {
+fn brain_gl(props: &BrainGlProps) -> Html {
+    let stage = if props.hero { "brain-gl-stage hero" } else { "brain-gl-stage" };
     html! {
         <div class="brain-gl-wrap">
             <div class="ascii-cmd">{ "$ ./brain --render \u{00B7} drag to rotate \u{00B7} knowledge \u{00B7} learning \u{00B7} hallucinations" }</div>
-            <div class="brain-gl-stage">
+            <div class={stage}>
                 <canvas id="brain-gl" class="brain-gl"></canvas>
                 <div class="brain-gl-hud">
                     <div class="bgl-row"><span class="bgl-dot bgl-k"></span>{ format!("knowledge \u{00B7} {} nodes \u{00B7} {} synapses", KG_NODES.len(), KG_EDGES.len()) }</div>
@@ -2353,6 +2359,7 @@ fn app() -> Html {
                 </> },
                 _ => html! { <>
                     <RustBadge />
+                    <BrainGl hero=true />
                     <section class="about">
                         <div class="cmd">{ "$ whoami" }</div>
                         <div class="card">

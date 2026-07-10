@@ -374,36 +374,50 @@
                        mix(hash(i+vec3(0.,1.,0.)),hash(i+vec3(1.,1.,0.)),u.x),u.y),
                    mix(mix(hash(i+vec3(0.,0.,1.)),hash(i+vec3(1.,0.,1.)),u.x),
                        mix(hash(i+vec3(0.,1.,1.)),hash(i+vec3(1.,1.,1.)),u.x),u.y), u.z); }
-      float fbm(vec3 p){ float v=0.0,a=0.5; for(int i=0;i<5;i++){ v+=a*noise(p); p=p*2.03+1.7; a*=0.5; } return v; }
+      float fbm(vec3 p){ float v=0.0,a=0.5; for(int i=0;i<4;i++){ v+=a*noise(p); p=p*2.05+1.7; a*=0.5; } return v; }
       mat3 rotY(float a){ float c=cos(a),s=sin(a); return mat3(c,0.0,-s, 0.0,1.0,0.0, s,0.0,c); }
       mat3 rotX(float a){ float c=cos(a),s=sin(a); return mat3(1.0,0.0,0.0, 0.0,c,s, 0.0,-s,c); }
       void main(){
         vec2 uv=(gl_FragCoord.xy-0.5*u_res)/u_res.y; float t=u_time;
-        float R=0.60; float len=length(uv);
+        float R=0.60;
+        // WILD flares warp the whole orb
+        vec2 duv=uv + u_hallu*0.028*vec2(sin(uv.y*28.0+t*12.0), cos(uv.x*28.0-t*11.0));
+        float len=length(duv);
         float m=smoothstep(R, R-0.05, len);
-        vec2 pp=uv/R; float z=sqrt(max(0.0, 1.0-dot(pp,pp)));
-        vec3 sp=rotX(u_rot.y)*rotY(u_rot.x)*vec3(pp, z);
-        // dense synapses: domain-warped 3D fbm + a finer second layer
+        vec2 pp=duv/R; float z=sqrt(max(0.0, 1.0-dot(pp,pp)));
+        vec3 N=vec3(pp, z);                 // view normal (for gloss)
+        mat3 rotM=rotX(u_rot.y)*rotY(u_rot.x);
+        vec3 sp=rotM*N;
+        // DENSE synapses: warped fbm + fine + micro filaments
         vec3 w=vec3(fbm(sp*2.0+t*0.10), fbm(sp*2.0+vec3(4.0)-t*0.08), fbm(sp*2.0+vec3(9.0)));
-        float f=fbm(sp*4.6 + w*1.3 + t*0.06);
+        float f=fbm(sp*5.0 + w*1.3 + t*0.06);
         float fil=pow(clamp(1.0-abs(f-0.5)*2.0,0.0,1.0),3.0);
-        float fine=fbm(sp*9.0 + w*0.6);
-        fil += pow(clamp(1.0-abs(fine-0.5)*2.2,0.0,1.0),4.0)*0.6;
-        // fast pulses
-        float pulse=pow(0.5+0.5*sin(f*34.0 - t*7.0), 5.0)*(0.5+u_learn);
-        float rim=pow(1.0-z, 2.5);
+        float fine=fbm(sp*11.0 + w*0.6);
+        fil += pow(clamp(1.0-abs(fine-0.5)*2.3,0.0,1.0),4.0)*0.7;
+        // FAST pulses
+        float pulse=pow(0.5+0.5*sin(f*36.0 - t*7.5), 5.0)*(0.5+u_learn);
         vec3 neural=mix(vec3(0.15,0.92,1.0), vec3(0.72,0.35,1.0), fbm(sp*1.3+t*0.02));
-        vec3 col=neural*(fil*1.0 + pulse*1.7) + neural*rim*0.45;
+        vec3 col=neural*(fil*1.0 + pulse*1.9);
+        // VOLUMETRIC deep glow (a second inner shell) + fresnel rim
+        float deep=fbm(rotM*vec3(pp*1.12, z*0.5)*3.4 + t*0.05);
+        col += neural*pow(clamp(deep,0.0,1.0),1.8)*0.30*z;
+        float rim=pow(1.0-z, 2.5);
+        col += neural*rim*0.5;
+        // GLOSS: specular highlight (glossy wet-brain sheen)
+        vec3 L=normalize(vec3(-0.5,0.6,0.7));
+        float spec=pow(max(0.0, dot(reflect(-L, N), vec3(0.0,0.0,1.0))), 26.0);
+        col += vec3(0.85,0.95,1.0)*spec*0.75;
         col += neural*0.2*u_learn*(0.5+0.5*sin(t*2.0));
-        // BIG hallucination flares: a large red region sweeping the orb + sparks + red rim
-        vec3 hc=rotY(t*0.7)*vec3(0.5,0.2,0.5);
-        float blob=smoothstep(0.95,0.0, length(sp-hc));
-        float spark=step(0.90, hash(floor(sp*10.0)+floor(t*8.0)));
-        float flare=u_hallu*(blob*0.95 + spark*0.5);
-        col=mix(col, vec3(1.0,0.12,0.18), clamp(flare,0.0,1.0)*0.92);
-        col += vec3(1.0,0.15,0.2)*u_hallu*rim*0.6;
+        // WILD hallucination: two rotating red blobs + sparks + red rim, over-bright
+        vec3 hc1=rotY(t*0.7)*vec3(0.5,0.2,0.5);
+        vec3 hc2=rotX(t*0.9)*vec3(-0.4,0.3,0.4);
+        float blob=smoothstep(0.9,0.0,length(sp-hc1))+smoothstep(0.82,0.0,length(sp-hc2));
+        float spark=step(0.88, hash(floor(sp*11.0)+floor(t*10.0)));
+        float flare=u_hallu*(clamp(blob,0.0,1.0)*0.85 + spark*0.6);
+        col=mix(col, vec3(1.5,0.15,0.22), clamp(flare,0.0,1.0)*0.95);
+        col += vec3(1.0,0.12,0.18)*u_hallu*rim*0.8;
         col*=m;
-        col += neural*0.12*smoothstep(R+0.07, R, len)*(1.0-m);
+        col += neural*0.14*smoothstep(R+0.08, R, len)*(1.0-m);
         gl_FragColor=vec4(col, 1.0);
       }`;
     var gl=null, prog=null, uT, uR, uL, uH, uRot, bound=null, t0=performance.now(), ok=false;
