@@ -21,6 +21,9 @@
   --cyan: #f59e0b;
   --green: #fbbf24;
   --glow: 0 0 8px rgba(245, 158, 11, .45);
+  --fg: #f5b942;
+  --muted: #b3771a;
+  --line: #4a3410;
 }
 * { box-sizing: border-box; }
 
