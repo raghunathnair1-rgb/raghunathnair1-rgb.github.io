@@ -83,6 +83,7 @@ fn run_command(cmd: &str) -> String {
             }
             names.join("   ")
         }
+        ["ls", ..] => "about.md   now-playing   neofetch   posts/   linkedin   github".to_string(),
         ["neofetch"] => "os: dark-factory \u{00B7} kernel: rust\u{2192}wasm \u{00B7} shell: harness brain \u{00B7} status: \u{25CF} online".to_string(),
         ["dmesg"] => "[dark-factory] dream log streams above \u{2014} scroll to the '$ dmesg | tail' panel. the machine narrates its own git log nightly (03:00 UTC).".to_string(),
         ["moon"] => {
