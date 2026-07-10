@@ -11,8 +11,10 @@
 pub fn kg_domain(i: usize) -> usize {
     match i {
         0 | 4 => 0,                     // dark-factory, automation
-        3 | 5 | 16 | 17 | 22 | 24 => 1, // llms, brain, dgx-spark, vllm, router, self-improve
-        8 | 13 | 14 | 15 | 23 => 2,     // security, trunk, gh-pages, opengrep, pipeline
+        // brain & AI: llms, brain, dgx-spark, vllm, router, self-improve + 2026 agentic context
+        3 | 5 | 16 | 17 | 22 | 24 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 37 => 1,
+        // pipeline: security, trunk, gh-pages, opengrep, pipeline + evals/guardrails
+        8 | 13 | 14 | 15 | 23 | 35 | 36 => 2,
         1 | 2 | 12 | 18 | 19 | 20 => 3, // rust, wasm, yew, matrix, terminal, orrery
         21 | 25 | 26 => 4,              // ai-feed, seo, linkedin
         6 | 7 | 9 | 10 | 11 => 5,       // coffee, maine-coon, posts

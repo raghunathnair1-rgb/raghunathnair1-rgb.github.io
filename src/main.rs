@@ -885,6 +885,12 @@ const KG_NODES: &[(&str, u8)] = &[
     ("dgx-spark", 1), ("vllm", 3), ("matrix", 1), ("terminal", 1), ("orrery", 1),
     ("ai-feed", 4),
     ("router", 1), ("pipeline", 1), ("self-improve", 1), ("seo", 1), ("linkedin", 3),
+    // --- live AI-agentic-engineering context (2026), grounded from current sources ---
+    // harness engineering (Agent = Model + Harness), the interop protocols, top frameworks,
+    // the agent loop, context/memory, evals+guardrails, and vLLM's PagedAttention.
+    ("harness-eng", 1), ("mcp", 1), ("a2a", 1), ("langgraph", 1), ("claude-sdk", 1),
+    ("crewai", 1), ("agent-loop", 1), ("context-eng", 1), ("evals", 1), ("guardrails", 1),
+    ("paged-attn", 1),
 ];
 const KG_EDGES: &[(usize, usize)] = &[
     (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8),
@@ -895,6 +901,13 @@ const KG_EDGES: &[(usize, usize)] = &[
     (21, 3), (21, 0), (21, 5),
     (22, 3), (22, 16), (22, 5), (23, 4), (23, 14), (23, 8),
     (24, 5), (24, 4), (25, 14), (25, 2), (26, 21), (26, 4),
+    // AI-agentic context wiring (2026): the brain IS a harness; protocols; frameworks; the loop.
+    (27, 5), (27, 0), (27, 33), (22, 27),
+    (28, 27), (28, 3), (29, 28), (29, 27),
+    (30, 27), (30, 33), (31, 5), (31, 27), (31, 28),
+    (32, 27), (32, 30), (33, 24), (33, 23),
+    (34, 27), (34, 3), (35, 23), (35, 36), (35, 27),
+    (36, 8), (36, 23), (37, 17), (37, 16),
 ];
 
 // --- domain clustering (understand-anything style): group nodes into named domains ---
