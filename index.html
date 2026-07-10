@@ -198,12 +198,14 @@
     resize(); window.addEventListener('resize', resize);
     function g() { return glyphs[(Math.random() * glyphs.length) | 0]; }
     function draw() {
+      var amber = document.documentElement.getAttribute('data-theme') === 'amber';
+      var trailColor = amber ? '#d98a1a' : '#31c96a', headColor = amber ? '#ffe9c2' : '#e8fff1';
       x.fillStyle = 'rgba(8,14,10,0.10)'; x.fillRect(0, 0, c.width, c.height); // green-tinted trail fade
       x.font = fs + 'px monospace';
       for (var i = 0; i < cols; i++) {
         var yr = drops[i] | 0, xp = i * fs, ch = g();
-        x.fillStyle = '#31c96a'; x.fillText(trail[i], xp, (yr - 1) * fs);   // green trail cell
-        x.fillStyle = '#e8fff1'; x.fillText(ch, xp, yr * fs);              // bright white-green head
+        x.fillStyle = trailColor; x.fillText(trail[i], xp, (yr - 1) * fs);   // theme-tinted trail cell
+        x.fillStyle = headColor; x.fillText(ch, xp, yr * fs);              // theme-tinted bright head
         trail[i] = ch;
         drops[i] += spd[i];
         if (yr * fs > c.height && Math.random() > 0.962) { drops[i] = 0; spd[i] = 0.45 + Math.random() * 0.95; }
@@ -415,16 +417,20 @@
         float fine=fbm(sp*11.0 + w*0.6);
         fil += pow(clamp(1.0-abs(fine-0.5)*2.3,0.0,1.0),4.0)*0.7;
         // TRAVELING SIGNALS: bright pulses racing along the synapse network (thoughts firing)
-        float sig = pow(0.5+0.5*sin(f*22.0 - t*5.0 + w.x*6.28), 12.0)
-                  + pow(0.5+0.5*sin(fine*30.0 - t*8.0 + w.y*6.28), 18.0)*0.7;
+        float sig = pow(0.5+0.5*sin(f*22.0 - t*7.5 + w.x*6.28), 10.0)
+                  + pow(0.5+0.5*sin(fine*30.0 - t*11.0 + w.y*6.28), 16.0)*0.9
+                  + pow(0.5+0.5*sin(f*48.0 - t*17.0), 22.0)*0.7;   // 3rd harmonic: fast crackle
         // gyri/sulci folds: ridged noise darkens the grooves so the surface reads as folded
         float ridge=abs(fbm(sp*3.4 + w*0.5)-0.5);
         float gyri=0.6 + 0.72*smoothstep(0.0,0.22,ridge);
         // FAST pulses
-        float pulse=pow(0.5+0.5*sin(f*36.0 - t*7.5), 5.0)*(0.5+u_learn);
+        float pulse=pow(0.5+0.5*sin(f*40.0 - t*9.5), 4.0)*(0.6+u_learn*1.3);
         vec3 neural=mix(vec3(0.15,0.92,1.0), vec3(0.72,0.35,1.0), fbm(sp*1.3+t*0.02));
-        vec3 col=neural*(fil*1.0 + pulse*1.9)*gyri;
-        col += vec3(0.75,1.0,1.0) * sig * fil * (0.7 + u_learn);   // firing signals ride the filaments
+        vec3 col=neural*(fil*1.0 + pulse*2.5)*gyri;
+        col += vec3(0.8,1.0,1.0) * sig * fil * (1.1 + u_learn*1.4);   // firing signals ride the filaments
+        // ELECTRIC SWEEP: a bright brainwave band rotating through the cortex
+        float sweep=pow(0.5+0.5*sin(atan(sp.y,sp.x)*2.0 + sp.z*4.0 - t*3.2), 8.0);
+        col += vec3(0.5,0.9,1.0)*sweep*fil*0.9;
         // VOLUMETRIC deep glow (a second inner shell) + fresnel rim
         float deep=fbm(rotM*vec3(pp*1.12, dome*0.5)*3.4 + t*0.05);
         col += neural*pow(clamp(deep,0.0,1.0),1.8)*0.30*dome;
@@ -444,9 +450,9 @@
         // WILD hallucination: two rotating red blobs + sparks + red rim, over-bright
         vec3 hc1=rotY(t*0.7)*vec3(0.5,0.2,0.5);
         vec3 hc2=rotX(t*0.9)*vec3(-0.4,0.3,0.4);
-        float blob=smoothstep(0.9,0.0,length(sp-hc1))+smoothstep(0.82,0.0,length(sp-hc2));
-        float spark=step(0.88, hash(floor(sp*11.0)+floor(t*10.0)));
-        float flare=u_hallu*(clamp(blob,0.0,1.0)*0.85 + spark*0.6);
+        float blob=smoothstep(1.05,0.0,length(sp-hc1))+smoothstep(0.95,0.0,length(sp-hc2));
+        float spark=step(0.82, hash(floor(sp*13.0)+floor(t*14.0)));
+        float flare=u_hallu*(clamp(blob,0.0,1.0)*1.0 + spark*0.95);
         col=mix(col, vec3(1.5,0.15,0.22), clamp(flare,0.0,1.0)*0.95);
         col += vec3(1.0,0.12,0.18)*u_hallu*rim*0.8;
         col*=m;
@@ -456,8 +462,9 @@
         // soft cyan halo hugging the brain outline
         float halo=(1.0-m)*smoothstep(-0.16, 0.0, bf);
         col += neural*0.16*halo;
-        col *= 0.93 + 0.07*sin(t*1.2);                 // subtle 'breathing' — alive even at rest
-        col *= 1.12;                                    // exposure
+        col *= 0.87 + 0.13*sin(t*1.7);                 // stronger 'breathing' throb
+        float lum=dot(col, vec3(0.299,0.587,0.114)); col=max(mix(vec3(lum), col, 1.4), 0.0);  // saturation punch
+        col *= 1.18;                                    // exposure
         col = (col*(2.51*col+0.03))/(col*(2.43*col+0.59)+0.14);   // ACES filmic tone-map (rich, no blowout)
         gl_FragColor=vec4(clamp(col,0.0,1.0), 1.0);
       }`;
