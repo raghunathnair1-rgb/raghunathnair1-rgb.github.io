@@ -151,11 +151,11 @@ body::before {
 @media (prefers-reduced-motion: reduce) { #sky { display: none !important; } }
 /* --- Stranger Things header: red neon serif (ITC Benguiat vibe) with a flickering-sign glow --- */
 header .logo {
-  font-family: Georgia, "Book Antiqua", "Times New Roman", serif;
-  font-size: clamp(2rem, 9vw, 3.6rem); font-weight: 700; letter-spacing: -.03em;
-  color: #d40a1e;
-  -webkit-text-stroke: 1px #ff5a5f;
-  text-shadow: 0 0 4px #ff2d2d, 0 0 13px #e8091c, 0 0 28px #b00610, 0 0 48px #6e0008;
+  /* Matrix theme: phosphor-green CRT terminal look (VT323 is bundled — no CDN) */
+  font-family: "VT323", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: clamp(2.4rem, 11vw, 4.4rem); font-weight: 400; letter-spacing: .05em;
+  color: #00ff41;
+  text-shadow: 0 0 5px #00ff41, 0 0 12px #00e63a, 0 0 26px #00a028, 0 0 46px #004d10;
 }
 .logo-name { animation: st-flicker 5s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .logo-name { animation: none; } }
@@ -167,7 +167,7 @@ header .logo {
   94.5% { opacity: 1; }
 }
 .cursor { animation: blink 1.05s steps(1) infinite; color: var(--green); }
-header .logo .cursor { color: #ff2d2d; }
+header .logo .cursor { color: #00ff41; text-shadow: 0 0 6px #00ff41, 0 0 16px #00c832; }
 @keyframes blink { 50% { opacity: 0; } }
 .boot { color: var(--green); margin-top: .25rem; font-size: .9rem; opacity: .85; }
 
