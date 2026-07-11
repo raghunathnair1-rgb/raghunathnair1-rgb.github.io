@@ -1323,6 +1323,35 @@
       ],
       "ev": "commits glossing the static `/p/` mirror as the 'good-bot lane' and the WASM shell as passive scraping friction, plus ssg.py in the harness",
       "src": "learned"
+    },
+    {
+      "id": "graph-rag",
+      "dom": "agentic-ai",
+      "label": "Graph RAG",
+      "def": "Retrieval that traverses a knowledge or code graph's entities and relations instead of flat text chunks, tightening grounding and multi-hop recall.",
+      "rel": [
+        "retrieval",
+        "ontology",
+        "kg-viz",
+        "grounding"
+      ],
+      "ev": "HN trend theme 'Code & data as queryable graphs' (developers want codebases/knowledge as navigable graphs, not flat files), grounded in this system's ontology + kg-viz + retrieval capabilities",
+      "src": "learned"
+    },
+    {
+      "id": "inference-economics",
+      "dom": "infra",
+      "label": "Inference economics",
+      "def": "The unit-cost analysis of serving model inference (cost per token, GPU capex and utilization) that drives choices like local-first serving and tiered routing.",
+      "rel": [
+        "tiered-router",
+        "distributed-inference",
+        "local-first",
+        "vllm",
+        "quantization"
+      ],
+      "ev": "HN trend theme 'AI infrastructure economics' (growing scrutiny of inference cost), grounded in the system's tiered-router, local-first vLLM stack built to control serving cost",
+      "src": "learned"
     }
   ]
 }
