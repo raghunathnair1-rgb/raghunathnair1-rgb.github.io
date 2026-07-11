@@ -755,7 +755,8 @@
       "def": "Attacks against AI systems — prompt injection, jailbreaks, data poisoning, model extraction, and adversarial examples.",
       "rel": [
         "agent-security",
-        "agent-sandboxing"
+        "agent-sandboxing",
+        "prompt-injection"
       ]
     },
     {
@@ -1487,6 +1488,20 @@
         "agentic-web"
       ],
       "ev": "Established agentic-AI security failure mode; principles.md guardrails ('no new external network calls', 'no secrets', bounded revert-on-failure autonomy) are exactly the containment against injected ",
+      "src": "learned"
+    },
+    {
+      "id": "cloaking",
+      "dom": "stack",
+      "label": "Cloaking",
+      "def": "The black-hat practice of serving materially different content to crawlers than to human users, which this system explicitly rejects by keeping its `/p/` bot mirror identical to the human view.",
+      "rel": [
+        "dynamic-rendering",
+        "crawler-directives",
+        "bot-mitigation",
+        "github-pages"
+      ],
+      "ev": "commit 10b2896 'self-improve: Name the site's no-cloaking stance in the scraping-defense readout'",
       "src": "learned"
     }
   ]
