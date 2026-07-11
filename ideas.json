@@ -1,1 +1,62 @@
-{"updated": "2026-07-11T06:08:16Z", "signals": {"health": "green", "coverage": 100, "ci_success_rate": 0.77, "wasm_kb": 463, "big_features": 5}, "ideas": [{"title": "CI flakiness triage + cargo/wasm build cache to lift the 77% pass rate", "why": "ci.success_rate=0.77 with 4 recent_failures means roughly 1 in 4 pipeline runs burns compute and blocks the self-improve daemon's CI-verify gate \u2014 the recurring Rust-compile reds deserve caching + a failure taxonomy, not just per-incident auto-revert.", "impact": 4, "ease": 3, "risk": 3, "score": 4.0, "auto": false, "big": true}, {"title": "\u2318K command palette with client-side full-text search over all posts", "why": "The site has posts.json + sitemap but no way to jump or search \u2014 a fuzzy \u2318K palette (Linear/Vercel-docs pattern) is the single most-bookmarked interaction on modern engineering sites and turns a linear blog into a navigable destination.", "impact": 5, "ease": 2, "risk": 3, "score": 3.3, "auto": false, "big": true}, {"title": "Live in-browser terminal that talks to the brain telemetry", "why": "brain.json/activity.json vitals already power the ~/factory tab but only as passive readouts \u2014 a playable REPL (`status`, `router`, `ci`, `spark`) rendered like a real terminal makes the factory's autonomy feel alive and interactive, the standout moment on sites like Fig/Warp's marketing.", "impact": 4, "ease": 2, "risk": 3, "score": 2.7, "auto": false, "big": true}, {"title": "WebGL force-directed 3D knowledge graph of posts \u2194 tags", "why": "The content stream (219 commits/7d) is accumulating posts with no visual map of how ideas connect \u2014 a spinning, clickable 3D tag graph (\u00e0 la Obsidian's graph view / Nicky Case) is a genuine 'whoa' showpiece that also doubles as content discovery.", "impact": 4, "ease": 2, "risk": 4, "score": 2.0, "auto": false, "big": true}, {"title": "'Ask this blog' RAG answers served off the idle Spark GB10 GPUs", "why": "Both spark nodes report gpu util=0 while router.cloud_hard=219 vs spark_today=3 \u2014 paid-for GB10 silicon sits idle as nearly all inference goes to cloud, so a small self-hosted embeddings+LLM RAG over the post corpus turns wasted capacity into a marquee interactive feature (backend on dgx-spark required).", "impact": 5, "ease": 1, "risk": 4, "score": 1.2, "auto": false, "big": true}, {"title": "Widen blog-logic tests beyond the 9 covered fns (edge cases: empty posts, bad dates, unicode slugs)", "why": "coverage_pct=100 over only coverage_fns=9 is false confidence \u2014 the gate is green precisely because untested surface isn't counted, the exact trap that let the malformed skip-link ship red.", "impact": 4, "ease": 4, "risk": 1, "score": 16.0, "auto": true, "big": false}]}
+{
+ "updated": "2026-07-11T06:08:16Z",
+ "signals": {
+  "health": "green",
+  "coverage": 100,
+  "ci_success_rate": 0.77,
+  "wasm_kb": 463,
+  "big_features": 5
+ },
+ "ideas": [
+  {
+   "title": "CI flakiness triage + cargo/wasm build cache to lift the 77% pass rate",
+   "why": "ci.success_rate=0.77 with 4 recent_failures means roughly 1 in 4 pipeline runs burns compute and blocks the self-improve daemon's CI-verify gate — the recurring Rust-compile reds deserve caching + a failure taxonomy, not just per-incident auto-revert.",
+   "impact": 4,
+   "ease": 3,
+   "risk": 3,
+   "score": 4.0,
+   "auto": false,
+   "big": true
+  },
+  {
+   "title": "⌘K command palette with client-side full-text search over all posts",
+   "why": "The site has posts.json + sitemap but no way to jump or search — a fuzzy ⌘K palette (Linear/Vercel-docs pattern) is the single most-bookmarked interaction on modern engineering sites and turns a linear blog into a navigable destination.",
+   "impact": 5,
+   "ease": 2,
+   "risk": 3,
+   "score": 3.3,
+   "auto": false,
+   "big": true
+  },
+  {
+   "title": "WebGL force-directed 3D knowledge graph of posts ↔ tags",
+   "why": "The content stream (219 commits/7d) is accumulating posts with no visual map of how ideas connect — a spinning, clickable 3D tag graph (à la Obsidian's graph view / Nicky Case) is a genuine 'whoa' showpiece that also doubles as content discovery.",
+   "impact": 4,
+   "ease": 2,
+   "risk": 4,
+   "score": 2.0,
+   "auto": false,
+   "big": true
+  },
+  {
+   "title": "'Ask this blog' RAG answers served off the idle Spark GB10 GPUs",
+   "why": "Both spark nodes report gpu util=0 while router.cloud_hard=219 vs spark_today=3 — paid-for GB10 silicon sits idle as nearly all inference goes to cloud, so a small self-hosted embeddings+LLM RAG over the post corpus turns wasted capacity into a marquee interactive feature (backend on dgx-spark required).",
+   "impact": 5,
+   "ease": 1,
+   "risk": 4,
+   "score": 1.2,
+   "auto": false,
+   "big": true
+  },
+  {
+   "title": "Widen blog-logic tests beyond the 9 covered fns (edge cases: empty posts, bad dates, unicode slugs)",
+   "why": "coverage_pct=100 over only coverage_fns=9 is false confidence — the gate is green precisely because untested surface isn't counted, the exact trap that let the malformed skip-link ship red.",
+   "impact": 4,
+   "ease": 4,
+   "risk": 1,
+   "score": 16.0,
+   "auto": true,
+   "big": false
+  }
+ ]
+}
