@@ -584,8 +584,9 @@
                  + pow(0.5+0.5*sin((P.x - t*speed*1.4)*11.0 + 1.5), 12.0)*0.7
                  + pow(0.5+0.5*sin((P.x - t*speed*0.75)*5.0 - 0.8), 6.0)*0.5;
         flow *= (0.8 + run*0.9);
-        float hotPos=mod(t*1.4, 6.0);   // active stage GLIDES smoothly through during a build
-        float hex=0.0, hglow=0.0, redN=0.0;
+        float march=mix(1.5, 2.6, run);            // the highlight glides faster while a build runs
+        float hotPos=mod(t*march, 6.0);            // the 'active node' — ALWAYS visible, gliding through
+        float hex=0.0, scanHot=0.0, hglow=0.0, redN=0.0;
         for(int i=0;i<6;i++){
           float fi=float(i);
           float nx=mix(-halfW, halfW, fi/5.0);
@@ -593,17 +594,18 @@
           float hd=sdHex(q, 0.066);   // bigger hexagons
           float outline=smoothstep(0.011,0.0,abs(hd));
           float fillc=smoothstep(0.006,-0.025,hd);
-          float active=run*(1.0-smoothstep(0.0,0.8,abs(fi-hotPos)));   // hotter on the active stage (glides)
-          float idle=0.5+0.5*sin(t*1.6 - fi*0.7);
-          float heat=max(active, idle*0.35);
-          hex += outline*(0.7+heat*1.7) + fillc*(0.12+heat*0.95);
-          hglow += smoothstep(0.17,0.0,length(q))*(0.12+heat*0.6);
+          hex += outline + fillc*0.35;                          // the static green hexagon
+          float scan=1.0-smoothstep(0.0,0.85,abs(fi-hotPos));   // bright on the current active node
+          scanHot += (outline*1.4 + fillc)*scan;
+          hglow += smoothstep(0.17,0.0,length(q))*(0.1 + scan*0.8);
           if(i==5){ redN=(outline+fillc*1.5)*fail; }
         }
-        vec3 g=vec3(0.0,1.0,0.30), br=vec3(0.6,1.0,0.75), hot=vec3(1.0,0.72,0.22), red=vec3(1.0,0.22,0.16);
+        vec3 g=vec3(0.0,1.0,0.30), br=vec3(0.6,1.0,0.75), red=vec3(1.0,0.22,0.16);
+        vec3 hotcol=mix(vec3(0.5,1.0,0.7), vec3(1.0,0.72,0.22), run);   // bright green-white idle -> amber building
         vec3 col=g*(tube*0.55+tglow*0.22)
                + br*flow*tube*1.7
-               + g*hex + mix(g,hot,run)*hglow
+               + g*hex*0.8
+               + hotcol*(scanHot*1.8 + hglow*0.5)
                + red*redN*1.6;
         col=col/(1.0+col*0.55);
         gl_FragColor=vec4(col,1.0);
