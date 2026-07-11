@@ -596,20 +596,6 @@
       ],
       "ev": "Trend theme 'Local LLM inference on modest hardware — squeezing frontier models onto slow/small machines' + the GLM 5.2 local-run walkthrough on the HN front page (2026-07-11).",
       "src": "learned"
-    },
-    {
-      "id": "world-model",
-      "dom": "agentic-ai",
-      "label": "World model",
-      "def": "A persistent, self-updated representation of the agent's external environment that grounds its planning and self-improvement decisions.",
-      "rel": [
-        "memory",
-        "idea-engine",
-        "self-improve",
-        "context-eng"
-      ],
-      "ev": "Real capability of this system: world_loop.py / world_loop.sh scripts maintaining brain/world.json, plus the project memory note that the world-loop feeds the self-improve/idea engines.",
-      "src": "learned"
     }
   ]
 }
