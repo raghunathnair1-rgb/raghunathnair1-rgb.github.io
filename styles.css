@@ -33,6 +33,7 @@
   #crtfx { display: none; }
   header .logo { text-shadow: 0 0 2px currentColor; }
   header .logo .cursor { text-shadow: none; }
+  body::before { display: none; }
 }
 * { box-sizing: border-box; }
 

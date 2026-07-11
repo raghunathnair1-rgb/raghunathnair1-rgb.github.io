@@ -1177,6 +1177,34 @@
       ],
       "ev": "Recent commits: 'linkedin: ban em-dashes entirely', 'ban the \"it isn't A, it's B\" antithesis closer (top AI tell) in de-slop pass', and 'builder-not-guru voice' Growth Editor rules in li_publish.py.",
       "src": "learned"
+    },
+    {
+      "id": "explorable-explanations",
+      "dom": "stack",
+      "label": "Explorable explanations",
+      "def": "Interactive, user-navigable data visualizations that turn raw telemetry or knowledge into artifacts a viewer can click through and steer rather than passively read.",
+      "rel": [
+        "kg-viz",
+        "pipeline-viz",
+        "brain-hud",
+        "telemetry"
+      ],
+      "ev": "Latest-trends theme 'Personal interactive data visualization: individuals turning their own life-data into explorable graphs, globes, and maps', matched by this system's existing kg-viz/pipeline-viz/b",
+      "src": "learned"
+    },
+    {
+      "id": "crawler-directives",
+      "dom": "stack",
+      "label": "AI crawler directives",
+      "def": "Machine-readable consent files (robots.txt, and emerging AI-specific equivalents like llms.txt) that declare which crawlers and AI scrapers may access a site's content.",
+      "rel": [
+        "bot-mitigation",
+        "agentic-web",
+        "content-provenance",
+        "residential-proxy"
+      ],
+      "ev": "Commit 43abfb1 'Gloss robots.txt as the site's honest scraping-defense line', combined with the trends theme 'Scraping & bot-traffic arms race: residential proxies and scrapers reshaping who gets to a",
+      "src": "learned"
     }
   ]
 }
