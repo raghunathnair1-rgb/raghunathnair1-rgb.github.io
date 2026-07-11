@@ -142,6 +142,9 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 .pipe-loghead { color: var(--muted); font-size: .82rem; margin-bottom: .2rem; }
 .pipe-log { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
 .pipe-evt { padding: .09rem 0 .09rem .7rem; font-size: .82rem; color: var(--fg); }
+.pipe-log:hover .pipe-evt { opacity: .38; transition: opacity .15s ease; }
+.pipe-log:hover .pipe-evt:hover { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .pipe-log:hover .pipe-evt { transition: none; } }
 .pipe-t { color: var(--muted); margin-right: .5rem; }
 .pipe-k { display: inline-block; min-width: 6.2em; }
 .pipe-k-router { color: #22d3ee; }
