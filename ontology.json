@@ -1352,6 +1352,55 @@
       ],
       "ev": "HN trend theme 'AI infrastructure economics' (growing scrutiny of inference cost), grounded in the system's tiered-router, local-first vLLM stack built to control serving cost",
       "src": "learned"
+    },
+    {
+      "id": "constitutional-ai",
+      "dom": "agentic-ai",
+      "label": "Constitutional AI",
+      "def": "Anthropic's alignment method for Claude: the model is trained to follow an explicit set of written principles (a 'constitution') for helpful, honest, harmless behavior, using AI feedback (RLAIF).",
+      "rel": [
+        "guardrails",
+        "hallucination",
+        "grounding"
+      ]
+    },
+    {
+      "id": "claude-agent-sdk",
+      "dom": "agentic-ai",
+      "label": "Claude Agent SDK",
+      "def": "Anthropic's framework for designing agentic harnesses with Claude — tool use, hooks, subagents, and context/memory management (the design pattern behind Claude Code).",
+      "rel": [
+        "harness-eng",
+        "tool-orch",
+        "mcp",
+        "agentic-patterns"
+      ]
+    },
+    {
+      "id": "code-property-graph",
+      "dom": "sdlc",
+      "label": "Code property graph",
+      "def": "A queryable graph representation of a codebase that unifies AST, control-flow, and data-flow so tools and agents can navigate and analyze code as structure rather than flat text.",
+      "rel": [
+        "sast",
+        "code-vulns",
+        "kg-viz",
+        "graph-rag",
+        "retrieval"
+      ],
+      "ev": "Hacker News trend theme 'Code & data as queryable graphs' (2026-07-11), reinforced by this system's SAST/secret-scan gates and its 3D knowledge-graph (kg-viz) that already treats knowledge as navigabl",
+      "src": "learned"
+    },
+    {
+      "id": "claude-design",
+      "dom": "agentic-ai",
+      "label": "Claude Design (Anthropic Labs)",
+      "def": "An Anthropic Labs product for collaborative visual creation: describe a design and Claude builds prototypes, wireframes, mockups, decks and marketing assets, refined by conversation and applying team design systems; inputs text/images/docs/codebases, exports to Canva/PDF/PPTX/HTML, and hands off to Claude Code.",
+      "rel": [
+        "claude-agent-sdk",
+        "agentic-patterns",
+        "generative-media"
+      ]
     }
   ]
 }
