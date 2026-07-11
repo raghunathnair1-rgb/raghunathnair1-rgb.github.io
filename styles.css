@@ -99,8 +99,6 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); }
 .pipe-updated { color: var(--muted); font-size: .8rem; margin: .15rem 0 .7rem; }
 .pipe-loghead { color: var(--muted); font-size: .82rem; margin-bottom: .2rem; }
 .pipe-log { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
-.pipe-commit { padding: .1rem 0 .1rem .7rem; font-size: .84rem; color: var(--fg); }
-.pipe-sha { color: #22d3ee; }
 .pipe-evt { padding: .09rem 0 .09rem .7rem; font-size: .82rem; color: var(--fg); }
 .pipe-t { color: var(--muted); margin-right: .5rem; }
 .pipe-k { display: inline-block; min-width: 6.2em; }
@@ -297,23 +295,12 @@ main { margin-top: 2.5rem; }
   font-size: clamp(.42rem, 1.7vw, .72rem); line-height: 1.2; letter-spacing: 0;
   white-space: pre; overflow-x: auto;
 }
-.brain-face { color: #c792ea; text-shadow: 0 0 9px rgba(199, 146, 234, .45); }
-.cube-face { color: #7fd7ff; text-shadow: 0 0 8px rgba(127, 215, 255, .4); }
-/* DOOM fire: ASCII density shapes the flame, a vertical gradient paints it hot→cool */
-.doom-fire {
-  background: linear-gradient(to top, #ffffff 0%, #ffe36b 12%, #ff8a1f 32%, #e0341a 56%, #7a1005 78%, transparent 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; color: transparent;
-  text-shadow: none; line-height: 1.0;
-}
-.moon-info { color: var(--muted); margin-top: .35rem; font-size: .85rem; }
 /* DGX Spark monitor: real telemetry readout — system-mono so █/░ bars align with labels */
 .spark-face {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   color: var(--green); text-shadow: 0 0 6px rgba(74, 222, 128, .3);
   font-size: clamp(.62rem, 2.1vw, .82rem); line-height: 1.4;
 }
-.brain-sub { color: var(--muted); font-size: .76rem; margin-top: .3rem; }
 
 /* interactive force-directed knowledge graph */
 .kg-wrap { margin-bottom: 1.9rem; }
@@ -379,7 +366,7 @@ main { margin-top: 2.5rem; }
 .sun-info { color: var(--muted); font-size: .82rem; margin-top: .45rem; line-height: 1.55; }
 /* --- responsive + fluid polish --- */
 html { scroll-behavior: smooth; }
-.ascii-face, .t-body, .kg-wrap, .news-list, .console pre { -webkit-overflow-scrolling: touch; }
+.ascii-face, .kg-wrap, .news-list, .console pre { -webkit-overflow-scrolling: touch; }
 @media (max-width: 34rem) {
   .tty-tab { font-size: .74rem; padding: .3rem .55rem; }
   .kg-legend { gap: .2rem .55rem; font-size: .7rem; }
@@ -388,7 +375,7 @@ html { scroll-behavior: smooth; }
 }
 
 /* --- smoother micro-interactions + graph hover glide --- */
-a, .log li, .news-item, .news-title, .news-src, .pipe-commit, .kg-node, .kg-edge {
+a, .log li, .news-item, .news-title, .news-src, .kg-node, .kg-edge {
   transition: color .16s ease, background-color .16s ease, border-color .16s ease, stroke .22s ease, opacity .22s ease, text-shadow .16s ease;
 }
 .log li:hover { background: rgba(255, 255, 255, .035); border-radius: 6px; }
@@ -607,9 +594,6 @@ footer {
   margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
   color: var(--muted); font-size: .82rem;
 }
-footer .social { margin-bottom: .4rem; }
-footer .social a { color: var(--green); }
-footer .social a:hover { color: var(--cyan); text-shadow: var(--glow); }
 /* ---------- nerdy animations ---------- */
 
 /* ambient logo glitch — brief RGB split near the end of each cycle */
@@ -638,7 +622,6 @@ ul.log li:nth-child(4) { animation-delay: .66s; }
   .cursor, .logo, .logo-name, .boot, .about, ul.log li, article { animation: none !important; clip-path: none !important; }
   #matrix { display: none !important; }
   .eq i { animation: none !important; height: 8px !important; }
-  .am-fill { animation: none !important; width: 38% !important; }
 }
 
 /* ---------- print: clean man-page hardcopy ---------- */
