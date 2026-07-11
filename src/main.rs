@@ -1032,6 +1032,7 @@ fn knowledge_graph(props: &KgProps) -> Html {
     let pmode = !path.is_empty();
     html! {
         <div class="kg-wrap">
+            <canvas id="kg-gl" class="kg-gl" aria-hidden="true"></canvas>
             <div class="ascii-cmd">{ "$ graph --knowledge  \u{00B7} hover \u{00B7} drag \u{00B7} click \u{00B7} try 'path a b'" }</div>
             { if (*tour).is_none() { let t = tour.clone(); let start = Callback::from(move |_: web_sys::MouseEvent| t.set(Some(0))); html! { <button class="kg-tour-btn" onclick={start}>{ "\u{25B6} guided tour" }</button> } } else { html! {} } }
             <svg class="kg" ref={svg_ref.clone()} viewBox="0 0 360 280" preserveAspectRatio="xMidYMid meet"

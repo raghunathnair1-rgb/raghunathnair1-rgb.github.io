@@ -301,7 +301,10 @@ main { margin-top: 2.5rem; }
 }
 
 /* interactive force-directed knowledge graph */
-.kg-wrap { margin-bottom: 1.9rem; }
+.kg-wrap { position: relative; margin-bottom: 1.9rem; padding: .6rem .7rem; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #010601; box-shadow: inset 0 0 60px -30px rgba(0,255,65,.5); }
+/* WebGL neural-energy field behind the graph (self-contained; graceful fallback hides it) */
+.kg-gl { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block; }
+.kg-wrap > :not(.kg-gl) { position: relative; z-index: 1; }
 .kg {
   width: 100%; max-width: 40rem; aspect-ratio: 360 / 280; height: auto; display: block;
   border: 1px solid var(--line); border-radius: 12px; background: rgba(6, 12, 16, .45);
