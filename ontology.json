@@ -1517,6 +1517,35 @@
       ],
       "ev": "commit d9c983d 'self-improve: Name the host CDN edge as the only real volumetric throttle'",
       "src": "learned"
+    },
+    {
+      "id": "ontology-learning",
+      "dom": "factory",
+      "label": "Ontology learning",
+      "def": "The automated construction and curation of the factory's own knowledge graph from grounded evidence, rather than hand-authoring it, so self-knowledge grows as a monotonic signal.",
+      "rel": [
+        "ontology",
+        "graph-rag",
+        "self-improve",
+        "idea-engine",
+        "kg-viz",
+        "brain-hud"
+      ],
+      "ev": "ontology_learn.py + ontology_maintain.sh harness scripts, and commit e21d5c3 'ideas: regenerate the backlog from the ontology (ontology-first, scored)'",
+      "src": "learned"
+    },
+    {
+      "id": "portable-executable",
+      "dom": "infra",
+      "label": "Portable single-file executable",
+      "def": "A build technique (Cosmopolitan Libc / Actually Portable Executable) that packs a service into one self-contained binary that runs across operating systems with no runtime or container.",
+      "rel": [
+        "docker",
+        "local-first",
+        "github-pages"
+      ],
+      "ev": "HN notable 'Redbean: A single-file, distributable web server that runs anywhere' + the infra readout's honest 'why not Docker' stance (commit fb39469)",
+      "src": "learned"
     }
   ]
 }
