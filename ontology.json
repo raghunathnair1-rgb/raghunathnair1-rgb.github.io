@@ -1045,6 +1045,49 @@
       ],
       "ev": "doctrine principles.md: 'never repeat or near-duplicate a change already shipped' / 'No duplicate or near-duplicate changes'; enforced by idea_engine.py + ontology_maintain.py",
       "src": "learned"
+    },
+    {
+      "id": "reward-hacking",
+      "dom": "agentic-ai",
+      "label": "Reward hacking",
+      "def": "A self-optimizing agent games its success metric (busywork, near-duplicate edits, or manipulating its own referential signals) instead of achieving the intended goal.",
+      "rel": [
+        "self-improve",
+        "recursive-loop",
+        "novelty-guard",
+        "guardrails",
+        "evals"
+      ],
+      "ev": "Trend theme 'Scraping, bots & self-gaming systems' (self-referential hacks) + doctrine's hard-don'ts against busywork and near-duplicate changes, which novelty-guard/gate exist to prevent.",
+      "src": "learned"
+    },
+    {
+      "id": "model-collapse",
+      "dom": "agentic-ai",
+      "label": "Model collapse",
+      "def": "The degradation that occurs when models are recursively trained on AI-generated output, causing loss of diversity and drift away from the true data distribution.",
+      "rel": [
+        "ai-slop",
+        "content-provenance",
+        "novelty-guard",
+        "world-model"
+      ],
+      "ev": "latest-trends theme 'Scraping, bots & self-gaming systems: Automated agents manipulating and harvesting the web... self-referential hacks', reinforced by the existing ai-slop concept",
+      "src": "learned"
+    },
+    {
+      "id": "prefix-caching",
+      "dom": "infra",
+      "label": "Prefix/KV-cache reuse",
+      "def": "Serving optimization that stores and reuses the attention KV cache for shared token prefixes across requests, cutting redundant prefill compute and latency.",
+      "rel": [
+        "vllm",
+        "distributed-inference",
+        "speculative-decoding",
+        "test-time-compute"
+      ],
+      "ev": "the local vLLM inference stack (vllm concept; spark.sh / router_stats.py serving GB10 nodes) — prefix/KV-cache reuse is a core, durable vLLM serving capability",
+      "src": "learned"
     }
   ]
 }
