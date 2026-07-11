@@ -930,9 +930,65 @@
         "context-eng",
         "doctrine",
         "idea-engine",
-        "self-improve"
+        "self-improve",
+        "ai-slop"
       ],
       "ev": "principles.md is loaded verbatim into the self-improve/idea-engine prompts, and recent commits (6af639d, ecc99cf) bake explicit 'Growth Editor' editorial rules into the LinkedIn generator prompt",
+      "src": "learned"
+    },
+    {
+      "id": "model-offloading",
+      "dom": "infra",
+      "label": "Model offloading",
+      "def": "Fitting a model too large for available accelerator memory by spilling layers or the KV cache to CPU RAM, disk, or a second node so it still runs on constrained hardware.",
+      "rel": [
+        "quantization",
+        "local-first",
+        "distributed-inference",
+        "vllm"
+      ],
+      "ev": "Trend 'GLM 5.2 local run: getting a large model running on underpowered hardware' + 'Local LLM inference on modest hardware' theme (2026-07-11 HN feed)",
+      "src": "learned"
+    },
+    {
+      "id": "ai-sovereignty",
+      "dom": "infra",
+      "label": "AI sovereignty",
+      "def": "Owning the full inference stack — hardware, open weights, and harness — instead of renting cloud model APIs, for control, cost, and independence.",
+      "rel": [
+        "local-first",
+        "open-weights",
+        "spark",
+        "dark-factory"
+      ],
+      "ev": "Trend 'Build-it-from-scratch hardware/maker energy: one person can own the full stack' + this system's own 2-node GB10 spark cluster (commit 4db2172)",
+      "src": "learned"
+    },
+    {
+      "id": "accessibility",
+      "dom": "stack",
+      "label": "Web accessibility (a11y)",
+      "def": "Designing the site to honor assistive and low-motion/high-contrast preferences such as prefers-reduced-motion, prefers-contrast, and text-wrap balance.",
+      "rel": [
+        "yew",
+        "github-pages",
+        "sdlc-build",
+        "doctrine"
+      ],
+      "ev": "recent commits 7364ba4 (pause blinking cursor under prefers-reduced-motion), 6b55d94 (tighten glow under prefers-contrast: more), f9cee6f (text-wrap: balance); doctrine priority 5 'Performance & acces",
+      "src": "learned"
+    },
+    {
+      "id": "content-provenance",
+      "dom": "agentic-ai",
+      "label": "Content provenance & trust",
+      "def": "Verifiable tracking of whether content is human- or machine-generated to establish origin and trust as the web fills with synthetic and self-gaming systems.",
+      "rel": [
+        "ai-slop",
+        "content-distribution",
+        "grounding"
+      ],
+      "ev": "trend theme 'The scraping & bot arms race: ... self-gaming systems are forcing everyone to rethink trust and provenance'",
       "src": "learned"
     }
   ]

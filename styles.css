@@ -49,6 +49,8 @@ html { scroll-behavior: smooth; }
 #content a { transition: color .15s ease, text-shadow .15s ease; }
 #content a:hover,
 #content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
+/* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
+#content a:visited { color: var(--muted); }
 
 /* skip-to-content link — off-screen until keyboard-focused, then reveals */
 .skip { position: absolute; left: -9999px; top: 0; z-index: 10000; background: var(--green); color: var(--bg);
