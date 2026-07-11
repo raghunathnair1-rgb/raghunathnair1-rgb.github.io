@@ -214,6 +214,7 @@
     resize(); var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(resize, 150); });
     function g() { return glyphs[(Math.random() * glyphs.length) | 0]; }
     function draw() {
+      if (document.hidden) return;   // background tab: keep the interval alive but skip the canvas fill/glyph passes
       var amber = document.documentElement.getAttribute('data-theme') === 'amber';
       var trailColor = amber ? '#d98a1a' : '#31c96a', headColor = amber ? '#ffe9c2' : '#e8fff1';
       x.fillStyle = 'rgba(8,14,10,0.10)'; x.fillRect(0, 0, c.width, c.height); // green-tinted trail fade
