@@ -31,6 +31,8 @@
   :root { --muted: #4ee06e; --line: #1f7a44; }
   :root[data-theme="amber"] { --muted: #e0952a; --line: #7a5410; }
   #crtfx { display: none; }
+  header .logo { text-shadow: 0 0 2px currentColor; }
+  header .logo .cursor { text-shadow: none; }
 }
 * { box-sizing: border-box; }
 
