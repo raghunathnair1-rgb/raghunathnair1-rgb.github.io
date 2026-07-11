@@ -24,6 +24,7 @@
   --fg: #f5b942;
   --muted: #b3771a;
   --line: #4a3410;
+  --panel: #140c04;
 }
 /* honor OS high-contrast requests by lifting the two lowest-contrast tokens (dim-green secondary text + faint borders); default look untouched */
 @media (prefers-contrast: more) {
