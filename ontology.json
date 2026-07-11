@@ -735,6 +735,50 @@
         "agentic-patterns",
         "harness-eng"
       ]
+    },
+    {
+      "id": "agent-iam",
+      "dom": "harness",
+      "label": "Agent identity & access mgmt",
+      "def": "Scoped credentials, least-privilege permissions, and auditable identity for autonomous agents and each of their tool calls.",
+      "rel": [
+        "agent-security",
+        "guardrails",
+        "agent-sandboxing"
+      ]
+    },
+    {
+      "id": "adversarial-attacks",
+      "dom": "harness",
+      "label": "Adversarial attacks on AI",
+      "def": "Attacks against AI systems — prompt injection, jailbreaks, data poisoning, model extraction, and adversarial examples.",
+      "rel": [
+        "agent-security",
+        "agent-sandboxing"
+      ]
+    },
+    {
+      "id": "pentesting",
+      "dom": "infra",
+      "label": "Penetration testing",
+      "def": "Authorized simulated attacks that probe a system for exploitable weaknesses before real adversaries find them.",
+      "rel": [
+        "code-vulns",
+        "sast",
+        "mythos"
+      ]
+    },
+    {
+      "id": "code-vulns",
+      "dom": "infra",
+      "label": "Code vulnerabilities",
+      "def": "Exploitable flaws in code — injection, memory-safety bugs, insecure deserialization, CVEs, and zero-days.",
+      "rel": [
+        "sast",
+        "secret-scan",
+        "pentesting",
+        "mythos"
+      ]
     }
   ]
 }
