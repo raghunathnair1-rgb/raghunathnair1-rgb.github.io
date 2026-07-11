@@ -1550,10 +1550,36 @@ fn pipeline_viz() -> Html {
         </> },
         None => html! { <div class="dj-loading">{ "connecting to the factory floor\u{2026}" }</div> },
     };
+    let sel = use_state(|| None::<&'static str>);
     let feed = match &*act {
-        Some(a) => html! { <>
+        Some(a) => {
+            // filter chips built from the log's own lanes, tinted with the phosphor kind-colors
+            let kinds: [&'static str; 4] = ["router", "autopost", "self-improve", "deploy"];
+            let cur: Option<&'static str> = *sel;
+            html! { <>
             <div class="pipe-loghead">{ "$ tail -f factory.log  \u{00B7}  live execution" }</div>
-            <ul class="pipe-log">{ for a.events.iter().map(|e| html! {
+            <div class="pipe-chips" role="group" aria-label="Filter events by pipeline lane">
+                {
+                    let s = sel.clone();
+                    html! {
+                        <button type="button" class="pipe-chip"
+                            aria-pressed={ cur.is_none().to_string() }
+                            style={ if cur.is_none() { "opacity:1" } else { "opacity:0.5" } }
+                            onclick={ Callback::from(move |_| s.set(None)) }>{ "all" }</button>
+                    }
+                }
+                { for kinds.iter().copied().filter(|k| a.events.iter().any(|e| e.kind == *k)).map(|k| {
+                    let s = sel.clone();
+                    let active = cur == Some(k);
+                    html! {
+                        <button type="button" class={ classes!("pipe-chip", evt_cls(k)) }
+                            aria-pressed={ active.to_string() }
+                            style={ if active { "opacity:1" } else { "opacity:0.5" } }
+                            onclick={ Callback::from(move |_| s.set(if active { None } else { Some(k) })) }>{ k }</button>
+                    }
+                }) }
+            </div>
+            <ul class="pipe-log">{ for a.events.iter().filter(|e| cur.map_or(true, |k| e.kind == k)).map(|e| html! {
                 <li class="pipe-evt">
                     <span class="pipe-t">{ e.t.clone() }</span>
                     <span class={evt_cls(&e.kind)}>{ e.kind.clone() }</span>
@@ -1561,7 +1587,8 @@ fn pipeline_viz() -> Html {
                     { if e.ok { html! { <span class="pipe-ok">{ " \u{2713}" }</span> } } else { html! { <span class="pipe-fail">{ " \u{2717}" }</span> } } }
                 </li>
             }) }</ul>
-        </> },
+            </> }
+        },
         None => html! {},
     };
 
