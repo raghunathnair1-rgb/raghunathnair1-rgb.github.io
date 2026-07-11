@@ -205,6 +205,12 @@ body::before {
 @media (prefers-reduced-motion: reduce) { #sky { display: none !important; } }
 @media (prefers-reduced-transparency: reduce) { #matrix, #sky { opacity: .2; } .tty-tab.active { background: var(--panel); } }
 @media (prefers-contrast: more) { #matrix, #sky { opacity: .22; } }
+@media (forced-colors: active) {
+  header .logo, header .logo .cursor, body,
+  .tty-tab.active, .skip { text-shadow: none; }
+  #matrix, #sky, #crtfx { display: none; }
+  .tty-tab.active { background: Highlight; color: HighlightText; }
+}
 /* --- Stranger Things header: red neon serif (ITC Benguiat vibe) with a flickering-sign glow --- */
 header .logo {
   /* Matrix theme: phosphor-green CRT terminal look (VT323 is bundled — no CDN) */
