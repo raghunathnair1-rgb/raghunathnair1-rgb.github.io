@@ -632,7 +632,7 @@
       "id": "fable-5",
       "dom": "factory",
       "label": "Claude Fable 5",
-      "def": "Anthropic's Claude Fable 5 (claude-fable-5) — the fast model the deploy gate uses for its AI diff review before every ship.",
+      "def": "Anthropic's Claude Fable 5 (claude-fable-5) — a Mythos-class model made safe for general use; the fast model the deploy gate uses for its AI diff review before every ship.",
       "rel": [
         "ai-review",
         "gate",
@@ -649,6 +649,16 @@
         "tool-use",
         "a2a",
         "harness-eng"
+      ]
+    },
+    {
+      "id": "mythos",
+      "dom": "infra",
+      "label": "Claude Mythos",
+      "def": "Anthropic's Claude Mythos — a frontier, cybersecurity-specialized model that finds zero-day vulnerabilities; not publicly released (partner-only). Claude Fable 5 is the Mythos-class model made safe for general use.",
+      "rel": [
+        "fable-5",
+        "agent-security"
       ]
     }
   ]
