@@ -401,7 +401,7 @@ fn brain_card() -> Html {
                         let (d, h, m, s) = (up / 86400, (up % 86400) / 3600, (up % 3600) / 60, up % 60);
                         html! {
                             <div class="brain-row">
-                                <span class={ if b.healthy { "dot ok" } else { "dot bad" } }></span>
+                                <span class={ if b.healthy { "dot ok" } else { "dot bad" } } role="img" aria-label={ if b.healthy { "brain online" } else { "brain offline" } } title={ if b.healthy { "brain online" } else { "brain offline" } }></span>
                                 <span class="brain-lbl">{ if b.healthy { "brain: healthy" } else { "brain: down" } }</span>
                                 <span class="brain-up">{ format!("uptime {}d {:02}h {:02}m {:02}s", d, h, m, s) }</span>
                                 <span class="brain-pid">{ format!("pid {}", b.pid) }</span>
