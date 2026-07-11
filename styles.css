@@ -96,6 +96,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); }
 .bgl-k { background: #22d3ee; box-shadow: 0 0 6px #22d3ee; }
 .bgl-l { background: #7effb0; box-shadow: 0 0 6px #7effb0; }
 .bgl-h { background: #ff5470; box-shadow: 0 0 6px #ff5470; }
+.bgl-o { background: #f5c542; box-shadow: 0 0 6px #f5c542; }
 .pipe-latest { color: var(--fg); margin-top: .4rem; }
 .pipe-cur { color: #7effb0; }
 .pipe-updated { color: var(--muted); font-size: .8rem; margin: .15rem 0 .7rem; }

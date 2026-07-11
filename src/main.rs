@@ -1930,6 +1930,10 @@ struct BrainMetrics {
     #[serde(default)]
     caught: u64,
     #[serde(default)]
+    concepts: u32,
+    #[serde(default)]
+    domains: u32,
+    #[serde(default)]
     coverage: u32,
 }
 
@@ -1937,22 +1941,27 @@ struct BrainMetrics {
 fn brain_gl(props: &BrainGlProps) -> Html {
     let stage = if props.hero { "brain-gl-stage hero" } else { "brain-gl-stage" };
     let (data, _err) = use_polled_json::<BrainMetrics>("/brain.json", Some(30_000));
-    let (krow, lrow, hrow) = match &*data {
+    let (krow, lrow, hrow, orow) = match &*data {
         Some(d) => {
             let nodes = if d.nodes > 0 { d.nodes as usize } else { KG_NODES.len() };
             let syn = if d.synapses > 0 { d.synapses as usize } else { KG_EDGES.len() };
             let kn = (d.knowledge * 100.0).round().clamp(0.0, 100.0) as u32;
             let delta = if d.delta > 0 { format!(" \u{00B7} +{} \u{2191}", d.delta) } else { String::new() };
+            let onto = if d.concepts > 0 {
+                format!("ontology \u{00B7} {} concepts \u{00B7} {} domains \u{00B7} grounded", d.concepts, d.domains)
+            } else { String::new() };
             (
                 format!("knowledge \u{00B7} {} facts \u{00B7} {} nodes \u{00B7} {} synapses{}", d.facts, nodes, syn, delta),
                 format!("learning \u{00B7} {}% mastery \u{00B7} {}% tested \u{00B7} climbing", kn, d.coverage.min(100)),
                 format!("hallucinations \u{00B7} {:.1}% \u{00B7} {} caught & gated", d.hallu_pct, d.caught),
+                onto,
             )
         }
         None => (
             format!("knowledge \u{00B7} {} nodes \u{00B7} {} synapses", KG_NODES.len(), KG_EDGES.len()),
             "learning \u{00B7} 100% tested \u{00B7} always-on".to_string(),
             "hallucinations \u{00B7} gated \u{00B7} red = flagged & caught".to_string(),
+            String::new(),
         ),
     };
     html! {
@@ -1964,6 +1973,7 @@ fn brain_gl(props: &BrainGlProps) -> Html {
                     <div class="bgl-row"><span class="bgl-dot bgl-k"></span>{ krow }</div>
                     <div class="bgl-row"><span class="bgl-dot bgl-l"></span>{ lrow }</div>
                     <div class="bgl-row"><span class="bgl-dot bgl-h"></span>{ hrow }</div>
+                    { if orow.is_empty() { html!{} } else { html!{ <div class="bgl-row"><span class="bgl-dot bgl-o"></span>{ orow }</div> } } }
                 </div>
             </div>
         </div>
