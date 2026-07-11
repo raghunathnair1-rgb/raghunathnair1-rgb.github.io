@@ -83,7 +83,7 @@
       '[ OK ] cpu: brain @ ∞GHz',
       '[ OK ] memory ............ 128GB unified',
       '[ OK ] gpu ............... NVIDIA GB10',
-      '[ OK ] rtc ............... ' + new Date().toISOString().slice(0,16).replace('T',' ') + ' UTC',
+      '[ OK ] rtc ............... ' + (function(){ try { var d = new Date(), p = function(n){ return (n<10?'0':'')+n; }, stamp = d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes()), zone = new Intl.DateTimeFormat(undefined,{timeZoneName:'short'}).formatToParts(d).find(function(x){ return x.type==='timeZoneName'; }).value; return stamp+' '+zone; } catch (e) { return new Date().toISOString().slice(0,16).replace('T',' ')+' UTC'; } })(),
       '[ OK ] mount /dev/rust ... wasm32',
       '[ OK ] modules ........... matrix_rain, terminal, clock',
       '[ OK ] security gates .... armed',
