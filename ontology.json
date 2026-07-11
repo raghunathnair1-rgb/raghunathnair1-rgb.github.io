@@ -1430,6 +1430,20 @@
       ],
       "ev": "doctrine verification layer 1 lists 'AI diff review' as a required gate; grounds the existing ai-review + constitutional-ai + evals nodes in the durable LLM-as-judge evaluation paradigm",
       "src": "learned"
+    },
+    {
+      "id": "ai-stylometry",
+      "dom": "agentic-ai",
+      "label": "AI stylometric tells",
+      "def": "The identifiable stylistic fingerprints of machine-written text (em-dash overuse, the 'not X, but Y' antithesis closer, uniform cadence) that mark authorship as AI and can be detected or deliberately scrubbed to humanize output.",
+      "rel": [
+        "ai-slop",
+        "trendpost",
+        "content-distribution",
+        "prompt-engineering"
+      ],
+      "ev": "commits 47bc298 'linkedin: ban em-dashes entirely (prompt + mechanical strip)' and ecc99cf 'ban the it isn't A, it's B antithesis closer (top AI tell) in de-slop pass'; li_publish.py de-slop pass",
+      "src": "learned"
     }
   ]
 }
