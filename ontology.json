@@ -1375,7 +1375,8 @@
         "tool-orch",
         "mcp",
         "agentic-patterns",
-        "agent"
+        "agent",
+        "memory"
       ]
     },
     {

@@ -1577,7 +1577,7 @@ fn pipeline_viz() -> Html {
                 <canvas id="pipe-gl" class="pipe-gl" data-run={run_s} data-fail={fail_s} role="img" aria-label="Factory build pipeline flow: task then brain then router then gate then wasm then pages"></canvas>
             </div>
             <div class="pipe-stages">
-                { for PIPE_STAGES.iter().map(|&(label, _)| html! { <span class="pipe-stage">{ label }</span> }) }
+                { for PIPE_STAGES.iter().map(|&(label, _)| html! { <span class="pipe-stage" tabindex="0" role="button" aria-label={format!("Pipeline stage: {label}")}>{ label }</span> }) }
             </div>
             { headline }
             { feed }
