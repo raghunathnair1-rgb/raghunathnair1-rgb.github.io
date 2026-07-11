@@ -615,6 +615,8 @@ article .meta { color: var(--muted); margin-bottom: 1.2rem; }
 .back:hover { text-decoration: underline; }
 
 a { color: var(--cyan); }
+main a, .np-out a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; text-decoration-color: color-mix(in srgb, currentColor 55%, transparent); }
+main a:hover, main a:focus-visible, .np-out a:hover, .np-out a:focus-visible { text-decoration-color: currentColor; text-shadow: var(--glow); }
 
 footer {
   margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
