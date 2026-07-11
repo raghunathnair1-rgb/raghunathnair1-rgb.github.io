@@ -822,6 +822,75 @@
       ],
       "ev": "Latest AI/tech trend theme: 'AI cracking frontier math/reasoning — models now credited with novel proofs, raising the bar for what reasoning means'",
       "src": "learned"
+    },
+    {
+      "id": "speculative-decoding",
+      "dom": "infra",
+      "label": "Speculative decoding",
+      "def": "An inference acceleration method where a small draft model proposes tokens that the larger target model verifies in parallel, cutting latency without changing outputs.",
+      "rel": [
+        "vllm",
+        "test-time-compute",
+        "local-first",
+        "quantization"
+      ],
+      "ev": "HN trend theme 'Local LLM inference on modest hardware: builders squeezing frontier models onto slow/small machines', a durable technique supported by the system's vLLM serving stack.",
+      "src": "learned"
+    },
+    {
+      "id": "distributed-inference",
+      "dom": "infra",
+      "label": "Distributed inference",
+      "def": "Splitting a model's serving across multiple nodes (via tensor/pipeline parallelism) so a cluster can run models too large for one machine.",
+      "rel": [
+        "vllm",
+        "spark",
+        "local-first"
+      ],
+      "ev": "The system's real 'spark' telemetry is a 2-node GB10 cluster (recent commits 'spark: 2-node GB10 telemetry refresh'), and cross-node model serving is the durable technique that makes such a cluster us",
+      "src": "learned"
+    },
+    {
+      "id": "moe",
+      "dom": "infra",
+      "label": "Mixture-of-Experts",
+      "def": "A sparse architecture that routes each token to a small subset of expert sub-networks, so a model with very large total parameters activates only a fraction per forward pass — the key to running frontier-scale models on modest local hardware.",
+      "rel": [
+        "quantization",
+        "local-first",
+        "distributed-inference",
+        "vllm",
+        "fable-5"
+      ],
+      "ev": "'GLM 5.2 local run' notable item + the dominant trend theme 'Local LLM inference on modest hardware: squeezing frontier models onto slow/small machines' (GLM-class models are MoE)",
+      "src": "learned"
+    },
+    {
+      "id": "ai-slop",
+      "dom": "agentic-ai",
+      "label": "AI-slop / de-slopping",
+      "def": "The recognizable stylistic tells of unedited LLM prose (em-dashes, the 'it isn't A, it's B' antithesis closer, guru cadence) and the mechanical/prompt-level passes that strip them so generated content reads as genuinely human-authored.",
+      "rel": [
+        "hallucination",
+        "content-distribution",
+        "grounding",
+        "guardrails"
+      ],
+      "ev": "Recent commits 47bc298 'ban em-dashes entirely (prompt + mechanical strip)', ecc99cf 'ban the it-isn't-A-it's-B antithesis closer (top AI tell) in de-slop pass', 6af639d 'builder-not-guru voice, expan",
+      "src": "learned"
+    },
+    {
+      "id": "neural-theorem-proving",
+      "dom": "agentic-ai",
+      "label": "AI formal reasoning / theorem proving",
+      "def": "Using language models to generate and machine-check formal mathematical proofs, extending model reasoning from plausible chains-of-thought to verifiable, novel results.",
+      "rel": [
+        "test-time-compute",
+        "verification",
+        "evals"
+      ],
+      "ev": "Trend theme 'AI cracking frontier math/reasoning: Models are now being credited with novel proofs, raising the bar for what reasoning means'",
+      "src": "learned"
     }
   ]
 }

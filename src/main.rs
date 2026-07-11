@@ -2177,6 +2177,7 @@ fn app() -> Html {
                             <div class="nf-line"><span class="k">{ "kernel" }</span>{ "rust \u{2192} wasm (yew + trunk)" }</div>
                             <div class="nf-line"><span class="k">{ "quantization" }</span>{ "low-precision weights \u{2192} frontier LLMs on modest local silicon" }</div>
                             <div class="nf-line"><span class="k">{ "orchestration" }</span>{ "vLLM direct on 2-node GB10 \u{00B7} no k8s (a cluster this small doesn't earn the control plane)" }</div>
+                            <div class="nf-line"><span class="k">{ "k8s-for-ai" }</span>{ "Kueue/KServe-style GPU scheduling, autoscaling & inference serving built for fleets \u{00B7} at 2 nodes it's weight the harness doesn't earn" }</div>
                             <div class="nf-line"><span class="k">{ "shell" }</span>{ "the harness brain" }</div>
                             <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
                             <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
