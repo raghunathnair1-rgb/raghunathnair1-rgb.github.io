@@ -2155,13 +2155,18 @@ fn app() -> Html {
                     </section>
                     <div class="np">
                         <div class="np-cmd">{ "$ now-playing" }</div>
-                        <div class="np-out">
-                            <span class="np-note">{ "\u{266B}" }</span>
-                            <span class="eq"><i></i><i></i><i></i><i></i></span>
-                            <span class="np-track">{ "Cornfield Chase" }</span>
-                            <span class="np-artist">{ "\u{00B7} Hans Zimmer \u{2014} Interstellar (OST)" }</span>
-                            <a href="https://music.apple.com/nl/album/cornfield-chase/1533983552?i=1533984393" target="_blank" rel="noopener">{ "[listen \u{2197}]" }</a>
-                        </div>
+                        <a class="np-sp" href="https://open.spotify.com/track/6pWgRkpqVfxnj3WuIcJ7WP" target="_blank" rel="noopener" aria-label="Cornfield Chase by Hans Zimmer — open on Spotify">
+                            <img class="np-cover" src="/assets/cornfield-chase.jpg" alt="Interstellar (Original Motion Picture Soundtrack) cover" width="56" height="56" loading="lazy"/>
+                            <span class="np-meta">
+                                <span class="np-track">{ "Cornfield Chase" }</span>
+                                <span class="np-artist">{ "Hans Zimmer \u{00B7} Interstellar (OST)" }</span>
+                            </span>
+                            <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                            <span class="np-spotify">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1db954"/><path fill="#000" d="M17.9 10.9C14.7 9 9.3 8.8 6.3 9.8c-.5.1-1-.2-1.1-.6c-.2-.5.1-1 .6-1.2c3.5-1 9.4-.8 13.1 1.4c.4.2.6.8.3 1.3c-.2.3-.8.5-1.3.2m-.1 2.8c-.2.3-.7.5-1 .2c-2.7-1.6-6.8-2.1-10-1.1c-.4.1-.8-.1-.9-.5c-.1-.4.1-.8.5-.9c3.6-1.1 8.1-.6 11.2 1.3c.3.2.5.7.2 1m-1.2 2.7c-.2.3-.5.4-.8.2c-2.4-1.4-5.3-1.7-8.8-.9c-.3.1-.6-.1-.7-.5c-.1-.3.1-.6.5-.7c3.8-.9 7.1-.5 9.7 1.1c.3.1.4.5.1.8"/></svg>
+                                { "Spotify \u{2197}" }
+                            </span>
+                        </a>
                     </div>
                     <div class="nf-cmd">{ "$ neofetch" }</div>
                     <div class="neofetch">
