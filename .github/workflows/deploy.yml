@@ -46,8 +46,20 @@ jobs:
           targets: wasm32-unknown-unknown
       - uses: Swatinem/rust-cache@v2
       - uses: jetli/trunk-action@v0.5.0
-      - name: Build WASM
-        run: trunk build --release || { echo "::warning::build failed — retrying once (transient CI flake)"; sleep 5; trunk build --release; }
+      - name: Build WASM (resilient to transient CI/registry flakes)
+        run: |
+          # No Cargo.lock is committed, so deps resolve fresh each run — this makes the build
+          # occasionally sensitive to registry/network blips. Retry with backoff + a clean between
+          # attempts so a transient failure can't strand main. A genuine code error still fails all 3.
+          set +e
+          for attempt in 1 2 3; do
+            trunk build --release && { echo "✅ build succeeded on attempt $attempt"; exit 0; }
+            echo "::warning::trunk build failed (attempt $attempt/3) — likely a transient flake; backing off"
+            trunk clean >/dev/null 2>&1 || true
+            sleep $((attempt * 15))
+          done
+          echo "::error::trunk build failed after 3 attempts — this is a real build error, not a flake"
+          exit 1
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
