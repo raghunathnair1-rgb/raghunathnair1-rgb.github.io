@@ -1,7 +1,5 @@
 use yew::prelude::*;
 use yew::TargetCast;
-// Cap for the terminal's ArrowUp/ArrowDown command-history buffer (see the console onkeydown handler).
-const TERM_HISTORY_CAP: usize = 50;
 // pure logic lives in the coverage-gated blog-logic crate (tested code == shipped code)
 use blog_logic::{day_length_hm, evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r, moon_illum, moon_name, moon_phase_frac};
 
