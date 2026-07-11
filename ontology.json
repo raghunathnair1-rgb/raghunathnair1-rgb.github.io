@@ -1015,6 +1015,36 @@
       ],
       "ev": "latest trends: the 'scraping & bot arms race' (residential-proxy scraping) and 'anti-AI content' themes describing a web reshaped around machine consumers",
       "src": "learned"
+    },
+    {
+      "id": "adversarial-content",
+      "dom": "agentic-ai",
+      "label": "Adversarial anti-AI content",
+      "def": "Content and media deliberately designed to stay legible to humans while resisting AI scraping and model ingestion, a defensive move in the human-vs-bot web arms race.",
+      "rel": [
+        "content-provenance",
+        "adversarial-attacks",
+        "proof-of-personhood",
+        "ai-slop",
+        "agentic-web"
+      ],
+      "ev": "HN trend theme 'Adversarial / anti-AI content' + notable 'Ghost Font: a typeface legible to people but unreadable to AI models' (2026-07-11)",
+      "src": "learned"
+    },
+    {
+      "id": "novelty-guard",
+      "dom": "harness",
+      "label": "Novelty / anti-duplication guard",
+      "def": "A guardrail that blocks the self-improvement and idea loops from shipping changes or ontology concepts that duplicate or near-duplicate ones already shipped, enforcing the doctrine's 'never repeat' rule.",
+      "rel": [
+        "self-improve",
+        "idea-engine",
+        "ontology",
+        "guardrails",
+        "backlog"
+      ],
+      "ev": "doctrine principles.md: 'never repeat or near-duplicate a change already shipped' / 'No duplicate or near-duplicate changes'; enforced by idea_engine.py + ontology_maintain.py",
+      "src": "learned"
     }
   ]
 }
