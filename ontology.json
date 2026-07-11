@@ -1111,7 +1111,6 @@
       "label": "Generative media",
       "def": "Diffusion and generative models that synthesize or reimagine images, audio, and video rather than text.",
       "rel": [
-        "fable-5",
         "ai-slop",
         "content-provenance",
         "model-collapse"
@@ -1443,7 +1442,8 @@
         "ai-slop",
         "trendpost",
         "content-distribution",
-        "prompt-engineering"
+        "prompt-engineering",
+        "content-provenance"
       ],
       "ev": "commits 47bc298 'linkedin: ban em-dashes entirely (prompt + mechanical strip)' and ecc99cf 'ban the it isn't A, it's B antithesis closer (top AI tell) in de-slop pass'; li_publish.py de-slop pass",
       "src": "learned"
@@ -1702,6 +1702,21 @@
         "self-improve"
       ],
       "ev": "ontology_maintain.py / ontology_maintain.sh and logs/ontology-maintain.log — the graph-hygiene counterpart to the additive ontology_learn.py",
+      "src": "learned"
+    },
+    {
+      "id": "ai-crawler",
+      "dom": "infra",
+      "label": "AI training crawler",
+      "def": "Automated crawlers run to harvest public web content at scale for LLM training and retrieval, the adversary that crawler directives, bot mitigation, and proxy detection are built to govern.",
+      "rel": [
+        "crawler-directives",
+        "bot-mitigation",
+        "residential-proxy",
+        "model-collapse",
+        "content-provenance"
+      ],
+      "ev": "HN trend theme 'The scraper/bot arms race: Residential proxies and automated scraping are a live, front-page infrastructure battle' plus the scraping-defense readout commits (10b2896, d9c983d)",
       "src": "learned"
     }
   ]

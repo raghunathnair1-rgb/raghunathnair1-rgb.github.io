@@ -200,6 +200,8 @@
   <canvas id="matrix" aria-hidden="true" role="presentation"></canvas>
   <canvas id="sky" aria-hidden="true" role="presentation"></canvas>
   <div id="app"></div>
+  <!-- honeypot: off-screen decoy mailto that naive harvester bots ingest from the served HTML; clipped off-screen, hidden from the a11y tree, unfocusable & nofollowed so no human or assistive-tech user ever meets it -->
+  <a class="honeypot" href="mailto:no-reply-trap@raghunathnair1-rgb.github.io" rel="nofollow" aria-hidden="true" tabindex="-1" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">do-not-email</a>
   <noscript>
     <h1>the dark factory — Raghu Nair</h1>
     <p>An autonomous AI &ldquo;dark factory&rdquo; that writes, curates, and ships this Rust/WebAssembly blog,
