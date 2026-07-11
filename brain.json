@@ -1,1 +1,1 @@
-{"updated": "2026-07-11T08:00:03+0200", "knowledge": 0.7067, "learn": 0.6009, "hallu": 0.14, "facts": 3380, "delta": 3, "trend": "up", "nodes": 36, "synapses": 68, "deploys": 815, "posts": 7, "feed": 14, "tests": 9, "coverage": 100, "hallu_pct": 5.0, "caught": 2}
+{"updated": "2026-07-11T08:15:04+0200", "knowledge": 0.7069, "learn": 0.6009, "hallu": 0.02, "facts": 3383, "delta": 3, "trend": "up", "nodes": 36, "synapses": 68, "deploys": 816, "posts": 7, "feed": 14, "tests": 9, "coverage": 100, "hallu_pct": 0.0, "caught": 2}
