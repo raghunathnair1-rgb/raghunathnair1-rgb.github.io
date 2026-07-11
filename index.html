@@ -234,7 +234,7 @@
     function start() { if (!timer) timer = setInterval(draw, 70); }
     function stop() { clearInterval(timer); timer = null; }
     document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
-    start();
+    if (!document.hidden) start();   // don't kick the loop if the page opened in a backgrounded tab
   })();
   </script>
   <script>
