@@ -34,7 +34,7 @@ jobs:
       # tests on the native host (no wasm target / browser needed). A drop below 100% fails
       # this job, which blocks `build` (needs: coverage) and therefore the deploy.
       - name: cargo llvm-cov — fail under 100% lines
-        run: cargo llvm-cov -p blog-logic --lib --fail-under-lines 100 --summary-only
+        run: cargo llvm-cov -p blog-logic --lib --fail-under-lines 100 --summary-only --locked
 
   build:
     needs: coverage
@@ -46,6 +46,10 @@ jobs:
           targets: wasm32-unknown-unknown
       - uses: Swatinem/rust-cache@v2
       - uses: jetli/trunk-action@v0.5.0
+      - name: Verify committed Cargo.lock is complete (deterministic, drift-proof)
+        # Fails loudly if Cargo.lock is missing or out of sync with Cargo.toml, so deps can never
+        # silently drift. Resolves only (no compile) — the actual build below reuses this exact lock.
+        run: cargo metadata --locked --format-version 1 >/dev/null
       - name: Build WASM (resilient to transient CI/registry flakes)
         run: |
           # No Cargo.lock is committed, so deps resolve fresh each run — this makes the build
