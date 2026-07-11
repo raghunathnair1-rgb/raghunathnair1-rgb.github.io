@@ -1503,6 +1503,20 @@
       ],
       "ev": "commit 10b2896 'self-improve: Name the site's no-cloaking stance in the scraping-defense readout'",
       "src": "learned"
+    },
+    {
+      "id": "cdn-edge",
+      "dom": "infra",
+      "label": "CDN edge",
+      "def": "A content-delivery-network edge layer that caches and serves static assets near users and is the real point where volumetric or abusive traffic is throttled.",
+      "rel": [
+        "github-pages",
+        "bot-mitigation",
+        "residential-proxy",
+        "ssg"
+      ],
+      "ev": "commit d9c983d 'self-improve: Name the host CDN edge as the only real volumetric throttle'",
+      "src": "learned"
     }
   ]
 }

@@ -2177,6 +2177,7 @@ fn app() -> Html {
                             <div class="nf-line"><span class="k">{ "kernel" }</span>{ "rust \u{2192} wasm (yew + trunk)" }</div>
                             <div class="nf-line"><span class="k">{ "quantization" }</span>{ "low-precision weights \u{2192} frontier LLMs on modest local silicon" }</div>
                             <div class="nf-line"><span class="k">{ "orchestration" }</span>{ "vLLM direct on 2-node GB10 \u{00B7} no k8s (a cluster this small doesn't earn the control plane)" }</div>
+                            <div class="nf-line"><span class="k">{ "spec-decode" }</span>{ "off \u{00B7} a draft model proposing tokens for the 35B to verify in parallel cuts latency, but at this batch size the tiered router is the cheaper win" }</div>
                             <div class="nf-line"><span class="k">{ "k8s-for-ai" }</span>{ "Kueue/KServe-style GPU scheduling, autoscaling & inference serving built for fleets \u{00B7} at 2 nodes it's weight the harness doesn't earn" }</div>
                             <div class="nf-line"><span class="k">{ "containers" }</span>{ "no docker \u{00B7} one systemd unit on a box we own \u{00B7} the watchdog already reads systemctl status" }</div>
                             <div class="nf-line"><span class="k">{ "robots.txt" }</span>{ "crawl policy, not a wall \u{00B7} honor-system only \u{00B7} GH Pages can't rate-limit, so scrapers that ignore the robots.txt + sitemap.xml aren't stopped (pages stay fully open to humans)" }</div>
