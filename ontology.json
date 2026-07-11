@@ -1250,6 +1250,34 @@
       ],
       "ev": "HN front-page theme 'Who supervises autonomous agents' — agent-fleet oversight and orchestration surfacing as its own problem",
       "src": "learned"
+    },
+    {
+      "id": "model-extraction",
+      "dom": "agentic-ai",
+      "label": "Model extraction / weight theft",
+      "def": "Adversarially stealing a model's weights or replicating its behavior by querying it, turning proprietary model IP into a security and trade-secret exposure.",
+      "rel": [
+        "adversarial-attacks",
+        "agent-security",
+        "open-weights",
+        "content-provenance"
+      ],
+      "ev": "Latest trends theme: 'a lawsuit between two tech giants over AI trade-secret theft, signaling AI has moved from research to high-stakes IP litigation' (durable underlying technique, not the suit itsel",
+      "src": "learned"
+    },
+    {
+      "id": "trendpost",
+      "dom": "factory",
+      "label": "Trend-grounded content synthesis",
+      "def": "A pipeline that ingests live external tech-trend signals and synthesizes grounded outbound posts, distinct from raw idea generation or channel distribution.",
+      "rel": [
+        "content-distribution",
+        "idea-engine",
+        "world-model",
+        "ontology"
+      ],
+      "ev": "Real harness scripts present: trendpost.py, trendpost.sh, trendpost_state.json, feeding from the same live 'latest AI/tech trends' Hacker News feed used here.",
+      "src": "learned"
     }
   ]
 }
