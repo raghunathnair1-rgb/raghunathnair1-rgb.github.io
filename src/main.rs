@@ -2198,9 +2198,23 @@ fn app() -> Html {
                         let idx = *idx;
                         let t = tab.clone();
                         let onclick = Callback::from(move |_: web_sys::MouseEvent| t.set(idx));
+                        let tk = tab.clone();
+                        let onkeydown = Callback::from(move |e: web_sys::KeyboardEvent| {
+                            let n = items.len();
+                            let next = match e.key().as_str() {
+                                "ArrowRight" | "ArrowDown" => (pos + 1) % n,
+                                "ArrowLeft" | "ArrowUp" => (pos + n - 1) % n,
+                                "Home" => 0,
+                                "End" => n - 1,
+                                _ => return,
+                            };
+                            e.prevent_default();
+                            tk.set(items[next].1);
+                        });
                         let is_active = tt == idx;
                         let cls = if is_active { "tty-tab active" } else { "tty-tab" };
-                        html! { <button class={cls} role="tab" aria-selected={is_active.to_string()} {onclick}>{ format!("[{}] {}", pos + 1, label) }</button> }
+                        let tabindex = if is_active { "0" } else { "-1" };
+                        html! { <button class={cls} role="tab" aria-selected={is_active.to_string()} {tabindex} {onclick} {onkeydown}>{ format!("[{}] {}", pos + 1, label) }</button> }
                     }) }
                 </nav>
                 <div class="console" role="tabpanel" tabindex="0" aria-label={items.iter().find(|(_, i)| *i == tt).map(|(l, _)| *l).unwrap_or("console")} key={tt.to_string()}>{ content }</div>
