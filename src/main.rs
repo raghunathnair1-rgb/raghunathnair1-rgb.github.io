@@ -2123,6 +2123,7 @@ fn app() -> Html {
                             <div class="bio">
                                 <div class="line"><span class="key">{ "user " }</span>{ "raghu nair" }</div>
                                 <div class="line"><span class="key">{ "role " }</span>{ "builder · tinkerer · runs an AI dark factory for fun" }</div>
+                                <div class="line"><span class="key">{ "net  " }</span>{ "@codex_anonymous" }</div>
                                 <div class="line"><span class="key">{ "stack" }</span>{ " rust · wasm · llms · an unreasonable amount of automation" }</div>
                                 <div class="line"><span class="key">{ "stat " }</span>{ "brain \u{1F9E0} online \u{00B7} hover the pic to declassify" }</div>
                             </div>
