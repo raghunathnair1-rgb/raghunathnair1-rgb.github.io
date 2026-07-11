@@ -1763,6 +1763,21 @@
       ],
       "ev": "Trends NOTABLE: 'Reame: A CPU inference server that self-opti[mizes]' on the HN front page — CPU-based inference as an alternative to GPU serving.",
       "src": "learned"
+    },
+    {
+      "id": "scaling-limits",
+      "dom": "infra",
+      "label": "Scaling diminishing returns",
+      "def": "The observed flattening of model-quality gains from ever-larger parameter counts and pretraining compute, which redirects effort toward test-time compute, efficiency, and architecture over raw scale.",
+      "rel": [
+        "test-time-compute",
+        "moe",
+        "inference-economics",
+        "model-collapse",
+        "quantization"
+      ],
+      "ev": "trend theme 'AI hype skepticism: Top discussion is critical of intelligence-worship and diminishing model quality rather than boosterism.'",
+      "src": "learned"
     }
   ]
 }
