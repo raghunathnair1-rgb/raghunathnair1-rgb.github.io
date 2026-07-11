@@ -1206,6 +1206,21 @@
       ],
       "ev": "HN front-page 'AI skepticism & the labor paradox' essays framing humans as subservient 'reverse centaurs' to automation (trends, 2026-07-11)",
       "src": "learned"
+    },
+    {
+      "id": "human-on-the-loop",
+      "dom": "agentic-ai",
+      "label": "Human-on-the-loop oversight",
+      "def": "A supervision model where humans monitor and can intervene on an autonomous agent fleet as it runs, rather than approving each individual action, keeping bounded autonomy accountable.",
+      "rel": [
+        "multi-agent",
+        "watchdog",
+        "guardrails",
+        "reverse-centaur",
+        "self-improve"
+      ],
+      "ev": "trend theme 'Who supervises autonomous agents' plus the system's own watchdog/gate/guardrails oversight of its unattended self-improve loop",
+      "src": "learned"
     }
   ]
 }
