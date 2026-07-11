@@ -228,8 +228,9 @@
     }
     var reduce = false;
     try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (reduce) { for (var k = 0; k < 24; k++) draw(); return; }   // reduced-motion: lay a static frozen glyph field, skip the loop
     var timer = null;
-    function start() { if (!timer && !reduce) timer = setInterval(draw, 70); }
+    function start() { if (!timer) timer = setInterval(draw, 70); }
     function stop() { clearInterval(timer); timer = null; }
     document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
     start();
