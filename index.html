@@ -86,8 +86,15 @@
     ];
     var out = [];
     function render() { pre.textContent = out.join('\n'); }
-    var i = 0;
+    var i = 0, skipped = false, finished = false, armed = false;
+    function skip() { if (skipped || finished) return; skipped = true; finish(); }
     function typeLines() {
+      if (skipped) return;
+      if (!armed) {
+        armed = true;
+        document.addEventListener('pointerdown', skip, { once: true });
+        document.addEventListener('keydown', skip, { once: true });
+      }
       if (i < lines.length) {
         out.push(lines[i]); i++; render();
         setTimeout(typeLines, 42 + Math.random() * 26);
@@ -96,6 +103,7 @@
     function progress() {
       var idx = out.length; out.push(''); var f = 0;
       (function bar() {
+        if (skipped) return;
         var fill = Math.min(f, 20);
         out[idx] = 'loading kernel  [' + '█'.repeat(fill) + '░'.repeat(20 - fill) + '] ' + (fill * 5) + '%';
         render();
@@ -103,6 +111,7 @@
       })();
     }
     function finish() {
+      if (finished) return; finished = true;
       out.push(''); out.push('boot complete. launching raghu // dark-factory'); render();
       boot.classList.add('boot-typed');
       setTimeout(function () {
