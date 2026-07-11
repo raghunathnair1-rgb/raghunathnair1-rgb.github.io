@@ -1458,6 +1458,36 @@
       ],
       "ev": "harness script ssg.py present as a real capability",
       "src": "learned"
+    },
+    {
+      "id": "unified-memory",
+      "dom": "infra",
+      "label": "Unified memory inference",
+      "def": "Coherent CPU-GPU shared address space (as on Grace-Blackwell/GB10 nodes) that lets large models spill across host and device memory without explicit copies.",
+      "rel": [
+        "spark",
+        "distributed-inference",
+        "model-offloading",
+        "local-first",
+        "vllm"
+      ],
+      "ev": "recurring 'spark: 2-node GB10 telemetry refresh' commits — the local inference fabric is a GB10 (Grace-Blackwell) cluster whose defining trait is coherent unified memory",
+      "src": "learned"
+    },
+    {
+      "id": "prompt-injection",
+      "dom": "agentic-ai",
+      "label": "Prompt injection",
+      "def": "An attack where adversarial text hidden in tool output, fetched web content, or documents overrides an agent's real instructions, which this harness's guardrails are explicitly built to contain.",
+      "rel": [
+        "agent-security",
+        "guardrails",
+        "agent-sandboxing",
+        "adversarial-content",
+        "agentic-web"
+      ],
+      "ev": "Established agentic-AI security failure mode; principles.md guardrails ('no new external network calls', 'no secrets', bounded revert-on-failure autonomy) are exactly the containment against injected ",
+      "src": "learned"
     }
   ]
 }
