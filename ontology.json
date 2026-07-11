@@ -1864,6 +1864,75 @@
       ],
       "ev": "commit 90d9501 'Gate the real contact email behind a human click (tap to decrypt)'",
       "src": "learned"
+    },
+    {
+      "id": "centaur",
+      "dom": "agentic-ai",
+      "label": "Centaur (human+AI)",
+      "def": "A collaboration model in which a human directing an AI assistant outperforms either the human or the AI acting alone, keeping the human in the leading role.",
+      "rel": [
+        "reverse-centaur",
+        "human-in-the-loop",
+        "human-on-the-loop",
+        "agent"
+      ],
+      "ev": "HN front-page theme (2026-07-12): 'the paradox of AI augmenting versus subordinating humans' — the positive-augmentation pole that reverse-centaur is the degradation of.",
+      "src": "learned"
+    },
+    {
+      "id": "device-attestation",
+      "dom": "agentic-ai",
+      "label": "Device attestation",
+      "def": "Cryptographic attestation of a genuine device or platform (e.g. Private Access Tokens) that lets a site admit real users without a CAPTCHA while blocking headless automation.",
+      "rel": [
+        "proof-of-personhood",
+        "captcha",
+        "proof-of-work-challenge",
+        "bot-mitigation"
+      ],
+      "ev": "HN front page 2026-07-12 themes: 'proving you're human' + the scraper-vs-anti-scraper arms race",
+      "src": "learned"
+    },
+    {
+      "id": "web-bot-auth",
+      "dom": "agentic-ai",
+      "label": "Web bot auth",
+      "def": "An emerging standard where legitimate automated agents cryptographically sign their HTTP requests (HTTP Message Signatures) so sites can verify a bot's identity instead of blocking all automation blindly.",
+      "rel": [
+        "bot-mitigation",
+        "crawler-directives",
+        "agent-accountability",
+        "agentic-web"
+      ],
+      "ev": "HN 2026-07-12 scraper-vs-anti-scraper arms-race + agentic-web themes (residential proxies reshaping bot defense)",
+      "src": "learned"
+    },
+    {
+      "id": "ip-reputation",
+      "dom": "infra",
+      "label": "IP reputation blocking",
+      "def": "Blocking or throttling requests by the reputation of their source IP or ASN (datacenter vs residential, known-abuse lists) — the first-line defense that residential proxy pools exist to evade.",
+      "rel": [
+        "residential-proxy",
+        "bot-mitigation",
+        "rate-limiting",
+        "cdn-edge"
+      ],
+      "ev": "HN 2026-07-12 arms-race theme: residential proxies reshaping how sites defend against automated scraping",
+      "src": "learned"
+    },
+    {
+      "id": "backpressure",
+      "dom": "infra",
+      "label": "Backpressure",
+      "def": "A flow-control mechanism where an overloaded component signals upstream producers to slow down, preventing unbounded queue growth and preserving correctness under load.",
+      "rel": [
+        "continuous-batching",
+        "rate-limiting",
+        "watchdog"
+      ],
+      "ev": "Latest AI/tech trends theme 'Infra performance & correctness tuning' (database/connection-pooling correctness under load), paired with the system's real watchdog.py reliability layer.",
+      "src": "learned"
     }
   ]
 }

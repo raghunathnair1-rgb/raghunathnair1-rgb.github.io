@@ -2161,6 +2161,11 @@ fn app() -> Html {
                             // pre-click DOM. Only a genuine human click assembles the split parts into
                             // a live mailto: anchor, with a brief phosphor "decrypting..." flicker.
                             let onclick = Callback::from(move |e: web_sys::MouseEvent| {
+                                // scripted/synthetic clicks (isTrusted === false) never decrypt
+                                if !e.is_trusted() {
+                                    e.prevent_default();
+                                    return;
+                                }
                                 let doc = match web_sys::window().and_then(|w| w.document()) {
                                     Some(d) => d,
                                     None => return,
