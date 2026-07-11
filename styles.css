@@ -225,6 +225,14 @@ body::before {
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
   background: repeating-linear-gradient(180deg, rgba(255,255,255,.015) 0 1px, transparent 1px 3px);
 }
+/* phosphor scroll-progress beam — scroll-driven, JS-free; stays scaleX(0) (invisible) where animation-timeline is unsupported */
+body::after {
+  content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+  transform: scaleX(0); transform-origin: 0 50%;
+  background: var(--green); box-shadow: var(--glow); z-index: 60; pointer-events: none;
+  animation: df-read-progress linear; animation-timeline: scroll(root block);
+}
+@keyframes df-read-progress { to { transform: scaleX(1); } }
 /* matrix-rain canvas layer (drawn by the script in index.html) */
 #matrix {
   position: fixed; inset: 0; width: 100%; height: 100%;

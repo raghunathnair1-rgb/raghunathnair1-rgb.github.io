@@ -1572,6 +1572,63 @@
       ],
       "ev": "commit ee5acb1 'self-improve: Name the deliberate no-CAPTCHA stance in the scraping-defense readout'",
       "src": "learned"
+    },
+    {
+      "id": "reproducible-builds",
+      "dom": "sdlc",
+      "label": "Reproducible builds (lockfile pinning)",
+      "def": "Pinning exact dependency versions in a committed lockfile and enforcing it in CI with --locked so every build is deterministic and cannot silently drift.",
+      "rel": [
+        "ci",
+        "gate",
+        "revert",
+        "rust"
+      ],
+      "ev": "doctrine's rule 'Dependencies are PINNED in Cargo.lock and CI enforces it with --locked' plus the build-hardening record (committed Cargo.lock + --locked)",
+      "src": "learned"
+    },
+    {
+      "id": "automation-bias",
+      "dom": "agentic-ai",
+      "label": "Automation bias",
+      "def": "The human tendency to over-trust automated or AI-generated outputs and under-apply independent judgment, which agentic systems must counter with explicit human review lanes.",
+      "rel": [
+        "human-in-the-loop",
+        "human-on-the-loop",
+        "reverse-centaur",
+        "verification"
+      ],
+      "ev": "latest AI/tech trends theme 'AI skepticism & the human-in-the-loop' — front-page essays pushing back on AI hype and re-centering human judgment over automated intelligence",
+      "src": "learned"
+    },
+    {
+      "id": "gpu-interconnect",
+      "dom": "infra",
+      "label": "GPU interconnect fabric",
+      "def": "The coherent high-bandwidth link (NVLink / ConnectX-class) that binds multiple GPU nodes into one memory-and-compute fabric for multi-node inference.",
+      "rel": [
+        "distributed-inference",
+        "unified-memory",
+        "spark",
+        "vllm"
+      ],
+      "ev": "spark GB10 telemetry commits (afb4e9e '2-node GB10 telemetry refresh') — a 2-node GB10 setup serving inference across a coherent interconnect",
+      "src": "learned"
+    },
+    {
+      "id": "shift-left-security",
+      "dom": "sdlc",
+      "label": "Shift-left security",
+      "def": "The DevSecOps practice of moving security checks (SAST, secret scanning, vuln review) early into the pre-merge gate rather than after deploy.",
+      "rel": [
+        "sast",
+        "secret-scan",
+        "gate",
+        "ci",
+        "guardrails"
+      ],
+      "ev": "doctrine verification layer + commit c46c99b naming the SAST pass as the deploy gate's code-vulnerability scan, with secret scan also enforced pre-ship",
+      "src": "learned"
     }
   ]
 }
