@@ -2184,12 +2184,12 @@ fn app() -> Html {
 
     html! {
         <>
-            <a class="skip" href="#main">jump to main ↵</a>
+            <a class="skip" href="#main">{ "jump to main \u{21B5}" }</a>
             <header>
                 <div class="logo"><span class="logo-name">{ "raghu" }</span><span class="cursor">{ "\u{2588}" }</span></div>
                 <p class="boot">{ "// dark-factory online · brain healthy · shipping from wasm" }</p>
             </header>
-            <main>{ view }</main>
+            <main id="main">{ view }</main>
             <SiteFooter />
         </>
     }

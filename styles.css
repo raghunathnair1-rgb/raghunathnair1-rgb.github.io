@@ -30,6 +30,11 @@
 /* keyboard focus indicators (mouse users unaffected) */
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
 
+/* skip-to-content link — off-screen until keyboard-focused, then reveals */
+.skip { position: absolute; left: -9999px; top: 0; z-index: 10000; background: var(--green); color: var(--bg);
+  padding: .5rem .9rem; border-radius: 0 0 6px 0; font-weight: 700; text-decoration: none; text-shadow: none; }
+.skip:focus { left: 0; }
+
 /* text selection uses the terminal palette, not OS blue (tracks the amber theme via --green) */
 ::selection { background: var(--green); color: var(--bg); text-shadow: none; }
 ::-moz-selection { background: var(--green); color: var(--bg); text-shadow: none; }
