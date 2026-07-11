@@ -859,8 +859,7 @@
         "quantization",
         "local-first",
         "distributed-inference",
-        "vllm",
-        "fable-5"
+        "vllm"
       ],
       "ev": "'GLM 5.2 local run' notable item + the dominant trend theme 'Local LLM inference on modest hardware: squeezing frontier models onto slow/small machines' (GLM-class models are MoE)",
       "src": "learned"
@@ -989,6 +988,32 @@
         "grounding"
       ],
       "ev": "trend theme 'The scraping & bot arms race: ... self-gaming systems are forcing everyone to rethink trust and provenance'",
+      "src": "learned"
+    },
+    {
+      "id": "proof-of-personhood",
+      "dom": "agentic-ai",
+      "label": "Proof of personhood",
+      "def": "Cryptographic or behavioral methods that verify a request or action originates from a unique human rather than a bot or self-gaming system.",
+      "rel": [
+        "content-provenance",
+        "agent-security",
+        "guardrails"
+      ],
+      "ev": "latest trends: 'The scraping & bot arms race... self-gaming systems are forcing everyone to rethink trust and provenance' + the self-upvoting Show HN post",
+      "src": "learned"
+    },
+    {
+      "id": "agentic-web",
+      "dom": "agentic-ai",
+      "label": "Agentic web",
+      "def": "The emerging paradigm in which AI agents rather than humans are primary consumers of web content, forcing sites to both serve and defend against automated ingestion.",
+      "rel": [
+        "retrieval",
+        "content-distribution",
+        "content-provenance"
+      ],
+      "ev": "latest trends: the 'scraping & bot arms race' (residential-proxy scraping) and 'anti-AI content' themes describing a web reshaped around machine consumers",
       "src": "learned"
     }
   ]

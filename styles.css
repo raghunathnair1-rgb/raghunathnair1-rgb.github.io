@@ -52,6 +52,16 @@ html { scroll-behavior: smooth; }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
 #content a:visited { color: var(--muted); }
 
+/* flag links that leave the factory — internal SPA links stay unmarked */
+#content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"])::after {
+  content: " ↗" / "";           /* empty alt text: decorative, not announced by SRs */
+  font-size: .82em; color: var(--muted); text-shadow: none;
+}
+#content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"]):hover::after,
+#content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"]):focus-visible::after {
+  color: var(--cyan); text-shadow: var(--glow);
+}
+
 /* skip-to-content link — off-screen until keyboard-focused, then reveals */
 .skip { position: absolute; left: -9999px; top: 0; z-index: 10000; background: var(--green); color: var(--bg);
   padding: .5rem .9rem; border-radius: 0 0 6px 0; font-weight: 700; text-decoration: none; text-shadow: none; }
