@@ -1949,6 +1949,19 @@
       ],
       "ev": "commit e9dd6dd 'self-improve: Gate the email reveal on event.isTrusted so scripted bot clicks never [fire]'",
       "src": "learned"
+    },
+    {
+      "id": "productivity-paradox",
+      "dom": "agentic-ai",
+      "label": "AI productivity paradox",
+      "def": "The measured gap between perceived and actual gains from LLM assistance, a durable caution against reflexive 'just ask an LLM' adoption and over-reliance on unverified agent output.",
+      "rel": [
+        "reverse-centaur",
+        "automation-bias",
+        "ai-slop"
+      ],
+      "ev": "HN theme: 'LLM backlash / fatigue — developers pushing back on reflexive just-ask-an-LLM advice and questioning AI's real productivity gains'",
+      "src": "learned"
     }
   ]
 }
