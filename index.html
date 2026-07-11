@@ -205,11 +205,12 @@
     var c = document.getElementById('matrix'); if (!c) return;
     var x = c.getContext('2d');
     var glyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ0123456789<>{}[]=/#*+-¦｜'.split('');
-    var fs = 15, cols, drops, spd, trail;
+    var fs = 15, cols, drops = [], spd = [], trail = [];
     function resize() {
       c.width = window.innerWidth; c.height = window.innerHeight;
-      cols = Math.ceil(c.width / fs); drops = []; spd = []; trail = [];
-      for (var i = 0; i < cols; i++) { drops[i] = Math.random() * c.height / fs; spd[i] = 0.45 + Math.random() * 0.95; trail[i] = ' '; }
+      var old = cols || 0; cols = Math.ceil(c.width / fs);
+      for (var i = old; i < cols; i++) { drops[i] = Math.random() * c.height / fs; spd[i] = 0.45 + Math.random() * 0.95; trail[i] = ' '; }
+      drops.length = spd.length = trail.length = cols;
     }
     resize(); var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(resize, 150); });
     function g() { return glyphs[(Math.random() * glyphs.length) | 0]; }
