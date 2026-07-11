@@ -891,6 +891,49 @@
       ],
       "ev": "Trend theme 'AI cracking frontier math/reasoning: Models are now being credited with novel proofs, raising the bar for what reasoning means'",
       "src": "learned"
+    },
+    {
+      "id": "open-weights",
+      "dom": "infra",
+      "label": "Open-weight LLMs",
+      "def": "Models with publicly released weights (e.g. the GLM family) that can be self-hosted and run locally rather than called through a proprietary cloud API.",
+      "rel": [
+        "vllm",
+        "local-first",
+        "quantization",
+        "moe",
+        "spark"
+      ],
+      "ev": "Trend theme 'Local LLM inference on modest hardware' + NOTABLE 'GLM 5.2 local run', grounded in this system's local vLLM serving on the GB10 Spark cluster (spark.sh, spark_stats.py)",
+      "src": "learned"
+    },
+    {
+      "id": "structured-output",
+      "dom": "agentic-ai",
+      "label": "Schema-constrained generation",
+      "def": "Forcing a model to emit output that validates against a fixed schema (e.g. a strict JSON array) so downstream tooling can consume it deterministically.",
+      "rel": [
+        "ontology",
+        "tool-use",
+        "verification",
+        "grounding"
+      ],
+      "ev": "ontology_learn.py / ontology_maintain.py require a single strict JSON array per concept and apply_concept.sh consumes it programmatically",
+      "src": "learned"
+    },
+    {
+      "id": "prompt-engineering",
+      "dom": "harness",
+      "label": "Prompt engineering",
+      "def": "Deliberately encoding rules, voice, and constraints into the instruction text fed to a model to steer its behavior without retraining.",
+      "rel": [
+        "context-eng",
+        "doctrine",
+        "idea-engine",
+        "self-improve"
+      ],
+      "ev": "principles.md is loaded verbatim into the self-improve/idea-engine prompts, and recent commits (6af639d, ecc99cf) bake explicit 'Growth Editor' editorial rules into the LinkedIn generator prompt",
+      "src": "learned"
     }
   ]
 }
