@@ -77,6 +77,9 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); }
 .pipe-pill { display: inline-block; font-size: .74rem; margin: .1rem 0 .35rem; padding: .04rem .55rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .pipe-pill.run { color: #ffc400; border-color: rgba(255,196,0,.5); animation: pipe-pulse 1.2s ease-in-out infinite; }
 .pipe-pill.ok { color: #7effb0; border-color: rgba(126,255,176,.4); }
+.pipe-pill.run::before{content:"⟳ "}
+.pipe-pill.ok::before{content:"✓ "}
+.pipe-pill.fail::before{content:"✗ "}
 .pipe-pill.fail { color: #ff5f56; border-color: rgba(255,95,86,.55); }
 @keyframes pipe-pulse { 50% { opacity: .5; } }
 @media (prefers-reduced-motion: reduce) { .pipe-pill.run { animation: none; } }
