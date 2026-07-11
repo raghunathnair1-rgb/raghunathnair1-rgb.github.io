@@ -2154,11 +2154,23 @@ fn app() -> Html {
                             <span class="cc-meta"><span class="cc-plat">{ "Instagram" }</span><span class="cc-handle">{ "@codex_anonymous" }</span></span>
                             <span class="cc-go">{ "\u{2197}" }</span>
                         </a>
-                        <a class="contact-card cc-mail" href="mailto:raghunathnair1@gmail.com">
-                            <span class="cc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 5L2 8V6l10 5 10-5v2z"/></svg></span>
-                            <span class="cc-meta"><span class="cc-plat">{ "Email" }</span><span class="cc-handle">{ "raghunathnair1@gmail.com" }</span></span>
-                            <span class="cc-go">{ "\u{2197}" }</span>
-                        </a>
+                        {
+                            let user = "raghunathnair1";
+                            let host = "gmail.com";
+                            let onclick = Callback::from(move |e: web_sys::MouseEvent| {
+                                e.prevent_default();
+                                if let Some(w) = web_sys::window() {
+                                    let _ = w.location().set_href(&format!("mailto:{}@{}", user, host));
+                                }
+                            });
+                            html! {
+                                <a class="contact-card cc-mail" href="#" {onclick}>
+                                    <span class="cc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 5L2 8V6l10 5 10-5v2z"/></svg></span>
+                                    <span class="cc-meta"><span class="cc-plat">{ "Email" }</span><span class="cc-handle">{ format!("{}@{}", user, host) }</span></span>
+                                    <span class="cc-go">{ "\u{2197}" }</span>
+                                </a>
+                            }
+                        }
                     </div>
                     <div class="contact-foot"><span class="cc-prompt">{ "raghu@dark-factory" }</span>{ ":~$ " }<span class="cc-typed">{ "./connect" }</span><span class="cc-cursor"></span></div>
                 </> },
