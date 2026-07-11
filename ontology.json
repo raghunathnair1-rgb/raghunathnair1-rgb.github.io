@@ -660,6 +660,81 @@
         "fable-5",
         "agent-security"
       ]
+    },
+    {
+      "id": "docker",
+      "dom": "infra",
+      "label": "Docker / containers",
+      "def": "Packaging an app plus its dependencies into a portable image that runs identically anywhere; the unit most sandboxes and orchestrators build on.",
+      "rel": [
+        "agent-sandboxing",
+        "k8s-ai",
+        "ci"
+      ]
+    },
+    {
+      "id": "aws",
+      "dom": "infra",
+      "label": "AWS",
+      "def": "Amazon Web Services — the largest public cloud: compute, storage, and managed AI/ML (e.g. Bedrock).",
+      "rel": [
+        "docker",
+        "k8s-ai"
+      ]
+    },
+    {
+      "id": "azure",
+      "dom": "infra",
+      "label": "Microsoft Azure",
+      "def": "Microsoft's public cloud, with deep first-party AI integration (Azure OpenAI, AI Foundry).",
+      "rel": [
+        "docker",
+        "k8s-ai"
+      ]
+    },
+    {
+      "id": "devops",
+      "dom": "sdlc",
+      "label": "DevOps",
+      "def": "Unifying development and operations through automation — CI/CD, infrastructure as code, and observability — to ship reliably and often.",
+      "rel": [
+        "ci",
+        "observability",
+        "sdlc-ship"
+      ]
+    },
+    {
+      "id": "iac",
+      "dom": "infra",
+      "label": "Infrastructure as Code",
+      "def": "Declaratively provisioning and versioning infrastructure (e.g. Terraform) so environments are reproducible and reviewable.",
+      "rel": [
+        "devops",
+        "ci"
+      ]
+    },
+    {
+      "id": "mlops",
+      "dom": "infra",
+      "label": "MLOps / LLMOps",
+      "def": "Operationalizing ML/LLM systems end to end — deployment, monitoring, evaluation, and retraining.",
+      "rel": [
+        "ci",
+        "observability",
+        "evals",
+        "vllm"
+      ]
+    },
+    {
+      "id": "multi-agent",
+      "dom": "agentic-ai",
+      "label": "Multi-agent systems",
+      "def": "Multiple specialized agents coordinating on a task, often via agent-to-agent protocols — a leading direction in agentic AI.",
+      "rel": [
+        "a2a",
+        "agentic-patterns",
+        "harness-eng"
+      ]
     }
   ]
 }

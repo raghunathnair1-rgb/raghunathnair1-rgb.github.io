@@ -58,11 +58,9 @@ struct Post {
     body: &'static str,
 }
 
-/// Estimated reading time in minutes: word count over ~200 wpm, clamped to a floor of 1.
-/// Pure and total, mirroring `day_length_hm`/`kg_fmt`; keep it covered by the 100% test gate.
-fn read_min(body: &str) -> u32 {
-    (((body.split_whitespace().count() as u32) + 100) / 200).max(1)
-}
+// read_min lives in the coverage-gated blog-logic crate now, next to kg_fmt/day_length_hm,
+// so the reading-time math lands under the same 100% test gate as its siblings.
+use blog_logic::read_min;
 
 // Posts live here for now (first draft). The harness brain appends new ones on demand.
 fn posts() -> Vec<Post> {
