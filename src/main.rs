@@ -2170,6 +2170,7 @@ fn app() -> Html {
                             <div class="nf-line"><span class="k">{ "os" }</span>{ "dark-factory (lights-out)" }</div>
                             <div class="nf-line"><span class="k">{ "host" }</span>{ "raghunathnair1-rgb.github.io" }</div>
                             <div class="nf-line"><span class="k">{ "kernel" }</span>{ "rust \u{2192} wasm (yew + trunk)" }</div>
+                            <div class="nf-line"><span class="k">{ "quantization" }</span>{ "low-precision weights \u{2192} frontier LLMs on modest local silicon" }</div>
                             <div class="nf-line"><span class="k">{ "shell" }</span>{ "the harness brain" }</div>
                             <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
                             <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
