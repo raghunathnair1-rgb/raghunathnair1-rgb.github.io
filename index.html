@@ -584,23 +584,23 @@
                  + pow(0.5+0.5*sin((P.x - t*speed*1.4)*11.0 + 1.5), 12.0)*0.7
                  + pow(0.5+0.5*sin((P.x - t*speed*0.75)*5.0 - 0.8), 6.0)*0.5;
         flow *= (0.8 + run*0.9);
-        float hotIdx=mod(floor(t*2.2), 6.0);   // active stage marches through during a build
+        float hotPos=mod(t*1.4, 6.0);   // active stage GLIDES smoothly through during a build
         float hex=0.0, hglow=0.0, redN=0.0;
         for(int i=0;i<6;i++){
           float fi=float(i);
           float nx=mix(-halfW, halfW, fi/5.0);
           vec2 q=P-vec2(nx,0.0);
-          float hd=sdHex(q, 0.05);
-          float outline=smoothstep(0.008,0.0,abs(hd));
-          float fillc=smoothstep(0.004,-0.02,hd);
-          float active=run*(1.0-smoothstep(0.0,0.55,abs(fi-hotIdx)));   // hotter on the active stage
+          float hd=sdHex(q, 0.066);   // bigger hexagons
+          float outline=smoothstep(0.011,0.0,abs(hd));
+          float fillc=smoothstep(0.006,-0.025,hd);
+          float active=run*(1.0-smoothstep(0.0,0.8,abs(fi-hotPos)));   // hotter on the active stage (glides)
           float idle=0.5+0.5*sin(t*1.6 - fi*0.7);
           float heat=max(active, idle*0.35);
-          hex += outline*(0.7+heat*1.5) + fillc*(0.12+heat*0.85);
-          hglow += smoothstep(0.12,0.0,length(q))*(0.12+heat*0.55);
+          hex += outline*(0.7+heat*1.7) + fillc*(0.12+heat*0.95);
+          hglow += smoothstep(0.17,0.0,length(q))*(0.12+heat*0.6);
           if(i==5){ redN=(outline+fillc*1.5)*fail; }
         }
-        vec3 g=vec3(0.0,1.0,0.30), br=vec3(0.6,1.0,0.75), hot=vec3(0.85,1.0,0.55), red=vec3(1.0,0.22,0.16);
+        vec3 g=vec3(0.0,1.0,0.30), br=vec3(0.6,1.0,0.75), hot=vec3(1.0,0.72,0.22), red=vec3(1.0,0.22,0.16);
         vec3 col=g*(tube*0.55+tglow*0.22)
                + br*flow*tube*1.7
                + g*hex + mix(g,hot,run)*hglow
