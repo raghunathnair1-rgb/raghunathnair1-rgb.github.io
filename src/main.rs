@@ -1575,7 +1575,7 @@ fn pipeline_viz() -> Html {
         <div class="pipe-wrap">
             <div class="ascii-cmd">{ "$ watch factory | pipeline  \u{00B7}  task \u{2192} brain \u{2192} router \u{2192} gate \u{2192} wasm \u{2192} pages" }</div>
             <div class={pill_cls}>{ pill_txt }</div>
-            <svg class="pipe" viewBox="0 0 644 78" preserveAspectRatio="xMidYMid meet">
+            <svg class="pipe" role="img" aria-label="Factory build pipeline: task, brain, router, gate, wasm, pages stages" viewBox="0 0 644 78" preserveAspectRatio="xMidYMid meet">
                 { for (0..n-1).map(|i| {
                     let x1 = PIPE_STAGES[i].1 + 30.0;
                     let x2 = PIPE_STAGES[i+1].1 - 30.0;
