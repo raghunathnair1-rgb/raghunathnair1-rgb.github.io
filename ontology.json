@@ -1444,6 +1444,20 @@
       ],
       "ev": "commits 47bc298 'linkedin: ban em-dashes entirely (prompt + mechanical strip)' and ecc99cf 'ban the it isn't A, it's B antithesis closer (top AI tell) in de-slop pass'; li_publish.py de-slop pass",
       "src": "learned"
+    },
+    {
+      "id": "ssg",
+      "dom": "stack",
+      "label": "Static site generation",
+      "def": "Static site generation pre-renders the site into plain HTML and assets at build time (ssg.py) so it can be served cheaply from a CDN / GitHub Pages with no runtime server.",
+      "rel": [
+        "github-pages",
+        "blog-logic",
+        "dynamic-rendering",
+        "wasm"
+      ],
+      "ev": "harness script ssg.py present as a real capability",
+      "src": "learned"
     }
   ]
 }
