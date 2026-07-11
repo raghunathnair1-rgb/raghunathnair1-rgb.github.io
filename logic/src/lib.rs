@@ -60,36 +60,6 @@ pub fn evt_cls(kind: &str) -> &'static str {
     }
 }
 
-/// Fraction (0.0..1.0) through the lunar synodic cycle for a given epoch-ms instant.
-pub fn moon_phase_frac(now_ms: f64) -> f64 {
-    let synodic = 29.530_588_853 * 86_400_000.0;
-    let diff = now_ms - 947_182_440_000.0; // 2000-01-06 18:14 UTC — a known new moon
-    let mut p = (diff / synodic).fract();
-    if p < 0.0 {
-        p += 1.0;
-    }
-    p
-}
-
-/// Human name for a phase fraction.
-pub fn moon_name(p: f64) -> &'static str {
-    match ((p * 8.0).round() as i64).rem_euclid(8) {
-        0 => "New Moon",
-        1 => "Waxing Crescent",
-        2 => "First Quarter",
-        3 => "Waxing Gibbous",
-        4 => "Full Moon",
-        5 => "Waning Gibbous",
-        6 => "Last Quarter",
-        _ => "Waning Crescent",
-    }
-}
-
-/// Percent illuminated (0..=100) for a phase fraction.
-pub fn moon_illum(p: f64) -> u32 {
-    ((1.0 - (2.0 * std::f64::consts::PI * p).cos()) / 2.0 * 100.0).round() as u32
-}
-
 /// Minutes of daylight (sunset - sunrise, both minutes-since-midnight) as "16h 31m".
 /// Proposed by the Idea Engine (2026-07-09); a fully-testable extension of the astronomy set.
 pub fn day_length_hm(sunrise_min: i32, sunset_min: i32) -> String {
@@ -148,36 +118,6 @@ mod tests {
         assert_eq!(evt_cls("self-improve"), "pipe-k pipe-k-improve");
         assert_eq!(evt_cls("deploy"), "pipe-k pipe-k-deploy");
         assert_eq!(evt_cls("anything-else"), "pipe-k"); // default arm
-    }
-
-    #[test]
-    fn phase_frac_in_unit_interval_and_both_branches() {
-        // reference instant -> exactly a new moon (diff = 0, non-negative branch)
-        assert!((moon_phase_frac(947_182_440_000.0)).abs() < 1e-9);
-        // an instant BEFORE the reference -> negative diff -> the `p += 1.0` branch
-        let before = moon_phase_frac(0.0);
-        assert!((0.0..1.0).contains(&before));
-        // a normal later instant stays in range
-        let later = moon_phase_frac(1_800_000_000_000.0);
-        assert!((0.0..1.0).contains(&later));
-    }
-
-    #[test]
-    fn moon_name_covers_all_eight_phases() {
-        assert_eq!(moon_name(0.0 / 8.0), "New Moon");
-        assert_eq!(moon_name(1.0 / 8.0), "Waxing Crescent");
-        assert_eq!(moon_name(2.0 / 8.0), "First Quarter");
-        assert_eq!(moon_name(3.0 / 8.0), "Waxing Gibbous");
-        assert_eq!(moon_name(4.0 / 8.0), "Full Moon");
-        assert_eq!(moon_name(5.0 / 8.0), "Waning Gibbous");
-        assert_eq!(moon_name(6.0 / 8.0), "Last Quarter");
-        assert_eq!(moon_name(7.0 / 8.0), "Waning Crescent"); // the `_` arm
-    }
-
-    #[test]
-    fn illumination_endpoints() {
-        assert_eq!(moon_illum(0.0), 0); // new moon -> dark
-        assert_eq!(moon_illum(0.5), 100); // full moon -> lit
     }
 
     #[test]
