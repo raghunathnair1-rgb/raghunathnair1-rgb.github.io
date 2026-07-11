@@ -140,6 +140,18 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); }
 :root[data-crt="on"] body { text-shadow: 0 0 1px rgba(74, 222, 128, .25); }
 @media (prefers-reduced-motion: reduce) { :root[data-crt="on"] body::before { animation: none; } }
 #boot.boot-done { opacity: 0; pointer-events: none; }
+
+/* phosphor "initializing" placeholder — shows only while #app is empty (pre-WASM hydration); self-removes the instant Yew mounts */
+#app:empty::before {
+  content: "> initializing dark-factory…";
+  display: block;
+  font-family: "VT323", ui-monospace, monospace;
+  font-size: 1.1rem;
+  color: var(--green);
+  text-shadow: var(--glow);
+  padding: 2rem 0;
+  opacity: .8;
+}
 html, body { height: 100%; }
 body {
   margin: 0;
