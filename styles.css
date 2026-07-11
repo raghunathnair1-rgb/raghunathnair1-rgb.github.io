@@ -189,6 +189,13 @@ header .logo {
 }
 .cursor { animation: blink 1.05s steps(1) infinite; color: var(--green); }
 header .logo .cursor { color: #00ff41; text-shadow: 0 0 6px #00ff41, 0 0 16px #00c832; }
+:root[data-theme="amber"] header .logo {
+  color: #fbbf24;
+  text-shadow: 0 0 5px #fbbf24, 0 0 12px #f59e0b, 0 0 26px #b45309, 0 0 46px #4a2708;
+}
+:root[data-theme="amber"] header .logo .cursor {
+  color: #fbbf24; text-shadow: 0 0 6px #fbbf24, 0 0 16px #f59e0b;
+}
 @keyframes blink { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .cursor, header .logo .cursor { animation: none; } }
 .boot { color: var(--green); margin-top: .25rem; font-size: .9rem; opacity: .85; }
