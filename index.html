@@ -550,5 +550,75 @@
     requestAnimationFrame(frame);
   })();
   </script>
+  <!-- WebGL pipeline flow: buttery green energy streaming through the 6 build stages (#pipe-gl on ~/pipeline) -->
+  <script>
+  (function(){
+    var reduce=false; try{ reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(_){}
+    var VS='attribute vec2 a; void main(){ gl_Position=vec4(a,0.0,1.0); }';
+    var FS=`
+      #ifdef GL_FRAGMENT_PRECISION_HIGH
+      precision highp float;
+      #else
+      precision mediump float;
+      #endif
+      uniform float u_time; uniform vec2 u_res;
+      void main(){
+        vec2 P=(gl_FragCoord.xy-0.5*u_res)/u_res.y; float t=u_time;
+        float asp=u_res.x/u_res.y;
+        float halfW=asp*0.5-0.16;
+        float dy=abs(P.y);
+        float inX=smoothstep(-halfW-0.06,-halfW+0.03,P.x)*(1.0-smoothstep(halfW-0.03,halfW+0.06,P.x));
+        float tube=smoothstep(0.05,0.008,dy)*inX;
+        float tglow=smoothstep(0.15,0.0,dy)*inX;
+        float flow=pow(0.5+0.5*sin((P.x - t*1.6)*7.0), 8.0)
+                 + pow(0.5+0.5*sin((P.x - t*2.3)*11.0 + 1.5), 12.0)*0.6;
+        float nodes=0.0, nglow=0.0;
+        for(int i=0;i<6;i++){
+          float nx=mix(-halfW, halfW, float(i)/5.0);
+          float d=length(P-vec2(nx,0.0));
+          float pass=pow(0.5+0.5*sin((nx - t*1.6)*7.0), 6.0);
+          float ring=smoothstep(0.06,0.045,d)-smoothstep(0.045,0.028,d);
+          nodes += smoothstep(0.028,0.0,d)*(1.0+pass*1.6) + ring*(0.6+pass);
+          nglow += smoothstep(0.11,0.0,d)*0.3;
+        }
+        vec3 g=vec3(0.0,1.0,0.30), br=vec3(0.55,1.0,0.7);
+        vec3 col=g*(tube*0.7+tglow*0.28) + br*flow*tube*1.7 + g*nodes + br*nodes*0.35 + g*nglow;
+        col=col/(1.0+col*0.55);
+        gl_FragColor=vec4(col,1.0);
+      }`;
+    var gl=null,prog=null,uT,uR,bound=null,t0=performance.now(),ok=false;
+    function compile(g,ty,src){ var s=g.createShader(ty); g.shaderSource(s,src); g.compileShader(s);
+      return g.getShaderParameter(s,g.COMPILE_STATUS)?s:null; }
+    function init(c){
+      gl=c.getContext('webgl')||c.getContext('experimental-webgl');
+      if(!gl){ c.style.display='none'; return false; }
+      var vs=compile(gl,gl.VERTEX_SHADER,VS), fs=compile(gl,gl.FRAGMENT_SHADER,FS);
+      if(!vs||!fs){ c.style.display='none'; return false; }
+      prog=gl.createProgram(); gl.attachShader(prog,vs); gl.attachShader(prog,fs); gl.linkProgram(prog);
+      if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){ c.style.display='none'; return false; }
+      gl.useProgram(prog);
+      var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+      gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+      var loc=gl.getAttribLocation(prog,'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+      uT=gl.getUniformLocation(prog,'u_time'); uR=gl.getUniformLocation(prog,'u_res');
+      return true;
+    }
+    function frame(now){
+      requestAnimationFrame(frame);
+      var c=document.getElementById('pipe-gl');
+      if(!c){ bound=null; return; }
+      if(c!==bound){ bound=c; ok=init(c); }
+      if(!ok||!gl) return;
+      var r=c.getBoundingClientRect(); var dpr=Math.min(window.devicePixelRatio||1,2);
+      var w=Math.max(2,(r.width*dpr)|0), h=Math.max(2,(r.height*dpr)|0);
+      if(c.width!==w||c.height!==h){ c.width=w; c.height=h; }
+      gl.viewport(0,0,c.width,c.height);
+      var t=reduce?3.0:(now-t0)/1000.0;
+      gl.uniform1f(uT,t); gl.uniform2f(uR,c.width,c.height);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+    }
+    requestAnimationFrame(frame);
+  })();
+  </script>
 </body>
 </html>

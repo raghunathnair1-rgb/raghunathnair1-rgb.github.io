@@ -1524,21 +1524,10 @@ fn pipeline_viz() -> Html {
     let (ci, _ce) = use_polled_json::<CiRuns>(
         "https://api.github.com/repos/raghunathnair1-rgb/raghunathnair1-rgb.github.io/actions/runs?per_page=1",
         Some(75_000));
-    use_anim_tick(66);
-    let t = js_sys::Date::now() / 1000.0;
-    let phase = (t / 5.5).fract();
-    // three build-jobs flowing down the line, staggered
-    let packets: Vec<f64> = (0..3)
-        .map(|k| 52.0 + 540.0 * (phase + k as f64 * 0.34).fract())
-        .collect();
-    let n = PIPE_STAGES.len();
-
-    // real pipeline state from GitHub Actions
+    // real pipeline state from GitHub Actions (the flow itself is rendered in WebGL: #pipe-gl)
     let run = ci.as_ref().and_then(|c| c.workflow_runs.first());
     let running = run.map_or(false, |r| r.status != "completed");
     let failed = run.map_or(false, |r| r.conclusion.as_deref() == Some("failure"));
-    // while a run is genuinely in flight, march the highlight through the stages in real time
-    let sweep = ((t / 0.7) as usize) % n;
     let (pill_cls, pill_txt) = if failed {
         ("pipe-pill fail", "\u{25CF} build failed")
     } else if running {
@@ -1573,24 +1562,12 @@ fn pipeline_viz() -> Html {
         <div class="pipe-wrap">
             <div class="ascii-cmd">{ "$ watch factory | pipeline  \u{00B7}  task \u{2192} brain \u{2192} router \u{2192} gate \u{2192} wasm \u{2192} pages" }</div>
             <div class={pill_cls}>{ pill_txt }</div>
-            <svg class="pipe" role="img" aria-label="Factory build pipeline: task, brain, router, gate, wasm, pages stages" viewBox="0 0 644 78" preserveAspectRatio="xMidYMid meet">
-                { for (0..n-1).map(|i| {
-                    let x1 = PIPE_STAGES[i].1 + 30.0;
-                    let x2 = PIPE_STAGES[i+1].1 - 30.0;
-                    html! { <line x1={kg_fmt(x1)} y1="40" x2={kg_fmt(x2)} y2="40" class="pipe-conn" /> }
-                }) }
-                { for PIPE_STAGES.iter().enumerate().map(|(i, &(label, cx))| {
-                    let active = if running { i == sweep } else { packets.iter().any(|&x| (x - cx).abs() < 34.0) };
-                    let cls = if failed && i == n - 1 { "pipe-box fail" }
-                              else if active { "pipe-box active" } else { "pipe-box" };
-                    let lx = cx - (label.len() as f64) * 3.5;   // approx-center the monospace label
-                    html! { <>
-                        <rect x={kg_fmt(cx - 30.0)} y="26" width="60" height="28" rx="6" class={cls} />
-                        <text x={kg_fmt(lx)} y="44" class="pipe-label">{ label }</text>
-                    </> }
-                }) }
-                { for packets.iter().map(|&x| html! { <circle cx={kg_fmt(x)} cy="40" r="5" class="pipe-packet" /> }) }
-            </svg>
+            <div class="pipe-gl-stage">
+                <canvas id="pipe-gl" class="pipe-gl" role="img" aria-label="Factory build pipeline flow: task then brain then router then gate then wasm then pages"></canvas>
+            </div>
+            <div class="pipe-stages">
+                { for PIPE_STAGES.iter().map(|&(label, _)| html! { <span class="pipe-stage">{ label }</span> }) }
+            </div>
             { headline }
             { feed }
         </div>

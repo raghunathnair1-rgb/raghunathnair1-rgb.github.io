@@ -68,11 +68,12 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); }
 
 /* --- pipeline console (watch the factory work) --- */
 .pipe-wrap { margin: .8rem 0 1.4rem; }
-.pipe { width: 100%; height: auto; max-height: 130px; display: block; margin: .3rem 0 .9rem; }
-.pipe-conn { stroke: rgba(126,255,176,.35); stroke-width: 2; stroke-dasharray: 5 4; animation: kg-flow .8s linear infinite; }
-.pipe-box { fill: #0c1211; stroke: #1c4030; stroke-width: 1.4; transition: fill .2s, stroke .2s, filter .2s; }
-.pipe-box.active { fill: rgba(126,255,176,.15); stroke: #7effb0; filter: drop-shadow(0 0 5px rgba(126,255,176,.7)); }
-.pipe-box.fail { fill: rgba(255,95,86,.16); stroke: #ff5f56; filter: drop-shadow(0 0 5px rgba(255,95,86,.75)); }
+.pipe-gl-stage { position: relative; width: 100%; aspect-ratio: 7 / 1; min-height: 84px; max-height: 150px;
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #010601;
+  margin: .3rem 0 .45rem; box-shadow: inset 0 0 40px -20px rgba(0,255,65,.55); }
+.pipe-gl { display: block; width: 100%; height: 100%; }
+.pipe-stages { display: flex; justify-content: space-between; gap: .3rem; font-size: .7rem; color: var(--muted); margin: 0 .35rem 1rem; }
+.pipe-stage { flex: 1; text-align: center; white-space: nowrap; }
 .pipe-pill { display: inline-block; font-size: .74rem; margin: .1rem 0 .35rem; padding: .04rem .55rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .pipe-pill.run { color: #ffc400; border-color: rgba(255,196,0,.5); animation: pipe-pulse 1.2s ease-in-out infinite; }
 .pipe-pill.ok { color: #7effb0; border-color: rgba(126,255,176,.4); }
@@ -92,8 +93,6 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); }
 .bgl-k { background: #22d3ee; box-shadow: 0 0 6px #22d3ee; }
 .bgl-l { background: #7effb0; box-shadow: 0 0 6px #7effb0; }
 .bgl-h { background: #ff5470; box-shadow: 0 0 6px #ff5470; }
-.pipe-label { fill: #cfe8db; font: 12px ui-monospace, monospace; }
-.pipe-packet { fill: #b8ffdb; filter: drop-shadow(0 0 4px rgba(184,255,219,.95)); }
 .pipe-latest { color: var(--fg); margin-top: .4rem; }
 .pipe-cur { color: #7effb0; }
 .pipe-updated { color: var(--muted); font-size: .8rem; margin: .15rem 0 .7rem; }
@@ -108,7 +107,6 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); }
 .pipe-k-deploy { color: #ff9d5c; }
 .pipe-ok { color: #7effb0; }
 .pipe-fail { color: #ff5f56; }
-@media (prefers-reduced-motion: reduce) { .pipe-conn { animation: none; } }
 
 /* cinematic WebGL CRT shader overlay */
 #crtfx {
