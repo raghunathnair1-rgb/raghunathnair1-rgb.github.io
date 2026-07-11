@@ -1778,6 +1778,92 @@
       ],
       "ev": "trend theme 'AI hype skepticism: Top discussion is critical of intelligence-worship and diminishing model quality rather than boosterism.'",
       "src": "learned"
+    },
+    {
+      "id": "tarpit",
+      "dom": "agentic-ai",
+      "label": "Crawler tarpit",
+      "def": "A defensive endpoint that traps and slows abusive automated crawlers by serving deliberately slow, deep, or endless linked content instead of hard-blocking them.",
+      "rel": [
+        "honeypot",
+        "crawler-directives",
+        "bot-mitigation",
+        "data-poisoning",
+        "ai-crawler"
+      ],
+      "ev": "commit 9f3034e 'self-improve: Trap link-following harvesters with a nofollow tarpit anchor'",
+      "src": "learned"
+    },
+    {
+      "id": "browser-fingerprinting",
+      "dom": "agentic-ai",
+      "label": "Browser fingerprinting",
+      "def": "Distinguishing real human browsers from headless scraping automation by profiling TLS, JS-runtime, and rendering signals rather than IP alone.",
+      "rel": [
+        "bot-mitigation",
+        "residential-proxy",
+        "captcha",
+        "dynamic-rendering",
+        "proof-of-personhood"
+      ],
+      "ev": "HN trend theme: residential proxies and anti-bot defenses reshaping who can crawl the web",
+      "src": "learned"
+    },
+    {
+      "id": "proof-of-work-challenge",
+      "dom": "stack",
+      "label": "Proof-of-Work Challenge",
+      "def": "A defense that forces a client to solve a small computational puzzle before content is served, raising the per-request cost enough to deter mass automated scraping while barely taxing a real visitor.",
+      "rel": [
+        "bot-mitigation",
+        "ai-crawler",
+        "captcha",
+        "rate-limiting",
+        "tarpit"
+      ],
+      "ev": "latest AI/tech trends: the 'scraper vs anti-scraper arms race' theme (residential proxies and bot traffic reshaping site defenses), plus the site's shipped scraping-defense readout commits (e.g. ee5ac",
+      "src": "learned"
+    },
+    {
+      "id": "ai-watermarking",
+      "dom": "agentic-ai",
+      "label": "AI Output Watermarking",
+      "def": "Embedding a statistically detectable, hard-to-remove signal into AI-generated text or media so its machine origin can be verified later, complementing external provenance metadata rather than replacing it.",
+      "rel": [
+        "content-provenance",
+        "generative-media",
+        "proof-of-personhood",
+        "ai-stylometry"
+      ],
+      "ev": "latest AI/tech trends: the 'Proving you're human' theme (verifying authentic human authorship as AI-generated media spreads)",
+      "src": "learned"
+    },
+    {
+      "id": "tls-fingerprinting",
+      "dom": "stack",
+      "label": "TLS fingerprinting",
+      "def": "Identifying automated clients by the shape of their TLS handshake (e.g. JA3/JA4), letting a defender flag bots that spoof browser headers or hide behind residential proxies.",
+      "rel": [
+        "browser-fingerprinting",
+        "bot-mitigation",
+        "residential-proxy"
+      ],
+      "ev": "trend theme: residential proxies and bot traffic reshaping how sites defend against automated scraping",
+      "src": "learned"
+    },
+    {
+      "id": "interaction-gating",
+      "dom": "stack",
+      "label": "Interaction-gated reveal",
+      "def": "Withholding protected content until a genuine client-side user interaction (a click or tap) fires, so headless scrapers that never dispatch events receive nothing.",
+      "rel": [
+        "email-obfuscation",
+        "bot-mitigation",
+        "dynamic-rendering",
+        "proof-of-personhood"
+      ],
+      "ev": "commit 90d9501 'Gate the real contact email behind a human click (tap to decrypt)'",
+      "src": "learned"
     }
   ]
 }
