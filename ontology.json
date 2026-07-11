@@ -1729,7 +1729,8 @@
         "ai-crawler",
         "email-obfuscation",
         "agent-security",
-        "pentesting"
+        "pentesting",
+        "data-poisoning"
       ],
       "ev": "commit 6b22a13 'self-improve: Plant a honeypot decoy email to poison harvester bots' + 5b366d8 email obfuscation; honeypots/tarpits are an established, durable security technique in the live bot arms ",
       "src": "learned"
@@ -1746,6 +1747,21 @@
         "adversarial-attacks"
       ],
       "ev": "commit 6b22a13 'Plant a honeypot decoy email to poison harvester bots' — the decoy is explicitly meant to poison harvesters; data poisoning is a lasting adversarial-ML technique tied to the 'scraper/b",
+      "src": "learned"
+    },
+    {
+      "id": "cpu-inference",
+      "dom": "infra",
+      "label": "CPU inference serving",
+      "def": "Serving LLM inference on commodity CPUs instead of GPUs, trading peak throughput for lower cost and broader hardware accessibility.",
+      "rel": [
+        "distributed-inference",
+        "model-offloading",
+        "quantization",
+        "inference-economics",
+        "vllm"
+      ],
+      "ev": "Trends NOTABLE: 'Reame: A CPU inference server that self-opti[mizes]' on the HN front page — CPU-based inference as an alternative to GPU serving.",
       "src": "learned"
     }
   ]

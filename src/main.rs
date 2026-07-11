@@ -2157,16 +2157,41 @@ fn app() -> Html {
                         {
                             let user = "raghunathnair1";
                             let host = "gmail.com";
+                            // scraping defense: the real address is never in the served HTML or the
+                            // pre-click DOM. Only a genuine human click assembles the split parts into
+                            // a live mailto: anchor, with a brief phosphor "decrypting..." flicker.
                             let onclick = Callback::from(move |e: web_sys::MouseEvent| {
-                                e.prevent_default();
-                                if let Some(w) = web_sys::window() {
-                                    let _ = w.location().set_href(&format!("mailto:{}@{}", user, host));
+                                let doc = match web_sys::window().and_then(|w| w.document()) {
+                                    Some(d) => d,
+                                    None => return,
+                                };
+                                // already decrypted: let the browser open the live mailto link
+                                if let Some(a) = doc.get_element_by_id("cc-mail-link") {
+                                    if a.get_attribute("href").map_or(false, |h| h.starts_with("mailto:")) {
+                                        return;
+                                    }
                                 }
+                                e.prevent_default();
+                                if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
+                                    h.set_inner_html("decrypting\u{2026}");
+                                }
+                                let addr = format!("{}@{}", user, host);
+                                let reveal = gloo_timers::callback::Timeout::new(420, move || {
+                                    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+                                        if let Some(a) = doc.get_element_by_id("cc-mail-link") {
+                                            let _ = a.set_attribute("href", &format!("mailto:{}", addr));
+                                        }
+                                        if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
+                                            h.set_inner_html(&addr);
+                                        }
+                                    }
+                                });
+                                reveal.forget();
                             });
                             html! {
-                                <a class="contact-card cc-mail" href="#" {onclick}>
+                                <a id="cc-mail-link" class="contact-card cc-mail" href="#" {onclick}>
                                     <span class="cc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 5L2 8V6l10 5 10-5v2z"/></svg></span>
-                                    <span class="cc-meta"><span class="cc-plat">{ "Email" }</span><span class="cc-handle">{ format!("{}@{}", user, host) }</span></span>
+                                    <span class="cc-meta"><span class="cc-plat">{ "Email" }</span><span id="cc-mail-handle" class="cc-handle">{ "> ./decrypt-contact" }</span></span>
                                     <span class="cc-go">{ "\u{2197}" }</span>
                                 </a>
                             }
