@@ -2189,7 +2189,7 @@ fn app() -> Html {
                 <div class="logo"><span class="logo-name">{ "raghu" }</span><span class="cursor">{ "\u{2588}" }</span></div>
                 <p class="boot">{ "// dark-factory online · brain healthy · shipping from wasm" }</p>
             </header>
-            <main id="main">{ view }</main>
+            <main id="main" tabindex="-1">{ view }</main>
             <SiteFooter />
         </>
     }
