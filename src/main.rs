@@ -1932,6 +1932,8 @@ struct BrainMetrics {
     #[serde(default)]
     concepts: u32,
     #[serde(default)]
+    relations: u32,
+    #[serde(default)]
     domains: u32,
     #[serde(default)]
     coverage: u32,
