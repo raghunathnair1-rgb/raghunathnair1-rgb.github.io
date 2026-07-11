@@ -1235,6 +1235,21 @@
       ],
       "ev": "self-improve-loop.sh plus the logs/crontab.backup.* snapshots and the ~15-min cadence of 'spark: 2-node GB10 telemetry refresh' commits",
       "src": "learned"
+    },
+    {
+      "id": "orchestrator-agent",
+      "dom": "agentic-ai",
+      "label": "Orchestrator/supervisor agent",
+      "def": "A supervising agent that plans, delegates to, and oversees a fleet of worker sub-agents instead of performing the work itself.",
+      "rel": [
+        "multi-agent",
+        "human-on-the-loop",
+        "cron-autonomy",
+        "agentic-patterns",
+        "planning"
+      ],
+      "ev": "HN front-page theme 'Who supervises autonomous agents' — agent-fleet oversight and orchestration surfacing as its own problem",
+      "src": "learned"
     }
   ]
 }

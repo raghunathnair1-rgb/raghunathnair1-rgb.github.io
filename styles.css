@@ -57,6 +57,7 @@ html { scroll-behavior: smooth; }
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"])::after {
   content: "\00a0↗" / "";           /* empty alt text: decorative, not announced by SRs */
   font-size: .82em; color: var(--muted); text-shadow: none;
+  display: inline-block; text-decoration: none;   /* keep the phosphor underline off the nbsp + arrow */
 }
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"]):hover::after,
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"]):focus-visible::after {
