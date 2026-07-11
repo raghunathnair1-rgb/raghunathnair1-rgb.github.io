@@ -791,7 +791,8 @@
         "context-eng",
         "ontology",
         "planning",
-        "self-improve"
+        "self-improve",
+        "idea-engine"
       ],
       "ev": "world_loop.py / world_loop.sh present in the harness scripts, and MEMORY.md project_knowledge_loops noting 'world-loop feed the self-improve/idea engines'",
       "src": "learned"
@@ -1277,6 +1278,50 @@
         "ontology"
       ],
       "ev": "Real harness scripts present: trendpost.py, trendpost.sh, trendpost_state.json, feeding from the same live 'latest AI/tech trends' Hacker News feed used here.",
+      "src": "learned"
+    },
+    {
+      "id": "agent-accountability",
+      "dom": "agentic-ai",
+      "label": "Agent accountability",
+      "def": "Attributing and auditing autonomous agent actions so each decision carries a traceable provenance and a responsible, reviewable owner.",
+      "rel": [
+        "human-on-the-loop",
+        "observability",
+        "agent-iam",
+        "telemetry",
+        "content-provenance"
+      ],
+      "ev": "Trend theme 'Who governs autonomous agents: As agents proliferate, the focus is shifting to oversight, provenance, and accountability of agent actions.'",
+      "src": "learned"
+    },
+    {
+      "id": "sybil-attack",
+      "dom": "agentic-ai",
+      "label": "Sybil attacks",
+      "def": "A single actor forges many fake identities to game a ranking, vote, or reputation system, defeating one-entity-one-signal assumptions.",
+      "rel": [
+        "proof-of-personhood",
+        "bot-mitigation",
+        "reward-hacking",
+        "adversarial-content"
+      ],
+      "ev": "NOTABLE trend item: the viral self-upvoting Show HN demo exposing how easily rankings can be gamed by sockpuppet identities",
+      "src": "learned"
+    },
+    {
+      "id": "dynamic-rendering",
+      "dom": "stack",
+      "label": "Prerender-for-bots",
+      "def": "Serving a static prerendered mirror of a JS/WASM app to crawlers while humans get the live client, so indexable content survives a client-only shell.",
+      "rel": [
+        "crawler-directives",
+        "bot-mitigation",
+        "wasm",
+        "github-pages",
+        "content-distribution"
+      ],
+      "ev": "commits glossing the static `/p/` mirror as the 'good-bot lane' and the WASM shell as passive scraping friction, plus ssg.py in the harness",
       "src": "learned"
     }
   ]
