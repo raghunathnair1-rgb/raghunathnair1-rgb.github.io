@@ -1041,7 +1041,8 @@
         "idea-engine",
         "ontology",
         "guardrails",
-        "backlog"
+        "backlog",
+        "doctrine"
       ],
       "ev": "doctrine principles.md: 'never repeat or near-duplicate a change already shipped' / 'No duplicate or near-duplicate changes'; enforced by idea_engine.py + ontology_maintain.py",
       "src": "learned"
@@ -1165,20 +1166,6 @@
       "src": "learned"
     },
     {
-      "id": "ai-writing-tells",
-      "dom": "agentic-ai",
-      "label": "AI writing tells",
-      "def": "Recurring stylistic fingerprints of LLM-generated prose (em-dashes, the 'it isn't A, it's B' antithesis closer, guru cadence) that mark text as machine-authored and must be stripped to read as human.",
-      "rel": [
-        "ai-slop",
-        "content-provenance",
-        "prompt-engineering",
-        "content-distribution"
-      ],
-      "ev": "Recent commits: 'linkedin: ban em-dashes entirely', 'ban the \"it isn't A, it's B\" antithesis closer (top AI tell) in de-slop pass', and 'builder-not-guru voice' Growth Editor rules in li_publish.py.",
-      "src": "learned"
-    },
-    {
       "id": "explorable-explanations",
       "dom": "stack",
       "label": "Explorable explanations",
@@ -1204,6 +1191,20 @@
         "residential-proxy"
       ],
       "ev": "Commit 43abfb1 'Gloss robots.txt as the site's honest scraping-defense line', combined with the trends theme 'Scraping & bot-traffic arms race: residential proxies and scrapers reshaping who gets to a",
+      "src": "learned"
+    },
+    {
+      "id": "reverse-centaur",
+      "dom": "agentic-ai",
+      "label": "Reverse centaur",
+      "def": "An automation antipattern where the human is subordinated to the machine's pace and judgment rather than augmented by it, the inverse of the centaur ideal of human-led AI collaboration.",
+      "rel": [
+        "agent",
+        "guardrails",
+        "dark-factory",
+        "multi-agent"
+      ],
+      "ev": "HN front-page 'AI skepticism & the labor paradox' essays framing humans as subservient 'reverse centaurs' to automation (trends, 2026-07-11)",
       "src": "learned"
     }
   ]
