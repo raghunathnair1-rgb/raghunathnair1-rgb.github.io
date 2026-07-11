@@ -32,6 +32,10 @@
 }
 * { box-sizing: border-box; }
 
+/* smooth in-page scrolling (skip-link + console-tab jumps glide instead of teleport) */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
 /* keyboard focus indicators (mouse users unaffected) */
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
 
