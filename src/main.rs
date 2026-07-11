@@ -1558,12 +1558,16 @@ fn pipeline_viz() -> Html {
         None => html! {},
     };
 
+    // bridge the real CI state to the WebGL flow (read as data-* by the #pipe-gl shader loop)
+    let run_s = if running { "1" } else { "0" };
+    let fail_s = if failed { "1" } else { "0" };
+
     html! {
         <div class="pipe-wrap">
             <div class="ascii-cmd">{ "$ watch factory | pipeline  \u{00B7}  task \u{2192} brain \u{2192} router \u{2192} gate \u{2192} wasm \u{2192} pages" }</div>
             <div class={pill_cls}>{ pill_txt }</div>
             <div class="pipe-gl-stage">
-                <canvas id="pipe-gl" class="pipe-gl" role="img" aria-label="Factory build pipeline flow: task then brain then router then gate then wasm then pages"></canvas>
+                <canvas id="pipe-gl" class="pipe-gl" data-run={run_s} data-fail={fail_s} role="img" aria-label="Factory build pipeline flow: task then brain then router then gate then wasm then pages"></canvas>
             </div>
             <div class="pipe-stages">
                 { for PIPE_STAGES.iter().map(|&(label, _)| html! { <span class="pipe-stage">{ label }</span> }) }
