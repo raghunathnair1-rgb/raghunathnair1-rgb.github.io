@@ -16,7 +16,7 @@
   --glow: 0 0 8px rgba(0, 255, 65, .5);
   font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
-/* amber theme (toggle via terminal: `theme amber` / `theme green`) */
+/* amber theme — applied via [data-theme="amber"], hydrated from localStorage "df-theme" */
 :root[data-theme="amber"] {
   --cyan: #f59e0b;
   --green: #fbbf24;
