@@ -2040,7 +2040,7 @@ fn app() -> Html {
                 <article>
                     <a class="back" onclick={back} onkeydown={keyback} tabindex="0" role="button">{"‹ back to log"}</a>
                     <h2>{ p.title }</h2>
-                    <div class="meta"><span class="tag">{ format!("#{}", p.tag) }</span>{ " · " }<time>{ p.date }</time></div>
+                    <div class="meta"><span class="tag">{ format!("#{}", p.tag) }</span>{ " · " }<time datetime={ p.date }>{ p.date }</time></div>
                     { for p.body.split("\n\n").map(|para| html! { <p>{ para }</p> }) }
                 </article>
             }
