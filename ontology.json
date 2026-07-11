@@ -1221,6 +1221,20 @@
       ],
       "ev": "trend theme 'Who supervises autonomous agents' plus the system's own watchdog/gate/guardrails oversight of its unattended self-improve loop",
       "src": "learned"
+    },
+    {
+      "id": "cron-autonomy",
+      "dom": "harness",
+      "label": "Scheduled autonomy",
+      "def": "The loop is driven by time-triggered cron jobs (e.g. ~15-minute Spark telemetry refreshes and the self-improve loop) so the agent acts on a fixed cadence rather than only on demand.",
+      "rel": [
+        "recursive-loop",
+        "self-improve",
+        "watchdog",
+        "spark"
+      ],
+      "ev": "self-improve-loop.sh plus the logs/crontab.backup.* snapshots and the ~15-min cadence of 'spark: 2-node GB10 telemetry refresh' commits",
+      "src": "learned"
     }
   ]
 }
