@@ -2185,6 +2185,7 @@ fn app() -> Html {
                             <div class="nf-line"><span class="k">{ "defense" }</span>{ "passive only, no active throttle \u{00B7} declarative directives + a WASM render-wall raise the cost, they don't cap the rate \u{00B7} a static Pages origin can't rate-limit, so it slows the scrapers it can't stop" }</div>
                             <div class="nf-line"><span class="k">{ "shell" }</span>{ "the harness brain" }</div>
                             <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
+                            <div class="nf-line"><span class="k">{ "llmops" }</span>{ "watchdog probes \u{00B7} deploy gate \u{00B7} 100% coverage floor \u{2014} the LLM is monitored, evaluated & shipped, never retrained (no training loop here)" }</div>
                             <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
                             <div class="nf-line"><span class="k">{ "fuel" }</span>{ "\u{2615} coffee \u{00B7} \u{221E} cups" }</div>
                             <div class="nf-line"><span class="k">{ "pet" }</span>{ "Maine Coon \u{1F408} (loaf mode)" }</div>

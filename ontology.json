@@ -1401,6 +1401,35 @@
         "agentic-patterns",
         "generative-media"
       ]
+    },
+    {
+      "id": "human-in-the-loop",
+      "dom": "agentic-ai",
+      "label": "Human-in-the-loop",
+      "def": "An oversight paradigm where a human must approve each agent action before it executes, blocking the loop until sign-off — the deliberate opposite of this system's autonomous, human-on-the-loop stance.",
+      "rel": [
+        "human-on-the-loop",
+        "reverse-centaur",
+        "guardrails",
+        "cron-autonomy",
+        "agent-accountability"
+      ],
+      "ev": "HN front-page theme 'Human-in-the-loop AI & agent oversight: how humans supervise, partner with, and are subordinated by AI agents' (2026-07-11), distinct from the existing human-on-the-loop node",
+      "src": "learned"
+    },
+    {
+      "id": "llm-as-judge",
+      "dom": "sdlc",
+      "label": "LLM-as-judge",
+      "def": "Using a language model to score, grade, or gate another model's output against criteria, forming the automated evaluation backbone of the AI diff-review verification step.",
+      "rel": [
+        "ai-review",
+        "evals",
+        "constitutional-ai",
+        "verification"
+      ],
+      "ev": "doctrine verification layer 1 lists 'AI diff review' as a required gate; grounds the existing ai-review + constitutional-ai + evals nodes in the durable LLM-as-judge evaluation paradigm",
+      "src": "learned"
     }
   ]
 }
