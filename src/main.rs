@@ -2128,7 +2128,7 @@ fn app() -> Html {
                     </div>
                     <div class="nf-cmd">{ "$ neofetch" }</div>
                     <div class="neofetch">
-                        <pre class="nf-art">{ "   ╷ ╷ ╷\n  ┌┴─┴─┴┐\n  │ ▓▓▓ │\n  │dark-f│\n  └─────┘" }</pre>
+                        <pre class="nf-art" aria-hidden="true" role="presentation">{ "   ╷ ╷ ╷\n  ┌┴─┴─┴┐\n  │ ▓▓▓ │\n  │dark-f│\n  └─────┘" }</pre>
                         <div class="nf-info">
                             <div class="nf-line"><span class="k">{ "os" }</span>{ "dark-factory (lights-out)" }</div>
                             <div class="nf-line"><span class="k">{ "host" }</span>{ "raghunathnair1-rgb.github.io" }</div>
