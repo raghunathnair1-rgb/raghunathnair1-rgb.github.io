@@ -1718,6 +1718,35 @@
       ],
       "ev": "HN trend theme 'The scraper/bot arms race: Residential proxies and automated scraping are a live, front-page infrastructure battle' plus the scraping-defense readout commits (10b2896, d9c983d)",
       "src": "learned"
+    },
+    {
+      "id": "honeypot",
+      "dom": "infra",
+      "label": "Honeypot / decoy trap",
+      "def": "A deliberately planted decoy resource — such as a fake contact email or trap URL — used to detect, trap, or waste the effort of automated scrapers and harvester bots.",
+      "rel": [
+        "bot-mitigation",
+        "ai-crawler",
+        "email-obfuscation",
+        "agent-security",
+        "pentesting"
+      ],
+      "ev": "commit 6b22a13 'self-improve: Plant a honeypot decoy email to poison harvester bots' + 5b366d8 email obfuscation; honeypots/tarpits are an established, durable security technique in the live bot arms ",
+      "src": "learned"
+    },
+    {
+      "id": "data-poisoning",
+      "dom": "infra",
+      "label": "Data poisoning defense",
+      "def": "Feeding scrapers deliberately falsified or decoy data so the datasets they harvest are corrupted and lose value for downstream model training.",
+      "rel": [
+        "model-collapse",
+        "bot-mitigation",
+        "ai-crawler",
+        "adversarial-attacks"
+      ],
+      "ev": "commit 6b22a13 'Plant a honeypot decoy email to poison harvester bots' — the decoy is explicitly meant to poison harvesters; data poisoning is a lasting adversarial-ML technique tied to the 'scraper/b",
+      "src": "learned"
     }
   ]
 }
