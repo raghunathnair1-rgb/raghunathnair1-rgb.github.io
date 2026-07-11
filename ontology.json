@@ -1,0 +1,588 @@
+{
+  "version": 1,
+  "note": "The dark factory's context ontology — the structured knowledge the brain reasons from. Every concept is real and grounded (no fabrication). concepts = knowledge nodes, rel edges = synapses. It GROWS as the factory genuinely learns; brain_metrics counts it toward knowledge, and the self-improvement engines ground proposals in it.",
+  "domains": {
+    "agentic-ai": "Agentic AI",
+    "harness": "Harness engineering",
+    "factory": "The dark factory (self-knowledge)",
+    "sdlc": "Agentic SDLC",
+    "stack": "Tech stack",
+    "infra": "Infrastructure & inference"
+  },
+  "concepts": [
+    {
+      "id": "agent",
+      "dom": "agentic-ai",
+      "label": "Agent = Model + Harness",
+      "def": "An agent is a model wrapped in load-bearing scaffolding; improving the harness matters as much as the model.",
+      "rel": [
+        "harness-eng",
+        "tiered-router"
+      ]
+    },
+    {
+      "id": "tool-use",
+      "dom": "agentic-ai",
+      "label": "Tool use / function calling",
+      "def": "The model acts on the world through typed tool calls.",
+      "rel": [
+        "mcp",
+        "tool-orch"
+      ]
+    },
+    {
+      "id": "mcp",
+      "dom": "agentic-ai",
+      "label": "Model Context Protocol (MCP)",
+      "def": "Open protocol for exposing tools/resources to models.",
+      "rel": [
+        "tool-use",
+        "a2a"
+      ]
+    },
+    {
+      "id": "a2a",
+      "dom": "agentic-ai",
+      "label": "Agent-to-agent (A2A)",
+      "def": "Protocol for agents delegating to and coordinating with other agents.",
+      "rel": [
+        "mcp"
+      ]
+    },
+    {
+      "id": "context-eng",
+      "dom": "agentic-ai",
+      "label": "Context engineering",
+      "def": "Deciding what enters the model's window and when.",
+      "rel": [
+        "memory",
+        "retrieval"
+      ]
+    },
+    {
+      "id": "retrieval",
+      "dom": "agentic-ai",
+      "label": "Retrieval-grounded generation",
+      "def": "Ground output in fetched source text, not parametric memory alone.",
+      "rel": [
+        "grounding",
+        "context-eng"
+      ]
+    },
+    {
+      "id": "grounding",
+      "dom": "agentic-ai",
+      "label": "Grounding & fact-checking",
+      "def": "Verify claims against real sources before shipping.",
+      "rel": [
+        "hallucination",
+        "retrieval",
+        "ontology"
+      ]
+    },
+    {
+      "id": "hallucination",
+      "dom": "agentic-ai",
+      "label": "Hallucination control",
+      "def": "Keep fabricated claims near zero; gate what can't be verified.",
+      "rel": [
+        "grounding",
+        "verification"
+      ]
+    },
+    {
+      "id": "evals",
+      "dom": "agentic-ai",
+      "label": "Evals & benchmarks",
+      "def": "Measure agent quality with repeatable tasks.",
+      "rel": [
+        "verification"
+      ]
+    },
+    {
+      "id": "memory",
+      "dom": "agentic-ai",
+      "label": "Agent memory",
+      "def": "Durable state across runs; facts, feedback, project context.",
+      "rel": [
+        "context-eng"
+      ]
+    },
+    {
+      "id": "planning",
+      "dom": "agentic-ai",
+      "label": "Planning & reflection",
+      "def": "Reason about goals and critique own output before acting.",
+      "rel": [
+        "sdlc-plan"
+      ]
+    },
+    {
+      "id": "harness-eng",
+      "dom": "harness",
+      "label": "Harness engineering",
+      "def": "The five load-bearing layers around a model.",
+      "rel": [
+        "tool-orch",
+        "verification",
+        "memory",
+        "guardrails",
+        "observability"
+      ]
+    },
+    {
+      "id": "tool-orch",
+      "dom": "harness",
+      "label": "Tool orchestration",
+      "def": "Layer 1 — small, safe, reversible actions; exact edits over fragile diffs.",
+      "rel": [
+        "tool-use"
+      ]
+    },
+    {
+      "id": "verification",
+      "dom": "harness",
+      "label": "Verification loops",
+      "def": "Layer 2 — tests, coverage, SAST, secret scan, AI review, CI must all agree.",
+      "rel": [
+        "ci",
+        "coverage",
+        "sast",
+        "ai-review"
+      ]
+    },
+    {
+      "id": "guardrails",
+      "dom": "harness",
+      "label": "Guardrails / bounded autonomy",
+      "def": "Layer 3 — no blind rewrites, no secrets, no new external calls, revert on fail.",
+      "rel": [
+        "revert",
+        "gate"
+      ]
+    },
+    {
+      "id": "observability",
+      "dom": "harness",
+      "label": "Observability",
+      "def": "Layer 4 — measure the loop's own health honestly.",
+      "rel": [
+        "telemetry",
+        "watchdog"
+      ]
+    },
+    {
+      "id": "recursive-loop",
+      "dom": "harness",
+      "label": "Recursive harness loop",
+      "def": "reflect -> propose -> gate -> ship -> verify -> auto-revert -> learn.",
+      "rel": [
+        "self-improve",
+        "self-heal",
+        "doctrine"
+      ]
+    },
+    {
+      "id": "self-heal",
+      "dom": "harness",
+      "label": "Self-healing",
+      "def": "A change that fails CI after shipping is reverted automatically.",
+      "rel": [
+        "revert",
+        "ci"
+      ]
+    },
+    {
+      "id": "dark-factory",
+      "dom": "factory",
+      "label": "The dark factory",
+      "def": "Lights-out AI that writes, reviews, and ships production software.",
+      "rel": [
+        "self-improve",
+        "idea-engine",
+        "gate",
+        "tiered-router"
+      ]
+    },
+    {
+      "id": "self-improve",
+      "dom": "factory",
+      "label": "Self-improvement daemon",
+      "def": "Continuously proposes and ships one gated change per cycle.",
+      "rel": [
+        "recursive-loop",
+        "gate",
+        "self-heal"
+      ]
+    },
+    {
+      "id": "idea-engine",
+      "dom": "factory",
+      "label": "Idea engine",
+      "def": "Reflective planner that scores a backlog of concrete improvements.",
+      "rel": [
+        "backlog",
+        "self-improve",
+        "sdlc-plan"
+      ]
+    },
+    {
+      "id": "gate",
+      "dom": "factory",
+      "label": "Deploy gate",
+      "def": "Every autonomous change passes SAST + secret scan + AI review + coverage + CI.",
+      "rel": [
+        "sast",
+        "secret-scan",
+        "ai-review",
+        "coverage",
+        "ci"
+      ]
+    },
+    {
+      "id": "watchdog",
+      "dom": "factory",
+      "label": "Watchdog",
+      "def": "Self-healing health checks over the live site and pipeline.",
+      "rel": [
+        "observability"
+      ]
+    },
+    {
+      "id": "tiered-router",
+      "dom": "factory",
+      "label": "Tiered LLM router",
+      "def": "Local-first: easy work on-device, only hard tasks escalate to a frontier model.",
+      "rel": [
+        "local-first",
+        "spark"
+      ]
+    },
+    {
+      "id": "brain-hud",
+      "dom": "factory",
+      "label": "WebGL brain HUD",
+      "def": "Live neural viz driven by real brain.json telemetry.",
+      "rel": [
+        "telemetry",
+        "webgl",
+        "ontology"
+      ]
+    },
+    {
+      "id": "pipeline-viz",
+      "dom": "factory",
+      "label": "Pipeline flow viz",
+      "def": "GPU-rendered build pipeline driven by real CI state.",
+      "rel": [
+        "ci",
+        "webgl"
+      ]
+    },
+    {
+      "id": "kg-viz",
+      "dom": "factory",
+      "label": "Knowledge-graph viz",
+      "def": "Interactive graph of the factory's concepts.",
+      "rel": [
+        "ontology",
+        "webgl"
+      ]
+    },
+    {
+      "id": "doctrine",
+      "dom": "factory",
+      "label": "Agentic-SDLC doctrine",
+      "def": "principles.md — the north star injected into every self-improvement.",
+      "rel": [
+        "recursive-loop",
+        "sdlc",
+        "self-improve",
+        "idea-engine"
+      ]
+    },
+    {
+      "id": "ontology",
+      "dom": "factory",
+      "label": "Context ontology",
+      "def": "This file — the structured knowledge the brain reasons from.",
+      "rel": [
+        "kg-viz",
+        "grounding",
+        "brain-hud"
+      ]
+    },
+    {
+      "id": "sdlc",
+      "dom": "sdlc",
+      "label": "Agentic SDLC",
+      "def": "The autonomous software lifecycle the factory embodies.",
+      "rel": [
+        "sdlc-plan",
+        "sdlc-build",
+        "sdlc-verify",
+        "sdlc-ship",
+        "sdlc-observe",
+        "sdlc-learn"
+      ]
+    },
+    {
+      "id": "sdlc-plan",
+      "dom": "sdlc",
+      "label": "Plan",
+      "def": "Pick the single highest-value change from real signals.",
+      "rel": [
+        "idea-engine"
+      ]
+    },
+    {
+      "id": "sdlc-build",
+      "dom": "sdlc",
+      "label": "Build",
+      "def": "Small, grounded, self-contained; keep it green.",
+      "rel": [
+        "self-improve"
+      ]
+    },
+    {
+      "id": "sdlc-verify",
+      "dom": "sdlc",
+      "label": "Verify",
+      "def": "Never ship what the gates can't validate; CI is the source of truth.",
+      "rel": [
+        "verification"
+      ]
+    },
+    {
+      "id": "sdlc-ship",
+      "dom": "sdlc",
+      "label": "Ship",
+      "def": "Atomic, reversible, honest commit message.",
+      "rel": [
+        "gate"
+      ]
+    },
+    {
+      "id": "sdlc-observe",
+      "dom": "sdlc",
+      "label": "Observe",
+      "def": "Watch CI + telemetry after shipping.",
+      "rel": [
+        "observability"
+      ]
+    },
+    {
+      "id": "sdlc-learn",
+      "dom": "sdlc",
+      "label": "Learn",
+      "def": "Never repeat a shipped change; prefer the most substantive option.",
+      "rel": [
+        "recursive-loop"
+      ]
+    },
+    {
+      "id": "rust",
+      "dom": "stack",
+      "label": "Rust",
+      "def": "Systems language for the blog logic and UI.",
+      "rel": [
+        "wasm",
+        "blog-logic"
+      ]
+    },
+    {
+      "id": "wasm",
+      "dom": "stack",
+      "label": "WebAssembly",
+      "def": "Compilation target for the in-browser app.",
+      "rel": [
+        "yew",
+        "trunk"
+      ]
+    },
+    {
+      "id": "yew",
+      "dom": "stack",
+      "label": "Yew",
+      "def": "Rust component framework for the SPA.",
+      "rel": [
+        "wasm"
+      ]
+    },
+    {
+      "id": "trunk",
+      "dom": "stack",
+      "label": "Trunk",
+      "def": "Rust/WASM bundler that builds the site.",
+      "rel": [
+        "wasm"
+      ]
+    },
+    {
+      "id": "webgl",
+      "dom": "stack",
+      "label": "WebGL / GLSL",
+      "def": "Shaders for the brain, pipeline, and KG visualizations.",
+      "rel": [
+        "brain-hud"
+      ]
+    },
+    {
+      "id": "python",
+      "dom": "stack",
+      "label": "Python",
+      "def": "The harness scripts: metrics, engines, routing.",
+      "rel": [
+        "self-improve",
+        "brain-hud"
+      ]
+    },
+    {
+      "id": "blog-logic",
+      "dom": "stack",
+      "label": "blog-logic crate",
+      "def": "Pure logic crate held at a 100% coverage floor.",
+      "rel": [
+        "coverage",
+        "rust"
+      ]
+    },
+    {
+      "id": "github-pages",
+      "dom": "stack",
+      "label": "GitHub Pages",
+      "def": "Static host the site deploys to.",
+      "rel": [
+        "ci"
+      ]
+    },
+    {
+      "id": "spark",
+      "dom": "infra",
+      "label": "2-node NVIDIA GB10 (DGX Spark)",
+      "def": "Self-hosted GPU cluster for local inference.",
+      "rel": [
+        "local-first",
+        "vllm"
+      ]
+    },
+    {
+      "id": "vllm",
+      "dom": "infra",
+      "label": "vLLM / PagedAttention",
+      "def": "High-throughput local LLM serving.",
+      "rel": [
+        "spark"
+      ]
+    },
+    {
+      "id": "local-first",
+      "dom": "infra",
+      "label": "Local-first inference",
+      "def": "Keep high-volume easy calls on-device; escalate only the hard ones.",
+      "rel": [
+        "tiered-router",
+        "spark"
+      ]
+    },
+    {
+      "id": "ci",
+      "dom": "infra",
+      "label": "GitHub Actions CI",
+      "def": "Coverage -> build -> deploy; the source of truth for correctness.",
+      "rel": [
+        "coverage",
+        "github-pages"
+      ]
+    },
+    {
+      "id": "coverage",
+      "dom": "infra",
+      "label": "100% coverage floor",
+      "def": "blog-logic must stay fully covered or CI fails.",
+      "rel": [
+        "blog-logic"
+      ]
+    },
+    {
+      "id": "sast",
+      "dom": "infra",
+      "label": "SAST (opengrep)",
+      "def": "Static analysis gate on every change.",
+      "rel": [
+        "gate"
+      ]
+    },
+    {
+      "id": "secret-scan",
+      "dom": "infra",
+      "label": "Secret scan",
+      "def": "Git-grep gate that blocks leaked credentials.",
+      "rel": [
+        "gate"
+      ]
+    },
+    {
+      "id": "ai-review",
+      "dom": "infra",
+      "label": "AI diff review",
+      "def": "A model reviews every diff before it ships.",
+      "rel": [
+        "gate"
+      ]
+    },
+    {
+      "id": "revert",
+      "dom": "infra",
+      "label": "Auto-revert on failure",
+      "def": "Failed CI triggers an automatic git revert.",
+      "rel": [
+        "self-heal"
+      ]
+    },
+    {
+      "id": "telemetry",
+      "dom": "infra",
+      "label": "Telemetry",
+      "def": "brain.json, watchdog.json, activity.json — the honest signals.",
+      "rel": [
+        "observability"
+      ]
+    },
+    {
+      "id": "backlog",
+      "dom": "infra",
+      "label": "Scored idea backlog",
+      "def": "Impact/ease/risk-scored improvements the idea engine maintains.",
+      "rel": [
+        "idea-engine"
+      ]
+    },
+    {
+      "id": "autofix",
+      "dom": "sdlc",
+      "label": "Autofix loop",
+      "def": "An automated repair daemon that attempts to fix a failing change before falling back to revert, closing the self-healing loop on CI failures.",
+      "rel": [
+        "self-heal",
+        "revert",
+        "ci",
+        "verification",
+        "gate"
+      ],
+      "ev": "autofix.py, autofix.sh, and logs/autofix.json present in the harness",
+      "src": "learned"
+    },
+    {
+      "id": "content-distribution",
+      "dom": "factory",
+      "label": "Social distribution",
+      "def": "The factory autonomously publishes and formats posts to external channels like LinkedIn as a downstream output of the pipeline.",
+      "rel": [
+        "sdlc-ship"
+      ],
+      "ev": "li_publish.py, trendpost.py, autopost.py plus recent commits 'linkedin: link-in-first-comment' and 'linkedin: bake in Growth Editor rules'",
+      "src": "learned"
+    }
+  ]
+}

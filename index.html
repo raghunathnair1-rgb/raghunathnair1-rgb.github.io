@@ -53,6 +53,7 @@
   <link data-trunk rel="copy-file" href="watchdog.json"/>
   <link data-trunk rel="copy-file" href="coverage.json"/>
   <link data-trunk rel="copy-file" href="brain.json"/>
+  <link data-trunk rel="copy-file" href="ontology.json"/>
   <link data-trunk rel="copy-file" href="ideas.json"/>
   <link data-trunk rel="copy-file" href="wx.json"/>
   <link data-trunk rel="copy-dir" href="p"/>
@@ -547,6 +548,81 @@
       var hallu = bd.hallu * (0.55 + 0.45*Math.pow(Math.max(0.0, Math.sin(t*0.5)), 6.0));
       gl.uniform1f(uT,t); gl.uniform2f(uR,c.width,c.height); gl.uniform1f(uL,learn); gl.uniform1f(uH,hallu); gl.uniform2f(uRot,rot.x,rot.y); gl.uniform2f(uPt,pt[0],pt[1]);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    requestAnimationFrame(frame);
+  })();
+  </script>
+  <!-- Interactive 3D knowledge graph: the real context ontology (/ontology.json) rendered as a
+       rotating, draggable 3D node cloud on <canvas id="kg3d"> that the Yew app mounts on ~/factory.
+       Canvas-2D with true 3D projection (no GLSL) so it renders everywhere; hides itself on any error. -->
+  <script>
+  (function(){
+    var reduce=false; try{ reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(_){}
+    var COL={'agentic-ai':'#22d3ee','harness':'#7effb0','factory':'#00ff41','sdlc':'#f5c542','stack':'#c792ea','infra':'#ff9d5c'};
+    var DEF='#48f56e';
+    var nodes=null, edges=null, tried=false, rot={x:0.45,y:0.5}, drag=null;
+    function fib(i,n){ var off=2/n, y=i*off-1+off/2, r=Math.sqrt(Math.max(0,1-y*y)), phi=i*2.399963; return [Math.cos(phi)*r,y,Math.sin(phi)*r]; }
+    function hf(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return ((h>>>0)%1000)/1000; }
+    function build(o){
+      var doms=Object.keys(o.domains||{}), di={}; doms.forEach(function(d,i){ di[d]=fib(i,Math.max(1,doms.length)); });
+      var cs=o.concepts||[], idx={}; cs.forEach(function(c,i){ idx[c.id]=i; });
+      nodes=cs.map(function(c){
+        var dc=di[c.dom]||[0,0,0];
+        var x=dc[0]*1.5+(hf(c.id+'x')-0.5)*0.95, y=dc[1]*1.5+(hf(c.id+'y')-0.5)*0.95, z=dc[2]*1.5+(hf(c.id+'z')-0.5)*0.95;
+        var L=Math.sqrt(x*x+y*y+z*z)||1, R=0.6+hf(c.id)*0.36;
+        return { dom:c.dom, label:c.label||c.id, x:x/L*R, y:y/L*R, z:z/L*R, col:COL[c.dom]||DEF };
+      });
+      edges=[]; var seen={};
+      cs.forEach(function(c,i){ (c.rel||[]).forEach(function(r){ var j=idx[r]; if(j==null||j===i) return; var k=Math.min(i,j)+'-'+Math.max(i,j); if(seen[k]) return; seen[k]=1; edges.push([i,j]); }); });
+    }
+    function ensureData(){ if(nodes||tried) return; tried=true;
+      fetch('/ontology.json',{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(o){ if(o&&o.concepts) build(o); }).catch(function(){}); }
+    function attach(cv){ if(cv._kg3d) return; cv._kg3d=true;
+      cv.addEventListener('pointerdown', function(e){ drag={x:e.clientX,y:e.clientY}; try{ cv.setPointerCapture(e.pointerId); }catch(_){} });
+      cv.addEventListener('pointerup', function(){ drag=null; });
+      cv.addEventListener('pointerleave', function(){ drag=null; cv._mx=null; });
+      cv.addEventListener('pointermove', function(e){ var b=cv.getBoundingClientRect();
+        if(drag){ rot.y+=(e.clientX-drag.x)*0.008; rot.x+=(e.clientY-drag.y)*0.008; rot.x=Math.max(-1.3,Math.min(1.3,rot.x)); drag={x:e.clientX,y:e.clientY}; }
+        cv._mx=e.clientX-b.left; cv._my=e.clientY-b.top; });
+    }
+    function frame(){
+      requestAnimationFrame(frame);
+      var cv=document.getElementById('kg3d'); if(!cv) return;
+      ensureData(); attach(cv);
+      var ctx=cv.getContext('2d'); if(!ctx){ cv.style.display='none'; return; }
+      var dpr=Math.min(2, window.devicePixelRatio||1), w=cv.clientWidth, h=cv.clientHeight;
+      if(!w||!h) return;
+      if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){ cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr); }
+      ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,w,h);
+      if(!nodes){ ctx.fillStyle='#2b8f4d'; ctx.font='12px monospace'; ctx.fillText('booting knowledge graph…',12,20); return; }
+      if(!reduce && !drag) rot.y+=0.0016;
+      var cx=w/2, cy=h/2, S=Math.min(w,h)*0.5, f=2.6;
+      var cxr=Math.cos(rot.x), sxr=Math.sin(rot.x), cyr=Math.cos(rot.y), syr=Math.sin(rot.y);
+      var proj=nodes.map(function(n){
+        var x=n.x*cyr - n.z*syr, z=n.x*syr + n.z*cyr;
+        var y=n.y*cxr - z*sxr, z2=n.y*sxr + z*cxr, sc=f/(f+z2);
+        return { sx:cx+x*sc*S, sy:cy+y*sc*S, z:z2, sc:sc };
+      });
+      var mx=cv._mx, my=cv._my, hover=-1, best=15;
+      if(mx!=null){ for(var i=0;i<proj.length;i++){ var d=Math.hypot(proj[i].sx-mx,proj[i].sy-my); if(d<best){ best=d; hover=i; } } }
+      ctx.lineWidth=1;
+      edges.map(function(e){ return {e:e,z:(proj[e[0]].z+proj[e[1]].z)/2}; }).sort(function(a,b){ return b.z-a.z; }).forEach(function(o){
+        var a=proj[o.e[0]], b=proj[o.e[1]], hl=(hover===o.e[0]||hover===o.e[1]);
+        var al=hl?0.9:(0.07+0.13*(1-(o.z+1)/2));
+        ctx.strokeStyle=(hl?'rgba(126,255,176,':'rgba(0,255,65,')+al.toFixed(3)+')';
+        ctx.beginPath(); ctx.moveTo(a.sx,a.sy); ctx.lineTo(b.sx,b.sy); ctx.stroke();
+      });
+      proj.map(function(p,i){ return i; }).sort(function(a,b){ return proj[b].z-proj[a].z; }).forEach(function(i){
+        var p=proj[i], n=nodes[i], hl=(hover===i), r=Math.max(1.6, 3.4*p.sc);
+        ctx.globalAlpha=hl?1:Math.min(1,0.4+0.5*(1-(p.z+1)/2));
+        ctx.beginPath(); ctx.arc(p.sx,p.sy, hl?r+2:r, 0, 6.2832); ctx.fillStyle=n.col;
+        if(hl){ ctx.shadowColor=n.col; ctx.shadowBlur=12; } ctx.fill(); ctx.shadowBlur=0; ctx.globalAlpha=1;
+      });
+      if(hover>=0){ var pp=proj[hover], nn=nodes[hover]; ctx.font='12px monospace';
+        var tw=ctx.measureText(nn.label).width;
+        ctx.fillStyle='rgba(1,6,1,0.86)'; ctx.fillRect(pp.sx+9, pp.sy-10, tw+12, 19);
+        ctx.fillStyle=nn.col; ctx.fillText(nn.label, pp.sx+15, pp.sy+4);
+      }
     }
     requestAnimationFrame(frame);
   })();

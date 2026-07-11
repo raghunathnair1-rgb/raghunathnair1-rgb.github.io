@@ -2004,6 +2004,29 @@ fn site_footer() -> Html {
     }
 }
 
+// Flagship: an interactive 3D graph of the brain's real knowledge ontology. The rotating/draggable
+// render lives in an inline canvas-2D script (#kg3d, fed by /ontology.json); this mounts the canvas
+// + a live HUD. Counts come from brain.json (already carries concepts/relations/domains).
+#[function_component(KnowledgeGraph3d)]
+fn knowledge_graph_3d() -> Html {
+    let (data, _err) = use_polled_json::<BrainMetrics>("/brain.json", Some(60_000));
+    let hud = match &*data {
+        Some(d) => format!("{} concepts \u{00B7} {} synapses \u{00B7} {} domains \u{00B7} live from the ontology",
+                           d.concepts, d.relations, d.domains),
+        None => "the brain's knowledge, in three dimensions".to_string(),
+    };
+    html! {
+        <div class="kg3d-wrap">
+            <div class="ascii-cmd">{ "$ ./knowledge --render-3d \u{00B7} drag to rotate \u{00B7} hover a node" }</div>
+            <div class="kg3d-stage">
+                <canvas id="kg3d" class="kg3d" role="img"
+                        aria-label="Interactive 3D graph of the brain's knowledge ontology"></canvas>
+            </div>
+            <div class="kg3d-hud">{ hud }</div>
+        </div>
+    }
+}
+
 #[function_component(App)]
 fn app() -> Html {
     let selected = use_state(|| None::<usize>);
@@ -2069,6 +2092,7 @@ fn app() -> Html {
                 </> },
                 3 => html! { <>
                     <div class="cmd">{ "$ systemctl status dark-factory  \u{00B7} the machine's own vitals" }</div>
+                    <KnowledgeGraph3d />
                     <WatchdogStatus />
                     <CoverageBadge />
                     <IdeaBacklog />
