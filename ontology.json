@@ -1626,7 +1626,8 @@
         "secret-scan",
         "gate",
         "ci",
-        "guardrails"
+        "guardrails",
+        "devops"
       ],
       "ev": "doctrine verification layer + commit c46c99b naming the SAST pass as the deploy gate's code-vulnerability scan, with secret scan also enforced pre-ship",
       "src": "learned"
@@ -1932,6 +1933,19 @@
         "watchdog"
       ],
       "ev": "Latest AI/tech trends theme 'Infra performance & correctness tuning' (database/connection-pooling correctness under load), paired with the system's real watchdog.py reliability layer.",
+      "src": "learned"
+    },
+    {
+      "id": "synthetic-event-detection",
+      "dom": "stack",
+      "label": "Synthetic event detection",
+      "def": "Distinguishing genuine user-initiated DOM events from script-forged ones (e.g. via the browser's event.isTrusted flag) so automated bot clicks cannot trigger gated actions.",
+      "rel": [
+        "interaction-gating",
+        "bot-mitigation",
+        "honeypot"
+      ],
+      "ev": "commit e9dd6dd 'self-improve: Gate the email reveal on event.isTrusted so scripted bot clicks never [fire]'",
       "src": "learned"
     }
   ]
