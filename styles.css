@@ -150,7 +150,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 #boot.boot-typed pre::after, #boot.boot-idle pre::after { content: "_"; color: var(--green); animation: boot-blink 1s step-end infinite; }
 @keyframes boot-blink { 50% { opacity: 0; } }
 
-/* CRT mode (toggle in the terminal: `crt`) */
+/* CRT scanline+vignette overlay — enabled via [data-crt="on"], hydrated from localStorage "df-crt" */
 :root[data-crt="on"] body::before {
   background:
     repeating-linear-gradient(180deg, rgba(0, 0, 0, .34) 0 1px, transparent 1px 3px),
