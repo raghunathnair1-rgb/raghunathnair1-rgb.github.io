@@ -1546,6 +1546,31 @@
       ],
       "ev": "HN notable 'Redbean: A single-file, distributable web server that runs anywhere' + the infra readout's honest 'why not Docker' stance (commit fb39469)",
       "src": "learned"
+    },
+    {
+      "id": "rate-limiting",
+      "dom": "infra",
+      "label": "Rate limiting",
+      "def": "Capping the volume of requests a client can make over a time window, used as a volumetric throttle against abusive or automated traffic.",
+      "rel": [
+        "cdn-edge",
+        "bot-mitigation",
+        "guardrails"
+      ],
+      "ev": "commit d9c983d 'self-improve: Name the host CDN edge as the only real volumetric throttle'",
+      "src": "learned"
+    },
+    {
+      "id": "captcha",
+      "dom": "infra",
+      "label": "CAPTCHA",
+      "def": "A challenge-response test designed to distinguish human users from automated bots before granting access to a resource.",
+      "rel": [
+        "bot-mitigation",
+        "proof-of-personhood"
+      ],
+      "ev": "commit ee5acb1 'self-improve: Name the deliberate no-CAPTCHA stance in the scraping-defense readout'",
+      "src": "learned"
     }
   ]
 }

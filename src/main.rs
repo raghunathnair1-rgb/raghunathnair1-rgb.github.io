@@ -2168,38 +2168,6 @@ fn app() -> Html {
                             </span>
                         </a>
                     </div>
-                    <div class="nf-cmd">{ "$ neofetch" }</div>
-                    <div class="neofetch">
-                        <pre class="nf-art" aria-hidden="true" role="presentation">{ "   ╷ ╷ ╷\n  ┌┴─┴─┴┐\n  │ ▓▓▓ │\n  │dark-f│\n  └─────┘" }</pre>
-                        <div class="nf-info">
-                            <div class="nf-line"><span class="k">{ "os" }</span>{ "dark-factory (lights-out)" }</div>
-                            <div class="nf-line"><span class="k">{ "host" }</span>{ "raghunathnair1-rgb.github.io" }</div>
-                            <div class="nf-line"><span class="k">{ "kernel" }</span>{ "rust \u{2192} wasm (yew + trunk)" }</div>
-                            <div class="nf-line"><span class="k">{ "quantization" }</span>{ "low-precision weights \u{2192} frontier LLMs on modest local silicon" }</div>
-                            <div class="nf-line"><span class="k">{ "orchestration" }</span>{ "vLLM direct on 2-node GB10 \u{00B7} no k8s (a cluster this small doesn't earn the control plane)" }</div>
-                            <div class="nf-line"><span class="k">{ "spec-decode" }</span>{ "off \u{00B7} a draft model proposing tokens for the 35B to verify in parallel cuts latency, but at this batch size the tiered router is the cheaper win" }</div>
-                            <div class="nf-line"><span class="k">{ "k8s-for-ai" }</span>{ "Kueue/KServe-style GPU scheduling, autoscaling & inference serving built for fleets \u{00B7} at 2 nodes it's weight the harness doesn't earn" }</div>
-                            <div class="nf-line"><span class="k">{ "containers" }</span>{ "no docker \u{00B7} one systemd unit on a box we own \u{00B7} the watchdog already reads systemctl status" }</div>
-                            <div class="nf-line"><span class="k">{ "robots.txt" }</span>{ "crawl policy, not a wall \u{00B7} honor-system only \u{00B7} GH Pages can't rate-limit, so scrapers that ignore the robots.txt + sitemap.xml aren't stopped (pages stay fully open to humans)" }</div>
-                            <div class="nf-line"><span class="k">{ "bot posture" }</span>{ "content ships as WASM, so naive scrapers hit an empty shell \u{00B7} real crawlers get the honest path: /p/ essays, rss.xml + feed.json, sitemap.xml" }</div>
-                            <div class="nf-line"><span class="k">{ "triage" }</span>{ "sort, don't block \u{00B7} static /p/ mirror + <noscript> fallback for crawlers, wasm app for humans \u{00B7} indexers get clean html, scrapers get the plain text anyway" }</div>
-                            <div class="nf-line"><span class="k">{ "no cloaking" }</span>{ "same bytes to every client \u{00B7} the only fork is capability (wasm app for js-runners vs /p/ text mirror for everyone else), never who's asking \u{00B7} it can't and doesn't sniff user-agents to serve bots a different page, the move search engines penalize as cloaking" }</div>
-                            <div class="nf-line"><span class="k">{ "prerender-for-bots" }</span>{ "the live site is a client-only WASM shell, so a static /p/ mirror is prerendered for crawlers \u{00B7} indexable html survives a js-less fetch" }</div>
-                            <div class="nf-line"><span class="k">{ "ssg.py" }</span>{ "static site generation \u{00B7} the /p/ mirror, rss.xml + feed.json & sitemap.xml are pre-rendered to plain html+xml at build time, then served straight from GitHub Pages with no runtime server" }</div>
-                            <div class="nf-line"><span class="k">{ "defense" }</span>{ "passive only, no active throttle \u{00B7} declarative directives + a WASM render-wall raise the cost, they don't cap the rate \u{00B7} a static Pages origin can't rate-limit, so it slows the scrapers it can't stop" }</div>
-                            <div class="nf-line"><span class="k">{ "cdn edge" }</span>{ "no origin WAF (static host), so there's no server-side rate limit for us to run \u{00B7} volumetric bot traffic is soaked by the host CDN edge (Fastly), not by us \u{00B7} robots.txt, the /p/ good-bot lane & the WASM boot only signal intent + add passive friction" }</div>
-                            <div class="nf-line"><span class="k">{ "human lane" }</span>{ "no CAPTCHA \u{00B7} no challenge page \u{00B7} no JS-fingerprint gate \u{2014} a reader never has to prove they aren't a bot, because there's no test here that could false-positive on one \u{00B7} the friction lands only on scrapers, never on humans" }</div>
-                            <div class="nf-line"><span class="k">{ "not a gauntlet" }</span>{ "what this box deliberately isn't: no CAPTCHA \u{00B7} no proof-of-work interstitial \u{00B7} no JS challenge wall \u{2014} bot mitigation here is passive by design (the WASM shell as friction, robots.txt as honest policy, the Fastly edge as the only volumetric throttle), never an interrogation that makes a human prove they aren't a bot \u{00B7} the trade was chosen toward legitimate readers, away from the CAPTCHA/PoW gauntlet most sites reach for" }</div>
-                            <div class="nf-line"><span class="k">{ "shell" }</span>{ "the harness brain" }</div>
-                            <div class="nf-line"><span class="k">{ "gates" }</span>{ "security \u{00B7} qa \u{00B7} sast \u{00B7} ontology" }</div>
-                            <div class="nf-line"><span class="k">{ "static analysis" }</span>{ "SAST \u{2014} scans each diff for code vulnerabilities (injection, unsafe deserialization) before it can ship" }</div>
-                            <div class="nf-line"><span class="k">{ "llmops" }</span>{ "watchdog probes \u{00B7} deploy gate \u{00B7} 100% coverage floor \u{2014} the LLM is monitored, evaluated & shipped, never retrained (no training loop here)" }</div>
-                            <div class="nf-line"><span class="k">{ "uptime" }</span>{ "shipping since 2026-07-06" }</div>
-                            <div class="nf-line"><span class="k">{ "fuel" }</span>{ "\u{2615} coffee \u{00B7} \u{221E} cups" }</div>
-                            <div class="nf-line"><span class="k">{ "pet" }</span>{ "Maine Coon \u{1F408} (loaf mode)" }</div>
-                            <div class="nf-line"><span class="k">{ "status" }</span><span class="nf-ok">{ "\u{25CF} online" }</span></div>
-                        </div>
-                    </div>
                     <div class="fortune">
                         <div class="nf-cmd">{ "$ fortune" }</div>
                         <blockquote>{ "\u{201C}Do not go gentle into that good night; rage, rage against the dying of the light.\u{201D} \u{2014} Interstellar" }</blockquote>
