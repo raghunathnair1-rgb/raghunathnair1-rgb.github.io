@@ -1088,6 +1088,19 @@
       ],
       "ev": "the local vLLM inference stack (vllm concept; spark.sh / router_stats.py serving GB10 nodes) — prefix/KV-cache reuse is a core, durable vLLM serving capability",
       "src": "learned"
+    },
+    {
+      "id": "bot-mitigation",
+      "dom": "stack",
+      "label": "Bot mitigation & scraping defense",
+      "def": "Techniques that distinguish and throttle automated agents scraping or gaming web services while preserving legitimate human traffic.",
+      "rel": [
+        "agentic-web",
+        "adversarial-content",
+        "proof-of-personhood"
+      ],
+      "ev": "latest-trends theme 'Scraping, bots & self-gaming systems: automated agents manipulating and harvesting the web is a live anxiety across proxies and self-referential hacks'",
+      "src": "learned"
     }
   ]
 }

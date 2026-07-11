@@ -47,10 +47,10 @@ html { scroll-behavior: smooth; }
 
 /* phosphor "warm-up" on interactive links — glow + brighten on hover/focus, underline stays put */
 #content a { transition: color .15s ease, text-shadow .15s ease; text-underline-offset: 0.18em; text-decoration-thickness: 1px; text-decoration-skip-ink: auto; }
-#content a:hover,
-#content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
 #content a:visited { color: var(--muted); }
+#content a:hover,
+#content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
 
 /* flag links that leave the factory — internal SPA links stay unmarked */
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"])::after {
