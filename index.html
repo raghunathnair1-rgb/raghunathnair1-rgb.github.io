@@ -209,9 +209,12 @@
     var glyphs = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ0123456789<>{}[]=/#*+-¦｜'.split('');
     var fs = 15, cols, drops = [], spd = [], trail = [];
     function resize() {
-      c.width = window.innerWidth; c.height = window.innerHeight;
-      var old = cols || 0; cols = Math.ceil(c.width / fs);
-      for (var i = old; i < cols; i++) { drops[i] = Math.random() * c.height / fs; spd[i] = 0.45 + Math.random() * 0.95; trail[i] = ' '; }
+      var dpr = window.devicePixelRatio || 1;
+      c.width = window.innerWidth * dpr; c.height = window.innerHeight * dpr;
+      c.style.width = window.innerWidth + 'px'; c.style.height = window.innerHeight + 'px';
+      x.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var old = cols || 0; cols = Math.ceil(window.innerWidth / fs);
+      for (var i = old; i < cols; i++) { drops[i] = Math.random() * window.innerHeight / fs; spd[i] = 0.45 + Math.random() * 0.95; trail[i] = ' '; }
       drops.length = spd.length = trail.length = cols;
     }
     resize(); var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(resize, 150); });
