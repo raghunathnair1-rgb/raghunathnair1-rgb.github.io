@@ -596,6 +596,60 @@
       ],
       "ev": "Trend theme 'Local LLM inference on modest hardware — squeezing frontier models onto slow/small machines' + the GLM 5.2 local-run walkthrough on the HN front page (2026-07-11).",
       "src": "learned"
+    },
+    {
+      "id": "agent-sandboxing",
+      "dom": "harness",
+      "label": "Agent sandboxing",
+      "def": "Isolated, permission-scoped execution environments (containers, microVMs like Firecracker/gVisor) so an agent's tool calls and code execution cannot harm the host.",
+      "rel": [
+        "guardrails",
+        "tool-orch"
+      ]
+    },
+    {
+      "id": "agent-security",
+      "dom": "harness",
+      "label": "Agent security",
+      "def": "Defending agents against prompt injection, jailbreaks, tool misuse, and data exfiltration.",
+      "rel": [
+        "guardrails",
+        "agent-sandboxing",
+        "sast"
+      ]
+    },
+    {
+      "id": "k8s-ai",
+      "dom": "infra",
+      "label": "Kubernetes for AI",
+      "def": "Kubernetes orchestration for AI/ML workloads — GPU scheduling, autoscaling, and inference serving at scale.",
+      "rel": [
+        "vllm",
+        "local-first"
+      ]
+    },
+    {
+      "id": "fable-5",
+      "dom": "factory",
+      "label": "Claude Fable 5",
+      "def": "Anthropic's Claude Fable 5 (claude-fable-5) — the fast model the deploy gate uses for its AI diff review before every ship.",
+      "rel": [
+        "ai-review",
+        "gate",
+        "tiered-router"
+      ]
+    },
+    {
+      "id": "agentic-patterns",
+      "dom": "agentic-ai",
+      "label": "Agentic design patterns",
+      "def": "Reusable agent design patterns — reflection, tool use, planning, and multi-agent collaboration.",
+      "rel": [
+        "planning",
+        "tool-use",
+        "a2a",
+        "harness-eng"
+      ]
     }
   ]
 }
