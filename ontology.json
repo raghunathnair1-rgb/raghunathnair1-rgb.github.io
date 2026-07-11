@@ -1630,6 +1630,51 @@
       ],
       "ev": "doctrine verification layer + commit c46c99b naming the SAST pass as the deploy gate's code-vulnerability scan, with secret scan also enforced pre-ship",
       "src": "learned"
+    },
+    {
+      "id": "programmatic-seo",
+      "dom": "stack",
+      "label": "Programmatic SEO",
+      "def": "Programmatic SEO generates large numbers of templated, indexable pages from structured data — here the ontology's concepts and domain hubs — to capture long-tail search traffic.",
+      "rel": [
+        "ssg",
+        "github-pages",
+        "ontology",
+        "kg-viz",
+        "content-distribution"
+      ],
+      "ev": "commit 44459db 'Knowledge Base — 136 indexable concept pages + 6 domain hubs from the ontology (massive SEO long-tail surface)'",
+      "src": "learned"
+    },
+    {
+      "id": "topic-cluster",
+      "dom": "stack",
+      "label": "Topic clusters",
+      "def": "A hub-and-spoke content architecture where pillar/domain hub pages interlink with many focused cluster pages to build search-engine topical authority.",
+      "rel": [
+        "programmatic-seo",
+        "ontology",
+        "ssg",
+        "github-pages",
+        "kg-viz"
+      ],
+      "ev": "commit 44459db — 'Knowledge Base: 136 indexable concept pages + 6 domain hubs from the ontology', i.e. hub pages (pillars) interlinking focused concept pages (clusters), which is textbook topic-cluste",
+      "src": "learned"
+    },
+    {
+      "id": "agentic-rag",
+      "dom": "agentic-ai",
+      "label": "Agentic RAG",
+      "def": "A retrieval paradigm in which the agent itself iteratively decides when, what, and how to retrieve — issuing tool-driven queries in a loop — instead of a single fixed retrieval step before generation.",
+      "rel": [
+        "retrieval",
+        "graph-rag",
+        "agent",
+        "tool-use",
+        "planning"
+      ],
+      "ev": "established RAG technique extending the ontology's existing retrieval + graph-rag; aligned with the trend theme 'Code/data as a queryable graph — navigable, queryable graphs' where agents drive the qu",
+      "src": "learned"
     }
   ]
 }
