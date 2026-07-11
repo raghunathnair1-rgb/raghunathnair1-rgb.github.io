@@ -189,6 +189,7 @@ body {
   margin-inline: auto;
   padding: 3rem 1.25rem 4rem;
 }
+h1, h2, h3 { text-wrap: balance; }
 :root[data-theme="amber"] body {
   background:
     radial-gradient(1200px 600px at 50% -10%, rgba(245,158,11,.08), transparent 60%),
