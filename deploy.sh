@@ -89,7 +89,16 @@ fi
 echo "✅ gate clean."
 
 # --- ship ---
-git add -A
+if [ "${DEPLOY_TELEMETRY_ONLY:-0}" = "1" ]; then
+  # Telemetry heartbeat (e.g. the */15 spark cron): stage ONLY generated data files. This makes a
+  # background cron incapable of sweeping a mid-edit source file (.rs/.html/.css/.toml/.sh/Cargo.lock)
+  # into a commit — the race that once buried half-written feature code in a telemetry commit.
+  # Code/content deploys (self-improve, idea-engine, trendpost, autopost, manual) still use `git add -A`.
+  git add -- status.json spark.json router.json deploy.json activity.json coverage.json \
+              brain.json ontology.json wx.json watchdog.json ideas.json 2>/dev/null || true
+else
+  git add -A
+fi
 if git diff --cached --quiet; then echo "no new changes to commit"; else git commit -m "$msg"; fi
 git push -u origin main   # always push (pushes any unpushed commits; idempotent)
 echo "🚀 pushed — GitHub Actions is building Rust→WASM and deploying to Pages."
