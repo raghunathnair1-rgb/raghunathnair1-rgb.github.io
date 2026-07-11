@@ -2166,6 +2166,24 @@ fn app() -> Html {
                                     e.prevent_default();
                                     return;
                                 }
+                                // human-timing backpressure: a real visitor clicks once; a script
+                                // hammering the button fires reveals faster than a human plausibly
+                                // can. Track the burst per client and refuse once it's inhumanly
+                                // fast (>=3 within ~1.5s); the cooldown clears once the burst stops.
+                                thread_local! {
+                                    static REVEAL_BURST: std::cell::Cell<(f64, u32)> = std::cell::Cell::new((0.0, 0));
+                                }
+                                let throttled = REVEAL_BURST.with(|b| {
+                                    let now = js_sys::Date::now();
+                                    let (last, count) = b.get();
+                                    let count = if now - last <= 1500.0 { count + 1 } else { 1 };
+                                    b.set((now, count));
+                                    count >= 3
+                                });
+                                if throttled {
+                                    e.prevent_default();
+                                    return;
+                                }
                                 let doc = match web_sys::window().and_then(|w| w.document()) {
                                     Some(d) => d,
                                     None => return,

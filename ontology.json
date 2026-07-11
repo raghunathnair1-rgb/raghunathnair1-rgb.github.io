@@ -179,7 +179,9 @@
       "rel": [
         "self-improve",
         "self-heal",
-        "doctrine"
+        "doctrine",
+        "gate",
+        "verification"
       ]
     },
     {
