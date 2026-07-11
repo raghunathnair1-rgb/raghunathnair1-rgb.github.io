@@ -2024,7 +2024,7 @@ fn knowledge_graph_3d() -> Html {
                 <canvas id="kg3d" class="kg3d" role="img"
                         aria-label="Interactive 3D graph of the brain's knowledge ontology"></canvas>
             </div>
-            <div class="kg3d-hud">{ hud }</div>
+            <div class="kg3d-hud">{ hud }{ " \u{00B7} drag to orbit, click a node to traverse \u{2014} an explorable map you steer, not a static diagram" }</div>
         </div>
     }
 }
