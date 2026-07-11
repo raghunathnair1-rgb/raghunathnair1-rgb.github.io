@@ -779,6 +779,49 @@
         "pentesting",
         "mythos"
       ]
+    },
+    {
+      "id": "world-model",
+      "dom": "agentic-ai",
+      "label": "World model",
+      "def": "A persistent, self-updated internal model of the system's operating environment and recent state, maintained by the world-loop to ground planning and self-improvement in real signals rather than assumptions.",
+      "rel": [
+        "memory",
+        "context-eng",
+        "ontology",
+        "planning",
+        "self-improve"
+      ],
+      "ev": "world_loop.py / world_loop.sh present in the harness scripts, and MEMORY.md project_knowledge_loops noting 'world-loop feed the self-improve/idea engines'",
+      "src": "learned"
+    },
+    {
+      "id": "dreaming",
+      "dom": "factory",
+      "label": "Dreaming / offline consolidation",
+      "def": "A background reflection pass that consolidates accumulated signals and memory between active improvement cycles, strengthening knowledge without shipping a change.",
+      "rel": [
+        "memory",
+        "self-improve",
+        "recursive-loop",
+        "idea-engine"
+      ],
+      "ev": "dream.py / dream.sh present in the harness scripts (a distinct offline pass separate from self-improve.sh)",
+      "src": "learned"
+    },
+    {
+      "id": "test-time-compute",
+      "dom": "agentic-ai",
+      "label": "Test-time compute",
+      "def": "The paradigm of spending more inference-time compute on extended reasoning or search to raise accuracy on hard reasoning tasks, trading latency/cost at inference for correctness.",
+      "rel": [
+        "planning",
+        "evals",
+        "agent",
+        "verification"
+      ],
+      "ev": "Latest AI/tech trend theme: 'AI cracking frontier math/reasoning — models now credited with novel proofs, raising the bar for what reasoning means'",
+      "src": "learned"
     }
   ]
 }
