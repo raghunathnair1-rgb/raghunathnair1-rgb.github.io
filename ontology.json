@@ -722,7 +722,8 @@
         "ci",
         "observability",
         "evals",
-        "vllm"
+        "vllm",
+        "devops"
       ]
     },
     {
@@ -970,7 +971,6 @@
       "def": "Designing the site to honor assistive and low-motion/high-contrast preferences such as prefers-reduced-motion, prefers-contrast, and text-wrap balance.",
       "rel": [
         "yew",
-        "github-pages",
         "sdlc-build",
         "doctrine"
       ],
