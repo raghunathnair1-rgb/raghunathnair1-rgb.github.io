@@ -1675,6 +1675,20 @@
       ],
       "ev": "established RAG technique extending the ontology's existing retrieval + graph-rag; aligned with the trend theme 'Code/data as a queryable graph — navigable, queryable graphs' where agents drive the qu",
       "src": "learned"
+    },
+    {
+      "id": "email-obfuscation",
+      "dom": "stack",
+      "label": "Email obfuscation",
+      "def": "Encoding or munging a published contact address so automated harvester bots cannot scrape it while humans can still read it.",
+      "rel": [
+        "bot-mitigation",
+        "crawler-directives",
+        "agentic-web",
+        "cloaking"
+      ],
+      "ev": "commit 5b366d8 'self-improve: Obfuscate the contact email against harvester bots' — a durable, long-standing anti-harvesting web technique now added to the site's scraping-defense layer",
+      "src": "learned"
     }
   ]
 }
