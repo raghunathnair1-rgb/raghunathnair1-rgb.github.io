@@ -134,6 +134,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
   z-index: 50; pointer-events: none; mix-blend-mode: soft-light;
 }
 @media (prefers-reduced-motion: reduce) { #crtfx { display: none; } }
+@media (prefers-reduced-transparency: reduce) { #crtfx { display: none; } }
 
 /* BIOS / POST boot splash (first load per session) */
 #boot {
