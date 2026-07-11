@@ -1689,6 +1689,20 @@
       ],
       "ev": "commit 5b366d8 'self-improve: Obfuscate the contact email against harvester bots' — a durable, long-standing anti-harvesting web technique now added to the site's scraping-defense layer",
       "src": "learned"
+    },
+    {
+      "id": "ontology-maintenance",
+      "dom": "factory",
+      "label": "Ontology maintenance",
+      "def": "The periodic curation pass that prunes stale, duplicate, or malformed nodes and repairs relations in the knowledge graph, keeping it coherent as it grows rather than only ever accreting.",
+      "rel": [
+        "ontology",
+        "ontology-learning",
+        "novelty-guard",
+        "self-improve"
+      ],
+      "ev": "ontology_maintain.py / ontology_maintain.sh and logs/ontology-maintain.log — the graph-hygiene counterpart to the additive ontology_learn.py",
+      "src": "learned"
     }
   ]
 }
