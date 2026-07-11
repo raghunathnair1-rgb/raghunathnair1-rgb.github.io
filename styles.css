@@ -177,6 +177,7 @@ body {
     var(--bg);
   color: var(--fg);
   line-height: 1.7;
+  text-wrap: pretty;
   max-width: 44rem;
   margin-inline: auto;
   padding: 3rem 1.25rem 4rem;
