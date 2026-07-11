@@ -54,7 +54,7 @@ html { scroll-behavior: smooth; }
 
 /* flag links that leave the factory — internal SPA links stay unmarked */
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"])::after {
-  content: " ↗" / "";           /* empty alt text: decorative, not announced by SRs */
+  content: "\00a0↗" / "";           /* empty alt text: decorative, not announced by SRs */
   font-size: .82em; color: var(--muted); text-shadow: none;
 }
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"]):hover::after,

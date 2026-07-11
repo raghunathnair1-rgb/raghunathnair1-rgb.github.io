@@ -1101,6 +1101,42 @@
       ],
       "ev": "latest-trends theme 'Scraping, bots & self-gaming systems: automated agents manipulating and harvesting the web is a live anxiety across proxies and self-referential hacks'",
       "src": "learned"
+    },
+    {
+      "id": "generative-media",
+      "dom": "agentic-ai",
+      "label": "Generative media",
+      "def": "Diffusion and generative models that synthesize or reimagine images, audio, and video rather than text.",
+      "rel": [
+        "fable-5",
+        "ai-slop",
+        "content-provenance",
+        "model-collapse"
+      ],
+      "ev": "Trend theme 'AI imagining/generating media: Generative models used playfully to synthesize and reimagine content draw huge attention', alongside the existing fable-5 model concept in the ontology",
+      "src": "learned"
+    },
+    {
+      "id": "istio",
+      "dom": "infra",
+      "label": "Istio (service mesh)",
+      "def": "A service mesh that adds traffic management, security (mTLS), and observability to microservices on Kubernetes.",
+      "rel": [
+        "k8s-ai",
+        "observability",
+        "docker"
+      ]
+    },
+    {
+      "id": "spiffe-spire",
+      "dom": "harness",
+      "label": "SPIFFE / SPIRE workload identity",
+      "def": "A standard (SPIFFE) and runtime (SPIRE) that issue cryptographic workload identities (SVIDs) via node/workload attestation; SPIRE can act as a service mesh's certificate authority (e.g. for Istio via Envoy SDS).",
+      "rel": [
+        "agent-iam",
+        "agent-security",
+        "istio"
+      ]
     }
   ]
 }

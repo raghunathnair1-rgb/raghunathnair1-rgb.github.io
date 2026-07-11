@@ -67,6 +67,14 @@ pub fn day_length_hm(sunrise_min: i32, sunset_min: i32) -> String {
     format!("{}h {:02}m", d / 60, d % 60)
 }
 
+/// Estimated reading time in whole minutes for `body`: word count over ~200 wpm,
+/// rounded to the nearest minute with a floor of 1. Pure and total, mirroring
+/// `day_length_hm`. The wasm post header calls this directly, so the tested value
+/// IS the value shipped. Keep it covered by the 100% gate.
+pub fn reading_time(body: &str) -> u32 {
+    (((body.split_whitespace().count() as u32) + 100) / 200).max(1)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -125,5 +133,13 @@ mod tests {
         assert_eq!(day_length_hm(330, 1321), "16h 31m"); // 05:30 -> 22:01
         assert_eq!(day_length_hm(360, 1080), "12h 00m"); // 06:00 -> 18:00
         assert_eq!(day_length_hm(1000, 500), "0h 00m"); // clamped: sunset before sunrise
+    }
+
+    #[test]
+    fn reading_time_rounds_and_floors() {
+        assert_eq!(reading_time(""), 1); // empty -> floor of 1
+        assert_eq!(reading_time("just a few words"), 1); // 4 words rounds down to 1
+        assert_eq!(reading_time(&"word ".repeat(300)), 2); // (300+100)/200 = 2
+        assert_eq!(reading_time(&"word ".repeat(500)), 3); // (500+100)/200 = 3
     }
 }
