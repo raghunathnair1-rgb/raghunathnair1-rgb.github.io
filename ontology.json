@@ -1137,6 +1137,46 @@
         "agent-security",
         "istio"
       ]
+    },
+    {
+      "id": "residential-proxy",
+      "dom": "infra",
+      "label": "Residential proxy abuse",
+      "def": "Routing scraper and bot traffic through pools of consumer IP addresses to evade rate limits and bot detection.",
+      "rel": [
+        "bot-mitigation",
+        "adversarial-content",
+        "agentic-web"
+      ],
+      "ev": "HN trend 'The scraping vs. web arms race: Infrastructure operators are openly grappling with residential-proxy abuse and bot traffic.'",
+      "src": "learned"
+    },
+    {
+      "id": "continuous-batching",
+      "dom": "infra",
+      "label": "Continuous batching",
+      "def": "An LLM-serving scheduler that adds and evicts sequences from a running GPU batch at the token level, keeping utilization high under mixed-length request streams.",
+      "rel": [
+        "vllm",
+        "distributed-inference",
+        "prefix-caching"
+      ],
+      "ev": "vLLM is the system's local inference server (`vllm` in the ontology + `spark`/`spark_stats.py` GB10 2-node cluster telemetry); continuous batching is vLLM's foundational serving technique.",
+      "src": "learned"
+    },
+    {
+      "id": "ai-writing-tells",
+      "dom": "agentic-ai",
+      "label": "AI writing tells",
+      "def": "Recurring stylistic fingerprints of LLM-generated prose (em-dashes, the 'it isn't A, it's B' antithesis closer, guru cadence) that mark text as machine-authored and must be stripped to read as human.",
+      "rel": [
+        "ai-slop",
+        "content-provenance",
+        "prompt-engineering",
+        "content-distribution"
+      ],
+      "ev": "Recent commits: 'linkedin: ban em-dashes entirely', 'ban the \"it isn't A, it's B\" antithesis closer (top AI tell) in de-slop pass', and 'builder-not-guru voice' Growth Editor rules in li_publish.py.",
+      "src": "learned"
     }
   ]
 }
