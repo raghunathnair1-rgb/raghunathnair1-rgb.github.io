@@ -25,6 +25,11 @@
   --muted: #b3771a;
   --line: #4a3410;
 }
+/* honor OS high-contrast requests by lifting the two lowest-contrast tokens (dim-green secondary text + faint borders); default look untouched */
+@media (prefers-contrast: more) {
+  :root { --muted: #4ee06e; --line: #1f7a44; }
+  :root[data-theme="amber"] { --muted: #e0952a; --line: #7a5410; }
+}
 * { box-sizing: border-box; }
 
 /* keyboard focus indicators (mouse users unaffected) */
