@@ -1990,6 +1990,21 @@
       ],
       "ev": "Commit 277f506/'Throttle repeated email-reveal clicks with human-timing backpressure' and the 'prove-you're-human backlash' trend theme",
       "src": "learned"
+    },
+    {
+      "id": "connection-pooling",
+      "dom": "infra",
+      "label": "Connection Pooling",
+      "def": "A middleware layer (e.g. PgBouncer) that multiplexes many client connections onto a small reusable set of backend connections to raise throughput and bound resource exhaustion.",
+      "rel": [
+        "backpressure",
+        "scaling-limits",
+        "rate-limiting",
+        "continuous-batching",
+        "inference-economics"
+      ],
+      "ev": "HN front-page trend 'PgBouncer scaling: A writeup on quadrupling connection-pooler throughput' + 'Database & infra performance tuning' theme (2026-07-12)",
+      "src": "learned"
     }
   ]
 }
