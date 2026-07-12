@@ -3242,6 +3242,20 @@
       ],
       "ev": "The self-improve commit stream is dozens of one-line, single-concern commits (e.g. 9095d52, db6bc05, a3af71b), and doctrine mandates 'small, grounded, self-contained; atomic, reversible; auto-revert o",
       "src": "learned"
+    },
+    {
+      "id": "code-city",
+      "dom": "sdlc",
+      "label": "Code city",
+      "def": "A software-visualization paradigm that renders a codebase as an explorable 3D city — files as buildings, packages as districts — so its structure and an agent's activity become spatially navigable.",
+      "rel": [
+        "software-cartography",
+        "agent-session-replay",
+        "time-travel-debugging",
+        "kg-viz"
+      ],
+      "ev": "HN 'Mindwalk' (replays coding-agent sessions visually on a 3D map of the codebase) + trend theme '3D/spatial replay of software work is resonating strongly'",
+      "src": "learned"
     }
   ]
 }
