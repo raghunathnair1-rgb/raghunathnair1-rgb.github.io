@@ -4234,6 +4234,35 @@
         "guides-and-sensors"
       ],
       "src": "curated"
+    },
+    {
+      "id": "disposable-software",
+      "dom": "sdlc",
+      "label": "Disposable software",
+      "def": "As coding agents make application code cheap to regenerate from a spec, software shifts from a long-maintained asset toward a throwaway artifact that is rebuilt on demand rather than patched.",
+      "rel": [
+        "vibe-coding",
+        "legacy-modernization",
+        "spec-driven-development",
+        "single-source-of-truth"
+      ],
+      "ev": "Latest-trends theme: 'Agents rebuilding software / why code at all: modern coding agents are being used to resurrect and rebuild apps, raising the question of why humans write code.'",
+      "src": "learned"
+    },
+    {
+      "id": "posse",
+      "dom": "stack",
+      "label": "POSSE syndication",
+      "def": "Publish content canonically on your own site first, then syndicate copies out to third-party networks like LinkedIn.",
+      "rel": [
+        "content-distribution",
+        "trendpost",
+        "ssg",
+        "github-pages",
+        "blog-logic"
+      ],
+      "ev": "li_publish.py + autopost.py + trendpost.py syndicate own-site blog posts out to LinkedIn, matching the HN front-page 'indie web / personal, hand-crafted software' trend theme (2026-07-12)",
+      "src": "learned"
     }
   ]
 }
