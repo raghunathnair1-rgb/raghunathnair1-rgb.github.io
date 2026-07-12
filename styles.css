@@ -199,6 +199,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 }
 @media (prefers-reduced-motion: reduce) { #crtfx { display: none; } }
 @media (prefers-reduced-transparency: reduce) { #crtfx { display: none; } }
+@media (prefers-reduced-transparency: reduce) { .kg3d-stage, .brain-gl-stage, .pipe-gl-stage { box-shadow: none; } }
 @media (prefers-reduced-data: reduce) { #crtfx { display: none; } }
 @media (prefers-reduced-data: reduce) { #matrix, #sky { display: none; } }
 
