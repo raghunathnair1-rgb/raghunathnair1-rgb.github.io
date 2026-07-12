@@ -7,7 +7,8 @@
     "factory": "The dark factory (self-knowledge)",
     "sdlc": "Agentic SDLC",
     "stack": "Tech stack",
-    "infra": "Infrastructure & inference"
+    "infra": "Infrastructure & inference",
+    "product": "Product & app patterns"
   },
   "concepts": [
     {
@@ -4002,6 +4003,270 @@
       ],
       "ev": "HN 'Agent transparency and token accounting' theme — auditing how much context CLI agents burn — combined with this system's long-running cron-autonomy daemons (self-improve.sh, world_loop.py).",
       "src": "learned"
+    },
+    {
+      "id": "todoist",
+      "dom": "product",
+      "label": "Todoist (reference design to clone)",
+      "def": "Clone Todoist: a cross-platform to-do manager whose reference design combines natural-language quick-add, nested projects/sections/labels, P1-P4 priorities, recurring due dates, sharing/collaboration, gamified Karma, and offline-first multi-device sync — use it as the feature-parity target that every other concept in this cluster implements.",
+      "rel": [
+        "task-management-app",
+        "task-model",
+        "offline-sync-engine"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "task-management-app",
+      "dom": "product",
+      "label": "Task-management app pattern",
+      "def": "Build the transferable task-app pattern: a tree of container entities (projects/sections) holding orderable task records that carry due dates, priorities, tags, assignees, and completion state, surfaced through quick capture, list/board, and date-driven views over a syncable local-first store — the generic template that Todoist specializes.",
+      "rel": [
+        "task-model",
+        "project-hierarchy",
+        "offline-sync-engine"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "task-model",
+      "dom": "product",
+      "label": "Task entity & sub-task nesting",
+      "def": "Implement a Task record with content (markdown title), description (markdown body), project_id, section_id, nullable parent_id, child_order (manual sort), priority (1-4), due/deadline, labels[], assignee, and a checked flag; model sub-tasks as ordinary tasks whose parent_id points at another task so they render as an indented, collapsible tree several levels deep, cascading completion/deletion from a parent to its descendants.",
+      "rel": [
+        "task-management-app",
+        "project-hierarchy",
+        "section-grouping"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "project-hierarchy",
+      "dom": "product",
+      "label": "Projects & sub-projects + Inbox",
+      "def": "Implement Projects as a nested tree (project.parent_id, ~4 levels) each with name, color, child_order, view_style (list/board/calendar), is_favorite and is_archived flags, and auto-create exactly one non-deletable, non-movable Inbox project per user (is_inbox_project=true) as the default container for any task captured without an explicit project.",
+      "rel": [
+        "task-model",
+        "section-grouping",
+        "project-sharing"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "section-grouping",
+      "dom": "product",
+      "label": "Sections within a project",
+      "def": "Implement Sections as named, ordered groupings scoped to a single project (section.project_id + section_order, no sub-sections); tasks carry a section_id that files them under a collapsible, drag-reorderable section header, and tasks with a null section_id render in an implicit default group above the first section.",
+      "rel": [
+        "project-hierarchy",
+        "task-model",
+        "list-board-toggle"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "labels",
+      "dom": "product",
+      "label": "Labels (@-tags)",
+      "def": "Implement user-owned labels each with a name, color, and is_favorite flag, referenced by an @name prefix and attached many-to-many to tasks via quick-add (@work) or the task editor, listed in the sidebar Filters & Labels section, and clickable to open a view listing every task carrying that label.",
+      "rel": [
+        "task-model",
+        "nl-quick-add",
+        "filter-query-language"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "nl-quick-add",
+      "dom": "product",
+      "label": "Natural-language Quick Add & token grammar",
+      "def": "Implement a single-line Quick Add parser that tokenizes free text in one pass and extracts due date/recurrence, priority (p1-p4, where p1 is highest and maps to internal priority 4, default p4), project (#Project or #Project/Section), label (@Label), and assignee (+Assignee) into structured fields while leftover text becomes the task content, live-highlighting each recognized token as a removable chip, offering type-ahead autocomplete on #/@/+, and auto-creating a project or label when the typed name matches nothing.",
+      "rel": [
+        "task-model",
+        "smart-date-parse",
+        "recurring-rules"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "smart-date-parse",
+      "dom": "product",
+      "label": "Smart date/time parsing & due field",
+      "def": "Build a natural-language date/time resolver that maps relative terms (today, tomorrow, this/next <weekday>, next week/month, in N days, end of month), explicit formats (27 Jan, 27/1, 10/5/2024), and time phrases (at 3pm, 10:30, noon, midnight) to a concrete due datetime, storing an optional date, optional time (all-day when absent), optional duration/end-time, the raw NL string, and a timezone mode (fixed named zone vs floating/local-day), treating date-only input as all-day and always resolving to the next future occurrence.",
+      "rel": [
+        "nl-quick-add",
+        "recurring-rules",
+        "today-upcoming-views"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "recurring-rules",
+      "dom": "product",
+      "label": "Recurring rules & strict recurrence",
+      "def": "Build a recurrence engine that parses rules such as 'every day/week/month/year', 'every weekday', 'every Mon,Fri at 8pm', 'every 3 days', 'every other week', and 'every 27th', and on completion advances the due date to the next matching occurrence — computed from the previous due date for regular 'every' rules but from the actual completion date for strict 'every!' rules — while keeping the task open and preserving its recurrence string and time-of-day.",
+      "rel": [
+        "smart-date-parse",
+        "nl-quick-add",
+        "task-model"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "task-reminders",
+      "dom": "product",
+      "label": "Reminders",
+      "def": "Implement task reminders that fire notifications at an absolute date-time, at a relative offset before a timed task's due time (e.g. 30 minutes before, requiring the task to have a due time), or on GPS arrival at / departure from a location, supporting multiple reminders per task plus a user-configurable default automatic reminder, delivered via push, email, and desktop.",
+      "rel": [
+        "smart-date-parse",
+        "activity-notifications",
+        "task-model"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "task-priority",
+      "dom": "product",
+      "label": "Priorities P1-P4 & complete animation",
+      "def": "Implement four priority levels stored inverted per Todoist's REST API (4=P1 highest, 3=P2, 2=P3, 1=P4 default) and settable via p1-p4 quick-add tokens; render P1 red, P2 orange/amber, P3 blue, P4 neutral, tinting both a small flag icon and the circular checkbox ring, play a fill-and-checkmark then strikethrough-and-fade animation with an undo toast on completion, and expose priority as a sort/group/filter key.",
+      "rel": [
+        "task-model",
+        "nl-quick-add",
+        "filter-query-language"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "today-upcoming-views",
+      "dom": "product",
+      "label": "Today & Upcoming smart views",
+      "def": "Build two date-driven smart views — a Today view listing all tasks due today plus still-open overdue tasks (grouped Overdue vs Today, manually reorderable), and an Upcoming view rendering a horizontally scrollable multi-day/weekly calendar of dated tasks — both supporting inline rescheduling and drag-and-drop of a task onto a different day to rewrite its due date (advancing or detaching recurrence as appropriate).",
+      "rel": [
+        "smart-date-parse",
+        "recurring-rules",
+        "filter-query-language"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "list-board-toggle",
+      "dom": "product",
+      "label": "List / Board view toggle",
+      "def": "Give every project and saved view a persisted per-view toggle between a vertical List view and a horizontal Board (kanban) view where sections render as columns and tasks as drag-and-drop cards, sharing one underlying task/section model.",
+      "rel": [
+        "project-hierarchy",
+        "section-grouping",
+        "task-model"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "filter-query-language",
+      "dom": "product",
+      "label": "Filter query language",
+      "def": "Build a boolean query parser supporting & (AND), | (OR), ! (NOT), parentheses for grouping, and comma (multiple result sections) over tokens for dates (today, overdue, no date, 7 days, due before:/after:<date>, recurring), priorities (p1-p4), labels (@name), projects (#name and ## for a project plus sub-projects), assignment (assigned to: me, assigned by:, shared), and free text (search:<text>), compiling each query into a predicate that selects and orders matching tasks.",
+      "rel": [
+        "task-model",
+        "labels",
+        "task-priority"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "saved-filters-views",
+      "dom": "product",
+      "label": "Saved filters, custom views & favorites",
+      "def": "Let a user save any filter query as a named object with a color and is_favorite flag, and render every favorited project/label/filter in a dedicated drag-orderable 'Favorites' group pinned atop the left sidebar; saved views open as a list or board, can be grouped/sorted, and enforce plan-based count limits (e.g. 3 saved filters on Free, up to 150 on Pro).",
+      "rel": [
+        "filter-query-language",
+        "labels",
+        "list-board-toggle"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "project-sharing",
+      "dom": "product",
+      "label": "Shared projects & collaborators",
+      "def": "Implement project sharing where an owner invites people by email, creating per-project collaborator records with pending/accepted invitation states, and grant every accepted collaborator visibility plus edit access to all tasks, sections, and comments in that shared project.",
+      "rel": [
+        "project-hierarchy",
+        "task-assignee",
+        "collab-comments"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "task-assignee",
+      "dom": "product",
+      "label": "Assign tasks to collaborators",
+      "def": "Add an optional single assignee field on each task that must reference a collaborator of the task's shared project, expose an assignee picker in both quick-add and task detail, support views/filters like 'assigned to me' and 'assigned to others', and fire a notification to the assignee whenever they are assigned.",
+      "rel": [
+        "task-model",
+        "project-sharing",
+        "activity-notifications"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "collab-comments",
+      "dom": "product",
+      "label": "Comments & file attachments",
+      "def": "Build task-level and project-level comments supporting rich text, emoji reactions, and file/image attachments (upload, preview thumbnails, stored download URLs), with an option when posting to notify all collaborators or a specific person, so discussion and shared files live alongside the task.",
+      "rel": [
+        "task-model",
+        "project-sharing",
+        "activity-notifications"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "activity-notifications",
+      "dom": "product",
+      "label": "Activity log & notifications",
+      "def": "Record an append-only activity event stream per task and project (added, completed, uncompleted, edited, assigned, commented, attachment added) rendered as a history filterable by person/project, and fan those events out as notifications to an in-app inbox plus email and push, honoring per-user and per-project notification preferences.",
+      "rel": [
+        "task-model",
+        "project-sharing",
+        "collab-comments"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "karma-scoring",
+      "dom": "product",
+      "label": "Karma, goals, streaks & productivity trends",
+      "def": "Implement gamified Karma that adds points for productivity events (adding/completing tasks, meeting daily/weekly completion goals, using due dates/priorities) and subtracts for overdue tasks, maps cumulative score to named tiers (Beginner 0, Novice 500, Intermediate 2500, Professional 5000, Expert 7500, Master 19000, Grandmaster 36000, Enlightened 50000+), tracks per-day/week goal targets with current and longest streaks in the user's timezone, exposes a Vacation Mode that suspends goal enforcement and overdue penalties without pausing tracking, and renders a Productivity view with 7-day/4-week completion bar charts and progress to the next level.",
+      "rel": [
+        "task-model",
+        "today-upcoming-views",
+        "activity-notifications"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "offline-sync-engine",
+      "dom": "product",
+      "label": "Offline-first sync engine & no-backend MVP",
+      "def": "Implement a local-first store (IndexedDB, localStorage fallback) as the read source of truth plus a monotonic sync_token, routing every write through a durable command queue of {type, uuid, temp_id, args} objects that POST in batches to /sync, applying the returned incremental delta and reconciling temp_id→real_id; maintain a WebSocket (long-poll fallback) delivering 'sync-needed' pings that trigger incremental pulls, resolve concurrent edits last-write-wins per field, and keep the repository layer's method shapes mirroring the Sync command API so a client-only MVP can later swap in the real backend untouched.",
+      "rel": [
+        "task-model",
+        "rest-sync-api-webhooks",
+        "task-management-app"
+      ],
+      "src": "curated"
+    },
+    {
+      "id": "rest-sync-api-webhooks",
+      "dom": "product",
+      "label": "REST + Sync API & webhooks",
+      "def": "Expose a REST API for per-resource CRUD on tasks/projects/labels/comments alongside a batched Sync API for incremental deltas, and emit HMAC-SHA256-signed webhook POSTs for events (item:added, item:completed, note:added) with retry/backoff so third-party integrations can react reliably.",
+      "rel": [
+        "offline-sync-engine",
+        "task-model",
+        "activity-notifications"
+      ],
+      "src": "curated"
     }
   ]
 }
