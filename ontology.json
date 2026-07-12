@@ -4334,7 +4334,8 @@
         "ontology-maintenance",
         "self-improve",
         "observability",
-        "dark-factory"
+        "dark-factory",
+        "ontology-learning"
       ],
       "ev": "doctrine (principles.md) Observability layer: 'measure the loop's own health: knowledge up (monotonic), hallucinations down (gated)...'",
       "src": "learned"

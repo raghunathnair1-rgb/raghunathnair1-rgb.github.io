@@ -83,6 +83,8 @@ html { scroll-behavior: smooth; }
 #content a:visited { color: var(--muted); }
 /* light list markers in the terminal accent so each bullet reads like a lit prompt marker */
 #content li::marker { color: var(--cyan); }
+/* lift bold key terms to the highlight-green so emphasised concepts glow one notch brighter (tracks the amber theme via --green) */
+#content strong, #content b { color: var(--green); }
 #content blockquote { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--cyan); color: var(--muted); font-style: italic; box-shadow: -4px 0 12px -10px var(--cyan); }
 #content a:hover,
 #content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
