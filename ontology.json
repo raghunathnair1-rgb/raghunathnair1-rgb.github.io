@@ -2439,6 +2439,47 @@
       ],
       "ev": "Commit a63befb 'self-improve: Drop the decorative CRT shader on metered connections'",
       "src": "learned"
+    },
+    {
+      "id": "text-to-sql",
+      "dom": "agentic-ai",
+      "label": "Text-to-SQL",
+      "def": "Translating natural language into database queries with an LLM, where the generated SQL must be validated or constrained before execution because correctness and safety are not guaranteed.",
+      "rel": [
+        "typed-sql",
+        "structured-output",
+        "verification",
+        "grounding",
+        "hallucination"
+      ],
+      "ev": "HN trend theme: 'People want to know ... whether AI-generated SQL is actually safe' — plus this system's existing sqlx-style typed-sql concept.",
+      "src": "learned"
+    },
+    {
+      "id": "forced-colors-mode",
+      "dom": "stack",
+      "label": "Forced-colors mode",
+      "def": "A CSS/OS accessibility feature (forced-colors / Windows High-Contrast) that overrides page colors, requiring decorative overlays to be suppressed so essential content stays legible.",
+      "rel": [
+        "accessibility",
+        "network-adaptive-rendering"
+      ],
+      "ev": "Shipped commit 41e8f64 'Suppress decorative overlays under Windows High-Contrast (forced-colors)'.",
+      "src": "learned"
+    },
+    {
+      "id": "acid-transactions",
+      "dom": "stack",
+      "label": "ACID transactions",
+      "def": "The atomicity, consistency, isolation, and durability guarantees a storage engine enforces so higher layers can rely on correct, throughput-safe state.",
+      "rel": [
+        "storage-engine",
+        "embedded-db",
+        "typed-sql",
+        "data-contract"
+      ],
+      "ev": "HN trend theme: 'Database rigor and correctness ... renewed focus on strictness and throughput at the storage layer as a foundation for everything above it.'",
+      "src": "learned"
     }
   ]
 }
