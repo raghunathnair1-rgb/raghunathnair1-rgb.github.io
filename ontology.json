@@ -4293,6 +4293,51 @@
       ],
       "ev": "Latest AI/tech trends theme: 'Model migration for speed and cost: Teams are publicly benchmarking newer models on latency and price for production agents.'",
       "src": "learned"
+    },
+    {
+      "id": "agent-instruction-file",
+      "dom": "harness",
+      "label": "Agent Instruction File",
+      "def": "A checked-in natural-language file (e.g. CLAUDE.md or AGENTS.md) that encodes a repo's conventions, guardrails, and operating rules to steer a coding agent's behavior within that project.",
+      "rel": [
+        "agent",
+        "harness-eng",
+        "context-eng",
+        "doctrine",
+        "agentic-cli"
+      ],
+      "ev": "This repo's own CLAUDE.md project-instructions file (loaded verbatim to steer the agent), amplified by the HN-front-page trend of coding-agent CLIs (Grok build CLI, OpenCode) as the new way to build s",
+      "src": "learned"
+    },
+    {
+      "id": "lethal-trifecta",
+      "dom": "agentic-ai",
+      "label": "Lethal Trifecta",
+      "def": "The compounding agent-security risk that arises only when a system simultaneously has access to private data, exposure to untrusted content, and an outbound exfiltration channel; any two are safe, all three enable data theft.",
+      "rel": [
+        "prompt-injection",
+        "tool-poisoning",
+        "agent-security",
+        "egress-transparency",
+        "data-minimization"
+      ],
+      "ev": "The HN-front-page trend of dissecting coding agents (Grok build CLI) at the wire level to reveal exactly what they transmit / 'send home' — the exfiltration leg of agent data exposure.",
+      "src": "learned"
+    },
+    {
+      "id": "monotonic-knowledge",
+      "dom": "factory",
+      "label": "Monotonic Knowledge Growth",
+      "def": "A self-improvement invariant that the system's knowledge base must only accumulate and never regress, tracked as a first-class health signal of the recursive loop.",
+      "rel": [
+        "ontology",
+        "ontology-maintenance",
+        "self-improve",
+        "observability",
+        "dark-factory"
+      ],
+      "ev": "doctrine (principles.md) Observability layer: 'measure the loop's own health: knowledge up (monotonic), hallucinations down (gated)...'",
+      "src": "learned"
     }
   ]
 }
