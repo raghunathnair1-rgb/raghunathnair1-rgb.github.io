@@ -2981,6 +2981,36 @@
       ],
       "ev": "latest trends theme 'squeezing correctness and throughput out of SQL infrastructure' (the correctness half)",
       "src": "learned"
+    },
+    {
+      "id": "kv-cache",
+      "dom": "infra",
+      "label": "KV Cache",
+      "def": "The per-token attention key/value tensors an LLM caches during decoding, which dominate inference memory and grow linearly with sequence length and batch size.",
+      "rel": [
+        "prefix-caching",
+        "continuous-batching",
+        "memory-bandwidth-bound",
+        "model-offloading",
+        "distributed-inference"
+      ],
+      "ev": "Established inference technology directly underpinning the existing 'prefix-caching' and 'continuous-batching' nodes; the 'Distributed/decentralized LLM compute' trend theme (HN front page, 2026-07-12",
+      "src": "learned"
+    },
+    {
+      "id": "disaggregated-serving",
+      "dom": "infra",
+      "label": "Prefill/Decode Disaggregation",
+      "def": "An inference architecture that runs the compute-bound prefill phase and the memory-bandwidth-bound decode phase on separate hardware pools, streaming the KV cache between them to optimize each independently.",
+      "rel": [
+        "kv-cache",
+        "continuous-batching",
+        "distributed-inference",
+        "memory-bandwidth-bound",
+        "inference-economics"
+      ],
+      "ev": "Established technique in modern distributed serving stacks (vLLM/production inference); grounded in the 'Distributed / decentralized LLM compute' HN trend theme (2026-07-12) of splitting inference acr",
+      "src": "learned"
     }
   ]
 }
