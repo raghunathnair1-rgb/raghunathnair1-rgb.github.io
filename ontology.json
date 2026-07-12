@@ -1406,7 +1406,6 @@
       "def": "An Anthropic Labs product for collaborative visual creation: describe a design and Claude builds prototypes, wireframes, mockups, decks and marketing assets, refined by conversation and applying team design systems; inputs text/images/docs/codebases, exports to Canva/PDF/PPTX/HTML, and hands off to Claude Code.",
       "rel": [
         "claude-agent-sdk",
-        "agentic-patterns",
         "generative-media"
       ]
     },
@@ -3988,6 +3987,20 @@
         "minimal-agent"
       ],
       "ev": "trend theme 'Agent transparency & wire-level scrutiny: People are auditing exactly what agent CLIs send over the wire and how much token overhead they carry.'",
+      "src": "learned"
+    },
+    {
+      "id": "context-rot",
+      "dom": "agentic-ai",
+      "label": "Context rot",
+      "def": "The degradation of an LLM's attention and reliability as its context window fills with tokens, so long-running agents must actively prune and compact context rather than let it accumulate.",
+      "rel": [
+        "context-eng",
+        "agent-token-overhead",
+        "memory",
+        "prefix-caching"
+      ],
+      "ev": "HN 'Agent transparency and token accounting' theme — auditing how much context CLI agents burn — combined with this system's long-running cron-autonomy daemons (self-improve.sh, world_loop.py).",
       "src": "learned"
     }
   ]
