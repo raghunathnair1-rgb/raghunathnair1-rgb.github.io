@@ -4278,6 +4278,21 @@
       ],
       "ev": "Trend theme 'DIY / handmade hardware and indie web: top Show HN slots reward from-scratch builds and personal, hand-crafted software'",
       "src": "learned"
+    },
+    {
+      "id": "model-migration",
+      "dom": "harness",
+      "label": "Model migration",
+      "def": "The recurring engineering practice of porting an agent onto a newer base model and re-benchmarking its latency, cost, and output quality before switching production traffic over.",
+      "rel": [
+        "harnessability",
+        "inference-economics",
+        "tiered-router",
+        "evals",
+        "claude-agent-sdk"
+      ],
+      "ev": "Latest AI/tech trends theme: 'Model migration for speed and cost: Teams are publicly benchmarking newer models on latency and price for production agents.'",
+      "src": "learned"
     }
   ]
 }

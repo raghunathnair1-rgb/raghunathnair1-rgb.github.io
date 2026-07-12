@@ -212,6 +212,10 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 @media (prefers-reduced-transparency: reduce) { .kg3d-stage, .brain-gl-stage, .brain-gl-stage.hero, .pipe-gl-stage { box-shadow: none; } }
 @media (prefers-reduced-transparency: reduce) { .pipe-gl-stage { box-shadow: none; } }
 @media (prefers-reduced-transparency: reduce) { body::before, body::after { display: none; } }
+@media (prefers-reduced-transparency: reduce) {
+  #content hr { box-shadow: none; }
+  #content blockquote { box-shadow: none; }
+}
 @media (prefers-reduced-data: reduce) { #crtfx { display: none; } }
 @media (prefers-reduced-data: reduce) { #matrix, #sky { display: none; } }
 
