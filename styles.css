@@ -240,6 +240,8 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 html, body { height: 100%; }
 body {
   margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background:
     radial-gradient(1200px 600px at 50% -10%, rgba(0,255,65,.08), transparent 60%),
     var(--bg);

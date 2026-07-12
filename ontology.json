@@ -3534,6 +3534,21 @@
       ],
       "ev": "Latest-trends themes: 'AI's energy footprint' + 'AI infra bubble anxiety — circular capital flows propping up the GPU/datacenter buildout.'",
       "src": "learned"
+    },
+    {
+      "id": "grid-interactive-datacenter",
+      "dom": "infra",
+      "label": "Grid-Interactive Datacenter",
+      "def": "A datacenter that dynamically modulates or shifts its compute load in response to real-time electrical-grid demand and price signals (demand response), easing grid stress and cutting cost rather than drawing flat baseload power.",
+      "rel": [
+        "behind-the-meter-power",
+        "carbon-aware-computing",
+        "energy-proportional-computing",
+        "power-usage-effectiveness",
+        "jevons-paradox"
+      ],
+      "ev": "latest trends theme 'AI's energy footprint: The environmental cost of the datacenter boom is now front-and-center alongside its economics'",
+      "src": "learned"
     }
   ]
 }
