@@ -2183,6 +2183,38 @@ fn app() -> Html {
                                 });
                                 if throttled {
                                     e.prevent_default();
+                                    // make the silent throttle legible: a bot-fast repeat click surfaces a
+                                    // thin phosphor bar that drains over the ~1.5s window, and the control
+                                    // reports aria-disabled while it cools. A single human click never lands here.
+                                    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+                                        if let Some(link) = doc.get_element_by_id("cc-mail-link") {
+                                            let _ = link.set_attribute("aria-disabled", "true");
+                                            let _ = link.set_attribute("style", "position:relative");
+                                            if doc.get_element_by_id("cc-mail-cooldown").is_none() {
+                                                if let Ok(bar) = doc.create_element("span") {
+                                                    bar.set_id("cc-mail-cooldown");
+                                                    bar.set_class_name("cc-cooldown");
+                                                    const FULL: &str = "position:absolute;left:0;bottom:0;height:2px;width:100%;transform-origin:left;background:var(--glow);box-shadow:0 0 6px var(--glow);pointer-events:none;transition:transform 1500ms linear;transform:scaleX(1)";
+                                                    let _ = bar.set_attribute("style", FULL);
+                                                    let _ = link.append_child(&bar);
+                                                    // force a reflow so the drain transitions from full, not from empty
+                                                    let _ = bar.get_bounding_client_rect();
+                                                    let _ = bar.set_attribute("style", &FULL.replace("scaleX(1)", "scaleX(0)"));
+                                                    gloo_timers::callback::Timeout::new(1500, move || {
+                                                        if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+                                                            if let Some(b) = doc.get_element_by_id("cc-mail-cooldown") {
+                                                                b.remove();
+                                                            }
+                                                            if let Some(link) = doc.get_element_by_id("cc-mail-link") {
+                                                                let _ = link.remove_attribute("aria-disabled");
+                                                                let _ = link.remove_attribute("style");
+                                                            }
+                                                        }
+                                                    }).forget();
+                                                }
+                                            }
+                                        }
+                                    }
                                     return;
                                 }
                                 let doc = match web_sys::window().and_then(|w| w.document()) {
