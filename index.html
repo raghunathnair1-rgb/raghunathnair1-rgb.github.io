@@ -201,7 +201,8 @@
   <canvas id="sky" aria-hidden="true" role="presentation"></canvas>
   <div id="app"></div>
   <!-- honeypot: off-screen decoy mailto that naive harvester bots ingest from the served HTML; clipped off-screen, hidden from the a11y tree, unfocusable & nofollowed so no human or assistive-tech user ever meets it -->
-  <a class="honeypot" href="mailto:no-reply-trap@raghunathnair1-rgb.github.io" rel="nofollow" aria-hidden="true" tabindex="-1" inert style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">do-not-email</a>
+  <a id="hp-trap" class="honeypot" href="mailto:no-reply-trap@raghunathnair1-rgb.github.io" rel="nofollow" aria-hidden="true" tabindex="-1" inert style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">do-not-email</a>
+  <script>try{var _hb=new Uint8Array(6);crypto.getRandomValues(_hb);var _ht="";for(var _hi=0;_hi<_hb.length;_hi++){_ht+=(_hb[_hi]%36).toString(36);}document.getElementById("hp-trap").setAttribute("href","mailto:no-reply-trap+"+_ht+"@raghunathnair1-rgb.github.io");}catch(e){}</script>
   <!-- honeypot: off-screen decoy link that naive link-following harvester bots ingest & crawl from the served HTML; clipped off-screen, hidden from the a11y tree, unfocusable & nofollowed so legitimate crawlers skip it and no human or assistive-tech user ever meets it -->
   <a class="honeypot" href="/trap/" rel="nofollow" aria-hidden="true" tabindex="-1" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">do-not-follow</a>
   <noscript>
