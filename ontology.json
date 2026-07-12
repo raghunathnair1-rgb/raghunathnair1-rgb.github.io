@@ -4421,6 +4421,20 @@
       ],
       "ev": "vLLM-class inference serving embodied by the system's stack (existing 'vllm' concept; spark GB10 inference telemetry).",
       "src": "learned"
+    },
+    {
+      "id": "cot-monitorability",
+      "dom": "agentic-ai",
+      "label": "CoT Monitorability",
+      "def": "The safety property and practice of reading an agent's externalized chain-of-thought to detect misbehavior or intent, which holds only while that reasoning stays faithful and legible.",
+      "rel": [
+        "cot-faithfulness",
+        "mechanistic-interpretability",
+        "guardrails",
+        "agent-tracing"
+      ],
+      "ev": "Latest-trends theme 'Can we actually understand LLM reasoning: interpretability of how models reason is a recurring serious-research thread'; an established durable AI-safety concept distinct from (bu",
+      "src": "learned"
     }
   ]
 }
