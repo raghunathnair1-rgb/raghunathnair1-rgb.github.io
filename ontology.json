@@ -3492,6 +3492,19 @@
       ],
       "ev": "commit c74f2c5 'self-improve: Add `color-scheme: dark` to the root so UA-rendered chrome matches'",
       "src": "learned"
+    },
+    {
+      "id": "priority-hints",
+      "dom": "stack",
+      "label": "Priority Hints",
+      "def": "A web platform API (the `fetchpriority` attribute and `Priority` header) that lets a page signal the relative fetch importance of a resource to the browser's scheduler, distinct from preconnect/preload resource hints.",
+      "rel": [
+        "resource-hints",
+        "network-adaptive-rendering",
+        "progressive-enhancement"
+      ],
+      "ev": "commit f0fa898 'self-improve: Add fetchpriority=\"high\" to the primary body-font preload'",
+      "src": "learned"
     }
   ]
 }
