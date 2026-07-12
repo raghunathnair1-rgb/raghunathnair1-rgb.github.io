@@ -2199,17 +2199,60 @@ fn app() -> Html {
                                     h.set_inner_html("decrypting\u{2026}");
                                 }
                                 let addr = format!("{}@{}", user, host);
-                                let reveal = gloo_timers::callback::Timeout::new(420, move || {
-                                    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
-                                        if let Some(a) = doc.get_element_by_id("cc-mail-link") {
-                                            let _ = a.set_attribute("href", &format!("mailto:{}", addr));
-                                        }
-                                        if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
-                                            h.set_inner_html(&addr);
+                                // reduced-motion: settle instantly, no phosphor scramble
+                                let reduced = web_sys::window()
+                                    .and_then(|w| w.match_media("(prefers-reduced-motion: reduce)").ok().flatten())
+                                    .map_or(false, |m| m.matches());
+                                if reduced {
+                                    if let Some(a) = doc.get_element_by_id("cc-mail-link") {
+                                        let _ = a.set_attribute("href", &format!("mailto:{}", addr));
+                                    }
+                                    if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
+                                        h.set_inner_html(&addr);
+                                    }
+                                    return;
+                                }
+                                // phosphor decrypt: rain random glyphs through each slot and settle
+                                // the true address left-to-right over ~500ms, then lock the mailto link.
+                                let chars: Vec<char> = addr.chars().collect();
+                                let len = chars.len();
+                                let tick = std::rc::Rc::new(std::cell::Cell::new(0u32));
+                                let holder: std::rc::Rc<std::cell::RefCell<Option<gloo_timers::callback::Interval>>> =
+                                    std::rc::Rc::new(std::cell::RefCell::new(None));
+                                let holder2 = holder.clone();
+                                const GLYPHS: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@._";
+                                let total: u32 = 16;
+                                let interval = gloo_timers::callback::Interval::new(32, move || {
+                                    let t = tick.get() + 1;
+                                    tick.set(t);
+                                    let settled = ((len as u32 * t) / total).min(len as u32) as usize;
+                                    let mut out = String::with_capacity(len);
+                                    for (i, c) in chars.iter().enumerate() {
+                                        if i < settled {
+                                            out.push(*c);
+                                        } else {
+                                            let g = GLYPHS[(js_sys::Math::random() * GLYPHS.len() as f64) as usize];
+                                            out.push(g as char);
                                         }
                                     }
+                                    let done = settled >= len;
+                                    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+                                        if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
+                                            h.set_inner_html(if done { &addr } else { &out });
+                                        }
+                                        if done {
+                                            if let Some(a) = doc.get_element_by_id("cc-mail-link") {
+                                                let _ = a.set_attribute("href", &format!("mailto:{}", addr));
+                                            }
+                                        }
+                                    }
+                                    if done {
+                                        // defer the interval's own drop out of its callback (self-cancel is unsound)
+                                        let h = holder2.clone();
+                                        gloo_timers::callback::Timeout::new(0, move || { h.borrow_mut().take(); }).forget();
+                                    }
                                 });
-                                reveal.forget();
+                                *holder.borrow_mut() = Some(interval);
                             });
                             html! {
                                 <a id="cc-mail-link" class="contact-card cc-mail" href="#" {onclick}>
