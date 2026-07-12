@@ -3549,6 +3549,19 @@
       ],
       "ev": "latest trends theme 'AI's energy footprint: The environmental cost of the datacenter boom is now front-and-center alongside its economics'",
       "src": "learned"
+    },
+    {
+      "id": "compute-as-collateral",
+      "dom": "infra",
+      "label": "Compute-as-collateral financing",
+      "def": "A financing structure where AI datacenter buildouts are funded by debt secured against the GPUs and compute-purchase contracts themselves, tying repayment to accelerator utilization and depreciation.",
+      "rel": [
+        "circular-financing",
+        "accelerator-depreciation",
+        "inference-economics"
+      ],
+      "ev": "Latest AI/tech trend theme 'AI compute financing & the GPU boom' — the top HN front-page story dissects how the money behind AI infrastructure is circularly financed.",
+      "src": "learned"
     }
   ]
 }
