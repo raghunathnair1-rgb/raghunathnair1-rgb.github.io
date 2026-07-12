@@ -4478,6 +4478,20 @@
       ],
       "ev": "latest-trends note that durable memory over MCP comes 'alongside worries about its security' (HN front page, 2026-07-13)",
       "src": "learned"
+    },
+    {
+      "id": "filesystem-memory",
+      "dom": "harness",
+      "label": "Filesystem-as-Memory",
+      "def": "Persisting an agent's durable knowledge and state as plain files in the repository or filesystem rather than in the context window, so it survives restarts and can be versioned and audited.",
+      "rel": [
+        "memory",
+        "context-eng",
+        "context-compaction",
+        "world-model"
+      ],
+      "ev": "This system's durable knowledge stores held as files: brain/world.json, brain/ontology.json, brain/principles.md, and the persistent MEMORY.md index",
+      "src": "learned"
     }
   ]
 }
