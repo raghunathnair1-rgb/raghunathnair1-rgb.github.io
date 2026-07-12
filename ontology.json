@@ -3381,6 +3381,46 @@
       ],
       "ev": "HN 'Database & backend performance engineering' theme (2026-07-12); bridges the graph's existing columnar-storage/vectorized-execution (analytical) and mvcc (transactional) concepts",
       "src": "learned"
+    },
+    {
+      "id": "tap-highlight-suppression",
+      "dom": "stack",
+      "label": "Tap-highlight suppression",
+      "def": "Removing the default mobile browser tap-flash overlay on interactive elements (via -webkit-tap-highlight-color) so touch UI feels like a native app.",
+      "rel": [
+        "accessibility",
+        "accent-color",
+        "progressive-enhancement"
+      ],
+      "ev": "recent commits 'Suppress the mobile tap-flash on in-content links', '...on the pipeline-stage labels', '...on the console navigation tabs'",
+      "src": "learned"
+    },
+    {
+      "id": "carbon-aware-computing",
+      "dom": "infra",
+      "label": "Carbon-aware computing",
+      "def": "Scheduling or shifting AI inference and training workloads to the times and regions where the electricity grid is cleanest, to cut the carbon emissions of the compute.",
+      "rel": [
+        "inference-economics",
+        "adaptive-serving",
+        "accelerator-depreciation",
+        "distributed-inference"
+      ],
+      "ev": "Latest AI/tech trend theme: 'AI's energy and carbon footprint — the environmental cost of datacenters is emerging as a mainstream counter-narrative to the AI buildout' (HN front page, 2026-07-12).",
+      "src": "learned"
+    },
+    {
+      "id": "power-usage-effectiveness",
+      "dom": "infra",
+      "label": "Power Usage Effectiveness (PUE)",
+      "def": "The ratio of a datacenter's total energy draw to the energy actually delivered to its compute, the standard durable metric for AI infrastructure efficiency.",
+      "rel": [
+        "inference-economics",
+        "gpu-interconnect",
+        "accelerator-depreciation"
+      ],
+      "ev": "Latest AI/tech trend theme: 'AI's energy and carbon footprint ... environmental cost of datacenters' as a counter-narrative to the AI buildout (HN front page, 2026-07-12).",
+      "src": "learned"
     }
   ]
 }
