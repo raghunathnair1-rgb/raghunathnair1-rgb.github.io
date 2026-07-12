@@ -2834,6 +2834,35 @@
       ],
       "ev": "trend themes 'Data-infra reliability & performance: making storage and connection layers stricter and faster' and 'Learn-by-rebuilding from scratch (Redis, Git, DBs)'",
       "src": "learned"
+    },
+    {
+      "id": "agent-session-replay",
+      "dom": "harness",
+      "label": "Agent Session Replay",
+      "def": "An observability technique that reconstructs and visually plays back a coding agent's actions step-by-step over a spatial map of the codebase, rather than only logging spans after the fact.",
+      "rel": [
+        "agent-tracing",
+        "observability",
+        "software-cartography",
+        "kg-viz"
+      ],
+      "ev": "HN NOTABLE 'Mindwalk: Replays coding-agent sessions visually on a 3D map of a codebase' (trends 2026-07-12)",
+      "src": "learned"
+    },
+    {
+      "id": "intent-driven-dev",
+      "dom": "sdlc",
+      "label": "Intent-Driven Development",
+      "def": "A development paradigm in which humans supply high-level intent and specifications while agents author the actual code, shifting the human role from writer to reviewer and director.",
+      "rel": [
+        "sdlc-build",
+        "sdlc-plan",
+        "reverse-centaur",
+        "human-on-the-loop",
+        "self-improve"
+      ],
+      "ev": "HN trend theme 'Questioning why humans write code in the AI era: the role of hand-written code is being openly reconsidered as agents take over authorship' plus this system's self_improve.py/idea_engi",
+      "src": "learned"
     }
   ]
 }
