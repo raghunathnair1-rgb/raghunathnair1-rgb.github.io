@@ -3637,6 +3637,21 @@
       ],
       "ev": "idea_engine.py proposes up to 3 candidate concepts and a downstream gate / self_improve selects the single highest-value change ('pick the single highest-value change from real signals'), a generate-N",
       "src": "learned"
+    },
+    {
+      "id": "output-homogenization",
+      "dom": "agentic-ai",
+      "label": "Output Homogenization",
+      "def": "When a large share of knowledge work is mediated by a handful of shared AI models, the collective body of output converges toward a statistical mean in ideas and style even as individual throughput rises.",
+      "rel": [
+        "model-collapse",
+        "ai-slop",
+        "productivity-paradox",
+        "epistemic-debt",
+        "reverse-centaur"
+      ],
+      "ev": "Latest-trends theme: 'AI's double edge on knowledge work: AI accelerates individual output while homogenizing the overall body of work.' Distinct from model-collapse (which is AI training on AI-genera",
+      "src": "learned"
     }
   ]
 }
