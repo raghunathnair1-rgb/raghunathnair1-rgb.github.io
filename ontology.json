@@ -205,7 +205,8 @@
         "idea-engine",
         "gate",
         "tiered-router",
-        "recursive-loop"
+        "recursive-loop",
+        "sdlc"
       ]
     },
     {
@@ -2677,6 +2678,21 @@
         "moe"
       ],
       "ev": "spark.sh's recurring '2-node GB10 telemetry refresh' commits (a multi-node inference cluster) plus the HN trend of meshing consumer devices to run large models locally.",
+      "src": "learned"
+    },
+    {
+      "id": "memory-bandwidth-bound",
+      "dom": "infra",
+      "label": "Memory-bandwidth-bound decode",
+      "def": "LLM token generation is limited by how fast model weights stream from memory rather than by raw compute, so high-bandwidth unified memory is what lets large models run locally.",
+      "rel": [
+        "unified-memory",
+        "cpu-inference",
+        "quantization",
+        "model-offloading",
+        "inference-economics"
+      ],
+      "ev": "Trend: 'Qwen3.5-122B on Mac Studio' and 'large models running on personal hardware' — the enabling fact is Apple Silicon's high memory bandwidth, an established inference property.",
       "src": "learned"
     }
   ]
