@@ -3652,6 +3652,36 @@
       ],
       "ev": "Latest-trends theme: 'AI's double edge on knowledge work: AI accelerates individual output while homogenizing the overall body of work.' Distinct from model-collapse (which is AI training on AI-genera",
       "src": "learned"
+    },
+    {
+      "id": "verification-bottleneck",
+      "dom": "sdlc",
+      "label": "Verification bottleneck",
+      "def": "As autonomous agents generate and change code faster than humans can inspect it, review and verification capacity becomes the binding constraint on how much can safely ship.",
+      "rel": [
+        "verification",
+        "ai-review",
+        "human-on-the-loop",
+        "appropriate-reliance",
+        "gate"
+      ],
+      "ev": "Trend theme: 'Coding agents as the main event... the default way software now gets built and inspected', combined with the doctrine's five-gate verification layer and revert-on-failure loop.",
+      "src": "learned"
+    },
+    {
+      "id": "agent-computer-interface",
+      "dom": "harness",
+      "label": "Agent-computer interface (ACI)",
+      "def": "The deliberately designed tool/command surface an LLM agent acts against, optimized for model legibility and error-recovery rather than for a human GUI.",
+      "rel": [
+        "tool-use",
+        "harness-eng",
+        "minimal-agent",
+        "tool-orch",
+        "mcp"
+      ],
+      "ev": "Trend theme: 'Minimal, legible agent implementations... strong appetite for stripped-down, readable agent cores', and this system's own harness scripts as the agent's operating surface.",
+      "src": "learned"
     }
   ]
 }
