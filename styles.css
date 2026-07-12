@@ -58,7 +58,7 @@ html { scroll-behavior: smooth; }
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
 
 /* phosphor "warm-up" on interactive links — glow + brighten on hover/focus, underline stays put */
-#content a { transition: color .15s ease, text-shadow .15s ease; text-underline-offset: 0.18em; text-decoration-thickness: 1px; text-decoration-skip-ink: auto; }
+#content a { transition: color .15s ease, text-shadow .15s ease; text-underline-offset: 0.18em; text-decoration-thickness: 1px; text-decoration-skip-ink: auto; -webkit-tap-highlight-color: transparent; }
 /* balance multi-line headings so the last line isn't a lone orphaned word — inert where unsupported */
 #content h1, #content h2, #content h3 { text-wrap: balance; }
 /* pretty-wrap essay body text so the last line isn't a lone orphan — inert where unsupported */

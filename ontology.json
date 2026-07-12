@@ -3256,6 +3256,131 @@
       ],
       "ev": "HN 'Mindwalk' (replays coding-agent sessions visually on a 3D map of the codebase) + trend theme '3D/spatial replay of software work is resonating strongly'",
       "src": "learned"
+    },
+    {
+      "id": "join-algorithms",
+      "dom": "stack",
+      "label": "Join algorithms",
+      "def": "The family of physical strategies (nested-loop, sort-merge, hash join) a database uses to combine rows from multiple tables, chosen by the planner for cost.",
+      "rel": [
+        "query-planner",
+        "cardinality-estimation",
+        "vectorized-execution",
+        "buffer-pool",
+        "predicate-pushdown"
+      ],
+      "ev": "HN front-page trend theme 'Database & backend performance engineering: practical, measurable perf and correctness wins in the data layer'; complements existing execution concepts (vectorized-execution",
+      "src": "learned"
+    },
+    {
+      "id": "adaptive-query-execution",
+      "dom": "stack",
+      "label": "Adaptive query execution",
+      "def": "Re-optimizing a query plan mid-flight using actual runtime statistics (real row counts, skew) instead of trusting only the pre-execution cost estimate.",
+      "rel": [
+        "query-planner",
+        "cardinality-estimation",
+        "predicate-pushdown"
+      ],
+      "ev": "HN trend theme 'Database & backend performance engineering'; a durable correction mechanism for the cardinality-estimation errors already modeled in the graph",
+      "src": "learned"
+    },
+    {
+      "id": "materialized-view",
+      "dom": "stack",
+      "label": "Materialized view",
+      "def": "A query result physically precomputed and stored so repeated reads are cheap, kept fresh by incremental or scheduled refresh.",
+      "rel": [
+        "query-planner",
+        "storage-engine",
+        "columnar-storage"
+      ],
+      "ev": "HN trend theme 'Database & backend performance engineering' (measurable perf wins in the data layer); a classic, lasting precompute technique absent from the existing storage/query concepts",
+      "src": "learned"
+    },
+    {
+      "id": "consensus",
+      "dom": "infra",
+      "label": "Distributed Consensus",
+      "def": "Consensus protocols like Raft and Paxos let a cluster of unreliable peer nodes agree on a single ordered log of state despite crashes and network partitions.",
+      "rel": [
+        "gossip-protocol",
+        "p2p-overlay",
+        "distributed-inference",
+        "serializable-isolation"
+      ],
+      "ev": "trend theme 'decentralized / distributed AI compute across meshed peer nodes' (Mesh LLM) plus the established Raft/Paxos family that any multi-node mesh must use to coordinate",
+      "src": "learned"
+    },
+    {
+      "id": "sharding",
+      "dom": "infra",
+      "label": "Sharding",
+      "def": "Sharding horizontally partitions a dataset across nodes by key so each node holds only a subset, scaling storage and throughput beyond a single machine.",
+      "rel": [
+        "storage-engine",
+        "query-planner",
+        "cardinality-estimation",
+        "referential-integrity"
+      ],
+      "ev": "trend theme 'database & backend performance engineering — practical, measurable perf wins in the data layer', of which horizontal partitioning is a foundational established technique",
+      "src": "learned"
+    },
+    {
+      "id": "replication",
+      "dom": "infra",
+      "label": "Data Replication",
+      "def": "Replication maintains synchronized copies of data on multiple nodes so the system survives node loss and can serve reads from the nearest or least-loaded replica.",
+      "rel": [
+        "write-ahead-log",
+        "storage-engine",
+        "consensus",
+        "distributed-inference"
+      ],
+      "ev": "intersection of the 'database & backend performance engineering' and 'decentralized/distributed AI compute across meshed peer nodes' trend themes, where log-shipped replicas are the established durabi",
+      "src": "learned"
+    },
+    {
+      "id": "change-data-capture",
+      "dom": "stack",
+      "label": "Change Data Capture",
+      "def": "Change data capture streams row-level inserts, updates, and deletes out of a database's transaction log so downstream systems can react to state changes incrementally instead of polling.",
+      "rel": [
+        "write-ahead-log",
+        "replication",
+        "materialized-view",
+        "data-contract"
+      ],
+      "ev": "HN front-page theme 'Database & backend performance engineering: practical, measurable perf and correctness wins in the data layer' (2026-07-12), extending this graph's deep DB-internals cluster (writ",
+      "src": "learned"
+    },
+    {
+      "id": "compaction",
+      "dom": "stack",
+      "label": "LSM Compaction",
+      "def": "Compaction is the background process that merges an LSM-tree's immutable on-disk runs to reclaim space, drop tombstones, and bound read amplification, trading write amplification for query performance.",
+      "rel": [
+        "lsm-tree",
+        "write-amplification",
+        "storage-engine",
+        "buffer-pool"
+      ],
+      "ev": "HN 'Database & backend performance engineering' theme (2026-07-12); a distinct process underlying the already-present lsm-tree/write-amplification/storage-engine concepts",
+      "src": "learned"
+    },
+    {
+      "id": "htap",
+      "dom": "stack",
+      "label": "HTAP",
+      "def": "Hybrid transactional/analytical processing serves low-latency OLTP writes and large analytical scans from one engine, typically by maintaining row and columnar representations of the same data together.",
+      "rel": [
+        "columnar-storage",
+        "mvcc",
+        "vectorized-execution",
+        "materialized-view"
+      ],
+      "ev": "HN 'Database & backend performance engineering' theme (2026-07-12); bridges the graph's existing columnar-storage/vectorized-execution (analytical) and mvcc (transactional) concepts",
+      "src": "learned"
     }
   ]
 }
