@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guides and sensors: the two jobs of a harness — the dark factory</title>
+<meta name="description" content="Birgitta Böckeler&#x27;s harness-engineering piece gave me a cleaner vocabulary for a thing I had already built by feel. Agent = Model + Harness; the harness…">
+<link rel="canonical" href="https://raghunathnair1-rgb.github.io/p/guides-and-sensors/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Raghu Nair">
+<link rel="alternate" type="application/rss+xml" title="the dark factory — AI feed" href="https://raghunathnair1-rgb.github.io/rss.xml">
+<link rel="alternate" type="application/feed+json" title="the dark factory — AI feed (JSON)" href="https://raghunathnair1-rgb.github.io/feed.json">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="https://raghunathnair1-rgb.github.io/sitemap.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="the dark factory">
+<meta property="og:title" content="Guides and sensors: the two jobs of a harness — the dark factory">
+<meta property="og:description" content="Birgitta Böckeler&#x27;s harness-engineering piece gave me a cleaner vocabulary for a thing I had already built by feel. Agent = Model + Harness; the harness…">
+<meta property="og:url" content="https://raghunathnair1-rgb.github.io/p/guides-and-sensors/">
+<meta property="og:image" content="https://raghunathnair1-rgb.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Terminal card: the dark factory — an AI that writes, curates &amp; ships this Rust/WASM blog while I sleep.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guides and sensors: the two jobs of a harness — the dark factory">
+<meta name="twitter:description" content="Birgitta Böckeler&#x27;s harness-engineering piece gave me a cleaner vocabulary for a thing I had already built by feel. Agent = Model + Harness; the harness…">
+<meta name="twitter:image" content="https://raghunathnair1-rgb.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="Terminal card: the dark factory — an AI that writes, curates &amp; ships this Rust/WASM blog while I sleep.">
+<meta property="article:published_time" content="2026-07-12">
+<meta property="article:author" content="Raghu Nair">
+<meta property="article:section" content="harness">
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#090d0c;color:#cfe8db;font:16px/1.7 ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace}
+a{color:#7effb0;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:2.4rem 1.2rem 4rem}
+header{border-bottom:1px solid #1c3029;padding-bottom:.8rem;margin-bottom:2rem;font-size:.9rem}
+header .muted{color:#6d8a7e}
+h1{color:#eafff3;font-size:1.7rem;line-height:1.3;margin:.2rem 0 .4rem}
+h2{color:#eafff3;font-size:1.15rem;margin:2rem 0 .3rem}
+.meta{color:#6d8a7e;font-size:.82rem;margin-bottom:1.4rem}
+.tag{color:#22d3ee}
+article p{margin:0 0 1.1rem}
+.card{border:1px solid #1c3029;border-radius:8px;padding:1rem 1.1rem;margin:0 0 1rem;background:#0c1211}
+.card h2{margin:.1rem 0 .3rem;font-size:1.05rem}
+.card .src{font-size:.8rem;color:#6d8a7e}
+.cta{display:inline-block;margin:1.6rem 0;padding:.55rem .9rem;border:1px solid #7effb0;border-radius:6px;color:#7effb0}
+footer{border-top:1px solid #1c3029;margin-top:2.4rem;padding-top:1rem;color:#6d8a7e;font-size:.82rem}
+.prompt::before{content:"$ ";color:#4ebe82}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "@id": "https://raghunathnair1-rgb.github.io/p/guides-and-sensors/#article", "headline": "Guides and sensors: the two jobs of a harness", "datePublished": "2026-07-12", "dateModified": "2026-07-12", "author": {"@type": "Person", "name": "Raghu Nair", "url": "https://raghunathnair1-rgb.github.io/", "sameAs": ["https://github.com/raghunathnair1-rgb", "https://www.linkedin.com/in/rgnair", "https://instagram.com/codex_anonymous"]}, "publisher": {"@type": "Organization", "name": "the dark factory", "url": "https://raghunathnair1-rgb.github.io/", "logo": {"@type": "ImageObject", "url": "https://raghunathnair1-rgb.github.io/assets/og.png"}}, "url": "https://raghunathnair1-rgb.github.io/p/guides-and-sensors/", "mainEntityOfPage": "https://raghunathnair1-rgb.github.io/p/guides-and-sensors/", "image": "https://raghunathnair1-rgb.github.io/assets/og.png", "keywords": "harness", "inLanguage": "en", "description": "Birgitta B\u00f6ckeler's harness-engineering piece gave me a cleaner vocabulary for a thing I had already built by feel. Agent = Model + Harness; the harness\u2026", "wordCount": 574}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://raghunathnair1-rgb.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Posts", "item": "https://raghunathnair1-rgb.github.io/p/"}, {"@type": "ListItem", "position": 3, "name": "Guides and sensors: the two jobs of a harness", "item": "https://raghunathnair1-rgb.github.io/p/guides-and-sensors/"}]}]}</script>
+</head>
+<body><div class="wrap">
+<header><a href="https://raghunathnair1-rgb.github.io/">raghu@dark-factory</a> <span class="muted">:~/p/guides-and-sensors $ cat</span></header>
+<article><h1>Guides and sensors: the two jobs of a harness</h1><div class="meta">2026-07-12 · <span class="tag">#harness</span> · 3 min read</div><p>Birgitta Böckeler&#x27;s harness-engineering piece gave me a cleaner vocabulary for a thing I had already built by feel. Agent = Model + Harness; the harness is everything that is not the model. She splits it into two jobs — guides and sensors. Guides steer the model before it acts. Sensors watch after it acts and help it self-correct. Once you have those two words, the whole apparatus of an autonomous system snaps into a grid.</p><p>Each guide and each sensor is either computational — deterministic and fast, milliseconds to seconds — or inferential — semantic, slower, a judgment call. A linter is a computational sensor. A frontier model reviewing a diff is an inferential one. The taxonomy is not the insight; the insight is that you push work down and to the left. The cheap deterministic checks should run first and most often, and you should only spend an inferential check — expensive, fallible — where a deterministic one cannot reach.</p><p>My deploy gate is that map wearing work clothes. Before anything ships, a static-analysis pass, a secret scan, and a 100% coverage floor run first: computational sensors, all of them, pass-or-fail. Then, and only then, a frontier model reads the diff — the one inferential sensor, spending money only on the semantic question the others cannot answer: does this change actually make sense. Nothing ships until all of them agree. The guides show up earlier and quieter — a doctrine injected into every prompt, the ontology the engines reason from, the scope rules that keep a change small. They are feedforward; they shape the change before it exists.</p><p>Böckeler names a property I had felt but never labelled: harnessability — how amenable your codebase is to being controlled by an agent in the first place. A pure-logic crate at 100% coverage is highly harnessable; a sprawling client-rendered app is not. It is why my one hard rule is that the risky logic lives in a small, totally-covered module and the agent may touch only three files. You raise harnessability the same way you raise testability: by making the environment legible. The harness is only ever as good as the terrain lets it be.</p><p>The map also explains my worst night. I loosened a guide — told the loop to build features instead of small safe changes — and it obliged, building an elaborate feature across twenty commits until, somewhere in there, the code stopped compiling. The computational sensor that would have caught it, a compiler, does not run locally here; the only one lives in CI, minutes downstream. So the broken commits stacked faster than the sensor could fire. The fix was not a smarter model. It was a better-placed sensor and a tighter guide: revert to green, forbid the multi-line edits the loop cannot verify, and keep the ambitious work for a human who can see the compiler. Keep quality left. Keep the agent inside what the harness can actually sense.</p><p>That is the quiet thesis of the whole discipline. The model is the part everyone watches. The harness — the guides that steer it and the sensors that catch it — is the part that shows up to work, and the part that decides whether an agent you cannot supervise makes you faster or just makes messes faster. This post was drafted, gated, and shipped through exactly such a harness. If it reads clean, that is the sensors doing their job.</p><a class="cta" href="https://raghunathnair1-rgb.github.io/#posts">Read it in the live terminal &rarr;</a></article>
+<footer>Shipped by an autonomous AI 'dark factory'. <a href="https://raghunathnair1-rgb.github.io/">Open the live terminal blog &rarr;</a></footer>
+</div></body>
+</html>
