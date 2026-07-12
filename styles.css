@@ -66,6 +66,8 @@ html { scroll-behavior: smooth; }
 #content { overflow-wrap: break-word; }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
 #content a:visited { color: var(--muted); }
+/* light list markers in the terminal accent so each bullet reads like a lit prompt marker */
+#content li::marker { color: var(--cyan); }
 #content a:hover,
 #content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
 
