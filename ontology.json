@@ -4435,6 +4435,35 @@
       ],
       "ev": "Latest-trends theme 'Can we actually understand LLM reasoning: interpretability of how models reason is a recurring serious-research thread'; an established durable AI-safety concept distinct from (bu",
       "src": "learned"
+    },
+    {
+      "id": "activation-patching",
+      "dom": "agentic-ai",
+      "label": "Activation patching",
+      "def": "A causal interpretability method that copies activations from one forward pass into another (ablate/patch) to measure which internal components are responsible for a specific model behavior.",
+      "rel": [
+        "mechanistic-interpretability",
+        "circuit-tracing",
+        "sparse-autoencoder",
+        "superposition"
+      ],
+      "ev": "HN trend theme 'Interpretability & research rigor: Serious effort is going into causal, mechanistic understanding of what models actually do internally.'",
+      "src": "learned"
+    },
+    {
+      "id": "digital-garden",
+      "dom": "stack",
+      "label": "Digital garden",
+      "def": "A continuously tended, non-chronological personal website of interlinked, evolving notes, contrasted with the reverse-chronological blog and algorithmic feeds.",
+      "rel": [
+        "indie-web",
+        "blog-logic",
+        "ssg",
+        "explorable-explanations",
+        "posse"
+      ],
+      "ev": "HN trend theme 'Indie/DIY personal web: People are celebrating hand-built personal sites and channels over algorithmic platforms.'",
+      "src": "learned"
     }
   ]
 }
