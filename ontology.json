@@ -2343,6 +2343,19 @@
       ],
       "ev": "Trend theme 'Code & knowledge as queryable graphs: teams are modeling their codebases as graphs you can query rather than browse'.",
       "src": "learned"
+    },
+    {
+      "id": "typed-sql",
+      "dom": "stack",
+      "label": "Type-safe SQL",
+      "def": "Checking SQL queries against the database schema at build time so column or type errors fail compilation rather than surfacing in production.",
+      "rel": [
+        "data-contract",
+        "embedded-db",
+        "structured-output"
+      ],
+      "ev": "HN theme 'Database rigor & scaling: practitioners focused on making data layers strict, fast, and cheap' plus the Sqlsure SQL tooling on the front page.",
+      "src": "learned"
     }
   ]
 }
