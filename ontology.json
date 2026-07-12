@@ -3663,7 +3663,8 @@
         "ai-review",
         "human-on-the-loop",
         "appropriate-reliance",
-        "gate"
+        "gate",
+        "deterministic-verification"
       ],
       "ev": "Trend theme: 'Coding agents as the main event... the default way software now gets built and inspected', combined with the doctrine's five-gate verification layer and revert-on-failure loop.",
       "src": "learned"
