@@ -3562,6 +3562,22 @@
       ],
       "ev": "Latest AI/tech trend theme 'AI compute financing & the GPU boom' — the top HN front-page story dissects how the money behind AI infrastructure is circularly financed.",
       "src": "learned"
+    },
+    {
+      "id": "cognitive-architecture",
+      "dom": "agentic-ai",
+      "label": "Cognitive Architecture",
+      "def": "The integrated, persistent structural substrate — doctrine, ontology, world-model, and memory — that organizes how an agent perceives, reasons, plans, and improves itself over time, distinct from any single model call.",
+      "rel": [
+        "world-model",
+        "memory",
+        "doctrine",
+        "ontology",
+        "self-improve",
+        "planning"
+      ],
+      "ev": "The brain/ directory holds principles.md (doctrine), ontology.json, and world.json as a unified store; MEMORY notes 'doctrine + ontology (learn/maintain) + world-loop feed the self-improve/idea engine",
+      "src": "learned"
     }
   ]
 }
