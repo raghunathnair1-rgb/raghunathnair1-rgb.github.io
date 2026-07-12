@@ -2241,6 +2241,19 @@
       ],
       "ev": "commits 07fffc4 'Light a session-wide human ✓ presence pip on the first trusted interaction' and fb0c24b 'human ✓ phosphor glyph the instant the email gate accepts'",
       "src": "learned"
+    },
+    {
+      "id": "visibility-gated-polling",
+      "dom": "stack",
+      "label": "Page-visibility-gated polling",
+      "def": "Suspending a page's background network polling and animation while its browser tab is hidden, using the Page Visibility API to conserve client and server resources.",
+      "rel": [
+        "backpressure",
+        "connection-pooling",
+        "observability"
+      ],
+      "ev": "Commit 0236458 'self-improve: Gate the live widgets' background polling on tab visibility'",
+      "src": "learned"
     }
   ]
 }
