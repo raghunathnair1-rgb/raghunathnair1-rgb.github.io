@@ -2146,6 +2146,33 @@
       ],
       "ev": "HN front-page trend theme (2026-07-12): 'Decentralized / efficient AI compute: Interest is shifting toward distributed and CPU-based inference' rather than brute-force centralized GPU scale.",
       "src": "learned"
+    },
+    {
+      "id": "adaptive-serving",
+      "dom": "infra",
+      "label": "Adaptive inference serving",
+      "def": "Inference servers that profile their live workload and self-tune execution (batching, caching, kernel and route selection) at runtime, getting faster the longer they run.",
+      "rel": [
+        "continuous-batching",
+        "prefix-caching",
+        "cpu-inference",
+        "inference-economics"
+      ],
+      "ev": "latest AI/tech trends theme 'Inference that self-optimizes at runtime' plus the notable item Reame, a CPU inference server that gets faster the longer it runs",
+      "src": "learned"
+    },
+    {
+      "id": "content-addressed-networking",
+      "dom": "infra",
+      "label": "Content-addressed networking",
+      "def": "Peer-to-peer transport that addresses data by cryptographic hash of its content rather than by host location, enabling verifiable, location-independent exchange between machines.",
+      "rel": [
+        "p2p-overlay",
+        "mesh-inference",
+        "distributed-inference"
+      ],
+      "ev": "Trend NOTABLE 'Mesh LLM: Runs LLM inference distributed across machines over the iroh p2p layer' (iroh is a content-addressed p2p stack)",
+      "src": "learned"
     }
   ]
 }
