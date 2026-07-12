@@ -2807,6 +2807,33 @@
       ],
       "ev": "gen_activity.py ('sanitized execution-activity feed (router/autopost/self-improve/deploys)', commit 0ffb3b9) plus the trend theme of turning 'agent activity into queryable or spatially-explorable grap",
       "src": "learned"
+    },
+    {
+      "id": "software-cartography",
+      "dom": "factory",
+      "label": "Software cartography",
+      "def": "The practice of rendering a codebase or an agent's own activity as a spatially navigable map so its structure and changes can be explored rather than only queried.",
+      "rel": [
+        "kg-viz",
+        "code-property-graph",
+        "explorable-explanations",
+        "agent-tracing"
+      ],
+      "ev": "trend theme 'Codebases as navigable graphs — projects turn source code and agent activity into queryable or spatially-explorable graph structures' plus the system's own explorable graph canvases (rece",
+      "src": "learned"
+    },
+    {
+      "id": "lsm-tree",
+      "dom": "stack",
+      "label": "LSM-tree",
+      "def": "A log-structured merge-tree buffers writes in memory, flushes them to sorted immutable on-disk files, and later compacts those files, trading read amplification for high write throughput in modern embedded databases.",
+      "rel": [
+        "storage-engine",
+        "embedded-db",
+        "write-ahead-log"
+      ],
+      "ev": "trend themes 'Data-infra reliability & performance: making storage and connection layers stricter and faster' and 'Learn-by-rebuilding from scratch (Redis, Git, DBs)'",
+      "src": "learned"
     }
   ]
 }
