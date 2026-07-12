@@ -3198,6 +3198,34 @@
       ],
       "ev": "latest trends theme 'Decentralized/distributed AI compute: running LLMs across meshes of machines rather than centralized clouds' and NOTABLE 'Mesh LLM: distributed AI inference over the iroh peer-to-",
       "src": "learned"
+    },
+    {
+      "id": "collective-communication",
+      "dom": "infra",
+      "label": "Collective communication",
+      "def": "The all-reduce / all-gather / broadcast primitives that synchronize tensors across many accelerators, forming the coordination substrate of every distributed inference or training run.",
+      "rel": [
+        "tensor-parallelism",
+        "pipeline-parallelism",
+        "distributed-inference",
+        "gpu-interconnect",
+        "mesh-inference"
+      ],
+      "ev": "Trend theme 'Distributed / decentralized AI compute' (Mesh LLM meshing inference across peers) plus the existing tensor-parallelism/pipeline-parallelism concepts, all of which rest on collective ops.",
+      "src": "learned"
+    },
+    {
+      "id": "cardinality-estimation",
+      "dom": "stack",
+      "label": "Cardinality estimation",
+      "def": "The query optimizer's prediction of how many rows each operator will emit, the estimates that determine join order and access paths and the classic source of plan blowups.",
+      "rel": [
+        "query-planner",
+        "predicate-pushdown",
+        "vectorized-execution"
+      ],
+      "ev": "Trend theme 'Database and query performance craft: practitioners are focused on squeezing correctness and throughput out of SQL data layers.'",
+      "src": "learned"
     }
   ]
 }
