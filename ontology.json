@@ -385,7 +385,8 @@
       "def": "Never repeat a shipped change; prefer the most substantive option.",
       "rel": [
         "recursive-loop",
-        "novelty-guard"
+        "novelty-guard",
+        "reflexion"
       ]
     },
     {
