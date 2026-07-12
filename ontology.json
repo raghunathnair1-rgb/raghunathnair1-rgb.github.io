@@ -2005,6 +2005,35 @@
       ],
       "ev": "HN front-page trend 'PgBouncer scaling: A writeup on quadrupling connection-pooler throughput' + 'Database & infra performance tuning' theme (2026-07-12)",
       "src": "learned"
+    },
+    {
+      "id": "cognitive-offloading",
+      "dom": "agentic-ai",
+      "label": "Cognitive offloading",
+      "def": "The human tendency to outsource reasoning and recall to AI tools, which over time erodes the operator's own skill and independent judgment.",
+      "rel": [
+        "automation-bias",
+        "reverse-centaur",
+        "productivity-paradox",
+        "human-in-the-loop",
+        "centaur"
+      ],
+      "ev": "HN front-page trend theme 'LLM fatigue / backlash' — visible pushback against reflexively deferring to chatbots as an answer to everything",
+      "src": "learned"
+    },
+    {
+      "id": "appropriate-reliance",
+      "dom": "agentic-ai",
+      "label": "Appropriate reliance",
+      "def": "The practice of calibrating trust to a model's actual reliability — accepting correct output and overriding incorrect output — rather than reflexively deferring to it.",
+      "rel": [
+        "automation-bias",
+        "cognitive-offloading",
+        "human-in-the-loop",
+        "reverse-centaur"
+      ],
+      "ev": "Trend theme 'LLM fatigue / backlash: visible pushback against reflexively deferring to chatbots as an answer to everything' (HN front page 2026-07-12).",
+      "src": "learned"
     }
   ]
 }
