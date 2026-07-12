@@ -3080,6 +3080,77 @@
       ],
       "ev": "latest AI/tech trends theme: 'Database rigor and throughput — practitioners prioritizing strictness and raw performance in their data layers over convenience defaults'",
       "src": "learned"
+    },
+    {
+      "id": "late-materialization",
+      "dom": "stack",
+      "label": "Late materialization",
+      "def": "A columnar query-execution strategy that carries only row positions (not values) through the operator tree and fetches the actual column data as late as possible, avoiding I/O and decompression on rows that later get filtered out.",
+      "rel": [
+        "columnar-storage",
+        "vectorized-execution",
+        "predicate-pushdown",
+        "query-planner"
+      ],
+      "ev": "Existing columnar/vectorized SQL engine in the stack (columnar-storage, vectorized-execution, predicate-pushdown) plus the 'Database rigor and throughput' trend theme prioritizing raw performance over",
+      "src": "learned"
+    },
+    {
+      "id": "write-amplification",
+      "dom": "stack",
+      "label": "Write amplification",
+      "def": "The ratio of physical bytes written to storage versus logical bytes stored, a core LSM-tree cost driven by repeatedly rewriting the same data during background compaction.",
+      "rel": [
+        "lsm-tree",
+        "storage-engine",
+        "write-ahead-log",
+        "buffer-pool"
+      ],
+      "ev": "Existing LSM-tree storage engine in the stack (lsm-tree, storage-engine, write-ahead-log) plus the 'Database rigor and throughput' trend theme.",
+      "src": "learned"
+    },
+    {
+      "id": "time-travel-debugging",
+      "dom": "harness",
+      "label": "Time-travel debugging",
+      "def": "A technique that records an agent or program's full execution so a developer can step both backward and forward through recorded past states, not merely re-watch them.",
+      "rel": [
+        "agent-session-replay",
+        "agent-tracing",
+        "observability"
+      ],
+      "ev": "The 'Replaying agent sessions in 3D space / audit what the agent actually did' trend theme, extending the system's existing agent-session-replay and agent-tracing observability capabilities.",
+      "src": "learned"
+    },
+    {
+      "id": "real-user-monitoring",
+      "dom": "stack",
+      "label": "Real User Monitoring (RUM)",
+      "def": "Collects performance and experience metrics from actual visitors' browsers via a lightweight beacon, giving field data on how the live site behaves rather than relying on synthetic tests.",
+      "rel": [
+        "telemetry",
+        "observability",
+        "resource-hints",
+        "cdn-edge",
+        "sdlc-observe"
+      ],
+      "ev": "Commit 930828c 'self-improve: Preconnect the Cloudflare Insights report endpoint' — Cloudflare Insights is a beacon-based RUM/web-analytics endpoint used by the deployed site.",
+      "src": "learned"
+    },
+    {
+      "id": "referential-integrity",
+      "dom": "stack",
+      "label": "Referential Integrity",
+      "def": "A relational-database guarantee that every foreign-key reference points to a row that actually exists, preventing orphaned or dangling relationships in the data model.",
+      "rel": [
+        "acid-transactions",
+        "data-contract",
+        "typed-sql",
+        "generated-sql-guard",
+        "storage-engine"
+      ],
+      "ev": "Latest AI/tech trends theme 'Data-model rigor: There's renewed appetite for strictness and correctness at the storage layer.'",
+      "src": "learned"
     }
   ]
 }
