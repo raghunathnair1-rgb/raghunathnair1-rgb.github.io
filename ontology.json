@@ -2764,6 +2764,49 @@
       ],
       "ev": "commit 09a5f5f 'Contain scroll-chaining on the explorable graph canvases'",
       "src": "learned"
+    },
+    {
+      "id": "pipeline-parallelism",
+      "dom": "infra",
+      "label": "Pipeline parallelism",
+      "def": "A distributed-inference strategy that splits a model's layers into contiguous stages placed on different devices, so activations flow stage-to-stage like an assembly line rather than sharding each layer's tensors.",
+      "rel": [
+        "tensor-parallelism",
+        "distributed-inference",
+        "mesh-inference",
+        "spark"
+      ],
+      "ev": "HN NOTABLE 'Mesh LLM: Distributed AI inference layered' + the 'Minimal & distributed AI agents / spreading inference across machines' trend theme (2026-07-12)",
+      "src": "learned"
+    },
+    {
+      "id": "write-ahead-log",
+      "dom": "stack",
+      "label": "Write-ahead log",
+      "def": "A durability and crash-recovery mechanism where a storage engine appends every mutation to a sequential on-disk log before applying it to the main data structures.",
+      "rel": [
+        "storage-engine",
+        "acid-transactions",
+        "embedded-db"
+      ],
+      "ev": "HN trend theme 'Data-infra reliability & performance: making storage and connection layers stricter and faster' (2026-07-12), an established storage technology deepening the existing data cluster",
+      "src": "learned"
+    },
+    {
+      "id": "agent-tracing",
+      "dom": "factory",
+      "label": "Agent execution tracing",
+      "def": "Capturing an autonomous agent's tool calls, decisions, and pipeline steps as inspectable, queryable spans so its activity can be navigated and audited like a graph.",
+      "rel": [
+        "observability",
+        "telemetry",
+        "tool-orch",
+        "kg-viz",
+        "agent",
+        "pipeline-viz"
+      ],
+      "ev": "gen_activity.py ('sanitized execution-activity feed (router/autopost/self-improve/deploys)', commit 0ffb3b9) plus the trend theme of turning 'agent activity into queryable or spatially-explorable grap",
+      "src": "learned"
     }
   ]
 }

@@ -171,6 +171,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 .pipe-log:hover .pipe-evt { opacity: .38; transition: opacity .15s ease; }
 .pipe-log:hover .pipe-evt:hover { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .pipe-log:hover .pipe-evt { transition: none; } }
+@media (prefers-reduced-motion: reduce) { #content a, .tty-tab { transition: none; } }
 .pipe-t { color: var(--muted); margin-right: .5rem; }
 .pipe-k { display: inline-block; min-width: 6.2em; }
 .pipe-k-router { color: #22d3ee; }
