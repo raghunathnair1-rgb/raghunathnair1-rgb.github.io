@@ -74,6 +74,7 @@ html { scroll-behavior: smooth; }
 #content { overflow-wrap: break-word; }
 /* keep embedded figures/diagrams fluid so a wide image can't force horizontal scroll either */
 #content img { max-width: 100%; height: auto; }
+#content figcaption { margin-top: .4rem; text-align: center; font-size: .85rem; font-style: italic; color: var(--muted); }
 #content pre { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .75rem .9rem; }
 #content pre, #content code { -moz-tab-size: 4; tab-size: 4; }
 #content :not(pre) > code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: .05em .4em; font-size: .92em; color: var(--cyan); }
