@@ -2480,6 +2480,21 @@
       ],
       "ev": "HN trend theme: 'Database rigor and correctness ... renewed focus on strictness and throughput at the storage layer as a foundation for everything above it.'",
       "src": "learned"
+    },
+    {
+      "id": "generated-sql-guard",
+      "dom": "stack",
+      "label": "Generated-SQL validation",
+      "def": "Deterministic semantic and schema checks that validate LLM-generated SQL against the real database structure before execution, catching hallucinated columns, joins, or unsafe queries.",
+      "rel": [
+        "text-to-sql",
+        "deterministic-verification",
+        "typed-sql",
+        "hallucination",
+        "guardrails"
+      ],
+      "ev": "Latest AI/tech trends: theme 'SQLite/DB rigor' plus NOTABLE 'Sqlsure: Applies deterministic semantic checks to validate AI-generated SQL' (HN front page, 2026-07-12)",
+      "src": "learned"
     }
   ]
 }
