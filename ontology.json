@@ -1118,7 +1118,6 @@
       "label": "Generative media",
       "def": "Diffusion and generative models that synthesize or reimagine images, audio, and video rather than text.",
       "rel": [
-        "ai-slop",
         "content-provenance",
         "model-collapse"
       ],
@@ -3797,6 +3796,47 @@
         "wasm"
       ],
       "ev": "HN trend theme 'New JS/Rust build tooling: Fresh runtimes and Rust-forged pipelines for the JavaScript world keep drawing big crowds', plus the system's real Trunk-based Rust/WASM build stack",
+      "src": "learned"
+    },
+    {
+      "id": "force-directed-layout",
+      "dom": "stack",
+      "label": "Force-directed layout",
+      "def": "A graph-drawing algorithm that positions nodes via a physics simulation where edges act as springs and nodes mutually repel, producing readable interactive graph and network visualizations.",
+      "rel": [
+        "kg-viz",
+        "explorable-explanations",
+        "webgl",
+        "geospatial-viz"
+      ],
+      "ev": "This system renders a WebGL knowledge-graph 'brain' (kg-viz, commits c3adf4c/81fbfea), and trends theme: 'people turning their own activity data into interactive 3D graphs and globes.'",
+      "src": "learned"
+    },
+    {
+      "id": "commonmark",
+      "dom": "stack",
+      "label": "CommonMark",
+      "def": "A standardized, unambiguous specification of Markdown syntax that lets independent parsers produce identical HTML output.",
+      "rel": [
+        "ssg",
+        "blog-logic",
+        "native-web-tooling"
+      ],
+      "ev": "System's static-site generator (ssg.py) and blog-logic render Markdown to HTML, and trends theme: 'Rust keeps being adopted to rebuild JS-world infrastructure like runtimes and Markdown pipelines.'",
+      "src": "learned"
+    },
+    {
+      "id": "depin",
+      "dom": "infra",
+      "label": "DePIN",
+      "def": "Decentralized physical infrastructure networks use token/economic incentives to coordinate independently owned hardware (e.g. GPUs) into a shared pool that serves compute and inference outside centralized clouds.",
+      "rel": [
+        "mesh-inference",
+        "volunteer-compute",
+        "compute-as-collateral",
+        "inference-economics"
+      ],
+      "ev": "latest AI/tech trends theme: 'Distributed / decentralized AI compute — appetite for running LLM workloads across meshed peer nodes instead of centralized clouds', which is the economic-coordination la",
       "src": "learned"
     }
   ]
