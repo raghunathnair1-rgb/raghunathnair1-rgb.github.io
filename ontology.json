@@ -204,7 +204,8 @@
         "self-improve",
         "idea-engine",
         "gate",
-        "tiered-router"
+        "tiered-router",
+        "recursive-loop"
       ]
     },
     {
