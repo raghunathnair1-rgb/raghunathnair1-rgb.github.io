@@ -2580,6 +2580,19 @@
       ],
       "ev": "commit 13e906b 'Suppress the matrix/sky canvases under prefers-contrast: more' (plus 12d91c3 accessibility-tuning line in the self-improve loop)",
       "src": "learned"
+    },
+    {
+      "id": "resource-hints",
+      "dom": "stack",
+      "label": "Resource Hints",
+      "def": "Speculative browser directives (dns-prefetch, preconnect, preload) that warm up DNS, TCP, and TLS work for an origin before a resource is actually requested, cutting perceived latency.",
+      "rel": [
+        "network-adaptive-rendering",
+        "cdn-edge",
+        "connection-pooling"
+      ],
+      "ev": "commit 68bdd40 'self-improve: Add a dns-prefetch hint for the analytics beacon origin'",
+      "src": "learned"
     }
   ]
 }
