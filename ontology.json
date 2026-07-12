@@ -2034,6 +2034,34 @@
       ],
       "ev": "Trend theme 'LLM fatigue / backlash: visible pushback against reflexively deferring to chatbots as an answer to everything' (HN front page 2026-07-12).",
       "src": "learned"
+    },
+    {
+      "id": "risc-v",
+      "dom": "infra",
+      "label": "RISC-V / open hardware",
+      "def": "An open, royalty-free instruction set architecture enabling fully open and auditable hardware for running AI workloads outside proprietary vendor stacks.",
+      "rel": [
+        "open-weights",
+        "ai-sovereignty",
+        "cpu-inference",
+        "gpu-interconnect"
+      ],
+      "ev": "Latest-trends theme 'Open hardware / RISC-V: Fully open, from-scratch hardware and RISC-V designs are capturing sustained attention.'",
+      "src": "learned"
+    },
+    {
+      "id": "mesh-inference",
+      "dom": "infra",
+      "label": "Decentralized mesh inference",
+      "def": "A model is served by pooling heterogeneous consumer/edge devices into a peer-to-peer swarm, unlike datacenter distributed-inference which splits work across tightly-coupled cluster nodes.",
+      "rel": [
+        "distributed-inference",
+        "local-first",
+        "ai-sovereignty",
+        "gpu-interconnect"
+      ],
+      "ev": "Trend notable 'Mesh LLM: Distributed AI comp' and the 'run models on your own mesh and CPUs instead of centralized GPU clouds' theme (updated 2026-07-12).",
+      "src": "learned"
     }
   ]
 }
