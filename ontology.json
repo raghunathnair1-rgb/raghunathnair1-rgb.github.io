@@ -3011,6 +3011,20 @@
       ],
       "ev": "Established technique in modern distributed serving stacks (vLLM/production inference); grounded in the 'Distributed / decentralized LLM compute' HN trend theme (2026-07-12) of splitting inference acr",
       "src": "learned"
+    },
+    {
+      "id": "accelerator-depreciation",
+      "dom": "infra",
+      "label": "Accelerator depreciation",
+      "def": "The short useful economic life and rapid obsolescence of AI GPUs, whose depreciation schedule dominates the true unit cost and financial risk of the compute buildout.",
+      "rel": [
+        "inference-economics",
+        "circular-financing",
+        "scaling-limits",
+        "gpu-interconnect"
+      ],
+      "ev": "trend theme 'GPU/AI infrastructure economics under scrutiny — the community is questioning the financial plumbing behind the compute buildout, not just the models.'",
+      "src": "learned"
     }
   ]
 }
