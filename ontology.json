@@ -2863,6 +2863,20 @@
       ],
       "ev": "HN trend theme 'Questioning why humans write code in the AI era: the role of hand-written code is being openly reconsidered as agents take over authorship' plus this system's self_improve.py/idea_engi",
       "src": "learned"
+    },
+    {
+      "id": "vectorized-execution",
+      "dom": "stack",
+      "label": "Vectorized query execution",
+      "def": "A database execution model that pushes batches of column values through cache-friendly, SIMD-amenable operators instead of processing one row at a time, raising throughput on analytical SQL workloads.",
+      "rel": [
+        "storage-engine",
+        "lsm-tree",
+        "typed-sql",
+        "text-to-sql"
+      ],
+      "ev": "HN front-page theme 'Databases and data-plane performance: squeezing correctness and throughput out of SQL infrastructure', plus the system's existing SQL concepts (typed-sql, text-to-sql, generated-s",
+      "src": "learned"
     }
   ]
 }
