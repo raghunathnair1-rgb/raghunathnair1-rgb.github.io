@@ -3066,6 +3066,20 @@
       ],
       "ev": "doctrine LEARN principle ('never repeat or near-duplicate a change already shipped') plus the memory/decisions/ store and reduce_hallucinations.py",
       "src": "learned"
+    },
+    {
+      "id": "predicate-pushdown",
+      "dom": "stack",
+      "label": "Predicate Pushdown",
+      "def": "A query optimization that evaluates filter conditions down at the storage/scan layer so only matching rows are materialized, cutting I/O and raising throughput.",
+      "rel": [
+        "query-planner",
+        "columnar-storage",
+        "storage-engine",
+        "bloom-filter"
+      ],
+      "ev": "latest AI/tech trends theme: 'Database rigor and throughput — practitioners prioritizing strictness and raw performance in their data layers over convenience defaults'",
+      "src": "learned"
     }
   ]
 }

@@ -159,6 +159,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 .kg3d-stage, .brain-gl-stage, .pipe-gl-stage { overscroll-behavior: contain; }
 .kg3d-stage:hover, .kg3d-stage:focus-within, .brain-gl-stage:hover, .brain-gl-stage:focus-within { border-color: var(--cyan); }
 .kg3d-stage:has(.kg3d:active), .brain-gl-stage:has(.brain-gl:active) { border-color: var(--cyan); }
+.kg3d-stage:has(.kg3d:active) .kg3d-hud, .brain-gl-stage:has(.brain-gl:active) .kg3d-hud { color: var(--cyan); }
 .kg3d, .brain-gl { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
 .kg3d:active { cursor: grabbing; }
 .kg3d:focus-visible, .brain-gl:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; box-shadow: var(--glow); }
