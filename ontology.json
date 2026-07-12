@@ -1280,7 +1280,8 @@
         "content-distribution",
         "idea-engine",
         "world-model",
-        "ontology"
+        "ontology",
+        "grounding"
       ],
       "ev": "Real harness scripts present: trendpost.py, trendpost.sh, trendpost_state.json, feeding from the same live 'latest AI/tech trends' Hacker News feed used here.",
       "src": "learned"
