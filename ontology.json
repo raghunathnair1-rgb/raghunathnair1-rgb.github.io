@@ -2285,6 +2285,21 @@
       ],
       "ev": "HN trend theme 'Transparency of what AI agents/CLIs actually send: Developers are auditing exactly what data their AI dev tools exfiltrate'; connects to doctrine guardrail 'no new external network cal",
       "src": "learned"
+    },
+    {
+      "id": "quic-transport",
+      "dom": "infra",
+      "label": "QUIC transport",
+      "def": "An encrypted, multiplexed transport built on UDP that connects peer nodes for distributed inference and content-addressed data exchange.",
+      "rel": [
+        "mesh-inference",
+        "distributed-inference",
+        "p2p-overlay",
+        "nat-traversal",
+        "content-addressed-networking"
+      ],
+      "ev": "Mesh LLM notable item — distributed AI inference spread across peer nodes over the iroh networking layer, whose peer transport is QUIC-based.",
+      "src": "learned"
     }
   ]
 }
