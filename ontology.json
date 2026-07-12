@@ -4029,7 +4029,8 @@
         "recursive-loop",
         "planning",
         "orchestrator-agent",
-        "verification-bottleneck"
+        "verification-bottleneck",
+        "context-compaction"
       ],
       "ev": "Trend theme 'Coding agents that build, replay, and navigate whole codebases dominate the front page', grounded in this system's self-improve-loop.sh / recursive harness-loop that runs unbounded multi-",
       "src": "learned"
@@ -4104,6 +4105,50 @@
         "explorable-explanations"
       ],
       "ev": "latest AI/tech trends theme 'Interactive 3D and spatial data viz: Top Show HNs are immersive 3D maps and globes of real data, showing appetite for explorable spatial interfaces.'",
+      "src": "learned"
+    },
+    {
+      "id": "legacy-modernization",
+      "dom": "sdlc",
+      "label": "Autonomous legacy modernization",
+      "def": "The use of coding agents to rebuild, port, and upgrade existing production applications rather than write only greenfield code.",
+      "rel": [
+        "sdlc-build",
+        "vibe-coding",
+        "code-intelligence",
+        "intent-driven-dev"
+      ],
+      "ev": "HN trend theme (2026-07-12): 'Agents building and rebuilding real apps... Modern coding agents shipping and modernizing full applications is a dominant narrative right now.'",
+      "src": "learned"
+    },
+    {
+      "id": "isometric-projection",
+      "dom": "stack",
+      "label": "Isometric projection",
+      "def": "A pseudo-3D visualization technique that renders spatial or structural data at a fixed oblique angle to convey depth without perspective distortion.",
+      "rel": [
+        "code-city",
+        "geospatial-viz",
+        "explorable-explanations",
+        "virtual-globe"
+      ],
+      "ev": "HN trend theme (2026-07-12): 'The biggest Show HN hits are self-built interactive graphs, globes, and isometric maps of personal data.'",
+      "src": "learned"
+    },
+    {
+      "id": "wire-level-audit",
+      "dom": "agentic-ai",
+      "label": "Wire-level tool auditing",
+      "def": "Reverse-engineering the raw network traffic of an AI coding agent to independently verify exactly what data leaves the machine, rather than trusting the tool's own disclosures.",
+      "rel": [
+        "egress-transparency",
+        "agent-security",
+        "tls-fingerprinting",
+        "agentic-cli",
+        "observability",
+        "data-minimization"
+      ],
+      "ev": "trend theme: 'Wire-level auditing of AI tools: People are reverse-engineering the actual network traffic of AI build tools to see what leaves the machine.'",
       "src": "learned"
     }
   ]
