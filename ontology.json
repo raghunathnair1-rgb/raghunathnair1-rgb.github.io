@@ -2132,6 +2132,20 @@
       ],
       "ev": "latest AI/tech trends theme: 'AI/LLM backlash: The community is pushing back on reflexive just ask an LLM answers, signaling fatigue with unearned AI hype.'",
       "src": "learned"
+    },
+    {
+      "id": "federated-learning",
+      "dom": "infra",
+      "label": "Federated Learning",
+      "def": "Training or fine-tuning a shared model across many decentralized nodes on their local data, exchanging model updates instead of the raw data itself.",
+      "rel": [
+        "distributed-inference",
+        "local-first",
+        "ai-sovereignty",
+        "data-poisoning"
+      ],
+      "ev": "HN front-page trend theme (2026-07-12): 'Decentralized / efficient AI compute: Interest is shifting toward distributed and CPU-based inference' rather than brute-force centralized GPU scale.",
+      "src": "learned"
     }
   ]
 }
