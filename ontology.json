@@ -4492,6 +4492,20 @@
       ],
       "ev": "This system's durable knowledge stores held as files: brain/world.json, brain/ontology.json, brain/principles.md, and the persistent MEMORY.md index",
       "src": "learned"
+    },
+    {
+      "id": "semantic-html",
+      "dom": "stack",
+      "label": "Semantic HTML",
+      "def": "Authoring content with meaning-bearing HTML elements (abbr, figcaption, details/summary, q, mark, table) so it renders with correct structure and accessibility rather than as generically styled markup.",
+      "rel": [
+        "ssg",
+        "commonmark",
+        "progressive-enhancement",
+        "accessibility"
+      ],
+      "ev": "Recent self-improve commits styling essay `<q>`, `<details>/<summary>`, `<figcaption>`, `<abbr title>`, `<mark>`, `<strong>`, and `<table>` elements in ssg.py-rendered essays",
+      "src": "learned"
     }
   ]
 }
