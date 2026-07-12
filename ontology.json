@@ -2356,6 +2356,61 @@
       ],
       "ev": "HN theme 'Database rigor & scaling: practitioners focused on making data layers strict, fast, and cheap' plus the Sqlsure SQL tooling on the front page.",
       "src": "learned"
+    },
+    {
+      "id": "open-graph-protocol",
+      "dom": "stack",
+      "label": "Open Graph Protocol",
+      "def": "A web metadata standard (og: tags) that controls how a page renders as a rich link preview when shared on social platforms.",
+      "rel": [
+        "programmatic-seo",
+        "content-distribution",
+        "ssg",
+        "content-provenance"
+      ],
+      "ev": "recent commits 9f8870b 'Add og:image:type to complete the Open Graph image object' and related og:image metadata work on the generated site",
+      "src": "learned"
+    },
+    {
+      "id": "self-certifying-identity",
+      "dom": "infra",
+      "label": "Self-certifying identity",
+      "def": "A networking scheme where a node's cryptographic public key IS its dialable address, so peers mutually authenticate connections without any certificate authority.",
+      "rel": [
+        "p2p-overlay",
+        "content-addressed-networking",
+        "nat-traversal",
+        "mesh-inference"
+      ],
+      "ev": "HN NOTABLE 'Mesh LLM: Runs distributed AI inference across peers over the iroh networking layer' — iroh dials peers by public-key NodeId (self-certifying), distinct from addressing data (content-addre",
+      "src": "learned"
+    },
+    {
+      "id": "circular-financing",
+      "dom": "infra",
+      "label": "AI compute circular financing",
+      "def": "A capital pattern where AI chip and cloud vendors invest in the very customers who buy their compute, inflating apparent demand and tightly coupling the sector's balance sheets.",
+      "rel": [
+        "inference-economics",
+        "ai-hype-cycle",
+        "scaling-limits"
+      ],
+      "ev": "HN theme 'AI infrastructure economics: Scrutiny of the GPU boom's circular financing shows the industry questioning AI's capital foundations' — a durable economic pattern, not a one-off news item",
+      "src": "learned"
+    },
+    {
+      "id": "verifiable-inference",
+      "dom": "infra",
+      "label": "Verifiable inference",
+      "def": "Cryptographic or statistical techniques that let a requester confirm an untrusted remote peer actually executed the claimed model computation, rather than trusting its output blindly.",
+      "rel": [
+        "mesh-inference",
+        "p2p-overlay",
+        "distributed-inference",
+        "deterministic-verification"
+      ],
+      "ev": "Trend theme 'Distributed AI compute: Peer-to-peer fabrics are emerging to spread inference across machines' + NOTABLE 'Mesh LLM: distributed inference across peers over iroh' — outsourcing inference t",
+      "src": "learned"
     }
   ]
 }

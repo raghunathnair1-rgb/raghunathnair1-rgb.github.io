@@ -35,6 +35,12 @@
   header .logo .cursor { text-shadow: none; }
   body::before { display: none; }
 }
+/* Windows High-Contrast: OS remaps CSS colors but not canvas pixels, so drop the
+   decorative layers and let forced-colors keep real text/HUDs legible. */
+@media (forced-colors: active) {
+  #crtfx, #matrix, #sky { display: none; }
+  body::before, body::after { display: none; }
+}
 * { box-sizing: border-box; }
 
 /* smooth in-page scrolling (skip-link + console-tab jumps glide instead of teleport) */
