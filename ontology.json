@@ -3757,6 +3757,34 @@
       ],
       "ev": "HN trend theme 'Decentralized / distributed AI compute' — running LLM inference across meshed peer-to-peer hardware — which requires DHT-based peer discovery, complementing the system's existing iroh/",
       "src": "learned"
+    },
+    {
+      "id": "font-smoothing",
+      "dom": "stack",
+      "label": "Font smoothing",
+      "def": "Browser-level control over glyph antialiasing (e.g. `-webkit-font-smoothing: antialiased`/grayscale, `text-rendering`) that tunes how text edges are rendered for legibility on a given display and theme.",
+      "rel": [
+        "accessibility",
+        "progressive-enhancement",
+        "forced-colors-mode",
+        "prefers-contrast"
+      ],
+      "ev": "commit 1b83685 'self-improve: Smooth the phosphor text with grayscale antialiasing'",
+      "src": "learned"
+    },
+    {
+      "id": "scrollbar-styling",
+      "dom": "stack",
+      "label": "Scrollbar styling",
+      "def": "Themeing of scrollbars through standardized `scrollbar-color`/`scrollbar-width` and `::-webkit-scrollbar` pseudo-elements so they match a site's palette without harming usability.",
+      "rel": [
+        "color-scheme",
+        "forced-colors-mode",
+        "accessibility",
+        "progressive-enhancement"
+      ],
+      "ev": "commits 0200ef2 'Theme the scrollbar corner to the phosphor palette' and 6ad021d 'Brighten the scrollbar thumb while it's being dragged'",
+      "src": "learned"
     }
   ]
 }
