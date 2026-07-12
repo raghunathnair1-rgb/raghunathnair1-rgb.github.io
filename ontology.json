@@ -4338,6 +4338,21 @@
       ],
       "ev": "doctrine (principles.md) Observability layer: 'measure the loop's own health: knowledge up (monotonic), hallucinations down (gated)...'",
       "src": "learned"
+    },
+    {
+      "id": "potemkin-understanding",
+      "dom": "agentic-ai",
+      "label": "Potemkin understanding",
+      "def": "The failure mode where a model produces correct benchmark answers while lacking the underlying conceptual grasp, so competence collapses under slight reframings — a comprehension gap masked by surface performance.",
+      "rel": [
+        "hallucination",
+        "evals",
+        "cot-faithfulness",
+        "appropriate-reliance",
+        "verification-bottleneck"
+      ],
+      "ev": "HN front-page themes 'automation without comprehension' and 'LLM hype fatigue' (trends 2026-07-12): appetite for separating genuine LLM utility from systems that act autonomously without real understa",
+      "src": "learned"
     }
   ]
 }
