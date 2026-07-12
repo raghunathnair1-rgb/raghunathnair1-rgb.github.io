@@ -2254,6 +2254,37 @@
       ],
       "ev": "Commit 0236458 'self-improve: Gate the live widgets' background polling on tab visibility'",
       "src": "learned"
+    },
+    {
+      "id": "deterministic-verification",
+      "dom": "sdlc",
+      "label": "Deterministic verification of generated code",
+      "def": "A distinct tooling category that catches errors in AI-generated code and SQL with deterministic, non-model semantic checks rather than another LLM's judgment.",
+      "rel": [
+        "verification",
+        "llm-as-judge",
+        "ai-review",
+        "ci",
+        "structured-output",
+        "sdlc-verify"
+      ],
+      "ev": "HN trend themes 'Verifying AI-generated code: Deterministic checks on LLM output are emerging as a distinct tooling category' and 'Database rigor for the AI era', grounded in the notable tool Sqlsure ",
+      "src": "learned"
+    },
+    {
+      "id": "egress-transparency",
+      "dom": "agentic-ai",
+      "label": "Agent egress transparency",
+      "def": "Auditing and disclosing exactly what data an AI agent or dev CLI transmits over the network, so its exfiltration surface is observable rather than opaque.",
+      "rel": [
+        "agent-security",
+        "data-minimization",
+        "observability",
+        "agent-accountability",
+        "agent-sandboxing"
+      ],
+      "ev": "HN trend theme 'Transparency of what AI agents/CLIs actually send: Developers are auditing exactly what data their AI dev tools exfiltrate'; connects to doctrine guardrail 'no new external network cal",
+      "src": "learned"
     }
   ]
 }
