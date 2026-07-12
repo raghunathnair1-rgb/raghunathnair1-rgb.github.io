@@ -2551,7 +2551,8 @@
         "ai-stylometry",
         "ai-slop",
         "ai-watermarking",
-        "adversarial-content"
+        "adversarial-content",
+        "prompt-engineering"
       ],
       "ev": "commits 47bc298 'linkedin: ban em-dashes entirely (prompt + mechanical strip)' and ecc99cf 'ban the it isn't A, it's B antithesis closer (top AI tell) in de-slop pass'",
       "src": "learned"
