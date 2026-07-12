@@ -3578,6 +3578,20 @@
       ],
       "ev": "The brain/ directory holds principles.md (doctrine), ontology.json, and world.json as a unified store; MEMORY notes 'doctrine + ontology (learn/maintain) + world-loop feed the self-improve/idea engine",
       "src": "learned"
+    },
+    {
+      "id": "self-consistency",
+      "dom": "agentic-ai",
+      "label": "Self-Consistency",
+      "def": "Sampling several independent reasoning paths for one problem and taking the majority or aggregated answer to raise reliability over a single greedy decode.",
+      "rel": [
+        "test-time-compute",
+        "reflexion",
+        "llm-as-judge",
+        "verification"
+      ],
+      "ev": "Grounded in the existing `test-time-compute` concept and the doctrine's verification-loop principle ('a change ships only if ALL checks agree') — self-consistency is the established multi-sample reaso",
+      "src": "learned"
     }
   ]
 }
