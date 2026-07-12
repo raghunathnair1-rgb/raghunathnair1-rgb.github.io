@@ -134,6 +134,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 .kg3d-stage { position: relative; width: 100%; aspect-ratio: 3 / 2; max-height: 460px;
   border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #010601;
   box-shadow: inset 0 0 60px -30px rgba(0,255,65,.55); }
+.kg3d-stage:hover, .kg3d-stage:focus-within, .brain-gl-stage:hover, .brain-gl-stage:focus-within { border-color: var(--cyan); }
 .kg3d, .brain-gl { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
 .kg3d:active { cursor: grabbing; }
 .kg3d:focus-visible, .brain-gl:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
