@@ -88,6 +88,7 @@ html { scroll-behavior: smooth; }
 /* lift bold key terms to the highlight-green so emphasised concepts glow one notch brighter (tracks the amber theme via --green) */
 #content strong, #content b { color: var(--green); }
 #content mark { background: var(--green); color: var(--bg); text-shadow: none; padding: 0 .2em; border-radius: 3px; }
+#content abbr[title] { text-decoration: underline dotted var(--muted); text-underline-offset: .2em; cursor: help; }
 #content blockquote { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--cyan); color: var(--muted); font-style: italic; box-shadow: -4px 0 12px -10px var(--cyan); }
 #content a:hover,
 #content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
