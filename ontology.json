@@ -3682,6 +3682,51 @@
       ],
       "ev": "Trend theme: 'Minimal, legible agent implementations... strong appetite for stripped-down, readable agent cores', and this system's own harness scripts as the agent's operating surface.",
       "src": "learned"
+    },
+    {
+      "id": "algorithmic-monoculture",
+      "dom": "agentic-ai",
+      "label": "Algorithmic Monoculture",
+      "def": "When many actors depend on the same few foundation models, their outputs and errors become correlated, flattening idea diversity and creating shared, systemic failure modes across the ecosystem.",
+      "rel": [
+        "output-homogenization",
+        "model-collapse",
+        "ai-slop",
+        "epistemic-debt"
+      ],
+      "ev": "HN front-page theme (2026-07-12): 'AI homogenizing creative and scientific output ... AI accelerates individual productivity while flattening diversity of ideas'",
+      "src": "learned"
+    },
+    {
+      "id": "rdma",
+      "dom": "infra",
+      "label": "RDMA",
+      "def": "Remote Direct Memory Access lets one node read or write another node's memory over the network without involving either CPU, providing the low-latency, high-bandwidth fabric that multi-node GPU inference clusters rely on to shard a model across machines.",
+      "rel": [
+        "gpu-interconnect",
+        "distributed-inference",
+        "collective-communication",
+        "tensor-parallelism",
+        "zero-copy",
+        "mesh-inference"
+      ],
+      "ev": "Repeated 'spark: 2-node GB10 telemetry refresh' commits (e.g. 384d151, aae33bb) — two DGX Spark GB10 units clustered for multi-node inference are joined over an RDMA-capable interconnect (ConnectX/RoC",
+      "src": "learned"
+    },
+    {
+      "id": "neocloud",
+      "dom": "infra",
+      "label": "Neocloud",
+      "def": "A class of GPU-specialized cloud providers that build and rent out accelerator capacity outside the traditional hyperscalers, financing fleets against future revenue and thereby sitting at the center of the AI-infrastructure capital cycle.",
+      "rel": [
+        "inference-economics",
+        "compute-as-collateral",
+        "circular-financing",
+        "accelerator-depreciation",
+        "jevons-paradox"
+      ],
+      "ev": "HN front-page theme 'The GPU-financing bubble: the community is scrutinizing whether the AI infrastructure boom is propped up by circular, self-referential capital flows' — the durable entity/business",
+      "src": "learned"
     }
   ]
 }
