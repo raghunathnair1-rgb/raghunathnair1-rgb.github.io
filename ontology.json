@@ -2593,6 +2593,19 @@
       ],
       "ev": "commit 68bdd40 'self-improve: Add a dns-prefetch hint for the analytics beacon origin'",
       "src": "learned"
+    },
+    {
+      "id": "prefers-reduced-motion",
+      "dom": "stack",
+      "label": "Reduced-Motion Preference",
+      "def": "A CSS user-preference media query that lets the OS/browser signal motion sensitivity so animated UI can be frozen or removed for vestibular safety.",
+      "rel": [
+        "accessibility",
+        "prefers-contrast",
+        "forced-colors-mode"
+      ],
+      "ev": "commit c5f9908 'self-improve: Suppress the animated matrix/sky canvases under prefers-reduced-motion' — a real accessibility guard shipped alongside the existing prefers-contrast/forced-colors work",
+      "src": "learned"
     }
   ]
 }
