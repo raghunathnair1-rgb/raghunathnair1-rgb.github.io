@@ -4368,6 +4368,59 @@
       ],
       "ev": "Trend theme 'Coding-agent token efficiency: The community is scrutinizing how many tokens agents burn on overhead before doing real work' + OpenCode framed as leaner on token overhead than Claude Code",
       "src": "learned"
+    },
+    {
+      "id": "circuit-tracing",
+      "dom": "agentic-ai",
+      "label": "Circuit tracing",
+      "def": "Reconstructing the internal computation a model uses for a specific behavior by building attribution graphs over its learned features, to explain — not merely observe — how it reasons.",
+      "rel": [
+        "mechanistic-interpretability",
+        "sparse-autoencoder",
+        "cot-faithfulness"
+      ],
+      "ev": "trend theme 'Can we actually understand LLM reasoning: Interpretability of how models reason is a recurring serious-research thread'; deepens the existing interp cluster (mechanistic-interpretability,",
+      "src": "learned"
+    },
+    {
+      "id": "paged-attention",
+      "dom": "infra",
+      "label": "PagedAttention",
+      "def": "A KV-cache memory-management technique pioneered by vLLM that stores attention keys and values in non-contiguous fixed-size blocks to eliminate fragmentation and raise inference throughput.",
+      "rel": [
+        "vllm",
+        "kv-cache",
+        "continuous-batching",
+        "memory-bandwidth-bound"
+      ],
+      "ev": "vLLM is the system's inference stack (existing 'vllm' concept; spark.sh/spark_stats.py 2-node GB10 telemetry); PagedAttention is vLLM's signature KV-cache technique.",
+      "src": "learned"
+    },
+    {
+      "id": "superposition",
+      "dom": "agentic-ai",
+      "label": "Superposition",
+      "def": "The phenomenon whereby a neural network represents more features than it has neurons by encoding them as overlapping directions in activation space, which sparse autoencoders aim to disentangle.",
+      "rel": [
+        "sparse-autoencoder",
+        "mechanistic-interpretability",
+        "circuit-tracing"
+      ],
+      "ev": "Trend theme 'Can we actually understand LLM reasoning' (interpretability research), deepening the existing sparse-autoencoder/mechanistic-interpretability cluster.",
+      "src": "learned"
+    },
+    {
+      "id": "chunked-prefill",
+      "dom": "infra",
+      "label": "Chunked prefill",
+      "def": "A serving optimization that splits a long prompt's prefill into smaller chunks interleaved with ongoing decode steps, smoothing latency spikes and improving GPU utilization under continuous batching.",
+      "rel": [
+        "continuous-batching",
+        "kv-cache",
+        "disaggregated-serving"
+      ],
+      "ev": "vLLM-class inference serving embodied by the system's stack (existing 'vllm' concept; spark GB10 inference telemetry).",
+      "src": "learned"
     }
   ]
 }
