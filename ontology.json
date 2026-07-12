@@ -2955,6 +2955,32 @@
       ],
       "ev": "HN trend theme 'Databases and data-plane performance'; a durable data-plane construct deepening the existing DB concept cluster",
       "src": "learned"
+    },
+    {
+      "id": "query-compilation",
+      "dom": "stack",
+      "label": "Query Compilation",
+      "def": "Just-in-time compiling a SQL query plan into native machine code to remove interpreter overhead, the classic performance counterpart to vectorized execution.",
+      "rel": [
+        "query-planner",
+        "vectorized-execution",
+        "storage-engine"
+      ],
+      "ev": "latest trends theme 'Databases and data-plane performance: squeezing correctness and throughput out of SQL infrastructure'",
+      "src": "learned"
+    },
+    {
+      "id": "serializable-isolation",
+      "dom": "stack",
+      "label": "Serializable Isolation",
+      "def": "The strongest transaction isolation level, guaranteeing concurrent transactions yield a result equivalent to some serial execution order.",
+      "rel": [
+        "mvcc",
+        "acid-transactions",
+        "query-planner"
+      ],
+      "ev": "latest trends theme 'squeezing correctness and throughput out of SQL infrastructure' (the correctness half)",
+      "src": "learned"
     }
   ]
 }
