@@ -66,6 +66,8 @@ html { scroll-behavior: smooth; }
 #content li { text-wrap: pretty; }
 /* break otherwise-unbreakable tokens (long URLs, model/GPU IDs) so narrow screens don't scroll sideways */
 #content { overflow-wrap: break-word; }
+/* keep embedded figures/diagrams fluid so a wide image can't force horizontal scroll either */
+#content img { max-width: 100%; height: auto; }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
 #content a:visited { color: var(--muted); }
 /* light list markers in the terminal accent so each bullet reads like a lit prompt marker */

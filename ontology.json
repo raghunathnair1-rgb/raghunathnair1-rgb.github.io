@@ -3063,7 +3063,8 @@
         "self-improve",
         "memory",
         "recursive-loop",
-        "hallucination"
+        "hallucination",
+        "novelty-guard"
       ],
       "ev": "doctrine LEARN principle ('never repeat or near-duplicate a change already shipped') plus the memory/decisions/ store and reduce_hallucinations.py",
       "src": "learned"
