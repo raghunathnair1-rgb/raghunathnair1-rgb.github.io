@@ -802,5 +802,36 @@
     requestAnimationFrame(frame);
   })();
   </script>
+  <script>
+  // human-presence pip: dim "bot?" until the first genuinely trusted interaction lights it.
+  // A headless scraper loads the whole DOM but never emits a trusted pointermove/scroll/keydown.
+  (function () {
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (!document.body) return;
+    var pip = document.createElement('div');
+    pip.setAttribute('aria-hidden', 'true');
+    pip.textContent = '\u00b7 session: bot?';
+    var s = pip.style;
+    s.position = 'fixed'; s.right = '10px'; s.bottom = '10px'; s.zIndex = '9999';
+    s.font = '11px/1 monospace'; s.letterSpacing = '.04em';
+    s.padding = '4px 7px'; s.borderRadius = '3px'; s.pointerEvents = 'none';
+    s.color = '#2b8f4d'; s.opacity = '.38';
+    s.border = '1px solid rgba(43,143,77,.35)';
+    s.background = 'rgba(0,0,0,.25)';
+    s.transition = reduce ? 'none' : 'opacity .5s ease, color .5s ease, text-shadow .5s ease';
+    document.body.appendChild(pip);
+    var lit = false, evts = ['pointermove', 'scroll', 'keydown'];
+    function light(e) {
+      if (lit || !e || !e.isTrusted) return;
+      lit = true;
+      pip.textContent = '\u25c9 human session';
+      s.opacity = '1'; s.color = '#4fd67e';
+      if (!reduce) s.textShadow = '0 0 8px rgba(79,214,126,.85)';
+      evts.forEach(function (t) { window.removeEventListener(t, light, true); });
+    }
+    evts.forEach(function (t) { window.addEventListener(t, light, true); });
+  })();
+  </script>
 </body>
 </html>
