@@ -3944,6 +3944,20 @@
       ],
       "ev": "Commit c4da9f0 'blog: unify uptime — brain card + footer both count from one launch-epoch origin'.",
       "src": "learned"
+    },
+    {
+      "id": "native-extension",
+      "dom": "stack",
+      "label": "Native extension module",
+      "def": "Performance-critical logic written in a systems language like Rust and exposed to interpreted-language runtimes through FFI bindings, giving Python or JS tools native speed without leaving their ecosystem.",
+      "rel": [
+        "rust",
+        "python",
+        "native-web-tooling",
+        "wasm"
+      ],
+      "ev": "Latest-trends theme 'Rust as the tooling substrate: Rust keeps being chosen to build fast pipelines that serve other-language ecosystems.'",
+      "src": "learned"
     }
   ]
 }
