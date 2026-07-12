@@ -3852,6 +3852,52 @@
       ],
       "ev": "Trends NOTABLE 'Ant: A new JavaScript runtime and surrounding eco' plus THEME 'Rust powering the JavaScript/web toolchain — Rust is being used to build fast pipelines and runtimes serving the JS ecosy",
       "src": "learned"
+    },
+    {
+      "id": "installable-web-app",
+      "dom": "stack",
+      "label": "Installable Web App",
+      "def": "A web-platform capability that lets a static site be added to the home screen and launched in standalone chrome like a native app, its installed name, icon, and display mode controlled by a web app manifest and Apple mobile-web-app meta tags.",
+      "rel": [
+        "progressive-enhancement",
+        "github-pages",
+        "ssg",
+        "accessibility"
+      ],
+      "ev": "commit aba7188 'self-improve: Set the iOS home-screen label with apple-mobile-web-app-title' — the site emits Apple mobile-web-app meta tags to control its installed/home-screen presentation",
+      "src": "learned"
+    },
+    {
+      "id": "guides-and-sensors",
+      "dom": "harness",
+      "label": "Guides & sensors",
+      "def": "Böckeler's harness framing: GUIDES steer the agent before it acts (feedforward); SENSORS catch mistakes after (feedback) — each either computational (deterministic: linters, tests, type-checkers) or inferential (semantic: AI review, LLM-as-judge).",
+      "rel": [
+        "harness-eng",
+        "verification",
+        "guardrails"
+      ]
+    },
+    {
+      "id": "harnessability",
+      "dom": "harness",
+      "label": "Harnessability",
+      "def": "How amenable a codebase or environment is to agent control mechanisms — raised by 'ambient affordances': structure that makes the environment legible and tractable to agents.",
+      "rel": [
+        "harness-eng",
+        "guardrails"
+      ]
+    },
+    {
+      "id": "keep-quality-left",
+      "dom": "sdlc",
+      "label": "Keep quality left",
+      "def": "Distribute quality checks across the development lifecycle by cost and speed — run the fast, cheap, deterministic checks as early as possible.",
+      "rel": [
+        "verification",
+        "guides-and-sensors",
+        "sdlc"
+      ]
     }
   ]
 }
