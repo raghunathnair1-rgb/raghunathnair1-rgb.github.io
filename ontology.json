@@ -3899,6 +3899,36 @@
         "guides-and-sensors",
         "sdlc"
       ]
+    },
+    {
+      "id": "tree-of-thoughts",
+      "dom": "agentic-ai",
+      "label": "Tree of Thoughts",
+      "def": "A reasoning technique that explores multiple branching solution paths with lookahead and backtracking rather than committing to a single linear chain.",
+      "rel": [
+        "chain-of-thought",
+        "self-consistency",
+        "best-of-n-sampling",
+        "planning",
+        "react-agent"
+      ],
+      "ev": "Established agentic-AI reasoning technique in this system's domain; generalizes the existing chain-of-thought / self-consistency / best-of-n-sampling deliberation concepts and mirrors the doctrine's r",
+      "src": "learned"
+    },
+    {
+      "id": "multi-agent-debate",
+      "dom": "agentic-ai",
+      "label": "Multi-Agent Debate",
+      "def": "Several agents independently reason and then critique each other's answers over rounds to converge on a more factual, better-verified result.",
+      "rel": [
+        "multi-agent",
+        "llm-as-judge",
+        "self-consistency",
+        "verification",
+        "hallucination"
+      ],
+      "ev": "Established multi-agent reasoning technique in this system's domain; extends the existing multi-agent / llm-as-judge / verification gate concepts as a hallucination-reduction method.",
+      "src": "learned"
     }
   ]
 }
