@@ -3421,6 +3421,21 @@
       ],
       "ev": "Latest AI/tech trend theme: 'AI's energy and carbon footprint ... environmental cost of datacenters' as a counter-narrative to the AI buildout (HN front page, 2026-07-12).",
       "src": "learned"
+    },
+    {
+      "id": "confidential-computing",
+      "dom": "infra",
+      "label": "Confidential Computing",
+      "def": "Running models and inference inside hardware-backed trusted execution environments so an untrusted host or peer node cannot read the weights or the data it processes.",
+      "rel": [
+        "verifiable-inference",
+        "model-extraction",
+        "distributed-inference",
+        "mesh-inference",
+        "agent-sandboxing"
+      ],
+      "ev": "trend theme 'Distributed / decentralized AI compute: running LLMs across meshed peer nodes' (Mesh LLM) — untrusted peers hosting a model require hardware enclaves to protect weights/data, an establish",
+      "src": "learned"
     }
   ]
 }
