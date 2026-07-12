@@ -42,6 +42,9 @@
   #crtfx, #matrix, #sky { display: none; }
   body::before, body::after { display: none; }
 }
+/* reduced-motion: the matrix rain and drifting sky are pure decorative animation with no
+   informational content, so hide them; the body's phosphor gradient keeps the look intact. */
+@media (prefers-reduced-motion: reduce) { #matrix, #sky { display: none; } }
 * { box-sizing: border-box; }
 
 /* smooth in-page scrolling (skip-link + console-tab jumps glide instead of teleport) */
