@@ -4353,6 +4353,20 @@
       ],
       "ev": "HN front-page themes 'automation without comprehension' and 'LLM hype fatigue' (trends 2026-07-12): appetite for separating genuine LLM utility from systems that act autonomously without real understa",
       "src": "learned"
+    },
+    {
+      "id": "token-budgeting",
+      "dom": "harness",
+      "label": "Token budgeting",
+      "def": "Treating an agent run's context and output tokens as a finite, explicitly allocated resource, spending it on useful work rather than harness overhead.",
+      "rel": [
+        "agent-token-overhead",
+        "context-compaction",
+        "minimal-agent",
+        "inference-economics"
+      ],
+      "ev": "Trend theme 'Coding-agent token efficiency: The community is scrutinizing how many tokens agents burn on overhead before doing real work' + OpenCode framed as leaner on token overhead than Claude Code",
+      "src": "learned"
     }
   ]
 }
