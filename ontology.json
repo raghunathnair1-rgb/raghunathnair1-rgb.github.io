@@ -3877,7 +3877,8 @@
         "harness-eng",
         "verification",
         "guardrails",
-        "llm-as-judge"
+        "llm-as-judge",
+        "deterministic-verification"
       ]
     },
     {
@@ -3898,7 +3899,8 @@
       "rel": [
         "verification",
         "guides-and-sensors",
-        "sdlc"
+        "sdlc",
+        "shift-left-security"
       ]
     },
     {
