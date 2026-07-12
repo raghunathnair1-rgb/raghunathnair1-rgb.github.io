@@ -2195,6 +2195,38 @@ fn app() -> Html {
                                     }
                                 }
                                 e.prevent_default();
+                                // dwell-gate: once revealed, keep watching the tab and re-mask the
+                                // instant it's backgrounded or loses focus, so a headless scraper
+                                // that snapshots the DOM on a later tick finds only the obfuscated
+                                // placeholder. Installed once; a human just taps decrypt again.
+                                thread_local! {
+                                    static REMASK_ARMED: std::cell::Cell<bool> = std::cell::Cell::new(false);
+                                }
+                                REMASK_ARMED.with(|armed| {
+                                    if armed.replace(true) {
+                                        return;
+                                    }
+                                    let watch = gloo_timers::callback::Interval::new(400, || {
+                                        let doc = match web_sys::window().and_then(|w| w.document()) {
+                                            Some(d) => d,
+                                            None => return,
+                                        };
+                                        let revealed = doc
+                                            .get_element_by_id("cc-mail-link")
+                                            .and_then(|a| a.get_attribute("href"))
+                                            .map_or(false, |h| h.starts_with("mailto:"));
+                                        let away = doc.hidden() || doc.has_focus().map_or(true, |f| !f);
+                                        if revealed && away {
+                                            if let Some(a) = doc.get_element_by_id("cc-mail-link") {
+                                                let _ = a.set_attribute("href", "#");
+                                            }
+                                            if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
+                                                h.set_inner_html("> ./decrypt-contact");
+                                            }
+                                        }
+                                    });
+                                    watch.forget();
+                                });
                                 if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
                                     h.set_inner_html("decrypting\u{2026}");
                                 }
