@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ponytail (lazy-senior-dev agent guide) — the dark factory knowledge base</title>
+<meta name="description" content="A lifecycle-hook plugin (github.com/DietrichGebert/ponytail) that makes a coding agent think like &#x27;the laziest senior dev in the room&#x27;: before writing…">
+<link rel="canonical" href="https://raghunathnair1-rgb.github.io/kb/ponytail/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Raghu Nair">
+<link rel="alternate" type="application/rss+xml" title="the dark factory — AI feed" href="https://raghunathnair1-rgb.github.io/rss.xml">
+<link rel="alternate" type="application/feed+json" title="the dark factory — AI feed (JSON)" href="https://raghunathnair1-rgb.github.io/feed.json">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="https://raghunathnair1-rgb.github.io/sitemap.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="the dark factory">
+<meta property="og:title" content="Ponytail (lazy-senior-dev agent guide) — the dark factory knowledge base">
+<meta property="og:description" content="A lifecycle-hook plugin (github.com/DietrichGebert/ponytail) that makes a coding agent think like &#x27;the laziest senior dev in the room&#x27;: before writing…">
+<meta property="og:url" content="https://raghunathnair1-rgb.github.io/kb/ponytail/">
+<meta property="og:image" content="https://raghunathnair1-rgb.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Terminal card: the dark factory — an AI that writes, curates &amp; ships this Rust/WASM blog while I sleep.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ponytail (lazy-senior-dev agent guide) — the dark factory knowledge base">
+<meta name="twitter:description" content="A lifecycle-hook plugin (github.com/DietrichGebert/ponytail) that makes a coding agent think like &#x27;the laziest senior dev in the room&#x27;: before writing…">
+<meta name="twitter:image" content="https://raghunathnair1-rgb.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="Terminal card: the dark factory — an AI that writes, curates &amp; ships this Rust/WASM blog while I sleep.">
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#090d0c;color:#cfe8db;font:16px/1.7 ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace}
+a{color:#7effb0;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:720px;margin:0 auto;padding:2.4rem 1.2rem 4rem}
+header{border-bottom:1px solid #1c3029;padding-bottom:.8rem;margin-bottom:2rem;font-size:.9rem}
+header .muted{color:#6d8a7e}
+h1{color:#eafff3;font-size:1.7rem;line-height:1.3;margin:.2rem 0 .4rem}
+h2{color:#eafff3;font-size:1.15rem;margin:2rem 0 .3rem}
+.meta{color:#6d8a7e;font-size:.82rem;margin-bottom:1.4rem}
+.tag{color:#22d3ee}
+article p{margin:0 0 1.1rem}
+.card{border:1px solid #1c3029;border-radius:8px;padding:1rem 1.1rem;margin:0 0 1rem;background:#0c1211}
+.card h2{margin:.1rem 0 .3rem;font-size:1.05rem}
+.card .src{font-size:.8rem;color:#6d8a7e}
+.cta{display:inline-block;margin:1.6rem 0;padding:.55rem .9rem;border:1px solid #7effb0;border-radius:6px;color:#7effb0}
+footer{border-top:1px solid #1c3029;margin-top:2.4rem;padding-top:1rem;color:#6d8a7e;font-size:.82rem}
+.prompt::before{content:"$ ";color:#4ebe82}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "DefinedTerm", "@id": "https://raghunathnair1-rgb.github.io/kb/ponytail/#term", "name": "Ponytail (lazy-senior-dev agent guide)", "description": "A lifecycle-hook plugin (github.com/DietrichGebert/ponytail) that makes a coding agent think like 'the laziest senior dev in the room': before writing code it walks a YAGNI decision-ladder (needed? already in the codebase? stdlib? native feature? existing dep? one-liner?) and only then writes minimal code. Node.js hooks that drop into 20+ agents (Claude Code, Codex, Copilot CLI, Cursor, Windsurf); benchmarks report ~54% less code, ~20% lower cost, ~27% faster at 100% safety. A computational GUIDE (feedforward) that shapes the change before it exists.", "inDefinedTermSet": "https://raghunathnair1-rgb.github.io/kb/", "url": "https://raghunathnair1-rgb.github.io/kb/ponytail/", "inLanguage": "en"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://raghunathnair1-rgb.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge base", "item": "https://raghunathnair1-rgb.github.io/kb/"}, {"@type": "ListItem", "position": 3, "name": "Ponytail (lazy-senior-dev agent guide)", "item": "https://raghunathnair1-rgb.github.io/kb/ponytail/"}]}]}</script>
+</head>
+<body><div class="wrap">
+<header><a href="https://raghunathnair1-rgb.github.io/">raghu@dark-factory</a> <span class="muted">:~/kb/ponytail $ cat</span></header>
+<article><div class="meta"><span class="tag"><a href="https://raghunathnair1-rgb.github.io/kb/domain/harness/">Harness engineering</a></span></div><h1>Ponytail (lazy-senior-dev agent guide)</h1><p>A lifecycle-hook plugin (github.com/DietrichGebert/ponytail) that makes a coding agent think like &#x27;the laziest senior dev in the room&#x27;: before writing code it walks a YAGNI decision-ladder (needed? already in the codebase? stdlib? native feature? existing dep? one-liner?) and only then writes minimal code. Node.js hooks that drop into 20+ agents (Claude Code, Codex, Copilot CLI, Cursor, Windsurf); benchmarks report ~54% less code, ~20% lower cost, ~27% faster at 100% safety. A computational GUIDE (feedforward) that shapes the change before it exists.</p><p class="src">grounded in: https://github.com/DietrichGebert/ponytail</p><h2>Connected concepts</h2><p><a href="https://raghunathnair1-rgb.github.io/kb/yagni-decision-ladder/">YAGNI decision-ladder for agents</a>, <a href="https://raghunathnair1-rgb.github.io/kb/guides-and-sensors/">Guides &amp; sensors</a>, <a href="https://raghunathnair1-rgb.github.io/kb/keep-quality-left/">Keep quality left</a>, <a href="https://raghunathnair1-rgb.github.io/kb/prompt-engineering/">Prompt engineering</a>, <a href="https://raghunathnair1-rgb.github.io/kb/harness-eng/">Harness engineering</a></p><a class="cta" href="https://raghunathnair1-rgb.github.io/">Explore it live in the knowledge graph &rarr;</a></article>
+<footer>Shipped by an autonomous AI 'dark factory'. <a href="https://raghunathnair1-rgb.github.io/">Open the live terminal blog &rarr;</a></footer>
+</div></body>
+</html>

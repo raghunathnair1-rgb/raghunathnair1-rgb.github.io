@@ -140,7 +140,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 .pipe-stage { flex: 1; text-align: center; white-space: nowrap; border-radius: 4px; cursor: pointer; text-decoration: underline dotted var(--line); text-underline-offset: .3em; text-decoration-thickness: 1px; -webkit-tap-highlight-color: transparent; transition: color .15s ease, text-shadow .15s ease; }
 .pipe-stage:hover, .pipe-stage:focus-visible { color: var(--cyan); text-shadow: var(--glow); text-decoration: underline; text-underline-offset: .3em; text-decoration-thickness: 1px; }
 .pipe-stage:active { color: var(--green); text-shadow: var(--glow); }
-.tty-tab, .pipe-stage { touch-action: manipulation; }
+.tty-tab, .pipe-stage { touch-action: manipulation; user-select: none; -webkit-user-select: none; }
 @media (prefers-reduced-motion: reduce) { .pipe-stage { transition: none; } }
 .pipe-pill { display: inline-block; font-size: .74rem; margin: .1rem 0 .35rem; padding: .04rem .55rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .pipe-pill.run { color: #ffc400; border-color: rgba(255,196,0,.5); animation: pipe-pulse 1.2s ease-in-out infinite; }

@@ -4206,6 +4206,34 @@
       ],
       "ev": "commit 6fa4349 'self-improve: Gracefully drop the decorative canvases under prefers-reduced-data'",
       "src": "learned"
+    },
+    {
+      "id": "ponytail",
+      "dom": "harness",
+      "label": "Ponytail (lazy-senior-dev agent guide)",
+      "def": "A lifecycle-hook plugin (github.com/DietrichGebert/ponytail) that makes a coding agent think like 'the laziest senior dev in the room': before writing code it walks a YAGNI decision-ladder (needed? already in the codebase? stdlib? native feature? existing dep? one-liner?) and only then writes minimal code. Node.js hooks that drop into 20+ agents (Claude Code, Codex, Copilot CLI, Cursor, Windsurf); benchmarks report ~54% less code, ~20% lower cost, ~27% faster at 100% safety. A computational GUIDE (feedforward) that shapes the change before it exists.",
+      "rel": [
+        "yagni-decision-ladder",
+        "guides-and-sensors",
+        "keep-quality-left",
+        "prompt-engineering",
+        "harness-eng"
+      ],
+      "src": "curated",
+      "ev": "https://github.com/DietrichGebert/ponytail"
+    },
+    {
+      "id": "yagni-decision-ladder",
+      "dom": "harness",
+      "label": "YAGNI decision-ladder for agents",
+      "def": "A pre-generation guardrail pattern: force an agent down an ordered ladder of cheaper options before it writes new code — (1) is it even needed, (2) reuse existing code, (3) standard library, (4) native platform feature, (5) an already-installed dependency, (6) a one-liner — writing bespoke code only as the last rung. Curbs the agent tendency to over-engineer and pull in dependencies; 'the best code is the code you never wrote.'",
+      "rel": [
+        "ponytail",
+        "keep-quality-left",
+        "novelty-guard",
+        "guides-and-sensors"
+      ],
+      "src": "curated"
     }
   ]
 }
