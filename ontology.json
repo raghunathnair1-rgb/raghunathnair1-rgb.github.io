@@ -3227,6 +3227,21 @@
       ],
       "ev": "Trend theme 'Database and query performance craft: practitioners are focused on squeezing correctness and throughput out of SQL data layers.'",
       "src": "learned"
+    },
+    {
+      "id": "small-batch-delivery",
+      "dom": "sdlc",
+      "label": "Small-batch delivery",
+      "def": "Shipping each improvement as a single-concern, independently revertible commit through the full gate, keeping batch size near one so a failure is cheap to isolate and roll back.",
+      "rel": [
+        "self-improve",
+        "cron-autonomy",
+        "gate",
+        "revert",
+        "sdlc-ship"
+      ],
+      "ev": "The self-improve commit stream is dozens of one-line, single-concern commits (e.g. 9095d52, db6bc05, a3af71b), and doctrine mandates 'small, grounded, self-contained; atomic, reversible; auto-revert o",
+      "src": "learned"
     }
   ]
 }
