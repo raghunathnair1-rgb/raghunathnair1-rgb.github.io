@@ -3166,6 +3166,21 @@
       ],
       "ev": "HN 'data-model rigor — renewed appetite for strictness and correctness at the storage layer' theme (2026-07-12), grounded in this system's existing typed-sql/storage-engine/embedded-db ontology and it",
       "src": "learned"
+    },
+    {
+      "id": "agent-trajectory",
+      "dom": "agentic-ai",
+      "label": "Agent trajectory",
+      "def": "The ordered sequence of an agent's states, actions, and observations across a run, treated as a first-class artifact that can be replayed, visualized, and scored.",
+      "rel": [
+        "agent-session-replay",
+        "agent-tracing",
+        "reflexion",
+        "planning",
+        "evals"
+      ],
+      "ev": "Latest-trends theme 'Code and agent sessions as navigable 3D/graph structures' + the Mindwalk tool that replays how a coding agent moved through a codebase.",
+      "src": "learned"
     }
   ]
 }
