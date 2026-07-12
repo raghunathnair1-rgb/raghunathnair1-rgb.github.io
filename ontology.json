@@ -3048,8 +3048,7 @@
       "rel": [
         "accessibility",
         "forced-colors-mode",
-        "prefers-contrast",
-        "claude-design"
+        "prefers-contrast"
       ],
       "ev": "commits 7c78dc1 'Theme native form controls to the phosphor accent' and 14ab261 'Theme the native text caret to phosphor green'",
       "src": "learned"
