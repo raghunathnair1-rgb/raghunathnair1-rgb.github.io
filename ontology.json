@@ -2329,6 +2329,20 @@
       ],
       "ev": "HN front-page trend theme 'Minimal / from-scratch AI agents: the community is fascinated by stripping agents down to their smallest legible core' (2026-07-12)",
       "src": "learned"
+    },
+    {
+      "id": "code-intelligence",
+      "dom": "stack",
+      "label": "Code Intelligence",
+      "def": "Treating a codebase as a queryable semantic graph (symbols, references, call edges) that agents and developers query structurally rather than browse file-by-file.",
+      "rel": [
+        "code-property-graph",
+        "graph-rag",
+        "code-vulns",
+        "kg-viz"
+      ],
+      "ev": "Trend theme 'Code & knowledge as queryable graphs: teams are modeling their codebases as graphs you can query rather than browse'.",
+      "src": "learned"
     }
   ]
 }
