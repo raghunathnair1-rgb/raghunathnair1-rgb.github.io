@@ -3785,6 +3785,19 @@
       ],
       "ev": "commits 0200ef2 'Theme the scrollbar corner to the phosphor palette' and 6ad021d 'Brighten the scrollbar thumb while it's being dragged'",
       "src": "learned"
+    },
+    {
+      "id": "native-web-tooling",
+      "dom": "stack",
+      "label": "Native-Speed Web Tooling",
+      "def": "Web build tools, bundlers, and runtimes are being rewritten in systems languages (Rust, Go, Zig) for order-of-magnitude speedups — the paradigm this system's own Trunk/Rust/WASM build pipeline embodies.",
+      "rel": [
+        "trunk",
+        "rust",
+        "wasm"
+      ],
+      "ev": "HN trend theme 'New JS/Rust build tooling: Fresh runtimes and Rust-forged pipelines for the JavaScript world keep drawing big crowds', plus the system's real Trunk-based Rust/WASM build stack",
+      "src": "learned"
     }
   ]
 }
