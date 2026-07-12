@@ -1,5 +1,12 @@
 [
 {
+"slug": "launch-hn-context-dev-yc-s26-api-to-get-structured-data-from-any-websi",
+"title": "Signal: Launch HN: Context.dev (YC S26) – API to get structured data from any website",
+"date": "2026-07-12",
+"tag": "harness",
+"body": "The thing worth flagging here is the extract endpoint. According to context.dev, you hand `/web/extract` a URL plus a JSON Schema you define, and the response comes back shaped to that schema. Their example defines the target shape in Zod, converts it to JSON Schema, passes it alongside the URL, and reads structured fields off `result.data`. That is the part that matters if you are building agents: instead of scraping to text and writing your own parser, you declare the shape you want and get typed data back.\n\nThe rest is the surface you would expect around that. context.dev reports one REST API that scrapes any URL to clean markdown or rendered HTML, extracts images, crawls a whole site, and discovers page URLs from a domain's sitemap. There is a `GET /v1/scrape/markdown` call that takes a `url` and returns markdown. They also list screenshots (viewport or full page), brand data resolved by company identifier or from a specific page URL, a styleguide extractor for colors, elements, and fonts, product listing extraction, and a transaction-identify call that matches strings like `SQ *BLUE BOTTLE 8xx` to a brand, with optional location and MCC hints.\n\nThe onboarding path is aimed at agents doing the integration themselves. context.dev says you paste a single line into your coding agent and it signs you up, grabs the API key, and wires the SDK into your codebase, pointing at `context.dev/auth.md` and `docs.context.dev/agent-quickstart`. The manual route is the usual sign up, copy key from dashboard, install SDK.\n\nThe pitch context.dev makes for why any of this exists is keeping agents off frozen training data: crawl a sitemap, convert every page to markdown, and pipe it into embeddings without a parser in the middle, or resolve a domain to a typed company profile at request time. Whether the extraction holds up on messy real pages is not something the source demonstrates, so I would want to run my own schemas against it before trusting the typed output."
+},
+{
 "slug": "show-hn-rowboat-open-source-local-first-alternative-to-claude-desktop",
 "title": "Signal: Show HN: Rowboat – Open-source, local-first alternative to Claude Desktop",
 "date": "2026-07-10",
