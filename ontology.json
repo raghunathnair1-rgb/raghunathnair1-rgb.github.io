@@ -3960,6 +3960,35 @@
       ],
       "ev": "Latest-trends theme 'Rust as the tooling substrate: Rust keeps being chosen to build fast pipelines that serve other-language ecosystems.'",
       "src": "learned"
+    },
+    {
+      "id": "lazy-tool-loading",
+      "dom": "agentic-ai",
+      "label": "Lazy tool loading",
+      "def": "An agent loads tool schemas on demand at call time rather than injecting every tool definition upfront, cutting the per-request context and token overhead of large tool catalogs.",
+      "rel": [
+        "tool-use",
+        "mcp",
+        "context-eng",
+        "agent-computer-interface"
+      ],
+      "ev": "Trend theme: people auditing 'exactly what agent CLIs send over the wire and how much token overhead they carry' — deferred/on-demand tool schema loading is the durable mitigation for that overhead.",
+      "src": "learned"
+    },
+    {
+      "id": "agent-token-overhead",
+      "dom": "harness",
+      "label": "Agent token overhead",
+      "def": "The hidden, fixed token cost an agent harness adds to every model call through system prompts, tool schemas, and injected context — measurable at the wire and a prime target for minimization.",
+      "rel": [
+        "inference-economics",
+        "context-eng",
+        "lazy-tool-loading",
+        "harnessability",
+        "minimal-agent"
+      ],
+      "ev": "trend theme 'Agent transparency & wire-level scrutiny: People are auditing exactly what agent CLIs send over the wire and how much token overhead they carry.'",
+      "src": "learned"
     }
   ]
 }
