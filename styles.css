@@ -17,6 +17,8 @@
   color-scheme: dark;
   accent-color: var(--cyan);
   font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 /* amber theme — applied via [data-theme="amber"], hydrated from localStorage "df-theme" */
 :root[data-theme="amber"] {
