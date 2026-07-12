@@ -3,6 +3,10 @@ use yew::TargetCast;
 // pure logic lives in the coverage-gated blog-logic crate (tested code == shipped code)
 use blog_logic::{day_length_hm, evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r};
 
+/// The dark factory went live 2026-07-06 00:00 UTC. Every "uptime" on the site counts from
+/// this single origin, so the number reads identically wherever it appears (brain card, footer).
+const LAUNCH_EPOCH_MS: f64 = 1_783_296_000_000.0;
+
 /// Fetch (and optionally poll) a JSON endpoint into (data, err) state. Always cache-busts —
 /// GitHub Pages caches these files up to 10min — so no widget ever serves a stale snapshot.
 /// Returns the same (Option<T>, bool) shape the widgets already render, so call sites drop in
@@ -383,8 +387,6 @@ fn ascii_clock() -> Html {
 struct BrainStatus {
     healthy: bool,
     #[serde(default)]
-    started_epoch: f64,
-    #[serde(default)]
     pid: u64,
 }
 
@@ -405,11 +407,7 @@ fn brain_card() -> Html {
             {
                 match (&*st, *err) {
                     (Some(b), _) => {
-                        let up = if b.started_epoch > 0.0 {
-                            ((js_sys::Date::now() / 1000.0) - b.started_epoch).max(0.0) as u64
-                        } else {
-                            0
-                        };
+                        let up = ((js_sys::Date::now() - LAUNCH_EPOCH_MS) / 1000.0).max(0.0) as u64;
                         let (d, h, m, s) = (up / 86400, (up % 86400) / 3600, (up % 3600) / 60, up % 60);
                         html! {
                             <div class="brain-row">
@@ -1993,7 +1991,7 @@ fn site_footer() -> Html {
     // uptime since first ship (2026-07-06 UTC); auto-increments, no server needed
     let days = {
         let now = js_sys::Date::now();
-        (((now - 1783296000000.0_f64) / 86_400_000.0).floor() as i64).max(0)
+        (((now - LAUNCH_EPOCH_MS) / 86_400_000.0).floor() as i64).max(0)
     };
     let year = js_sys::Date::new_0().get_full_year();
     html! {
