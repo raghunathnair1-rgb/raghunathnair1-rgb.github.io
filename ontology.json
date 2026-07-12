@@ -3838,6 +3838,19 @@
       ],
       "ev": "latest AI/tech trends theme: 'Distributed / decentralized AI compute — appetite for running LLM workloads across meshed peer nodes instead of centralized clouds', which is the economic-coordination la",
       "src": "learned"
+    },
+    {
+      "id": "javascript-runtime",
+      "dom": "stack",
+      "label": "JavaScript runtime",
+      "def": "A standalone execution environment for running JavaScript outside the browser (Node/Deno/Bun-class), a distinct layer from build tooling and increasingly implemented in Rust for startup and throughput.",
+      "rel": [
+        "native-web-tooling",
+        "trunk",
+        "rust"
+      ],
+      "ev": "Trends NOTABLE 'Ant: A new JavaScript runtime and surrounding eco' plus THEME 'Rust powering the JavaScript/web toolchain — Rust is being used to build fast pipelines and runtimes serving the JS ecosy",
+      "src": "learned"
     }
   ]
 }
