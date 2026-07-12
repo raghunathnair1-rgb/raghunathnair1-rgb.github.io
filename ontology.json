@@ -2212,6 +2212,35 @@
       ],
       "ev": "commits re-mask the decrypted email after an idle timeout and when the tab is hidden to shrink the exposure window (3bceacb, bdaafe8)",
       "src": "learned"
+    },
+    {
+      "id": "automation-detection",
+      "dom": "agentic-ai",
+      "label": "Automation-framework detection",
+      "def": "Classifying a visitor as a machine actor by probing browser-automation tells such as the navigator.webdriver flag and CDP/headless artifacts, then gating the action.",
+      "rel": [
+        "bot-mitigation",
+        "browser-fingerprinting",
+        "interaction-gating",
+        "web-bot-auth",
+        "tls-fingerprinting"
+      ],
+      "ev": "commit c663ffa 'self-improve: Refuse the email decrypt when the browser advertises navigator.webdriver'",
+      "src": "learned"
+    },
+    {
+      "id": "progressive-trust",
+      "dom": "agentic-ai",
+      "label": "Progressive session trust",
+      "def": "Accumulating behavioral evidence over a session to raise and persist a human-trust signal that unlocks further capability, rather than a single one-shot human check.",
+      "rel": [
+        "proof-of-personhood",
+        "interaction-gating",
+        "behavioral-biometrics",
+        "appropriate-reliance"
+      ],
+      "ev": "commits 07fffc4 'Light a session-wide human ✓ presence pip on the first trusted interaction' and fb0c24b 'human ✓ phosphor glyph the instant the email gate accepts'",
+      "src": "learned"
     }
   ]
 }
