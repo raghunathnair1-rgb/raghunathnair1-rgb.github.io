@@ -2366,8 +2366,7 @@
       "rel": [
         "programmatic-seo",
         "content-distribution",
-        "ssg",
-        "content-provenance"
+        "ssg"
       ],
       "ev": "recent commits 9f8870b 'Add og:image:type to complete the Open Graph image object' and related og:image metadata work on the generated site",
       "src": "learned"
@@ -2494,6 +2493,36 @@
         "guardrails"
       ],
       "ev": "Latest AI/tech trends: theme 'SQLite/DB rigor' plus NOTABLE 'Sqlsure: Applies deterministic semantic checks to validate AI-generated SQL' (HN front page, 2026-07-12)",
+      "src": "learned"
+    },
+    {
+      "id": "ai-supply-chain-security",
+      "dom": "agentic-ai",
+      "label": "AI Supply-Chain Security",
+      "def": "Vetting the provenance and data-flow of third-party AI models, tools, and dependencies to know exactly what they access and exfiltrate.",
+      "rel": [
+        "agent-security",
+        "egress-transparency",
+        "content-provenance",
+        "data-poisoning",
+        "open-weights"
+      ],
+      "ev": "trend theme 'AI supply-chain scrutiny & transparency: People want to know exactly what money and data flow through the AI boom and what tools exfiltrate'",
+      "src": "learned"
+    },
+    {
+      "id": "tool-poisoning",
+      "dom": "agentic-ai",
+      "label": "Tool Poisoning",
+      "def": "An attack where malicious tool or MCP-server metadata and descriptions hijack an agent's behavior to exfiltrate data or trigger unintended actions.",
+      "rel": [
+        "mcp",
+        "prompt-injection",
+        "tool-use",
+        "agent-security",
+        "data-poisoning"
+      ],
+      "ev": "trend theme on AI supply-chain scrutiny of 'what tools exfiltrate', grounded against the existing mcp/tool-use tool surface in this graph",
       "src": "learned"
     }
   ]
