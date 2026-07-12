@@ -39,7 +39,18 @@ where
                 let go = go.clone();
                 let data = data.clone();
                 let err = err.clone();
-                gloo_timers::callback::Interval::new(ms, move || go(data.clone(), err.clone()))
+                gloo_timers::callback::Interval::new(ms, move || {
+                    // Skip repeat polls while the tab is backgrounded (or driven by a
+                    // headless/off-screen renderer): no human is watching, so don't hammer
+                    // the origin's JSON endpoints. Resume the moment the tab is visible again.
+                    let hidden = web_sys::window()
+                        .and_then(|w| w.document())
+                        .map(|d| d.hidden())
+                        .unwrap_or(false);
+                    if !hidden {
+                        go(data.clone(), err.clone());
+                    }
+                })
             });
             move || drop(interval)
         });

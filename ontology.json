@@ -248,7 +248,8 @@
       "label": "Watchdog",
       "def": "Self-healing health checks over the live site and pipeline.",
       "rel": [
-        "observability"
+        "observability",
+        "telemetry"
       ]
     },
     {
