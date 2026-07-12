@@ -2567,6 +2567,19 @@
       ],
       "ev": "commit 'linkedin: link-in-first-comment — strip body link (reach penalty), post feed link as first comment' and li_publish.py",
       "src": "learned"
+    },
+    {
+      "id": "prefers-contrast",
+      "dom": "stack",
+      "label": "Contrast-preference query",
+      "def": "The CSS `prefers-contrast` media query lets a site detect a viewer's requested contrast level (e.g. `more`) and suppress low-contrast decorative layers, a distinct web standard from Windows forced-colors mode.",
+      "rel": [
+        "accessibility",
+        "forced-colors-mode",
+        "network-adaptive-rendering"
+      ],
+      "ev": "commit 13e906b 'Suppress the matrix/sky canvases under prefers-contrast: more' (plus 12d91c3 accessibility-tuning line in the self-improve loop)",
+      "src": "learned"
     }
   ]
 }
