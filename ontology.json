@@ -4033,6 +4033,65 @@
       ],
       "ev": "Trend theme 'Coding agents that build, replay, and navigate whole codebases dominate the front page', grounded in this system's self-improve-loop.sh / recursive harness-loop that runs unbounded multi-",
       "src": "learned"
+    },
+    {
+      "id": "mechanistic-interpretability",
+      "dom": "agentic-ai",
+      "label": "Mechanistic interpretability",
+      "def": "Reverse-engineering a model's internal features and circuits to explain how it actually computes an answer, rather than treating it as a black box.",
+      "rel": [
+        "hallucination",
+        "evals",
+        "grounding",
+        "reward-hacking",
+        "ai-hype-cycle"
+      ],
+      "ev": "HN front-page trend theme: 'AI hype fatigue and interpretability... a visible pull toward loving the tech while rejecting hype and demanding to understand how models reason.'",
+      "src": "learned"
+    },
+    {
+      "id": "cot-faithfulness",
+      "dom": "agentic-ai",
+      "label": "Chain-of-thought faithfulness",
+      "def": "The degree to which a model's verbalized reasoning trace genuinely reflects the computation that produced its answer, versus a post-hoc rationalization.",
+      "rel": [
+        "chain-of-thought",
+        "self-consistency",
+        "reflexion",
+        "verification",
+        "reward-hacking"
+      ],
+      "ev": "HN trend theme demanding to 'understand how models reason', applied to this system's reliance on chain-of-thought/reflexion reasoning in its self-improve and idea-engine loops.",
+      "src": "learned"
+    },
+    {
+      "id": "vibe-coding",
+      "dom": "sdlc",
+      "label": "Vibe coding",
+      "def": "Building software by prompting a coding agent in natural language and accepting its output largely without reading the generated code, so the human's role shifts from authoring to steering and verification.",
+      "rel": [
+        "intent-driven-dev",
+        "agentic-cli",
+        "verification-bottleneck",
+        "agent"
+      ],
+      "ev": "HN trend theme: 'Coding agents as the default build tool — the front page leads with agent-driven app building, signaling agentic coding is now the mainstream workflow.'",
+      "src": "learned"
+    },
+    {
+      "id": "build-in-public",
+      "dom": "factory",
+      "label": "Build in public",
+      "def": "Openly shipping and narrating a product's development as a continuous public feed, so the build log itself becomes distributed content and social proof.",
+      "rel": [
+        "content-distribution",
+        "small-batch-delivery",
+        "trendpost",
+        "dark-factory",
+        "telemetry"
+      ],
+      "ev": "HN trend 'Solo builders shipping in public' plus this system's own autopost.py/trendpost.py publishing the factory's shipped-activity feed and blog.",
+      "src": "learned"
     }
   ]
 }
