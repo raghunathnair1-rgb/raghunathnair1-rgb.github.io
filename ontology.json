@@ -2425,6 +2425,20 @@
       ],
       "ev": "Latest-trends theme 'Database rigor and correctness: renewed focus on strictness and throughput at the storage layer as a foundation for everything above it.'",
       "src": "learned"
+    },
+    {
+      "id": "network-adaptive-rendering",
+      "dom": "stack",
+      "label": "Network-adaptive rendering",
+      "def": "Using the Network Information API / Save-Data signal to drop non-essential decorative work (shaders, animations) on metered or constrained client connections.",
+      "rel": [
+        "adaptive-serving",
+        "data-minimization",
+        "accessibility",
+        "visibility-gated-polling"
+      ],
+      "ev": "Commit a63befb 'self-improve: Drop the decorative CRT shader on metered connections'",
+      "src": "learned"
     }
   ]
 }
