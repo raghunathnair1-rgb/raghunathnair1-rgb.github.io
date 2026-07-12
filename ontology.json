@@ -3592,6 +3592,51 @@
       ],
       "ev": "Grounded in the existing `test-time-compute` concept and the doctrine's verification-loop principle ('a change ships only if ALL checks agree') — self-consistency is the established multi-sample reaso",
       "src": "learned"
+    },
+    {
+      "id": "chain-of-thought",
+      "dom": "agentic-ai",
+      "label": "Chain-of-Thought",
+      "def": "A prompting technique that elicits explicit intermediate reasoning steps before a final answer, improving multi-step task accuracy.",
+      "rel": [
+        "test-time-compute",
+        "self-consistency",
+        "reflexion",
+        "planning",
+        "prompt-engineering"
+      ],
+      "ev": "Established LLM reasoning technique that the graph's existing 'self-consistency' (majority-vote over multiple reasoning paths) and 'test-time-compute' nodes both presuppose but which is not itself pre",
+      "src": "learned"
+    },
+    {
+      "id": "react-agent",
+      "dom": "agentic-ai",
+      "label": "ReAct (Reason+Act)",
+      "def": "An agent pattern that interleaves reasoning traces with tool/environment actions so each action is chosen from an explicit rationale and each observation updates the next thought.",
+      "rel": [
+        "agent",
+        "tool-use",
+        "planning",
+        "recursive-loop",
+        "reflexion"
+      ],
+      "ev": "doctrine principles.md's recursive harness loop 'reflect on real signals -> propose ONE grounded change -> gate -> ship -> VERIFY its CI' is a reason-then-act cycle; ReAct is the established interleav",
+      "src": "learned"
+    },
+    {
+      "id": "best-of-n-sampling",
+      "dom": "agentic-ai",
+      "label": "Best-of-N Sampling",
+      "def": "A test-time strategy that generates N candidate outputs and selects the single best via a verifier, judge, or gate rather than accepting the first sample.",
+      "rel": [
+        "self-consistency",
+        "llm-as-judge",
+        "test-time-compute",
+        "idea-engine",
+        "verification"
+      ],
+      "ev": "idea_engine.py proposes up to 3 candidate concepts and a downstream gate / self_improve selects the single highest-value change ('pick the single highest-value change from real signals'), a generate-N",
+      "src": "learned"
     }
   ]
 }
