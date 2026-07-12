@@ -4263,6 +4263,21 @@
       ],
       "ev": "li_publish.py + autopost.py + trendpost.py syndicate own-site blog posts out to LinkedIn, matching the HN front-page 'indie web / personal, hand-crafted software' trend theme (2026-07-12)",
       "src": "learned"
+    },
+    {
+      "id": "indie-web",
+      "dom": "stack",
+      "label": "Indie web",
+      "def": "The movement toward self-owned, hand-crafted personal websites as a counter to platform centralization and homogenized machine-generated content.",
+      "rel": [
+        "posse",
+        "build-in-public",
+        "ai-slop",
+        "ssg",
+        "github-pages"
+      ],
+      "ev": "Trend theme 'DIY / handmade hardware and indie web: top Show HN slots reward from-scratch builds and personal, hand-crafted software'",
+      "src": "learned"
     }
   ]
 }
