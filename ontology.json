@@ -1264,8 +1264,7 @@
       "rel": [
         "adversarial-attacks",
         "agent-security",
-        "open-weights",
-        "content-provenance"
+        "open-weights"
       ],
       "ev": "Latest trends theme: 'a lawsuit between two tech giants over AI trade-secret theft, signaling AI has moved from research to high-stakes IP litigation' (durable underlying technique, not the suit itsel",
       "src": "learned"

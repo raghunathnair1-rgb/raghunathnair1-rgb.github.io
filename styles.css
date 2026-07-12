@@ -60,6 +60,8 @@ html { scroll-behavior: smooth; }
 #content a { transition: color .15s ease, text-shadow .15s ease; text-underline-offset: 0.18em; text-decoration-thickness: 1px; text-decoration-skip-ink: auto; }
 /* balance multi-line headings so the last line isn't a lone orphaned word — inert where unsupported */
 #content h1, #content h2, #content h3 { text-wrap: balance; }
+/* pretty-wrap essay body text so the last line isn't a lone orphan — inert where unsupported */
+#content p { text-wrap: pretty; }
 /* break otherwise-unbreakable tokens (long URLs, model/GPU IDs) so narrow screens don't scroll sideways */
 #content { overflow-wrap: break-word; }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
