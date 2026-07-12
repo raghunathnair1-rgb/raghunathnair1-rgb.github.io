@@ -148,7 +148,8 @@
         "ci",
         "coverage",
         "sast",
-        "ai-review"
+        "ai-review",
+        "secret-scan"
       ]
     },
     {
@@ -919,8 +920,7 @@
       "rel": [
         "ontology",
         "tool-use",
-        "verification",
-        "grounding"
+        "verification"
       ],
       "ev": "ontology_learn.py / ontology_maintain.py require a single strict JSON array per concept and apply_concept.sh consumes it programmatically",
       "src": "learned"
@@ -2061,6 +2061,19 @@
         "gpu-interconnect"
       ],
       "ev": "Trend notable 'Mesh LLM: Distributed AI comp' and the 'run models on your own mesh and CPUs instead of centralized GPU clouds' theme (updated 2026-07-12).",
+      "src": "learned"
+    },
+    {
+      "id": "embedded-db",
+      "dom": "stack",
+      "label": "Embedded database rigor",
+      "def": "Putting a strict, correctness-focused in-process database (e.g. SQLite) with an enforced schema under an app instead of ad-hoc flat files, so integrity is guaranteed at the data layer.",
+      "rel": [
+        "local-first",
+        "structured-output",
+        "python"
+      ],
+      "ev": "Latest AI/tech trends theme: 'SQLite/database rigor: Practitioners want stricter, more correct data layers under their apps' — relevant to this system's ad-hoc JSON state files (ontology.json, world.j",
       "src": "learned"
     }
   ]
