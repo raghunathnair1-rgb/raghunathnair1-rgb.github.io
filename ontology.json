@@ -2104,6 +2104,20 @@
       ],
       "ev": "HN trend theme 'LLM fatigue / backlash: developers pushing back on just-ask-an-AI as a substitute for real answers' (2026-07-12)",
       "src": "learned"
+    },
+    {
+      "id": "critical-ignoring",
+      "dom": "agentic-ai",
+      "label": "Critical ignoring",
+      "def": "The information-literacy skill of deliberately declining to engage with or trust low-value AI outputs and sources, as the necessary complement to calibrated reliance.",
+      "rel": [
+        "appropriate-reliance",
+        "automation-bias",
+        "epistemic-debt",
+        "ai-slop"
+      ],
+      "ev": "latest AI/tech trend theme: 'AI/LLM backlash — the community is pushing back on reflexive just-ask-an-LLM answers, signaling fatigue with unearned AI hype'",
+      "src": "learned"
     }
   ]
 }
