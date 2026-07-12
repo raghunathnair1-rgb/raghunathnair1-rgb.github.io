@@ -2075,6 +2075,35 @@
       ],
       "ev": "Latest AI/tech trends theme: 'SQLite/database rigor: Practitioners want stricter, more correct data layers under their apps' — relevant to this system's ad-hoc JSON state files (ontology.json, world.j",
       "src": "learned"
+    },
+    {
+      "id": "p2p-overlay",
+      "dom": "infra",
+      "label": "P2P overlay network",
+      "def": "A peer-to-peer transport substrate (content-addressed, NAT-traversing, QUIC-based, e.g. the iroh stack) that lets nodes exchange data directly without a hyperscaler backbone, forming the networking layer beneath mesh inference.",
+      "rel": [
+        "mesh-inference",
+        "distributed-inference",
+        "local-first",
+        "ai-sovereignty"
+      ],
+      "ev": "Latest trends NOTABLE: 'Mesh LLM: Distributed AI compute layered over the iroh p2p stack' (HN front page, 2026-07-12) — the p2p transport is distinct from the inference layer it carries.",
+      "src": "learned"
+    },
+    {
+      "id": "epistemic-debt",
+      "dom": "agentic-ai",
+      "label": "Epistemic debt",
+      "def": "The accumulating hidden cost of accepting unverified AI answers in place of grounded understanding, which quietly erodes a team's or system's real knowledge over time.",
+      "rel": [
+        "cognitive-offloading",
+        "appropriate-reliance",
+        "grounding",
+        "hallucination",
+        "ai-slop"
+      ],
+      "ev": "HN trend theme 'LLM fatigue / backlash: developers pushing back on just-ask-an-AI as a substitute for real answers' (2026-07-12)",
+      "src": "learned"
     }
   ]
 }

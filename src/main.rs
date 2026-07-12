@@ -61,7 +61,8 @@ struct Post {
 /// Estimated reading time in minutes: word count over ~200 wpm, clamped to a floor of 1.
 /// Pure and total, mirroring `day_length_hm`/`kg_fmt`; keep it covered by the 100% test gate.
 fn read_min(body: &str) -> u32 {
-    (((body.split_whitespace().count() as u32) + 100) / 200).max(1)
+    const WPM: u32 = 200;
+    (((body.split_whitespace().count() as u32) + WPM / 2) / WPM).max(1)
 }
 
 // Posts live here for now (first draft). The harness brain appends new ones on demand.
