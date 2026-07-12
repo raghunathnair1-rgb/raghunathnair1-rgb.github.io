@@ -2634,6 +2634,20 @@
       ],
       "ev": "apply_concept.sh listed under 'harness scripts present (real capabilities)'",
       "src": "learned"
+    },
+    {
+      "id": "text-wrap-balance",
+      "dom": "stack",
+      "label": "Text-wrap balancing",
+      "def": "The CSS `text-wrap: balance`/`pretty` properties even out ragged multi-line headings and prevent orphan lines so rendered typography stays legible without manual line breaks.",
+      "rel": [
+        "ssg",
+        "accessibility",
+        "network-adaptive-rendering",
+        "algorithm-aware-formatting"
+      ],
+      "ev": "commit 9eca887 'self-improve: Balance heading wrap on the templated content pages' (the SSG-generated content templates)",
+      "src": "learned"
     }
   ]
 }
