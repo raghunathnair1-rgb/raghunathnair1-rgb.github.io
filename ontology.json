@@ -2736,6 +2736,34 @@
       ],
       "ev": "Latest-trends theme 'Generative reimagining as play: using frontier models to visually imagine speculative futures is a massive attention magnet' (HN front page, 2026-07-12)",
       "src": "learned"
+    },
+    {
+      "id": "prefers-reduced-transparency",
+      "dom": "stack",
+      "label": "Reduced-transparency mode",
+      "def": "A CSS media query that detects when a user has requested less translucency, letting the UI swap out backdrop-blur and glassy overlays for opaque surfaces.",
+      "rel": [
+        "accessibility",
+        "prefers-reduced-motion",
+        "prefers-contrast",
+        "forced-colors-mode"
+      ],
+      "ev": "commit bceb30f 'Extend prefers-reduced-transparency to the CRT scanline overlay' — the system already honors this media feature",
+      "src": "learned"
+    },
+    {
+      "id": "overscroll-containment",
+      "dom": "stack",
+      "label": "Overscroll containment",
+      "def": "The CSS `overscroll-behavior` control that stops scroll momentum inside a nested pannable region from chaining out to scroll the whole page.",
+      "rel": [
+        "explorable-explanations",
+        "accessibility",
+        "progressive-enhancement",
+        "network-adaptive-rendering"
+      ],
+      "ev": "commit 09a5f5f 'Contain scroll-chaining on the explorable graph canvases'",
+      "src": "learned"
     }
   ]
 }
