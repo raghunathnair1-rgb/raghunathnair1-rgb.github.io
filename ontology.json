@@ -2267,7 +2267,8 @@
         "ai-review",
         "ci",
         "structured-output",
-        "sdlc-verify"
+        "sdlc-verify",
+        "typed-sql"
       ],
       "ev": "HN trend themes 'Verifying AI-generated code: Deterministic checks on LLM output are emerging as a distinct tooling category' and 'Database rigor for the AI era', grounded in the notable tool Sqlsure ",
       "src": "learned"
@@ -2410,6 +2411,19 @@
         "deterministic-verification"
       ],
       "ev": "Trend theme 'Distributed AI compute: Peer-to-peer fabrics are emerging to spread inference across machines' + NOTABLE 'Mesh LLM: distributed inference across peers over iroh' — outsourcing inference t",
+      "src": "learned"
+    },
+    {
+      "id": "storage-engine",
+      "dom": "stack",
+      "label": "Storage engine",
+      "def": "The correctness- and throughput-first persistence core (write-ahead logging, ACID guarantees, crash recovery) that sits beneath a database and underpins every higher-level data system.",
+      "rel": [
+        "embedded-db",
+        "typed-sql",
+        "data-contract"
+      ],
+      "ev": "Latest-trends theme 'Database rigor and correctness: renewed focus on strictness and throughput at the storage layer as a foundation for everything above it.'",
       "src": "learned"
     }
   ]
