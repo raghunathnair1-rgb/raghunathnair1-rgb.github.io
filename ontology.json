@@ -2505,7 +2505,8 @@
         "egress-transparency",
         "content-provenance",
         "data-poisoning",
-        "open-weights"
+        "open-weights",
+        "tool-poisoning"
       ],
       "ev": "trend theme 'AI supply-chain scrutiny & transparency: People want to know exactly what money and data flow through the AI boom and what tools exfiltrate'",
       "src": "learned"
@@ -2537,6 +2538,34 @@
         "sdlc-build"
       ],
       "ev": "HN NOTABLE 'Grok Build CLI' as an instance of the terminal-native agentic-coding trend, plus this system's own run-agent.sh / self-improve loop driving Claude via CLI",
+      "src": "learned"
+    },
+    {
+      "id": "stylometric-evasion",
+      "dom": "agentic-ai",
+      "label": "Stylometric evasion",
+      "def": "Mechanically stripping statistical style markers that flag text as machine-written (em-dashes, the 'it isn't A, it's B' antithesis closer) so generated content defeats stylometric AI-detectors.",
+      "rel": [
+        "ai-stylometry",
+        "ai-slop",
+        "ai-watermarking",
+        "adversarial-content"
+      ],
+      "ev": "commits 47bc298 'linkedin: ban em-dashes entirely (prompt + mechanical strip)' and ecc99cf 'ban the it isn't A, it's B antithesis closer (top AI tell) in de-slop pass'",
+      "src": "learned"
+    },
+    {
+      "id": "algorithm-aware-formatting",
+      "dom": "factory",
+      "label": "Algorithm-aware content formatting",
+      "def": "Structuring published content for a platform's distribution/ranking algorithm rather than only its readers, e.g. moving outbound links out of the post body to dodge a reach penalty.",
+      "rel": [
+        "content-distribution",
+        "trendpost",
+        "programmatic-seo",
+        "topic-cluster"
+      ],
+      "ev": "commit 'linkedin: link-in-first-comment — strip body link (reach penalty), post feed link as first comment' and li_publish.py",
       "src": "learned"
     }
   ]
