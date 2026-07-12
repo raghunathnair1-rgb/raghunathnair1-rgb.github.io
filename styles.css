@@ -58,6 +58,8 @@ html { scroll-behavior: smooth; }
 
 /* phosphor "warm-up" on interactive links — glow + brighten on hover/focus, underline stays put */
 #content a { transition: color .15s ease, text-shadow .15s ease; text-underline-offset: 0.18em; text-decoration-thickness: 1px; text-decoration-skip-ink: auto; }
+/* balance multi-line headings so the last line isn't a lone orphaned word — inert where unsupported */
+#content h1, #content h2, #content h3 { text-wrap: balance; }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
 #content a:visited { color: var(--muted); }
 #content a:hover,
