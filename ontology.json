@@ -1545,8 +1545,7 @@
       "def": "A build technique (Cosmopolitan Libc / Actually Portable Executable) that packs a service into one self-contained binary that runs across operating systems with no runtime or container.",
       "rel": [
         "docker",
-        "local-first",
-        "github-pages"
+        "local-first"
       ],
       "ev": "HN notable 'Redbean: A single-file, distributable web server that runs anywhere' + the infra readout's honest 'why not Docker' stance (commit fb39469)",
       "src": "learned"
@@ -1970,7 +1969,6 @@
       "def": "Rendering personal or system data onto spatial and geographic surfaces (maps, globes, sky/sun-position views) as an interactive, explorable visualization.",
       "rel": [
         "explorable-explanations",
-        "pipeline-viz",
         "webgl",
         "kg-viz"
       ],
@@ -2199,6 +2197,19 @@
         "explorable-explanations"
       ],
       "ev": "gen_sun.py, gen_wttr.py, tzc.py, gen_coverage.py plus the 15-min spark telemetry refresh commits and the brain-HUD, aligned with trend theme 'Personal interactive data visualization: self-built globes",
+      "src": "learned"
+    },
+    {
+      "id": "data-minimization",
+      "dom": "harness",
+      "label": "Data minimization",
+      "def": "The guardrail principle of limiting how much sensitive data is exposed and for how long, re-hiding it as soon as it is no longer actively needed.",
+      "rel": [
+        "email-obfuscation",
+        "guardrails",
+        "interaction-gating"
+      ],
+      "ev": "commits re-mask the decrypted email after an idle timeout and when the tab is hidden to shrink the exposure window (3bceacb, bdaafe8)",
       "src": "learned"
     }
   ]

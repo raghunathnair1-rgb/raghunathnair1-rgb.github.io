@@ -2167,6 +2167,20 @@ fn app() -> Html {
                                     e.prevent_default();
                                     return;
                                 }
+                                // second, orthogonal bot signal: a real automated browser
+                                // (Selenium/Puppeteer/Playwright/headless Chromium) self-reports
+                                // navigator.webdriver === true even when it forges a trusted click.
+                                // A human browser reports false/undefined and is unaffected.
+                                if let Some(nav) = web_sys::window().map(|w| w.navigator()) {
+                                    if js_sys::Reflect::get(nav.as_ref(), &"webdriver".into())
+                                        .ok()
+                                        .and_then(|v| v.as_bool())
+                                        .unwrap_or(false)
+                                    {
+                                        e.prevent_default();
+                                        return;
+                                    }
+                                }
                                 // human-timing backpressure: a real visitor clicks once; a script
                                 // hammering the button fires reveals faster than a human plausibly
                                 // can. Track the burst per client and refuse once it's inhumanly
