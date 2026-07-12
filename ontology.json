@@ -2606,6 +2606,20 @@
       ],
       "ev": "commit c5f9908 'self-improve: Suppress the animated matrix/sky canvases under prefers-reduced-motion' — a real accessibility guard shipped alongside the existing prefers-contrast/forced-colors work",
       "src": "learned"
+    },
+    {
+      "id": "save-data-mode",
+      "dom": "stack",
+      "label": "Save-Data mode",
+      "def": "The Save-Data client hint / navigator.connection.saveData signal by which a user requests reduced data usage, letting a site drop heavy assets on metered or low-bandwidth connections.",
+      "rel": [
+        "network-adaptive-rendering",
+        "prefers-reduced-motion",
+        "resource-hints",
+        "accessibility"
+      ],
+      "ev": "Commit 3f6d515 'self-improve: Drop the matrix/sky canvases on data-saver connections' and a63befb 'Drop the decorative CRT shader on metered connections' — a real Save-Data web-platform signal, parall",
+      "src": "learned"
     }
   ]
 }
