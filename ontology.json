@@ -3436,6 +3436,63 @@
       ],
       "ev": "trend theme 'Distributed / decentralized AI compute: running LLMs across meshed peer nodes' (Mesh LLM) — untrusted peers hosting a model require hardware enclaves to protect weights/data, an establish",
       "src": "learned"
+    },
+    {
+      "id": "jevons-paradox",
+      "dom": "infra",
+      "label": "Jevons Paradox",
+      "def": "Efficiency gains in compute lower the effective price of inference and thereby increase total demand and energy use rather than reducing it, complicating the sustainability case for the AI buildout.",
+      "rel": [
+        "inference-economics",
+        "carbon-aware-computing",
+        "scaling-limits",
+        "ai-hype-cycle",
+        "circular-financing"
+      ],
+      "ev": "trends: 'AI's energy and carbon footprint ... mainstream counter-narrative to the AI buildout' + 'GPU/AI capital scrutiny ... whether the AI infrastructure boom is financially sustainable'",
+      "src": "learned"
+    },
+    {
+      "id": "embodied-carbon",
+      "dom": "infra",
+      "label": "Embodied Carbon",
+      "def": "The greenhouse-gas cost of manufacturing and disposing of AI hardware (chip fab, board, datacenter build), which can rival or exceed the operational energy carbon over a device's life.",
+      "rel": [
+        "carbon-aware-computing",
+        "accelerator-depreciation",
+        "power-usage-effectiveness",
+        "jevons-paradox"
+      ],
+      "ev": "Latest-trends theme: 'AI's energy and carbon footprint — the environmental cost of datacenters is emerging as a mainstream counter-narrative to the AI buildout.'",
+      "src": "learned"
+    },
+    {
+      "id": "energy-proportional-computing",
+      "dom": "infra",
+      "label": "Energy-Proportional Computing",
+      "def": "A design principle where a system's power draw scales down with utilization so idle and lightly-loaded hardware wastes little energy, a chronic gap for provisioned-but-idle accelerators.",
+      "rel": [
+        "power-usage-effectiveness",
+        "carbon-aware-computing",
+        "inference-economics",
+        "adaptive-serving"
+      ],
+      "ev": "Latest-trends theme 'AI's energy and carbon footprint' plus the system's spark GB10 2-node telemetry where accelerators sit provisioned across refresh cycles.",
+      "src": "learned"
+    },
+    {
+      "id": "color-scheme",
+      "dom": "stack",
+      "label": "CSS color-scheme",
+      "def": "The CSS `color-scheme` property (and its meta equivalent) opts a page into UA-native dark rendering so browser-drawn chrome — form controls, scrollbars, spellcheck — matches the site's theme instead of staying default-light.",
+      "rel": [
+        "forced-colors-mode",
+        "accent-color",
+        "prefers-contrast",
+        "accessibility"
+      ],
+      "ev": "commit c74f2c5 'self-improve: Add `color-scheme: dark` to the root so UA-rendered chrome matches'",
+      "src": "learned"
     }
   ]
 }
