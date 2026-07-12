@@ -211,6 +211,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 :root[data-theme="amber"] #boot pre { text-shadow: 0 0 6px rgba(251, 191, 36, .4); }
 :root[data-theme="amber"][data-crt="on"] body { text-shadow: 0 0 1px rgba(251, 191, 36, .25); }
 @media (prefers-reduced-motion: reduce) { :root[data-crt="on"] body::before { animation: none; } }
+@media (prefers-reduced-transparency: reduce) { :root[data-crt="on"] body::before { display: none; } }
 #boot.boot-done { opacity: 0; pointer-events: none; }
 
 /* phosphor "initializing" placeholder — shows only while #app is empty (pre-WASM hydration); self-removes the instant Yew mounts */

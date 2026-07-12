@@ -1433,7 +1433,8 @@
         "ai-review",
         "evals",
         "constitutional-ai",
-        "verification"
+        "verification",
+        "fable-5"
       ],
       "ev": "doctrine verification layer 1 lists 'AI diff review' as a required gate; grounds the existing ai-review + constitutional-ai + evals nodes in the durable LLM-as-judge evaluation paradigm",
       "src": "learned"
