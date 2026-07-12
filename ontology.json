@@ -2186,6 +2186,20 @@
       ],
       "ev": "Trend NOTABLE: 'Mesh LLM: Distributed AI inference running peer-to-peer over the iroh networking stack' — iroh's core capability is QUIC-based hole-punched direct connections.",
       "src": "learned"
+    },
+    {
+      "id": "ambient-display",
+      "dom": "stack",
+      "label": "Ambient Display",
+      "def": "An always-on, glanceable information radiator that surfaces system and world state (telemetry, brain-health, sun/weather/time) at a glance without requiring interaction.",
+      "rel": [
+        "brain-hud",
+        "telemetry",
+        "geospatial-viz",
+        "explorable-explanations"
+      ],
+      "ev": "gen_sun.py, gen_wttr.py, tzc.py, gen_coverage.py plus the 15-min spark telemetry refresh commits and the brain-HUD, aligned with trend theme 'Personal interactive data visualization: self-built globes",
+      "src": "learned"
     }
   ]
 }
