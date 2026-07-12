@@ -3728,6 +3728,35 @@
       ],
       "ev": "HN front-page theme 'The GPU-financing bubble: the community is scrutinizing whether the AI infrastructure boom is propped up by circular, self-referential capital flows' — the durable entity/business",
       "src": "learned"
+    },
+    {
+      "id": "autoformalization",
+      "dom": "agentic-ai",
+      "label": "Autoformalization",
+      "def": "The technique of translating natural-language mathematics into machine-checkable formal statements so an LLM's reasoning can be verified by a proof assistant rather than trusted.",
+      "rel": [
+        "neural-theorem-proving",
+        "verification",
+        "grounding",
+        "hallucination"
+      ],
+      "ev": "HN trend theme 'AI reshaping research' citing agentic workflows 'used by top mathematicians', extending the existing neural-theorem-proving concept toward verifiable formal reasoning",
+      "src": "learned"
+    },
+    {
+      "id": "distributed-hash-table",
+      "dom": "infra",
+      "label": "Distributed Hash Table",
+      "def": "A decentralized key-value lookup structure that lets peers discover and route to each other without a central coordinator, underpinning peer-to-peer compute and content discovery.",
+      "rel": [
+        "p2p-overlay",
+        "content-addressed-networking",
+        "gossip-protocol",
+        "iroh",
+        "mesh-inference"
+      ],
+      "ev": "HN trend theme 'Decentralized / distributed AI compute' — running LLM inference across meshed peer-to-peer hardware — which requires DHT-based peer discovery, complementing the system's existing iroh/",
+      "src": "learned"
     }
   ]
 }
