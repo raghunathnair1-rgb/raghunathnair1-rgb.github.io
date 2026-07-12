@@ -3151,6 +3151,21 @@
       ],
       "ev": "Latest AI/tech trends theme 'Data-model rigor: There's renewed appetite for strictness and correctness at the storage layer.'",
       "src": "learned"
+    },
+    {
+      "id": "schema-migration",
+      "dom": "stack",
+      "label": "Schema Migration",
+      "def": "Evolving a persistent store's structure through versioned, reversible migrations so data-model changes ship safely and rollback-ably alongside code.",
+      "rel": [
+        "data-contract",
+        "storage-engine",
+        "typed-sql",
+        "referential-integrity",
+        "reproducible-builds"
+      ],
+      "ev": "HN 'data-model rigor — renewed appetite for strictness and correctness at the storage layer' theme (2026-07-12), grounded in this system's existing typed-sql/storage-engine/embedded-db ontology and it",
+      "src": "learned"
     }
   ]
 }
