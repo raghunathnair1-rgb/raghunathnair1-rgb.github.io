@@ -2710,6 +2710,32 @@
       ],
       "ev": "Recent shipped self-improve commits that gate the site's animated matrix/sky canvases behind client capability: 3f6d515 'Drop the matrix/sky canvases on data-saver connections', c5f9908 'Suppress the ",
       "src": "learned"
+    },
+    {
+      "id": "gossip-protocol",
+      "dom": "infra",
+      "label": "Gossip protocol",
+      "def": "Epidemic anti-entropy dissemination in which peers randomly exchange state so membership and data converge across a decentralized mesh without any central coordinator.",
+      "rel": [
+        "p2p-overlay",
+        "iroh",
+        "mesh-inference"
+      ],
+      "ev": "trend NOTABLE: 'Mesh LLM' distributed inference running across peer nodes on the iroh networking stack (iroh's peer discovery/state sync uses gossip)",
+      "src": "learned"
+    },
+    {
+      "id": "generative-world-sim",
+      "dom": "agentic-ai",
+      "label": "Generative world simulators",
+      "def": "Frontier generative models that synthesize interactive, explorable visual futures or environments on the fly instead of retrieving or rendering pre-authored ones.",
+      "rel": [
+        "generative-media",
+        "world-model",
+        "dreaming"
+      ],
+      "ev": "Latest-trends theme 'Generative reimagining as play: using frontier models to visually imagine speculative futures is a massive attention magnet' (HN front page, 2026-07-12)",
+      "src": "learned"
     }
   ]
 }
