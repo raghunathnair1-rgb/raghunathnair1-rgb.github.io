@@ -814,7 +814,8 @@
         "memory",
         "self-improve",
         "recursive-loop",
-        "idea-engine"
+        "idea-engine",
+        "reflexion"
       ],
       "ev": "dream.py / dream.sh present in the harness scripts (a distinct offline pass separate from self-improve.sh)",
       "src": "learned"
@@ -3504,6 +3505,34 @@
         "progressive-enhancement"
       ],
       "ev": "commit f0fa898 'self-improve: Add fetchpriority=\"high\" to the primary body-font preload'",
+      "src": "learned"
+    },
+    {
+      "id": "water-usage-effectiveness",
+      "dom": "infra",
+      "label": "Water Usage Effectiveness",
+      "def": "Water Usage Effectiveness (WUE) measures the liters of water a datacenter consumes per kilowatt-hour of IT load, the cooling-side complement to PUE for quantifying AI infrastructure's environmental cost.",
+      "rel": [
+        "power-usage-effectiveness",
+        "carbon-aware-computing",
+        "embodied-carbon",
+        "energy-proportional-computing"
+      ],
+      "ev": "Latest-trends theme: 'AI's energy footprint — the environmental cost of the datacenter boom is now front-and-center alongside its economics.'",
+      "src": "learned"
+    },
+    {
+      "id": "behind-the-meter-power",
+      "dom": "infra",
+      "label": "Behind-the-Meter Power",
+      "def": "Behind-the-meter power co-locates AI datacenters directly with dedicated generation (nuclear SMRs, gas, renewables) to bypass grid-interconnection queues that otherwise cap compute scaling.",
+      "rel": [
+        "inference-economics",
+        "scaling-limits",
+        "jevons-paradox",
+        "embodied-carbon"
+      ],
+      "ev": "Latest-trends themes: 'AI's energy footprint' + 'AI infra bubble anxiety — circular capital flows propping up the GPU/datacenter buildout.'",
       "src": "learned"
     }
   ]
