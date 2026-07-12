@@ -1,11 +1,11 @@
 {
- "generated": "2026-07-12T16:30:03+0200",
+ "generated": "2026-07-12T16:35:47+0200",
  "spark": 87,
- "cloud_hard": 1792,
+ "cloud_hard": 1800,
  "cloud_fallback": 0,
  "spark_today": 23,
- "cloud_today": 826,
+ "cloud_today": 834,
  "avg_ms_spark": 2224,
- "avg_ms_cloud": 37122,
+ "avg_ms_cloud": 37052,
  "saved_usd_est": 2.18
 }
