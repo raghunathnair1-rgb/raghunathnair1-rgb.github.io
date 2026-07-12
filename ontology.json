@@ -2300,6 +2300,34 @@
       ],
       "ev": "Mesh LLM notable item — distributed AI inference spread across peer nodes over the iroh networking layer, whose peer transport is QUIC-based.",
       "src": "learned"
+    },
+    {
+      "id": "data-contract",
+      "dom": "stack",
+      "label": "Data Contract",
+      "def": "An enforceable, machine-checked guarantee on a data layer's schema and semantics that is validated deterministically at write/query time instead of trusted by loose default or convention.",
+      "rel": [
+        "deterministic-verification",
+        "verification",
+        "structured-output",
+        "sdlc-verify"
+      ],
+      "ev": "Latest AI/tech trend theme 'Database rigor & correctness' plus the NOTABLE item 'Sqlsure: Deterministic semantic checks that validate' data layers.",
+      "src": "learned"
+    },
+    {
+      "id": "minimal-agent",
+      "dom": "agentic-ai",
+      "label": "Minimal Agent Scaffolding",
+      "def": "The design philosophy of building an agent from the smallest legible core loop (a model plus a few tools) instead of a heavy framework, so its control flow stays inspectable and debuggable.",
+      "rel": [
+        "agent",
+        "harness-eng",
+        "claude-agent-sdk",
+        "agentic-patterns"
+      ],
+      "ev": "HN front-page trend theme 'Minimal / from-scratch AI agents: the community is fascinated by stripping agents down to their smallest legible core' (2026-07-12)",
+      "src": "learned"
     }
   ]
 }
