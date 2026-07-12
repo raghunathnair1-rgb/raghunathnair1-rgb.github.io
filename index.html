@@ -200,11 +200,6 @@
   <canvas id="matrix" aria-hidden="true" role="presentation"></canvas>
   <canvas id="sky" aria-hidden="true" role="presentation"></canvas>
   <div id="app"></div>
-  <!-- honeypot: off-screen decoy mailto that naive harvester bots ingest from the served HTML; clipped off-screen, hidden from the a11y tree, unfocusable & nofollowed so no human or assistive-tech user ever meets it -->
-  <a id="hp-trap" class="honeypot" href="mailto:no-reply-trap@raghunathnair1-rgb.github.io" rel="nofollow" aria-hidden="true" tabindex="-1" inert style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">do-not-email</a>
-  <script>try{var _hb=new Uint8Array(6);crypto.getRandomValues(_hb);var _ht="";for(var _hi=0;_hi<_hb.length;_hi++){_ht+=(_hb[_hi]%36).toString(36);}document.getElementById("hp-trap").setAttribute("href","mailto:no-reply-trap+"+_ht+"@raghunathnair1-rgb.github.io");}catch(e){}</script>
-  <!-- honeypot: off-screen decoy link that naive link-following harvester bots ingest & crawl from the served HTML; clipped off-screen, hidden from the a11y tree, unfocusable & nofollowed so legitimate crawlers skip it and no human or assistive-tech user ever meets it -->
-  <a class="honeypot" href="/trap/" rel="nofollow" aria-hidden="true" tabindex="-1" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">do-not-follow</a>
   <noscript>
     <h1>the dark factory — Raghu Nair</h1>
     <p>An autonomous AI &ldquo;dark factory&rdquo; that writes, curates, and ships this Rust/WebAssembly blog,
@@ -801,37 +796,6 @@
       gl.drawArrays(gl.TRIANGLES,0,3);
     }
     requestAnimationFrame(frame);
-  })();
-  </script>
-  <script>
-  // human-presence pip: dim "bot?" until the first genuinely trusted interaction lights it.
-  // A headless scraper loads the whole DOM but never emits a trusted pointermove/scroll/keydown.
-  (function () {
-    var reduce = false;
-    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-    if (!document.body) return;
-    var pip = document.createElement('div');
-    pip.setAttribute('aria-hidden', 'true');
-    pip.textContent = '\u00b7 session: bot?';
-    var s = pip.style;
-    s.position = 'fixed'; s.right = '10px'; s.bottom = '10px'; s.zIndex = '9999';
-    s.font = '11px/1 monospace'; s.letterSpacing = '.04em';
-    s.padding = '4px 7px'; s.borderRadius = '3px'; s.pointerEvents = 'none';
-    s.color = '#2b8f4d'; s.opacity = '.38';
-    s.border = '1px solid rgba(43,143,77,.35)';
-    s.background = 'rgba(0,0,0,.25)';
-    s.transition = reduce ? 'none' : 'opacity .5s ease, color .5s ease, text-shadow .5s ease';
-    document.body.appendChild(pip);
-    var lit = false, evts = ['pointermove', 'scroll', 'keydown'];
-    function light(e) {
-      if (lit || !e || !e.isTrusted) return;
-      lit = true;
-      pip.textContent = '\u25c9 human session';
-      s.opacity = '1'; s.color = '#4fd67e';
-      if (!reduce) s.textShadow = '0 0 8px rgba(79,214,126,.85)';
-      evts.forEach(function (t) { window.removeEventListener(t, light, true); });
-    }
-    evts.forEach(function (t) { window.addEventListener(t, light, true); });
   })();
   </script>
 </body>

@@ -39,18 +39,7 @@ where
                 let go = go.clone();
                 let data = data.clone();
                 let err = err.clone();
-                gloo_timers::callback::Interval::new(ms, move || {
-                    // Skip repeat polls while the tab is backgrounded (or driven by a
-                    // headless/off-screen renderer): no human is watching, so don't hammer
-                    // the origin's JSON endpoints. Resume the moment the tab is visible again.
-                    let hidden = web_sys::window()
-                        .and_then(|w| w.document())
-                        .map(|d| d.hidden())
-                        .unwrap_or(false);
-                    if !hidden {
-                        go(data.clone(), err.clone());
-                    }
-                })
+                gloo_timers::callback::Interval::new(ms, move || go(data.clone(), err.clone()))
             });
             move || drop(interval)
         });
@@ -72,8 +61,7 @@ struct Post {
 /// Estimated reading time in minutes: word count over ~200 wpm, clamped to a floor of 1.
 /// Pure and total, mirroring `day_length_hm`/`kg_fmt`; keep it covered by the 100% test gate.
 fn read_min(body: &str) -> u32 {
-    const WPM: u32 = 200;
-    (((body.split_whitespace().count() as u32) + WPM / 2) / WPM).max(1)
+    (((body.split_whitespace().count() as u32) + 100) / 200).max(1)
 }
 
 // Posts live here for now (first draft). The harness brain appends new ones on demand.
@@ -1562,36 +1550,10 @@ fn pipeline_viz() -> Html {
         </> },
         None => html! { <div class="dj-loading">{ "connecting to the factory floor\u{2026}" }</div> },
     };
-    let sel = use_state(|| None::<&'static str>);
     let feed = match &*act {
-        Some(a) => {
-            // filter chips built from the log's own lanes, tinted with the phosphor kind-colors
-            let kinds: [&'static str; 4] = ["router", "autopost", "self-improve", "deploy"];
-            let cur: Option<&'static str> = *sel;
-            html! { <>
+        Some(a) => html! { <>
             <div class="pipe-loghead">{ "$ tail -f factory.log  \u{00B7}  live execution" }</div>
-            <div class="pipe-chips" role="group" aria-label="Filter events by pipeline lane">
-                {
-                    let s = sel.clone();
-                    html! {
-                        <button type="button" class="pipe-chip"
-                            aria-pressed={ cur.is_none().to_string() }
-                            style={ if cur.is_none() { "opacity:1" } else { "opacity:0.5" } }
-                            onclick={ Callback::from(move |_| s.set(None)) }>{ "all" }</button>
-                    }
-                }
-                { for kinds.iter().copied().filter(|k| a.events.iter().any(|e| e.kind == *k)).map(|k| {
-                    let s = sel.clone();
-                    let active = cur == Some(k);
-                    html! {
-                        <button type="button" class={ classes!("pipe-chip", evt_cls(k)) }
-                            aria-pressed={ active.to_string() }
-                            style={ if active { "opacity:1" } else { "opacity:0.5" } }
-                            onclick={ Callback::from(move |_| s.set(if active { None } else { Some(k) })) }>{ k }</button>
-                    }
-                }) }
-            </div>
-            <ul class="pipe-log">{ for a.events.iter().filter(|e| cur.map_or(true, |k| e.kind == k)).map(|e| html! {
+            <ul class="pipe-log">{ for a.events.iter().map(|e| html! {
                 <li class="pipe-evt">
                     <span class="pipe-t">{ e.t.clone() }</span>
                     <span class={evt_cls(&e.kind)}>{ e.kind.clone() }</span>
@@ -1599,8 +1561,7 @@ fn pipeline_viz() -> Html {
                     { if e.ok { html! { <span class="pipe-ok">{ " \u{2713}" }</span> } } else { html! { <span class="pipe-fail">{ " \u{2717}" }</span> } } }
                 </li>
             }) }</ul>
-            </> }
-        },
+        </> },
         None => html! {},
     };
 
@@ -1616,7 +1577,7 @@ fn pipeline_viz() -> Html {
                 <canvas id="pipe-gl" class="pipe-gl" data-run={run_s} data-fail={fail_s} role="img" aria-label="Factory build pipeline flow: task then brain then router then gate then wasm then pages"></canvas>
             </div>
             <div class="pipe-stages">
-                { for PIPE_STAGES.iter().map(|&(label, _)| html! { <span class="pipe-stage" tabindex="0" role="button" aria-label={format!("Pipeline stage: {label}")}>{ label }</span> }) }
+                { for PIPE_STAGES.iter().map(|&(label, _)| html! { <span class="pipe-stage">{ label }</span> }) }
             </div>
             { headline }
             { feed }
@@ -2166,209 +2127,11 @@ fn app() -> Html {
                             <span class="cc-meta"><span class="cc-plat">{ "Instagram" }</span><span class="cc-handle">{ "@codex_anonymous" }</span></span>
                             <span class="cc-go">{ "\u{2197}" }</span>
                         </a>
-                        {
-                            let user = "raghunathnair1";
-                            let host = "gmail.com";
-                            // scraping defense: the real address is never in the served HTML or the
-                            // pre-click DOM. Only a genuine human click assembles the split parts into
-                            // a live mailto: anchor, with a brief phosphor "decrypting..." flicker.
-                            let onclick = Callback::from(move |e: web_sys::MouseEvent| {
-                                // scripted/synthetic clicks (isTrusted === false) never decrypt
-                                if !e.is_trusted() {
-                                    e.prevent_default();
-                                    return;
-                                }
-                                // second, orthogonal bot signal: a real automated browser
-                                // (Selenium/Puppeteer/Playwright/headless Chromium) self-reports
-                                // navigator.webdriver === true even when it forges a trusted click.
-                                // A human browser reports false/undefined and is unaffected.
-                                if let Some(nav) = web_sys::window().map(|w| w.navigator()) {
-                                    if js_sys::Reflect::get(nav.as_ref(), &"webdriver".into())
-                                        .ok()
-                                        .and_then(|v| v.as_bool())
-                                        .unwrap_or(false)
-                                    {
-                                        e.prevent_default();
-                                        return;
-                                    }
-                                }
-                                // human-timing backpressure: a real visitor clicks once; a script
-                                // hammering the button fires reveals faster than a human plausibly
-                                // can. Track the burst per client and refuse once it's inhumanly
-                                // fast (>=3 within ~1.5s); the cooldown clears once the burst stops.
-                                thread_local! {
-                                    static REVEAL_BURST: std::cell::Cell<(f64, u32)> = std::cell::Cell::new((0.0, 0));
-                                }
-                                let throttled = REVEAL_BURST.with(|b| {
-                                    let now = js_sys::Date::now();
-                                    let (last, count) = b.get();
-                                    let count = if now - last <= 1500.0 { count + 1 } else { 1 };
-                                    b.set((now, count));
-                                    count >= 3
-                                });
-                                if throttled {
-                                    e.prevent_default();
-                                    // make the silent throttle legible: a bot-fast repeat click surfaces a
-                                    // thin phosphor bar that drains over the ~1.5s window, and the control
-                                    // reports aria-disabled while it cools. A single human click never lands here.
-                                    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
-                                        if let Some(link) = doc.get_element_by_id("cc-mail-link") {
-                                            let _ = link.set_attribute("aria-disabled", "true");
-                                            let _ = link.set_attribute("style", "position:relative");
-                                            if doc.get_element_by_id("cc-mail-cooldown").is_none() {
-                                                if let Ok(bar) = doc.create_element("span") {
-                                                    bar.set_id("cc-mail-cooldown");
-                                                    bar.set_class_name("cc-cooldown");
-                                                    const FULL: &str = "position:absolute;left:0;bottom:0;height:2px;width:100%;transform-origin:left;background:var(--glow);box-shadow:0 0 6px var(--glow);pointer-events:none;transition:transform 1500ms linear;transform:scaleX(1)";
-                                                    let _ = bar.set_attribute("style", FULL);
-                                                    let _ = link.append_child(&bar);
-                                                    // force a reflow so the drain transitions from full, not from empty
-                                                    let _ = bar.get_bounding_client_rect();
-                                                    let _ = bar.set_attribute("style", &FULL.replace("scaleX(1)", "scaleX(0)"));
-                                                    gloo_timers::callback::Timeout::new(1500, move || {
-                                                        if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
-                                                            if let Some(b) = doc.get_element_by_id("cc-mail-cooldown") {
-                                                                b.remove();
-                                                            }
-                                                            if let Some(link) = doc.get_element_by_id("cc-mail-link") {
-                                                                let _ = link.remove_attribute("aria-disabled");
-                                                                let _ = link.remove_attribute("style");
-                                                            }
-                                                        }
-                                                    }).forget();
-                                                }
-                                            }
-                                        }
-                                    }
-                                    return;
-                                }
-                                let doc = match web_sys::window().and_then(|w| w.document()) {
-                                    Some(d) => d,
-                                    None => return,
-                                };
-                                // already decrypted: let the browser open the live mailto link
-                                if let Some(a) = doc.get_element_by_id("cc-mail-link") {
-                                    if a.get_attribute("href").map_or(false, |h| h.starts_with("mailto:")) {
-                                        return;
-                                    }
-                                }
-                                e.prevent_default();
-                                // dwell-gate: once revealed, keep watching the tab and re-mask the
-                                // instant it's backgrounded or loses focus, so a headless scraper
-                                // that snapshots the DOM on a later tick finds only the obfuscated
-                                // placeholder. It also re-masks after ~20s with the reveal left idle,
-                                // collapsing the exposure window on a foreground tab left open and
-                                // unattended; a human just taps decrypt again to reset it. The idle
-                                // clock is stamped on every genuine decrypt click; installed once.
-                                thread_local! {
-                                    static REMASK_ARMED: std::cell::Cell<bool> = std::cell::Cell::new(false);
-                                    static LAST_ACTIVE: std::cell::Cell<f64> = std::cell::Cell::new(0.0);
-                                }
-                                LAST_ACTIVE.with(|t| t.set(js_sys::Date::now()));
-                                REMASK_ARMED.with(|armed| {
-                                    if armed.replace(true) {
-                                        return;
-                                    }
-                                    let watch = gloo_timers::callback::Interval::new(400, || {
-                                        let doc = match web_sys::window().and_then(|w| w.document()) {
-                                            Some(d) => d,
-                                            None => return,
-                                        };
-                                        let revealed = doc
-                                            .get_element_by_id("cc-mail-link")
-                                            .and_then(|a| a.get_attribute("href"))
-                                            .map_or(false, |h| h.starts_with("mailto:"));
-                                        let idle = LAST_ACTIVE.with(|t| js_sys::Date::now() - t.get() >= 20000.0);
-                                        let away = doc.hidden() || doc.has_focus().map_or(true, |f| !f) || idle;
-                                        if revealed && away {
-                                            if let Some(a) = doc.get_element_by_id("cc-mail-link") {
-                                                let _ = a.set_attribute("href", "#");
-                                            }
-                                            if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
-                                                h.set_inner_html("> ./decrypt-contact");
-                                            }
-                                        }
-                                    });
-                                    watch.forget();
-                                });
-                                if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
-                                    h.set_inner_html("decrypting\u{2026}");
-                                }
-                                let addr = format!("{}@{}", user, host);
-                                // reduced-motion: settle instantly, no phosphor scramble
-                                let reduced = web_sys::window()
-                                    .and_then(|w| w.match_media("(prefers-reduced-motion: reduce)").ok().flatten())
-                                    .map_or(false, |m| m.matches());
-                                if reduced {
-                                    if let Some(a) = doc.get_element_by_id("cc-mail-link") {
-                                        let _ = a.set_attribute("href", &format!("mailto:{}", addr));
-                                    }
-                                    if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
-                                        h.set_inner_html(&addr);
-                                    }
-                                    return;
-                                }
-                                // phosphor decrypt: rain random glyphs through each slot and settle
-                                // the true address left-to-right over ~500ms, then lock the mailto link.
-                                let chars: Vec<char> = addr.chars().collect();
-                                let len = chars.len();
-                                let tick = std::rc::Rc::new(std::cell::Cell::new(0u32));
-                                let holder: std::rc::Rc<std::cell::RefCell<Option<gloo_timers::callback::Interval>>> =
-                                    std::rc::Rc::new(std::cell::RefCell::new(None));
-                                let holder2 = holder.clone();
-                                const GLYPHS: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@._";
-                                let total: u32 = 16;
-                                let interval = gloo_timers::callback::Interval::new(32, move || {
-                                    let t = tick.get() + 1;
-                                    tick.set(t);
-                                    let settled = ((len as u32 * t) / total).min(len as u32) as usize;
-                                    let mut out = String::with_capacity(len);
-                                    for (i, c) in chars.iter().enumerate() {
-                                        if i < settled {
-                                            out.push(*c);
-                                        } else {
-                                            let g = GLYPHS[(js_sys::Math::random() * GLYPHS.len() as f64) as usize];
-                                            out.push(g as char);
-                                        }
-                                    }
-                                    let done = settled >= len;
-                                    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
-                                        if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
-                                            if done {
-                                                // trusted-human lane cleared: light a decorative phosphor check that
-                                                // warms from --muted to --cyan, the same glow links use on hover.
-                                                h.set_inner_html(&format!("{}<span id=\"cc-human\" aria-hidden=\"true\" style=\"margin-left:.6ch;color:var(--muted);transition:color .6s ease\">\u{2713} human</span>", addr));
-                                                gloo_timers::callback::Timeout::new(16, || {
-                                                    if let Some(g) = web_sys::window().and_then(|w| w.document()).and_then(|d| d.get_element_by_id("cc-human")) {
-                                                        let _ = g.set_attribute("style", "margin-left:.6ch;color:var(--cyan);transition:color .6s ease");
-                                                    }
-                                                }).forget();
-                                            } else {
-                                                h.set_inner_html(&out);
-                                            }
-                                        }
-                                        if done {
-                                            if let Some(a) = doc.get_element_by_id("cc-mail-link") {
-                                                let _ = a.set_attribute("href", &format!("mailto:{}", addr));
-                                            }
-                                        }
-                                    }
-                                    if done {
-                                        // defer the interval's own drop out of its callback (self-cancel is unsound)
-                                        let h = holder2.clone();
-                                        gloo_timers::callback::Timeout::new(0, move || { h.borrow_mut().take(); }).forget();
-                                    }
-                                });
-                                *holder.borrow_mut() = Some(interval);
-                            });
-                            html! {
-                                <a id="cc-mail-link" class="contact-card cc-mail" href="#" aria-label="Reveal contact email — verifies a human click" {onclick}>
-                                    <span class="cc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 5L2 8V6l10 5 10-5v2z"/></svg></span>
-                                    <span class="cc-meta"><span class="cc-plat">{ "Email" }</span><span id="cc-mail-handle" class="cc-handle" aria-live="polite" aria-atomic="true">{ "> ./decrypt-contact" }</span></span>
-                                    <span class="cc-go">{ "\u{2197}" }</span>
-                                </a>
-                            }
-                        }
+                        <a class="contact-card cc-mail" href="mailto:raghunathnair1@gmail.com">
+                            <span class="cc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 5L2 8V6l10 5 10-5v2z"/></svg></span>
+                            <span class="cc-meta"><span class="cc-plat">{ "Email" }</span><span class="cc-handle">{ "raghunathnair1@gmail.com" }</span></span>
+                            <span class="cc-go">{ "\u{2197}" }</span>
+                        </a>
                     </div>
                     <div class="contact-foot"><span class="cc-prompt">{ "raghu@dark-factory" }</span>{ ":~$ " }<span class="cc-typed">{ "./connect" }</span><span class="cc-cursor"></span></div>
                 </> },
