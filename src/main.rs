@@ -2231,10 +2231,15 @@ fn app() -> Html {
                                 // dwell-gate: once revealed, keep watching the tab and re-mask the
                                 // instant it's backgrounded or loses focus, so a headless scraper
                                 // that snapshots the DOM on a later tick finds only the obfuscated
-                                // placeholder. Installed once; a human just taps decrypt again.
+                                // placeholder. It also re-masks after ~20s with the reveal left idle,
+                                // collapsing the exposure window on a foreground tab left open and
+                                // unattended; a human just taps decrypt again to reset it. The idle
+                                // clock is stamped on every genuine decrypt click; installed once.
                                 thread_local! {
                                     static REMASK_ARMED: std::cell::Cell<bool> = std::cell::Cell::new(false);
+                                    static LAST_ACTIVE: std::cell::Cell<f64> = std::cell::Cell::new(0.0);
                                 }
+                                LAST_ACTIVE.with(|t| t.set(js_sys::Date::now()));
                                 REMASK_ARMED.with(|armed| {
                                     if armed.replace(true) {
                                         return;
@@ -2248,7 +2253,8 @@ fn app() -> Html {
                                             .get_element_by_id("cc-mail-link")
                                             .and_then(|a| a.get_attribute("href"))
                                             .map_or(false, |h| h.starts_with("mailto:"));
-                                        let away = doc.hidden() || doc.has_focus().map_or(true, |f| !f);
+                                        let idle = LAST_ACTIVE.with(|t| js_sys::Date::now() - t.get() >= 20000.0);
+                                        let away = doc.hidden() || doc.has_focus().map_or(true, |f| !f) || idle;
                                         if revealed && away {
                                             if let Some(a) = doc.get_element_by_id("cc-mail-link") {
                                                 let _ = a.set_attribute("href", "#");
