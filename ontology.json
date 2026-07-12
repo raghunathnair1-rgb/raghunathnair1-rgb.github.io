@@ -4150,6 +4150,21 @@
       ],
       "ev": "trend theme: 'Wire-level auditing of AI tools: People are reverse-engineering the actual network traffic of AI build tools to see what leaves the machine.'",
       "src": "learned"
+    },
+    {
+      "id": "spec-driven-development",
+      "dom": "sdlc",
+      "label": "Spec-Driven Development",
+      "def": "A paradigm where a formal, versioned specification artifact is authored first and serves as the durable source of truth that agents repeatedly generate, verify, and regenerate an application from.",
+      "rel": [
+        "intent-driven-dev",
+        "ontology",
+        "single-source-of-truth",
+        "sdlc-plan",
+        "idea-engine"
+      ],
+      "ev": "commit 86c4fc0 added a 22-concept Todoist build-spec ontology (new 'product' domain) 'so the factory can build a similar app' — the ontology is used AS a build specification",
+      "src": "learned"
     }
   ]
 }

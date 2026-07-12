@@ -49,6 +49,9 @@
 /* reduced-motion: the matrix rain and drifting sky are pure decorative animation with no
    informational content, so hide them; the body's phosphor gradient keeps the look intact. */
 @media (prefers-reduced-motion: reduce) { #matrix, #sky { display: none; } }
+/* honor Save-Data / metered connections: the matrix rain + drifting sky are pure decoration,
+   so drop them to spare bandwidth and battery; the phosphor gradient keeps the look intact */
+@media (prefers-reduced-data: reduce) { #matrix, #sky { display: none; } }
 * { box-sizing: border-box; }
 
 /* smooth in-page scrolling (skip-link + console-tab jumps glide instead of teleport) */
