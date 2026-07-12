@@ -2337,9 +2337,9 @@ fn app() -> Html {
                                 *holder.borrow_mut() = Some(interval);
                             });
                             html! {
-                                <a id="cc-mail-link" class="contact-card cc-mail" href="#" {onclick}>
+                                <a id="cc-mail-link" class="contact-card cc-mail" href="#" aria-label="Reveal contact email — verifies a human click" {onclick}>
                                     <span class="cc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 5L2 8V6l10 5 10-5v2z"/></svg></span>
-                                    <span class="cc-meta"><span class="cc-plat">{ "Email" }</span><span id="cc-mail-handle" class="cc-handle">{ "> ./decrypt-contact" }</span></span>
+                                    <span class="cc-meta"><span class="cc-plat">{ "Email" }</span><span id="cc-mail-handle" class="cc-handle" aria-live="polite" aria-atomic="true">{ "> ./decrypt-contact" }</span></span>
                                     <span class="cc-go">{ "\u{2197}" }</span>
                                 </a>
                             }
