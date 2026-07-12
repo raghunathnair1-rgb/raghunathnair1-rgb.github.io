@@ -1962,6 +1962,34 @@
       ],
       "ev": "HN theme: 'LLM backlash / fatigue — developers pushing back on reflexive just-ask-an-LLM advice and questioning AI's real productivity gains'",
       "src": "learned"
+    },
+    {
+      "id": "geospatial-viz",
+      "dom": "stack",
+      "label": "Geospatial data visualization",
+      "def": "Rendering personal or system data onto spatial and geographic surfaces (maps, globes, sky/sun-position views) as an interactive, explorable visualization.",
+      "rel": [
+        "explorable-explanations",
+        "pipeline-viz",
+        "webgl",
+        "kg-viz"
+      ],
+      "ev": "Trend theme 'Personal interactive data visualization' (top-voted self-built spatial/globe Show HNs) plus the system's geo/astro generators gen_sun.py, gen_wttr.py, tzc.py",
+      "src": "learned"
+    },
+    {
+      "id": "behavioral-biometrics",
+      "dom": "agentic-ai",
+      "label": "Behavioral biometrics",
+      "def": "Distinguishing humans from bots by analyzing interaction dynamics such as click cadence and inter-event timing rather than static device or browser attributes.",
+      "rel": [
+        "synthetic-event-detection",
+        "interaction-gating",
+        "backpressure",
+        "browser-fingerprinting"
+      ],
+      "ev": "Commit 277f506/'Throttle repeated email-reveal clicks with human-timing backpressure' and the 'prove-you're-human backlash' trend theme",
+      "src": "learned"
     }
   ]
 }
