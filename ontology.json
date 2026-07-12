@@ -3930,6 +3930,20 @@
       ],
       "ev": "Established multi-agent reasoning technique in this system's domain; extends the existing multi-agent / llm-as-judge / verification gate concepts as a hallucination-reduction method.",
       "src": "learned"
+    },
+    {
+      "id": "single-source-of-truth",
+      "dom": "harness",
+      "label": "Single source of truth",
+      "def": "Deriving every displayed value from exactly one canonical origin so redundant copies cannot drift out of sync.",
+      "rel": [
+        "telemetry",
+        "grounding",
+        "data-contract",
+        "brain-hud"
+      ],
+      "ev": "Commit c4da9f0 'blog: unify uptime — brain card + footer both count from one launch-epoch origin'.",
+      "src": "learned"
     }
   ]
 }
