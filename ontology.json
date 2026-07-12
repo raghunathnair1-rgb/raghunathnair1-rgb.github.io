@@ -3025,6 +3025,47 @@
       ],
       "ev": "trend theme 'GPU/AI infrastructure economics under scrutiny — the community is questioning the financial plumbing behind the compute buildout, not just the models.'",
       "src": "learned"
+    },
+    {
+      "id": "zero-copy",
+      "dom": "stack",
+      "label": "Zero-Copy",
+      "def": "Reading or moving data in place without intermediate buffer copies, a core throughput technique in high-performance data layers and Rust systems code.",
+      "rel": [
+        "rust",
+        "columnar-storage",
+        "storage-engine"
+      ],
+      "ev": "HN trend theme 'Database rigor and throughput: practitioners prioritizing strictness and raw performance in their data layers over convenience defaults'; canonical performance technique of the Rust st",
+      "src": "learned"
+    },
+    {
+      "id": "accent-color",
+      "dom": "stack",
+      "label": "Accent-color theming",
+      "def": "CSS `accent-color` and `caret-color` properties tint native user-agent controls (checkboxes, radios, the text caret) to a site's theme without replacing them, keeping the browser's built-in accessibility semantics intact.",
+      "rel": [
+        "accessibility",
+        "forced-colors-mode",
+        "prefers-contrast",
+        "claude-design"
+      ],
+      "ev": "commits 7c78dc1 'Theme native form controls to the phosphor accent' and 14ab261 'Theme the native text caret to phosphor green'",
+      "src": "learned"
+    },
+    {
+      "id": "reflexion",
+      "dom": "agentic-ai",
+      "label": "Reflexion",
+      "def": "Agentic technique in which an agent distills lessons from its past attempts into episodic memory so a self-improvement loop avoids repeating a change or mistake it has already made.",
+      "rel": [
+        "self-improve",
+        "memory",
+        "recursive-loop",
+        "hallucination"
+      ],
+      "ev": "doctrine LEARN principle ('never repeat or near-duplicate a change already shipped') plus the memory/decisions/ store and reduce_hallucinations.py",
+      "src": "learned"
     }
   ]
 }
