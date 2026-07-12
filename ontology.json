@@ -2620,6 +2620,20 @@
       ],
       "ev": "Commit 3f6d515 'self-improve: Drop the matrix/sky canvases on data-saver connections' and a63befb 'Drop the decorative CRT shader on metered connections' — a real Save-Data web-platform signal, parall",
       "src": "learned"
+    },
+    {
+      "id": "concept-application",
+      "dom": "factory",
+      "label": "Concept Application",
+      "def": "A loop (apply_concept.sh) that takes a concept from the system's self-knowledge ontology and operationalizes it as a concrete, gated self-improvement change, closing the describe-then-act cycle of the knowledge graph.",
+      "rel": [
+        "ontology",
+        "idea-engine",
+        "self-improve",
+        "recursive-loop"
+      ],
+      "ev": "apply_concept.sh listed under 'harness scripts present (real capabilities)'",
+      "src": "learned"
     }
   ]
 }
