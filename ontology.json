@@ -2694,6 +2694,21 @@
       ],
       "ev": "Trend: 'Qwen3.5-122B on Mac Studio' and 'large models running on personal hardware' — the enabling fact is Apple Silicon's high memory bandwidth, an established inference property.",
       "src": "learned"
+    },
+    {
+      "id": "progressive-enhancement",
+      "dom": "stack",
+      "label": "Progressive enhancement",
+      "def": "A frontend design paradigm where a semantic, universally-functional baseline is delivered first and richer visual or interactive layers are added only for clients whose capabilities and preferences support them.",
+      "rel": [
+        "network-adaptive-rendering",
+        "save-data-mode",
+        "prefers-reduced-motion",
+        "accessibility",
+        "resource-hints"
+      ],
+      "ev": "Recent shipped self-improve commits that gate the site's animated matrix/sky canvases behind client capability: 3f6d515 'Drop the matrix/sky canvases on data-saver connections', c5f9908 'Suppress the ",
+      "src": "learned"
     }
   ]
 }

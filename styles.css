@@ -156,7 +156,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 .kg3d-stage:has(.kg3d:active), .brain-gl-stage:has(.brain-gl:active) { border-color: var(--cyan); }
 .kg3d, .brain-gl { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
 .kg3d:active { cursor: grabbing; }
-.kg3d:focus-visible, .brain-gl:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+.kg3d:focus-visible, .brain-gl:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; box-shadow: var(--glow); }
 .kg3d-hud { color: var(--muted); font-size: .8rem; margin: .35rem 0 0; transition: color .15s ease; }
 .kg3d-stage:hover .kg3d-hud, .kg3d-stage:focus-within .kg3d-hud { color: var(--fg); }
 @media (hover: none) { .kg3d-hud { color: var(--fg); } }
