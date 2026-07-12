@@ -2303,7 +2303,18 @@ fn app() -> Html {
                                     let done = settled >= len;
                                     if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
                                         if let Some(h) = doc.get_element_by_id("cc-mail-handle") {
-                                            h.set_inner_html(if done { &addr } else { &out });
+                                            if done {
+                                                // trusted-human lane cleared: light a decorative phosphor check that
+                                                // warms from --muted to --cyan, the same glow links use on hover.
+                                                h.set_inner_html(&format!("{}<span id=\"cc-human\" aria-hidden=\"true\" style=\"margin-left:.6ch;color:var(--muted);transition:color .6s ease\">\u{2713} human</span>", addr));
+                                                gloo_timers::callback::Timeout::new(16, || {
+                                                    if let Some(g) = web_sys::window().and_then(|w| w.document()).and_then(|d| d.get_element_by_id("cc-human")) {
+                                                        let _ = g.set_attribute("style", "margin-left:.6ch;color:var(--cyan);transition:color .6s ease");
+                                                    }
+                                                }).forget();
+                                            } else {
+                                                h.set_inner_html(&out);
+                                            }
                                         }
                                         if done {
                                             if let Some(a) = doc.get_element_by_id("cc-mail-link") {

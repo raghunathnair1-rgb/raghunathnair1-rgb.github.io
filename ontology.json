@@ -2118,6 +2118,20 @@
       ],
       "ev": "latest AI/tech trend theme: 'AI/LLM backlash — the community is pushing back on reflexive just-ask-an-LLM answers, signaling fatigue with unearned AI hype'",
       "src": "learned"
+    },
+    {
+      "id": "ai-hype-cycle",
+      "dom": "agentic-ai",
+      "label": "AI hype cycle",
+      "def": "The recurring maturity arc in which inflated expectations of AI give way to a disillusionment backlash against reflexive 'just ask an LLM' answers before settling into calibrated, earned use.",
+      "rel": [
+        "appropriate-reliance",
+        "critical-ignoring",
+        "ai-slop",
+        "automation-bias"
+      ],
+      "ev": "latest AI/tech trends theme: 'AI/LLM backlash: The community is pushing back on reflexive just ask an LLM answers, signaling fatigue with unearned AI hype.'",
+      "src": "learned"
     }
   ]
 }
