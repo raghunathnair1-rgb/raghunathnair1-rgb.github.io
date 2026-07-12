@@ -72,6 +72,7 @@ html { scroll-behavior: smooth; }
 /* keep embedded figures/diagrams fluid so a wide image can't force horizontal scroll either */
 #content img { max-width: 100%; height: auto; }
 #content pre { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+#content :not(pre) > code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: .05em .4em; font-size: .92em; color: var(--cyan); }
 #content table { display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 #content hr { border: 0; height: 1px; margin: 2rem 0; background: linear-gradient(90deg, transparent, var(--line) 20%, var(--cyan) 50%, var(--line) 80%, transparent); box-shadow: var(--glow); }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
