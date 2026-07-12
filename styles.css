@@ -178,6 +178,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--green) var(--bg); scrollbar
 @media (prefers-reduced-motion: reduce) { #crtfx { display: none; } }
 @media (prefers-reduced-transparency: reduce) { #crtfx { display: none; } }
 @media (prefers-reduced-data: reduce) { #crtfx { display: none; } }
+@media (prefers-reduced-data: reduce) { #matrix, #sky { display: none; } }
 
 /* BIOS / POST boot splash (first load per session) */
 #boot {
