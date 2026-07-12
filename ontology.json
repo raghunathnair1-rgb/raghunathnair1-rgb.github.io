@@ -2524,6 +2524,20 @@
       ],
       "ev": "trend theme on AI supply-chain scrutiny of 'what tools exfiltrate', grounded against the existing mcp/tool-use tool surface in this graph",
       "src": "learned"
+    },
+    {
+      "id": "agentic-cli",
+      "dom": "sdlc",
+      "label": "Terminal-native coding agent",
+      "def": "A paradigm where autonomous coding agents run as a CLI in the terminal, driving the whole edit-verify-ship loop rather than acting as an editor plugin.",
+      "rel": [
+        "claude-agent-sdk",
+        "minimal-agent",
+        "harness-eng",
+        "sdlc-build"
+      ],
+      "ev": "HN NOTABLE 'Grok Build CLI' as an instance of the terminal-native agentic-coding trend, plus this system's own run-agent.sh / self-improve loop driving Claude via CLI",
+      "src": "learned"
     }
   ]
 }
