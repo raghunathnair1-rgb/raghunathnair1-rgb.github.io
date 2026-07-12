@@ -2877,6 +2877,84 @@
       ],
       "ev": "HN front-page theme 'Databases and data-plane performance: squeezing correctness and throughput out of SQL infrastructure', plus the system's existing SQL concepts (typed-sql, text-to-sql, generated-s",
       "src": "learned"
+    },
+    {
+      "id": "mvcc",
+      "dom": "stack",
+      "label": "MVCC",
+      "def": "Multi-version concurrency control lets readers see a consistent snapshot while writers proceed by keeping multiple row versions, giving correctness without read locks.",
+      "rel": [
+        "acid-transactions",
+        "write-ahead-log",
+        "storage-engine"
+      ],
+      "ev": "trend theme 'Databases and data-plane performance: squeezing correctness and throughput out of SQL infrastructure'",
+      "src": "learned"
+    },
+    {
+      "id": "columnar-storage",
+      "dom": "stack",
+      "label": "Columnar storage",
+      "def": "Storing table data column-by-column rather than row-by-row maximizes compression and scan throughput for analytical queries.",
+      "rel": [
+        "vectorized-execution",
+        "storage-engine",
+        "lsm-tree"
+      ],
+      "ev": "trend theme 'Databases and data-plane performance' (front-page focus on throughput out of SQL infrastructure)",
+      "src": "learned"
+    },
+    {
+      "id": "query-planner",
+      "dom": "stack",
+      "label": "Query planner",
+      "def": "A cost-based query planner turns a declarative SQL query into an optimized physical execution plan by estimating the cheapest access paths and join orders.",
+      "rel": [
+        "text-to-sql",
+        "typed-sql",
+        "vectorized-execution"
+      ],
+      "ev": "trend theme 'Databases and data-plane performance: squeezing correctness and throughput out of SQL infrastructure'",
+      "src": "learned"
+    },
+    {
+      "id": "b-tree",
+      "dom": "stack",
+      "label": "B-Tree Index",
+      "def": "A balanced, block-oriented search tree that keeps keys sorted for logarithmic point and range lookups, the classic read-optimized index structure in relational storage engines.",
+      "rel": [
+        "storage-engine",
+        "query-planner",
+        "lsm-tree",
+        "mvcc"
+      ],
+      "ev": "HN trend theme 'Databases and data-plane performance' plus 'Learn-by-rebuilding-from-scratch' (rebuild a DB from scratch); complements existing lsm-tree/storage-engine cluster",
+      "src": "learned"
+    },
+    {
+      "id": "bloom-filter",
+      "dom": "stack",
+      "label": "Bloom Filter",
+      "def": "A space-efficient probabilistic set-membership structure answering 'definitely absent / possibly present' to skip unnecessary disk reads, used to prune SSTable lookups in LSM-tree engines.",
+      "rel": [
+        "lsm-tree",
+        "storage-engine"
+      ],
+      "ev": "HN trend theme 'Databases and data-plane performance' (squeezing throughput out of SQL infra); a lasting technique tied to the existing lsm-tree concept",
+      "src": "learned"
+    },
+    {
+      "id": "buffer-pool",
+      "dom": "stack",
+      "label": "Buffer Pool",
+      "def": "An in-memory cache of on-disk pages that a storage engine manages to amortize I/O, the central mechanism behind database read/write throughput.",
+      "rel": [
+        "storage-engine",
+        "write-ahead-log",
+        "query-planner"
+      ],
+      "ev": "HN trend theme 'Databases and data-plane performance'; a durable data-plane construct deepening the existing DB concept cluster",
+      "src": "learned"
     }
   ]
 }
