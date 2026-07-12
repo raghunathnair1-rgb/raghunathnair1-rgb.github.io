@@ -250,7 +250,8 @@
       "def": "Self-healing health checks over the live site and pipeline.",
       "rel": [
         "observability",
-        "telemetry"
+        "telemetry",
+        "self-heal"
       ]
     },
     {
@@ -2662,6 +2663,20 @@
         "nat-traversal"
       ],
       "ev": "Latest-trends NOTABLE item: 'Mesh LLM: Distributed AI compute layer that spreads model inference across peers over iroh' (HN front page, 2026-07-12).",
+      "src": "learned"
+    },
+    {
+      "id": "tensor-parallelism",
+      "dom": "infra",
+      "label": "Tensor Parallelism",
+      "def": "Splitting an individual model layer's weight matrices across multiple GPUs or nodes so a single forward pass executes in parallel, letting models too large for one device run across a cluster.",
+      "rel": [
+        "distributed-inference",
+        "gpu-interconnect",
+        "mesh-inference",
+        "moe"
+      ],
+      "ev": "spark.sh's recurring '2-node GB10 telemetry refresh' commits (a multi-node inference cluster) plus the HN trend of meshing consumer devices to run large models locally.",
       "src": "learned"
     }
   ]
