@@ -1,5 +1,29 @@
 [
  {
+  "title": "Ben Bernanke Joins Anthropic Oversight Trust",
+  "date": "2026-07-10",
+  "tag": "anthropic",
+  "summary": "The Anthropic Long-Term Benefit Trust now seats a former Fed chair—the body that elects a majority of Anthropic's board independent of shareholders, which is the real mechanism being tested here: whether a governance layer can outvote investor pressure when safety and profit diverge. Bernanke's presence signals the Trust wants institutional-crisis expertise, not just AI ethicists; the open question for anyone betting on Anthropic is whether an unusual corporate structure holds up under the capital intensity of frontier training runs.",
+  "source": "anthropic.com",
+  "url": "https://www.anthropic.com/news/ben-bernanke"
+ },
+ {
+  "title": "Show HN: Frugon – Find which LLM calls a cheaper model could handle (local, MIT)",
+  "date": "2026-07-07",
+  "tag": "release",
+  "summary": "Frugon runs entirely on your machine, parsing local logs to flag which requests a smaller model could have served — routing analysis without shipping your traces to yet another SaaS dashboard. The clever bit is treating model selection as a measurable cost leak rather than a vibe: instead of blanket-downgrading and eating quality regressions, you get a per-call audit of where the expensive model was overkill. For anyone running an agent loop that reflexively calls the top-tier model on every hop, that is the difference between a hunch and a line item.",
+  "source": "github.com",
+  "url": "https://github.com/Rodiun/frugon"
+ },
+ {
+  "title": "A new way to reflect on how you use Claude",
+  "date": "2026-07-09",
+  "tag": "claude",
+  "summary": "Anthropic shipped introspection tooling that treats your own prompt history as the dataset: it aggregates and visualizes where your Claude time actually goes, so the reflection loop is quantified rather than vibes-based. The interesting bit isn't the dashboard, it's the framing — surfacing usage patterns back to the user as a signal to audit against stated goals, the same telemetry-then-tune loop we run on our systems, now pointed at our own habits. For builders it's a nudge worth stealing: instrument the human in the loop, not just the model.",
+  "source": "anthropic.com",
+  "url": "https://www.anthropic.com/news/reflect-with-claude"
+ },
+ {
   "title": "Show HN: Getting GLM 5.2 running on my slow computer",
   "date": "2026-07-09",
   "tag": "model",
