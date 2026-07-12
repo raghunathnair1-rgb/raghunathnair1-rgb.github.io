@@ -2173,6 +2173,19 @@
       ],
       "ev": "Trend NOTABLE 'Mesh LLM: Runs LLM inference distributed across machines over the iroh p2p layer' (iroh is a content-addressed p2p stack)",
       "src": "learned"
+    },
+    {
+      "id": "nat-traversal",
+      "dom": "infra",
+      "label": "NAT Traversal / Hole Punching",
+      "def": "The technique of establishing direct peer-to-peer connections between nodes behind NATs/firewalls (e.g. via QUIC hole punching as in iroh), the connection-layer enabler for serverless inference meshes.",
+      "rel": [
+        "p2p-overlay",
+        "mesh-inference",
+        "distributed-inference"
+      ],
+      "ev": "Trend NOTABLE: 'Mesh LLM: Distributed AI inference running peer-to-peer over the iroh networking stack' — iroh's core capability is QUIC-based hole-punched direct connections.",
+      "src": "learned"
     }
   ]
 }
