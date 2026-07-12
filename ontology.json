@@ -4165,6 +4165,46 @@
       ],
       "ev": "commit 86c4fc0 added a 22-concept Todoist build-spec ontology (new 'product' domain) 'so the factory can build a similar app' — the ontology is used AS a build specification",
       "src": "learned"
+    },
+    {
+      "id": "sparse-autoencoder",
+      "dom": "agentic-ai",
+      "label": "Sparse autoencoder",
+      "def": "A dictionary-learning probe that decomposes a model's dense activations into sparse, human-interpretable features to reverse-engineer what a network has learned.",
+      "rel": [
+        "mechanistic-interpretability",
+        "cot-faithfulness",
+        "hallucination"
+      ],
+      "ev": "latest trends theme: 'a genuine push to understand how models actually reason' (LLM interpretability)",
+      "src": "learned"
+    },
+    {
+      "id": "activation-steering",
+      "dom": "agentic-ai",
+      "label": "Activation steering",
+      "def": "Controlling model behavior at inference by adding interpretable feature directions into the residual stream instead of retraining or prompting.",
+      "rel": [
+        "mechanistic-interpretability",
+        "sparse-autoencoder",
+        "guardrails"
+      ],
+      "ev": "latest trends theme: interpretability push to understand and intervene on how models reason",
+      "src": "learned"
+    },
+    {
+      "id": "prefers-reduced-data",
+      "dom": "stack",
+      "label": "prefers-reduced-data",
+      "def": "A CSS media feature that lets a page detect a user's request for lighter data usage and drop non-essential assets like decorative canvases, distinct from the Save-Data client hint.",
+      "rel": [
+        "save-data-mode",
+        "network-adaptive-rendering",
+        "prefers-reduced-motion",
+        "accessibility"
+      ],
+      "ev": "commit 6fa4349 'self-improve: Gracefully drop the decorative canvases under prefers-reduced-data'",
+      "src": "learned"
     }
   ]
 }
