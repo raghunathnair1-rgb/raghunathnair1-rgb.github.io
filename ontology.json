@@ -3182,6 +3182,22 @@
       ],
       "ev": "Latest-trends theme 'Code and agent sessions as navigable 3D/graph structures' + the Mindwalk tool that replays how a coding agent moved through a codebase.",
       "src": "learned"
+    },
+    {
+      "id": "volunteer-compute",
+      "dom": "infra",
+      "label": "Volunteer Compute",
+      "def": "Pooling idle, donated, and untrusted consumer machines into a shared substrate for AI inference and training as an alternative to centralized cloud datacenters.",
+      "rel": [
+        "mesh-inference",
+        "p2p-overlay",
+        "verifiable-inference",
+        "federated-learning",
+        "iroh",
+        "inference-economics"
+      ],
+      "ev": "latest trends theme 'Decentralized/distributed AI compute: running LLMs across meshes of machines rather than centralized clouds' and NOTABLE 'Mesh LLM: distributed AI inference over the iroh peer-to-",
+      "src": "learned"
     }
   ]
 }
