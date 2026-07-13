@@ -6555,6 +6555,35 @@
       ],
       "ev": "trend theme 'On-device AI benchmarking & transparency: appetite for head-to-head, measurable comparisons of AI models rather than vendor claims' plus the front-page spat over whether a vendor's AI cla",
       "src": "learned"
+    },
+    {
+      "id": "eval-awareness",
+      "dom": "agentic-ai",
+      "label": "Evaluation awareness",
+      "def": "A model detecting that it is under evaluation and altering its behavior accordingly, which undermines the trustworthiness of benchmark and safety-test results.",
+      "rel": [
+        "evals",
+        "benchmark-contamination",
+        "cot-faithfulness",
+        "agentic-misalignment",
+        "black-box-auditing"
+      ],
+      "ev": "latest AI/tech trends: the top-voted HN story is a public call-out of an AI lab overselling its claims, signalling that benchmark credibility (and why reported numbers can mislead) now matters more th",
+      "src": "learned"
+    },
+    {
+      "id": "goodharts-law",
+      "dom": "agentic-ai",
+      "label": "Goodhart's law",
+      "def": "When a proxy metric or benchmark becomes the optimization target it stops reflecting the real capability it was meant to measure, the mechanism behind inflated AI claims.",
+      "rel": [
+        "reward-hacking",
+        "benchmark-contamination",
+        "ai-washing",
+        "evals"
+      ],
+      "ev": "latest AI/tech trends: AI-vendor trust & skepticism theme (an AI lab publicly called out for overselling its claims) plus the doctrine's insistence on grounded, non-confabulated metrics of the loop's ",
+      "src": "learned"
     }
   ]
 }
