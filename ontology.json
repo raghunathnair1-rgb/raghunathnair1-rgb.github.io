@@ -5269,6 +5269,22 @@
       ],
       "ev": "latest AI/tech trends: NOTABLE 'Flash-MSA: Sparse-attention kernels that accelerate million-token training runs' + theme 'LLM cost/latency efficiency ... sparse-attention kernels to cut token spend' (",
       "src": "learned"
+    },
+    {
+      "id": "machine-content-disclosure",
+      "dom": "agentic-ai",
+      "label": "AI content disclosure",
+      "def": "The practice, and increasingly the legal requirement, of explicitly labeling machine-generated text, media, or actions so audiences know an AI rather than a human produced them.",
+      "rel": [
+        "content-provenance",
+        "ai-watermarking",
+        "c2pa",
+        "ai-slop",
+        "agent-accountability",
+        "trendpost"
+      ],
+      "ev": "Latest-trends theme 'AI hype fatigue & disclosure: the community wants honest signal over marketing and explicit labeling of machine-generated content', plus this system's own generated-content pipeli",
+      "src": "learned"
     }
   ]
 }
