@@ -444,7 +444,8 @@
       "def": "The harness scripts: metrics, engines, routing.",
       "rel": [
         "self-improve",
-        "brain-hud"
+        "brain-hud",
+        "telemetry"
       ]
     },
     {
@@ -6583,6 +6584,34 @@
         "evals"
       ],
       "ev": "latest AI/tech trends: AI-vendor trust & skepticism theme (an AI lab publicly called out for overselling its claims) plus the doctrine's insistence on grounded, non-confabulated metrics of the loop's ",
+      "src": "learned"
+    },
+    {
+      "id": "platform-native-inference",
+      "dom": "infra",
+      "label": "Platform-native inference",
+      "def": "Running AI locally through models and runtimes built into the operating system or hardware vendor rather than bundling or self-hosting your own model.",
+      "rel": [
+        "local-first",
+        "provider-abstraction",
+        "model-offloading",
+        "cpu-inference",
+        "self-hosting"
+      ],
+      "ev": "latest trends: 'On-device speech AI benchmarking' theme + notable 'Apple SpeechAnalyzer API' — platform-native speech APIs rigorously benchmarked against Whisper, signaling a shift to local, OS-provid",
+      "src": "learned"
+    },
+    {
+      "id": "on-device-speech-recognition",
+      "dom": "stack",
+      "label": "On-device speech recognition",
+      "def": "Automatic speech-to-text transcription run locally through platform-native APIs (e.g. Apple's SpeechAnalyzer) instead of cloud services, benchmarked against models like Whisper.",
+      "rel": [
+        "platform-native-inference",
+        "local-first",
+        "cpu-inference"
+      ],
+      "ev": "Latest AI/tech trends (2026-07-13 HN): 'On-device speech AI benchmarking' theme + NOTABLE 'Apple SpeechAnalyzer API' compared against Whisper, signaling a shift to local inference.",
       "src": "learned"
     }
   ]
