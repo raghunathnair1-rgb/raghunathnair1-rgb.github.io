@@ -93,6 +93,7 @@ html { scroll-behavior: smooth; }
 #content ol { font-variant-numeric: tabular-nums; }
 /* lift bold key terms to the highlight-green so emphasised concepts glow one notch brighter (tracks the amber theme via --green) */
 #content strong, #content b { color: var(--green); }
+#content em, #content i { font-style: italic; color: var(--green); }
 #content mark { background: var(--green); color: var(--bg); text-shadow: none; padding: 0 .2em; border-radius: 3px; }
 #content abbr[title] { text-decoration: underline dotted var(--muted); text-underline-offset: .2em; cursor: help; }
 #content kbd { font-family: inherit; font-size: .85em; color: var(--bg); background: var(--green); border: 1px solid var(--line); border-radius: 4px; padding: .05em .45em; box-shadow: 0 1px 0 var(--line); text-shadow: none; white-space: nowrap; }
