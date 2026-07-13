@@ -6481,6 +6481,80 @@
       ],
       "ev": "Latest-trends themes 'Sandboxing/isolation for AI agents' (disposable contained environments over real machines) plus 'build-it-from-scratch' minimalism; connects to systems-level memory-bug concerns ",
       "src": "learned"
+    },
+    {
+      "id": "immutable-infrastructure",
+      "dom": "infra",
+      "label": "Immutable Infrastructure",
+      "def": "An operations paradigm where servers and environments are never modified in place but are torn down and rebuilt wholesale from a versioned source-of-truth image, so drift is impossible and every instance is disposable.",
+      "rel": [
+        "ephemeral-environment",
+        "microvm",
+        "iac",
+        "reproducible-builds",
+        "single-source-of-truth"
+      ],
+      "ev": "Trend theme 'coding-agent security & sandboxing' with Clawk giving agents disposable Linux VMs they never patch but replace wholesale — the immutable/replace-don't-mutate pattern applied to agent work",
+      "src": "learned"
+    },
+    {
+      "id": "coherent-interconnect",
+      "dom": "infra",
+      "label": "Coherent interconnect",
+      "def": "A cache-coherent chip-to-chip or node-to-node link (e.g. NVLink-C2C in Grace-Blackwell, or CXL) that lets a CPU and accelerator share one address space so neither side must explicitly copy data across the boundary.",
+      "rel": [
+        "unified-memory",
+        "gpu-interconnect",
+        "memory-bandwidth-bound",
+        "zero-copy",
+        "spark"
+      ],
+      "ev": "recurring 'spark: 2-node GB10 telemetry refresh' commits — the GB10 (Grace-Blackwell) nodes this system meters are bound by an NVLink-C2C coherent interconnect, the physical basis for their unified CP",
+      "src": "learned"
+    },
+    {
+      "id": "agentic-misalignment",
+      "dom": "agentic-ai",
+      "label": "Agentic misalignment",
+      "def": "An autonomous agent pursuing its inferred objectives takes actions harmful to its principal — such as exfiltrating data or sabotaging systems — when those objectives conflict with the operator's, distinct from merely gaming a reward metric.",
+      "rel": [
+        "reward-hacking",
+        "excessive-agency",
+        "data-exfiltration",
+        "agent-security",
+        "lethal-trifecta"
+      ],
+      "ev": "latest AI/tech trends, coding-agent-security theme: 'a rogue agent exfiltrating a home directory'; grounded in this system's agent-security domain and the doctrine's bounded-autonomy guardrails",
+      "src": "learned"
+    },
+    {
+      "id": "sbom",
+      "dom": "sdlc",
+      "label": "Software Bill of Materials",
+      "def": "A machine-readable inventory of every component and dependency in a build, enabling teams to trace which shipped artifacts contain a newly disclosed vulnerability.",
+      "rel": [
+        "ai-supply-chain-security",
+        "reproducible-builds",
+        "software-monoculture",
+        "vulnerability-dwell-time"
+      ],
+      "ev": "trend theme 'Systems security & long-lived vulnerabilities: a memory-safety bug hidden in every Linux distro for 15 years' — SBOMs are the established supply-chain artifact for finding which distros/b",
+      "src": "learned"
+    },
+    {
+      "id": "model-arena",
+      "dom": "agentic-ai",
+      "label": "Model Arena",
+      "def": "An evaluation paradigm that ranks models by crowd-sourced pairwise (head-to-head) preference votes to produce an Elo-style leaderboard instead of trusting self-reported benchmark claims.",
+      "rel": [
+        "evals",
+        "llm-as-judge",
+        "online-evaluation",
+        "benchmark-contamination",
+        "ai-washing"
+      ],
+      "ev": "trend theme 'On-device AI benchmarking & transparency: appetite for head-to-head, measurable comparisons of AI models rather than vendor claims' plus the front-page spat over whether a vendor's AI cla",
+      "src": "learned"
     }
   ]
 }
