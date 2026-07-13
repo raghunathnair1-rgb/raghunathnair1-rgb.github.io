@@ -5661,6 +5661,48 @@
       ],
       "ev": "latest AI/tech trends theme 'Attention & deep reading: reclaiming focus and long-form reading is resonating as a counter to feed-driven distraction'",
       "src": "learned"
+    },
+    {
+      "id": "capability-overhang",
+      "dom": "agentic-ai",
+      "label": "Capability overhang",
+      "def": "The gap between a frontier model's latent abilities and what current prompts, tools, and harnesses actually elicit, so real-world performance trails the model's true ceiling until better scaffolding unlocks it.",
+      "rel": [
+        "harnessability",
+        "jagged-frontier",
+        "scaling-limits",
+        "model-migration"
+      ],
+      "ev": "Latest-trends theme 'Frontier-model migration wins — teams switching production agents to newer models for concrete speed and cost gains', i.e. realizing latent gains by upgrading; reinforced by doctr",
+      "src": "learned"
+    },
+    {
+      "id": "log-redaction",
+      "dom": "harness",
+      "label": "Log redaction",
+      "def": "Automatically stripping secrets, tokens, and sensitive values out of execution logs and telemetry before they are published or displayed to viewers.",
+      "rel": [
+        "secret-scan",
+        "egress-transparency",
+        "data-minimization",
+        "telemetry"
+      ],
+      "ev": "Commit 0ffb3b9 'pipeline: sanitized execution-activity feed generator (router/autopost/self-improve/deploys)' and gen_activity.py — the public activity feed is explicitly SANITIZED before display.",
+      "src": "learned"
+    },
+    {
+      "id": "content-visibility",
+      "dom": "stack",
+      "label": "content-visibility rendering",
+      "def": "The CSS `content-visibility` property that skips layout and paint of offscreen content until it scrolls near the viewport, cutting initial render cost on long pages.",
+      "rel": [
+        "progressive-enhancement",
+        "network-adaptive-rendering",
+        "real-user-monitoring",
+        "save-data-mode"
+      ],
+      "ev": "Ongoing self-improve essay-rendering work on long-form pages (recent commits styling `<dl>`, `<data>`, figures, `<mark>`) plus doctrine priority 5 'Performance & accessibility'.",
+      "src": "learned"
     }
   ]
 }
