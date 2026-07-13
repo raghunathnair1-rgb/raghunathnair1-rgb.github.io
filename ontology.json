@@ -6280,6 +6280,51 @@
       ],
       "ev": "Latest-trends dominant theme 'AI coding agents exfiltrating private data': CLI tools silently uploading users' entire home directories to vendor servers.",
       "src": "learned"
+    },
+    {
+      "id": "excessive-agency",
+      "dom": "agentic-ai",
+      "label": "Excessive agency",
+      "def": "An agentic system granted more autonomy, permissions, or file-system reach than its task actually requires, so a bug or compromise can take damaging actions such as reading and uploading a user's entire home directory.",
+      "rel": [
+        "agent-security",
+        "ambient-authority",
+        "lethal-trifecta",
+        "blast-radius-containment",
+        "capability-based-security"
+      ],
+      "ev": "Trend theme: AI coding CLI tools silently uploading users' entire home directories to vendor servers (agent data-egress as the week's dominant fear); the established OWASP LLM Top 10 'Excessive Agency",
+      "src": "learned"
+    },
+    {
+      "id": "photogrammetry",
+      "dom": "stack",
+      "label": "Photogrammetry",
+      "def": "Reconstructing 3D geometry and texture from a set of overlapping 2D photographs via multi-view stereo, yielding meshes or point clouds for interactive rendering.",
+      "rel": [
+        "gaussian-splatting",
+        "webgl",
+        "virtual-globe",
+        "voxel-rendering"
+      ],
+      "ev": "Trend theme: high-voted Show HN immersive browser experiences, explicitly including live 3D scans.",
+      "src": "learned"
+    },
+    {
+      "id": "trust-boundary",
+      "dom": "agentic-ai",
+      "label": "Trust boundary",
+      "def": "The perimeter separating components that trust each other from those that don't; most agent-security failures are really a misjudgment of where that line sits (e.g. the local machine versus the model vendor).",
+      "rel": [
+        "default-deny-egress",
+        "blast-radius-containment",
+        "workspace-confinement",
+        "lethal-trifecta",
+        "capability-based-security",
+        "ambient-authority"
+      ],
+      "ev": "HN themes (2026-07-13): agents exfiltrating home directories, and the sandboxing response of giving agents disposable throwaway environments — both are about drawing and enforcing the local↔vendor tru",
+      "src": "learned"
     }
   ]
 }
