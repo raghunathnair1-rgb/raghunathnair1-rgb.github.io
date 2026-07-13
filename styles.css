@@ -85,6 +85,7 @@ html { scroll-behavior: smooth; }
 #content :not(pre) > code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: .05em .4em; font-size: .92em; color: var(--cyan); }
 #content table { display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 #content th, #content td { border: 1px solid var(--line); padding: .4rem .6rem; text-align: left; }
+#content td, #content th { font-variant-numeric: tabular-nums; }
 #content caption { caption-side: bottom; margin-top: .5rem; font-size: .85rem; font-style: italic; color: var(--muted); text-align: left; }
 #content th { color: var(--green); }
 #content hr { border: 0; height: 1px; margin: 2rem 0; background: linear-gradient(90deg, transparent, var(--line) 20%, var(--cyan) 50%, var(--line) 80%, transparent); box-shadow: var(--glow); }

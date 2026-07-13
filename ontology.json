@@ -846,7 +846,8 @@
         "vllm",
         "test-time-compute",
         "local-first",
-        "quantization"
+        "quantization",
+        "memory-bandwidth-bound"
       ],
       "ev": "HN trend theme 'Local LLM inference on modest hardware: builders squeezing frontier models onto slow/small machines', a durable technique supported by the system's vLLM serving stack.",
       "src": "learned"
@@ -5702,6 +5703,50 @@
         "save-data-mode"
       ],
       "ev": "Ongoing self-improve essay-rendering work on long-form pages (recent commits styling `<dl>`, `<data>`, figures, `<mark>`) plus doctrine priority 5 'Performance & accessibility'.",
+      "src": "learned"
+    },
+    {
+      "id": "astroturfing",
+      "dom": "agentic-ai",
+      "label": "Astroturfing",
+      "def": "The practice of manufacturing fake grassroots consensus—via self-upvoting or coordinated inauthentic engagement—so manipulated signals appear organic and popular.",
+      "rel": [
+        "sybil-attack",
+        "adversarial-content",
+        "bot-mitigation",
+        "proof-of-personhood"
+      ],
+      "ev": "trend NOTABLE: 'Self-upvoting Show HN: A viral demo that upvotes itself' (Hacker News front page, 2026-07-13)",
+      "src": "learned"
+    },
+    {
+      "id": "knowledge-distillation",
+      "dom": "infra",
+      "label": "Knowledge distillation",
+      "def": "Training a smaller student model to imitate a larger teacher model's outputs so it reaches near-teacher quality at far lower inference cost and latency.",
+      "rel": [
+        "quantization",
+        "moe",
+        "speculative-decoding",
+        "model-migration",
+        "open-weights"
+      ],
+      "ev": "Trend theme 'Cheaper/faster model migration: teams re-platforming agents onto newer models for measurable speed and cost wins' + distillation as an established model-compression technique in the infer",
+      "src": "learned"
+    },
+    {
+      "id": "parameter-efficient-finetuning",
+      "dom": "infra",
+      "label": "Parameter-efficient fine-tuning",
+      "def": "Adapting a frozen base model by training only small added weight matrices (e.g. LoRA adapters) rather than all parameters, cutting the compute and storage cost of customization.",
+      "rel": [
+        "open-weights",
+        "quantization",
+        "model-migration",
+        "vllm",
+        "federated-learning"
+      ],
+      "ev": "LoRA/PEFT as an established open-weights adaptation technology, connected to the system's open-weights + local-first + vllm inference stack and the 'cheaper/faster model' trend theme.",
       "src": "learned"
     }
   ]
