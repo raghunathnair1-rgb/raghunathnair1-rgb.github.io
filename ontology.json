@@ -7,7 +7,8 @@
     "factory": "The dark factory (self-knowledge)",
     "sdlc": "Agentic SDLC",
     "stack": "Tech stack",
-    "infra": "Infrastructure & inference"
+    "infra": "Infrastructure & inference",
+    "skills": "Agent skills & plugins"
   },
   "concepts": [
     {
@@ -6672,6 +6673,329 @@
         "borrow-checker"
       ],
       "ev": "HN front-page theme: a 15-year-old use-after-free surfacing across every distro shows foundational memory-safety bugs remain top-of-mind; hardware memory tagging is an established, durable mitigation ",
+      "src": "learned"
+    },
+    {
+      "id": "digital-preservation",
+      "dom": "infra",
+      "label": "Digital preservation",
+      "def": "The practice of durably archiving and redundantly mirroring public datasets and content so they survive deletion, link rot, or censorship.",
+      "rel": [
+        "content-addressed-networking",
+        "monotonic-knowledge",
+        "open-weights"
+      ],
+      "ev": "HN front-page trend theme: 'Open-data preservation: Stories about rescuing destroyed public datasets show a community valuing durable, mirrorable open information.'",
+      "src": "learned"
+    },
+    {
+      "id": "infinite-canvas",
+      "dom": "stack",
+      "label": "Infinite canvas",
+      "def": "An unbounded, pannable and zoomable 2D workspace for spatially arranging, linking, and exploring notes, nodes, and media.",
+      "rel": [
+        "kg-viz",
+        "explorable-explanations",
+        "digital-garden",
+        "force-directed-layout"
+      ],
+      "ev": "HN trend: 'Local-first knowledge tools: Graph/canvas note apps are resurging as people want to own and connect their own data' plus 'Explorable spatial/3D visualizations' Show HN hits.",
+      "src": "learned"
+    },
+    {
+      "id": "bidirectional-linking",
+      "dom": "factory",
+      "label": "Bidirectional linking",
+      "def": "A knowledge-graph primitive where a link between two notes is navigable from both ends, surfacing backlinks that reveal the connective structure of a corpus.",
+      "rel": [
+        "digital-garden",
+        "filesystem-memory",
+        "kg-viz",
+        "graph-rag"
+      ],
+      "ev": "HN trend: 'Local-first knowledge tools: Graph/canvas note apps are resurging as people want to own and connect their own data.'",
+      "src": "learned"
+    },
+    {
+      "id": "agent-skill-packs",
+      "dom": "skills",
+      "label": "Agent skill/plugin packs (by department)",
+      "def": "Installable capability packs that extend a coding agent (Claude Code) with department-specific skills — Developers, Designers, Marketing, Social, Finance, Small-business, Legal. Shipped as GitHub repos or claude.com/plugins and dropped into ~/.claude/skills or the plugin marketplace. Treat this as the catalogue the factory can shop from to gain a new capability without writing it.",
+      "rel": [
+        "tool-orch",
+        "agent"
+      ],
+      "src": "curated",
+      "ev": "user-provided catalogue, 2026-07-13"
+    },
+    {
+      "id": "superpowers",
+      "dom": "skills",
+      "label": "Superpowers (Claude Code skill library)",
+      "def": "A large community collection of Claude Code skills/harness patterns to make an agent more capable out of the box; install as a skills pack. Relevant: a ready-made source of harness guides for the factory's own loops.",
+      "rel": [
+        "agent-skill-packs",
+        "harness-eng",
+        "skill-creator"
+      ],
+      "src": "curated",
+      "ev": "github.com/obra/superpowers"
+    },
+    {
+      "id": "context7",
+      "dom": "skills",
+      "label": "Context7 (live, version-correct docs)",
+      "def": "An MCP server that injects up-to-date, version-pinned library/framework documentation into the agent's context on demand — kills the 'coded against stale/hallucinated API' failure. Directly relevant: a computational GUARD against doc-drift hallucination.",
+      "rel": [
+        "agent-skill-packs",
+        "prompt-engineering",
+        "novelty-guard"
+      ],
+      "src": "curated",
+      "ev": "github.com/upstash/context7"
+    },
+    {
+      "id": "skill-creator",
+      "dom": "skills",
+      "label": "Skill Creator (meta-skill)",
+      "def": "An official Anthropic skill that scaffolds new skills — name, description, SKILL.md, structure — so the factory can author its own skills to encode repeatable procedures.",
+      "rel": [
+        "agent-skill-packs",
+        "mcp-builder",
+        "tool-orch"
+      ],
+      "src": "curated",
+      "ev": "github.com/anthropics/skills"
+    },
+    {
+      "id": "mcp-builder",
+      "dom": "skills",
+      "label": "MCP Builder",
+      "def": "An official Anthropic skill that scaffolds Model-Context-Protocol servers (tools the agent can call), so new external capabilities can be wired up quickly and correctly.",
+      "rel": [
+        "agent-skill-packs",
+        "skill-creator",
+        "tool-orch"
+      ],
+      "src": "curated",
+      "ev": "github.com/anthropics/skills"
+    },
+    {
+      "id": "webapp-testing",
+      "dom": "skills",
+      "label": "Webapp Testing (browser sensor)",
+      "def": "An official Anthropic skill that drives a real browser to exercise a web app (navigate, click, assert) — the exact SENSOR the factory lacks: it has no local browser/compiler check, so UI regressions only surface at CI. Adopting this would let the loop catch a broken build before it ships, closing the gap behind the overnight build-break cascade.",
+      "rel": [
+        "agent-skill-packs",
+        "verification",
+        "guides-and-sensors"
+      ],
+      "src": "curated",
+      "ev": "github.com/anthropics/skills"
+    },
+    {
+      "id": "claude-mem",
+      "dom": "skills",
+      "label": "Claude-Mem (persistent session memory)",
+      "def": "A Claude Code plugin that persists/compacts memory across sessions so context survives beyond a single run — a third-party analogue to the factory's own file-based memory.",
+      "rel": [
+        "agent-skill-packs",
+        "memory"
+      ],
+      "src": "curated",
+      "ev": "github.com/thedotmack/claude-mem"
+    },
+    {
+      "id": "web-artifacts-skill",
+      "dom": "skills",
+      "label": "Web Artifacts (self-contained web pages)",
+      "def": "An official Anthropic skill for building polished, self-contained web artifacts (inline CSS/JS, theme-aware, responsive) — the exact skill used to render the factory's preview artifacts.",
+      "rel": [
+        "agent-skill-packs",
+        "brand-guidelines-skill"
+      ],
+      "src": "curated",
+      "ev": "github.com/anthropics/skills"
+    },
+    {
+      "id": "brand-guidelines-skill",
+      "dom": "skills",
+      "label": "Brand Guidelines",
+      "def": "An official Anthropic skill that applies a brand/design system (palette, type, voice) consistently across outputs — a design GUIDE for anything the factory ships visually.",
+      "rel": [
+        "agent-skill-packs",
+        "web-artifacts-skill",
+        "ui-ux-pro-max"
+      ],
+      "src": "curated",
+      "ev": "github.com/anthropics/skills"
+    },
+    {
+      "id": "ui-ux-pro-max",
+      "dom": "skills",
+      "label": "UI UX Pro Max",
+      "def": "A designer skill pack for higher-quality UI/UX output (layout, hierarchy, interaction patterns).",
+      "rel": [
+        "agent-skill-packs",
+        "taste-design",
+        "brand-guidelines-skill"
+      ],
+      "src": "curated",
+      "ev": "github.com/nextlevelbuild (truncated)"
+    },
+    {
+      "id": "taste-design",
+      "dom": "skills",
+      "label": "Taste / Frontend Design",
+      "def": "A designer skill pack focused on frontend 'taste' — spacing, typography, and visual polish for web UIs.",
+      "rel": [
+        "agent-skill-packs",
+        "frontend-transitions",
+        "ui-ux-pro-max"
+      ],
+      "src": "curated",
+      "ev": "github.com/Leonxlnx/taste"
+    },
+    {
+      "id": "frontend-transitions",
+      "dom": "skills",
+      "label": "Transitions (motion/animation)",
+      "def": "A designer skill pack for web motion — page/scroll transitions and micro-interactions done tastefully (respecting reduced-motion).",
+      "rel": [
+        "agent-skill-packs",
+        "taste-design"
+      ],
+      "src": "curated",
+      "ev": "github.com/Jakubantalik/transitions (truncated)"
+    },
+    {
+      "id": "marketing-skills",
+      "dom": "skills",
+      "label": "Marketing pack (45 skills)",
+      "def": "A 45-skill pack to run marketing end-to-end: copywriting, SEO, lead magnets, campaigns. Peripheral to this factory, but the SEO skills could inform the blog's growth work.",
+      "rel": [
+        "agent-skill-packs",
+        "social-media-skills"
+      ],
+      "src": "curated",
+      "ev": "github.com/coreyhaines31 (truncated)"
+    },
+    {
+      "id": "social-media-skills",
+      "dom": "skills",
+      "label": "Social Media pack (17 skills)",
+      "def": "A 17-skill pack for social: post writing, Reels, thumbnails. Overlaps the factory's existing autonomous LinkedIn/build-in-public posting.",
+      "rel": [
+        "agent-skill-packs",
+        "marketing-skills"
+      ],
+      "src": "curated",
+      "ev": "github.com/charlie947 (truncated)"
+    },
+    {
+      "id": "finance-skills",
+      "dom": "skills",
+      "label": "Finance pack (8 skills)",
+      "def": "An 8-skill pack for finances: statements, reconciliation, audits. Not relevant to the blog factory; cataloged for completeness.",
+      "rel": [
+        "agent-skill-packs",
+        "small-business-skills"
+      ],
+      "src": "curated",
+      "ev": "claude.com/plugins/finance"
+    },
+    {
+      "id": "small-business-skills",
+      "dom": "skills",
+      "label": "Small Business pack (31 skills)",
+      "def": "A 31-skill pack to run a small business: cash flow, payroll, invoicing. Not relevant to the blog factory; cataloged for completeness.",
+      "rel": [
+        "agent-skill-packs",
+        "finance-skills",
+        "legal-skills"
+      ],
+      "src": "curated",
+      "ev": "claude.com/plugins/small-business"
+    },
+    {
+      "id": "legal-skills",
+      "dom": "skills",
+      "label": "Legal pack (9 skills)",
+      "def": "A 9-skill pack for legal work: contract review, NDAs, compliance. Not relevant to the blog factory; cataloged for completeness.",
+      "rel": [
+        "agent-skill-packs",
+        "small-business-skills"
+      ],
+      "src": "curated",
+      "ev": "claude.com/plugins/legal"
+    },
+    {
+      "id": "level-of-detail",
+      "dom": "stack",
+      "label": "Level-of-detail rendering",
+      "def": "A rendering technique that substitutes coarser geometry or fewer primitives as objects recede or the view zooms out, keeping large real-data 3D scenes interactive in the browser.",
+      "rel": [
+        "virtual-globe",
+        "voxel-rendering",
+        "network-adaptive-rendering"
+      ],
+      "ev": "trend theme 'Explorable spatial/3D visualizations: Multiple huge Show HN hits are navigable maps and worlds... zoomable, real-data spaces in the browser'",
+      "src": "learned"
+    },
+    {
+      "id": "lots-of-copies-keep-stuff-safe",
+      "dom": "infra",
+      "label": "LOCKSS (many-replica preservation)",
+      "def": "Lots Of Copies Keep Stuff Safe — a preservation paradigm that keeps public data durable by mirroring it across many independent, self-auditing replicas so no single takedown or failure can destroy it.",
+      "rel": [
+        "digital-preservation",
+        "replication",
+        "content-addressed-networking",
+        "p2p-overlay"
+      ],
+      "ev": "Trend theme 'Open-data preservation: Stories about rescuing destroyed public datasets show a community valuing durable, mirrorable open information.'",
+      "src": "learned"
+    },
+    {
+      "id": "exceptional-access",
+      "dom": "infra",
+      "label": "Exceptional access (mandated backdoor)",
+      "def": "A government-mandated interception or decryption pathway built into communications infrastructure, which weakens security for everyone by creating a privileged access path that adversaries can also discover and abuse.",
+      "rel": [
+        "trust-boundary",
+        "side-channel-attack",
+        "agent-security",
+        "data-exfiltration"
+      ],
+      "ev": "Trend theme 'Surveillance & security erosion: the front page is dominated by ... surveillance-infrastructure stories, signalling anxiety about who watches and what breaks silently.'",
+      "src": "learned"
+    },
+    {
+      "id": "patch-gap",
+      "dom": "stack",
+      "label": "Patch gap (n-day window)",
+      "def": "The exploitable window between a vulnerability's public patch and its deployment across systems, during which attackers reverse-engineer the fix to build n-day exploits against the still-unpatched.",
+      "rel": [
+        "vulnerability-dwell-time",
+        "shift-left-security",
+        "ai-supply-chain-security",
+        "coordinated-disclosure"
+      ],
+      "ev": "Trend theme 'Surveillance & security erosion: the front page is dominated by long-lived vulnerabilities ... that break silently.'",
+      "src": "learned"
+    },
+    {
+      "id": "machine-unlearning",
+      "dom": "agentic-ai",
+      "label": "Machine Unlearning",
+      "def": "Techniques for removing the influence of specific training data from an already-trained model without full retraining, in response to privacy, takedown, or consent demands.",
+      "rel": [
+        "data-minimization",
+        "data-poisoning",
+        "knowledge-distillation",
+        "content-provenance"
+      ],
+      "ev": "Latest AI/tech trends theme: 'Surveillance & AI-training data backlash — Institutions and users are actively rejecting mass surveillance and forced data harvesting for AI.'",
       "src": "learned"
     }
   ]

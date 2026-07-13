@@ -84,6 +84,7 @@ html { scroll-behavior: smooth; }
 #content pre { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .75rem .9rem; line-height: 1.5; }
 #content pre, #content code { -moz-tab-size: 4; tab-size: 4; }
 #content :not(pre) > code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: .05em .4em; font-size: .92em; color: var(--cyan); }
+#content a code { color: inherit; }
 #content table { display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 #content th, #content td { border: 1px solid var(--line); padding: .4rem .6rem; text-align: left; vertical-align: top; }
 #content td, #content th { font-variant-numeric: tabular-nums; }
