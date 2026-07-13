@@ -5448,6 +5448,20 @@
       ],
       "ev": "HN trend theme 'Reclaiming attention and deep reading: a counter-current of posts focuses on rebuilding human focus against distraction' (trends, 2026-07-13)",
       "src": "learned"
+    },
+    {
+      "id": "model-cascade",
+      "dom": "infra",
+      "label": "Model cascade",
+      "def": "Route a query through a chain of increasingly capable and costly models, stopping at the first whose output passes a confidence or verification check, so most requests are served cheaply while quality is preserved on the hard tail.",
+      "rel": [
+        "tiered-router",
+        "inference-economics",
+        "verification",
+        "cost-aware-eval"
+      ],
+      "ev": "router_stats.py / the system's tiered-router capability, plus the trend theme 'Model migration for cost/speed: teams porting production agents to newer models chasing measurable speed and cost wins' —",
+      "src": "learned"
     }
   ]
 }
