@@ -5748,6 +5748,21 @@
       ],
       "ev": "LoRA/PEFT as an established open-weights adaptation technology, connected to the system's open-weights + local-first + vllm inference stack and the 'cheaper/faster model' trend theme.",
       "src": "learned"
+    },
+    {
+      "id": "sleep-time-compute",
+      "dom": "agentic-ai",
+      "label": "Sleep-time compute",
+      "def": "An agent spends idle time between queries pre-processing its context and building memory so that live requests need less test-time reasoning, cutting latency and cost.",
+      "rel": [
+        "dreaming",
+        "test-time-compute",
+        "filesystem-memory",
+        "prefix-caching",
+        "world-model"
+      ],
+      "ev": "This system's background idle loops (dream.py/dream.sh and world_loop.py) that compute offline, plus the trend theme 'Agent model migration for speed and cost' pushing agents to cut live latency/spend",
+      "src": "learned"
     }
   ]
 }
