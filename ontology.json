@@ -5965,6 +5965,34 @@
       ],
       "ev": "Latest AI/tech trends theme — 'AI vendor trust & privacy backlash: Tools silently exfiltrating local files are eroding trust in AI vendors.'",
       "src": "learned"
+    },
+    {
+      "id": "microtypography",
+      "dom": "stack",
+      "label": "Microtypography",
+      "def": "The fine-detail typesetting discipline of optical refinements — hanging punctuation, tabular figures, and balanced/pretty line-wrapping — that improves readability without altering the words.",
+      "rel": [
+        "web-typography",
+        "text-wrap-pretty",
+        "hanging-punctuation",
+        "tabular-figures",
+        "sidenotes"
+      ],
+      "ev": "Recent self-improve commits: pretty-wrapping essay <dd> glossary defs (5dbef14), table <caption>s (754a507), blockquotes (b499710) and aligning tabular phosphor columns (dacf8c6) — all optical-refinem",
+      "src": "learned"
+    },
+    {
+      "id": "terminal-aesthetic",
+      "dom": "stack",
+      "label": "Terminal aesthetic",
+      "def": "A durable retro-computing web design language — CRT phosphor glow, monospace type, and green-on-black terminal motifs — used to style an interface as a lasting stylistic paradigm rather than a one-off theme.",
+      "rel": [
+        "intrinsic-web-design",
+        "web-typography",
+        "generative-ui"
+      ],
+      "ev": "Recent self-improve commits repeatedly style essays in an explicit 'phosphor' language (phosphor row-hover 5762220, tabular phosphor columns dacf8c6, phosphor :active press-flash 3d651d9), reinforced ",
+      "src": "learned"
     }
   ]
 }
