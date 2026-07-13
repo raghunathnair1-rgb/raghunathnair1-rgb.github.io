@@ -7068,6 +7068,20 @@
       ],
       "ev": "Latest-trends theme 'Agentic runtimes: New tools are being built as shared execution environments for both AI agents and humans' — notable example Nobie, an Excel-compatible runtime designed as a shar",
       "src": "learned"
+    },
+    {
+      "id": "data-rescue",
+      "dom": "infra",
+      "label": "Data Rescue / Guerrilla Archiving",
+      "def": "The organized community practice of mirroring and archiving at-risk institutional or public datasets before they can be taken down, so open copies keep the data alive.",
+      "rel": [
+        "digital-preservation",
+        "lots-of-copies-keep-stuff-safe",
+        "content-addressed-networking",
+        "open-weights"
+      ],
+      "ev": "HN trend theme 'Open-data resilience & preservation: When institutional data is taken down, open mirrors and archives are what keep it alive.'",
+      "src": "learned"
     }
   ]
 }
