@@ -95,6 +95,8 @@ html { scroll-behavior: smooth; }
 #content q { color: var(--muted); font-style: italic; }
 #content cite { font-style: italic; color: var(--muted); }
 #content sup, #content sub { line-height: 0; font-size: .72em; }
+#content del, #content s { color: var(--muted); text-decoration-line: line-through; text-decoration-color: var(--cyan); text-decoration-thickness: 1px; }
+#content ins { text-decoration-line: underline; text-decoration-color: var(--cyan); text-decoration-thickness: 1px; text-underline-offset: .18em; color: var(--green); }
 #content blockquote { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--cyan); color: var(--muted); font-style: italic; box-shadow: -4px 0 12px -10px var(--cyan); }
 #content dt { color: var(--green); font-weight: 700; margin-top: .6rem; }
 #content dd { margin: .15rem 0 .6rem 1.2rem; color: var(--muted); }
