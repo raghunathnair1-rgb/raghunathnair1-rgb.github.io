@@ -5788,9 +5788,26 @@
         "ai-sovereignty",
         "indie-web",
         "portable-executable",
-        "cosmopolitan-libc"
+        "cosmopolitan-libc",
+        "spark"
       ],
       "ev": "Trend theme 'Minimal single-file self-hosting: self-contained, distributable tools with tiny footprints are resonating strongly' + NOTABLE Redbean (single-file distributable web server shipped as one ",
+      "src": "learned"
+    },
+    {
+      "id": "human-agent-write-lock",
+      "dom": "harness",
+      "label": "Human/agent write lock",
+      "def": "A cooperative advisory lock (e.g. /tmp/darkfactory-ontology.lock) that autonomous loops must acquire before rewriting shared brain state, so a human's concurrent hand-edits are not silently clobbered.",
+      "rel": [
+        "harness-eng",
+        "guardrails",
+        "ontology-maintenance",
+        "ontology",
+        "cron-autonomy",
+        "human-on-the-loop"
+      ],
+      "ev": "ontology_learn.py / ontology_maintain.py autonomously rewrite brain/ontology.json on cron; per the project's own edit-lock discipline, hand-edits must hold /tmp/darkfactory-ontology.lock or those loop",
       "src": "learned"
     }
   ]
