@@ -4506,6 +4506,20 @@
       ],
       "ev": "Recent self-improve commits styling essay `<q>`, `<details>/<summary>`, `<figcaption>`, `<abbr title>`, `<mark>`, `<strong>`, and `<table>` elements in ssg.py-rendered essays",
       "src": "learned"
+    },
+    {
+      "id": "generative-ui",
+      "dom": "stack",
+      "label": "Generative UI",
+      "def": "An interaction paradigm in which an LLM agent generates or directly manipulates a live interface (drawing, layout, components) in real time rather than only emitting text.",
+      "rel": [
+        "generative-media",
+        "agentic-web",
+        "explorable-explanations",
+        "claude-design"
+      ],
+      "ev": "latest trends notable 'Agent Draw: an AI agent that draws on a TLDraw canvas live as you talk to it' — the durable generative-UI paradigm it exemplifies",
+      "src": "learned"
     }
   ]
 }
