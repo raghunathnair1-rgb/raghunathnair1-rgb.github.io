@@ -5051,6 +5051,34 @@
       ],
       "ev": "Trend theme 'Interpretability rigor: Researchers are applying formal causal methods to actually explain LLM internals.'",
       "src": "learned"
+    },
+    {
+      "id": "crosscoder",
+      "dom": "agentic-ai",
+      "label": "Crosscoder",
+      "def": "A sparse dictionary-learning variant that jointly learns shared features across multiple layers or across two models (e.g. base vs fine-tuned), enabling feature-level diffing of what training changed.",
+      "rel": [
+        "sparse-autoencoder",
+        "transcoder",
+        "circuit-tracing",
+        "model-migration"
+      ],
+      "ev": "trend theme 'Interpretability rigor: Researchers are applying formal causal methods to actually explain LLM internals'; extends the existing SAE/transcoder cluster",
+      "src": "learned"
+    },
+    {
+      "id": "path-patching",
+      "dom": "agentic-ai",
+      "label": "Path patching",
+      "def": "A causal-interpretability technique that intervenes on specific computational paths (edges) between model components rather than whole activation sites, isolating which connections carry a behavior.",
+      "rel": [
+        "activation-patching",
+        "causal-scrubbing",
+        "circuit-tracing",
+        "causal-abstraction"
+      ],
+      "ev": "trend theme 'Interpretability rigor: applying formal causal methods to actually explain LLM internals'; refines the existing activation-patching / causal-scrubbing methods",
+      "src": "learned"
     }
   ]
 }
