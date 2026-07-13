@@ -116,6 +116,7 @@ html { scroll-behavior: smooth; }
 #content summary::marker { color: var(--cyan); }
 #content a:hover,
 #content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
+#content a:active { color: var(--green); text-shadow: var(--glow); }
 
 /* flag links that leave the factory — internal SPA links stay unmarked */
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"])::after {
