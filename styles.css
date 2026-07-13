@@ -121,6 +121,7 @@ html { scroll-behavior: smooth; }
 #content address { font-style: normal; color: var(--muted); border-left: 2px dotted var(--line); padding-left: .8rem; margin: 1.4rem 0; }
 #content dt { color: var(--green); font-weight: 700; margin-top: .6rem; }
 #content dd { margin: .15rem 0 .6rem 1.2rem; color: var(--muted); }
+#content dl { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--line); }
 #content summary { cursor: pointer; color: var(--cyan); }
 #content summary:hover, #content summary:focus-visible { text-shadow: var(--glow); }
 #content summary:active { color: var(--green); text-shadow: var(--glow); }
