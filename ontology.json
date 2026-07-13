@@ -6748,7 +6748,8 @@
       "rel": [
         "agent-skill-packs",
         "prompt-engineering",
-        "novelty-guard"
+        "novelty-guard",
+        "hallucination"
       ],
       "src": "curated",
       "ev": "github.com/upstash/context7"
@@ -7039,6 +7040,33 @@
         "data-minimization"
       ],
       "ev": "HN front-page trend theme (2026-07-13): 'Surveillance & data-privacy backlash: public and institutional pushback against mass surveillance and coerced AI-training data is dominating the front page.'",
+      "src": "learned"
+    },
+    {
+      "id": "coding-ligatures",
+      "dom": "stack",
+      "label": "Coding ligatures",
+      "def": "Font ligatures in monospace code faces that fuse character sequences (e.g. != into a single glyph), which can be disabled so literal source characters render exactly as typed.",
+      "rel": [
+        "web-typography",
+        "terminal-aesthetic",
+        "microtypography"
+      ],
+      "ev": "Commit 5929846 'self-improve: Disable code-font ligatures so literal source characters render as the...'",
+      "src": "learned"
+    },
+    {
+      "id": "agent-native-application",
+      "dom": "agentic-ai",
+      "label": "Agent-native application",
+      "def": "Software designed from the ground up as a shared execution surface that both human users and AI agents operate as first-class actors, rather than a human-only UI agents must scrape.",
+      "rel": [
+        "computer-use",
+        "agent-computer-interface",
+        "mixed-initiative-interaction",
+        "human-agent-write-lock"
+      ],
+      "ev": "Latest-trends theme 'Agentic runtimes: New tools are being built as shared execution environments for both AI agents and humans' — notable example Nobie, an Excel-compatible runtime designed as a shar",
       "src": "learned"
     }
   ]
