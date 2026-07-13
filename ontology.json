@@ -4622,6 +4622,21 @@
       ],
       "ev": "Trend theme 'Agent token/cost efficiency scrutiny: People are now benchmarking agents on tokens spent and dollars saved, not just capability', exemplified by OpenCode winning attention for sending far",
       "src": "learned"
+    },
+    {
+      "id": "mixed-initiative-interaction",
+      "dom": "agentic-ai",
+      "label": "Mixed-Initiative Interaction",
+      "def": "An interaction paradigm in which a human and an agent fluidly hand control back and forth on a shared live artifact rather than the agent only returning finished text.",
+      "rel": [
+        "human-in-the-loop",
+        "human-on-the-loop",
+        "centaur",
+        "agent-computer-interface",
+        "generative-ui"
+      ],
+      "ev": "HN trend theme 'Live agentic UX' — appetite for watching an agent act in real time on a shared canvas (e.g. an agent drawing on a TLDraw canvas as you converse) instead of just returning text.",
+      "src": "learned"
     }
   ]
 }
