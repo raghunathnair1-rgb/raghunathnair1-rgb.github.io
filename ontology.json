@@ -6453,6 +6453,34 @@
       ],
       "ev": "Trend: a 15-year-old stack use-after-free across all Linux distros, illustrating latent memory-corruption bugs that mitigations like CFI are designed to contain.",
       "src": "learned"
+    },
+    {
+      "id": "application-kernel",
+      "dom": "infra",
+      "label": "Application kernel",
+      "def": "A user-space kernel (e.g. gVisor-style) that intercepts and re-implements a guest workload's syscalls so an untrusted process is isolated from the host kernel without paying for a full VM.",
+      "rel": [
+        "agent-sandboxing",
+        "syscall-filtering",
+        "microvm",
+        "sandbox-escape"
+      ],
+      "ev": "Latest-trends themes 'AI coding agents are a security liability' and 'Sandboxing/isolation for AI agents' — the community answer of disposable, contained execution environments (Clawk giving coding ag",
+      "src": "learned"
+    },
+    {
+      "id": "unikernel",
+      "dom": "infra",
+      "label": "Unikernel",
+      "def": "A single-address-space image that compiles an application with only the OS library functions it needs into a minimal, fast-booting VM, yielding a tiny attack surface for disposable agent workloads.",
+      "rel": [
+        "microvm",
+        "ephemeral-environment",
+        "minimal-agent",
+        "memory-safety"
+      ],
+      "ev": "Latest-trends themes 'Sandboxing/isolation for AI agents' (disposable contained environments over real machines) plus 'build-it-from-scratch' minimalism; connects to systems-level memory-bug concerns ",
+      "src": "learned"
     }
   ]
 }
