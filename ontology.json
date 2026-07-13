@@ -4722,6 +4722,20 @@
       ],
       "ev": "reduce_hallucinations.py / reduce_hallucinations.sh plus logs/reduce-hallucinations.log — a real harness loop present alongside self-improve/idea-engine/watchdog",
       "src": "learned"
+    },
+    {
+      "id": "memory-safety",
+      "dom": "stack",
+      "label": "Memory safety",
+      "def": "The language-level guarantee that a program cannot read or write memory outside valid bounds or lifetimes, eliminating whole bug classes like use-after-free that Rust prevents by construction while unsafe C/C++ can leak latently for years.",
+      "rel": [
+        "rust",
+        "code-vulns",
+        "sast",
+        "adversarial-attacks"
+      ],
+      "ev": "HN front-page trend theme 'long-lived system security holes' — a 15-year-old use-after-free surfacing in the Linux kernel — grounded against this system's Rust/Cargo.lock stack cited in principles.md.",
+      "src": "learned"
     }
   ]
 }
