@@ -2555,7 +2555,8 @@
         "ai-slop",
         "ai-watermarking",
         "adversarial-content",
-        "prompt-engineering"
+        "prompt-engineering",
+        "content-distribution"
       ],
       "ev": "commits 47bc298 'linkedin: ban em-dashes entirely (prompt + mechanical strip)' and ecc99cf 'ban the it isn't A, it's B antithesis closer (top AI tell) in de-slop pass'",
       "src": "learned"
@@ -5545,6 +5546,50 @@
         "agent-security"
       ],
       "ev": "Trend/NOTABLE: 'Grok build CLI analysis: A wire-level teardown of exactly what xAI's coding CLI phones home to the vendor' + theme 'AI tool transparency / wire-level scrutiny: Developers are dissectin",
+      "src": "learned"
+    },
+    {
+      "id": "capability-based-security",
+      "dom": "agentic-ai",
+      "label": "Capability-Based Security",
+      "def": "A security model that grants an agent only unforgeable, narrowly-scoped tokens conferring specific authority, eliminating ambient permissions so a compromised or over-eager agent cannot exceed its explicitly delegated powers.",
+      "rel": [
+        "agent-iam",
+        "agent-sandboxing",
+        "guardrails",
+        "default-deny-egress"
+      ],
+      "ev": "Doctrine (principles.md) Guardrails layer: 'bounded autonomy: no big blind rewrites, no secrets, no new external network calls'; reinforced by the 'Agent wire-level transparency' trend theme on auditi",
+      "src": "learned"
+    },
+    {
+      "id": "expert-parallelism",
+      "dom": "infra",
+      "label": "Expert parallelism",
+      "def": "A parallelism strategy that shards a Mixture-of-Experts model's experts across devices so each accelerator hosts a subset, routing tokens to the device holding their chosen expert.",
+      "rel": [
+        "moe",
+        "distributed-inference",
+        "tensor-parallelism",
+        "pipeline-parallelism",
+        "collective-communication"
+      ],
+      "ev": "Established MoE-serving technique (the fourth axis of 4D parallelism alongside data/tensor/pipeline), extends the system's vLLM distributed-inference stack referenced in doctrine and the `moe` concept",
+      "src": "learned"
+    },
+    {
+      "id": "cache-aware-routing",
+      "dom": "infra",
+      "label": "KV-cache-aware routing",
+      "def": "Load-balancing that steers a request to the inference replica already holding the largest matching prefix in its KV cache, maximizing prefix-cache hits instead of routing blindly.",
+      "rel": [
+        "prefix-caching",
+        "tiered-router",
+        "disaggregated-serving",
+        "kv-cache",
+        "backpressure"
+      ],
+      "ev": "Established production LLM-serving technique layered on prefix caching; extends the system's real tiered router (`router_stats.py`, `tiered-router`) and vLLM prefix-cache stack.",
       "src": "learned"
     }
   ]
