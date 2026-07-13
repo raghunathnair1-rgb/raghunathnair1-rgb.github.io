@@ -4751,6 +4751,21 @@
       ],
       "ev": "trends theme 'Rigor over automation in AI research: automating steps without understanding causes shallow, one-step thinking'",
       "src": "learned"
+    },
+    {
+      "id": "kernel-fusion",
+      "dom": "infra",
+      "label": "Kernel fusion",
+      "def": "Combining multiple GPU operations into a single custom kernel (e.g. FlashAttention-style attention) to cut memory traffic and speed up inference without changing the model.",
+      "rel": [
+        "memory-bandwidth-bound",
+        "kv-cache",
+        "paged-attention",
+        "inference-economics",
+        "quantization"
+      ],
+      "ev": "Latest AI/tech trend theme: 'Teams are actively swapping models and kernels to cut spend and speed up inference in production.'",
+      "src": "learned"
     }
   ]
 }
