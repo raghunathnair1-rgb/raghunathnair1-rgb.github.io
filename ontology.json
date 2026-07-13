@@ -5314,6 +5314,51 @@
       ],
       "ev": "trend theme 'Automation without comprehension: Recurring worry that agents act without anyone understanding what or why' — the durable organizational failure mode where agentic action diffuses respons",
       "src": "learned"
+    },
+    {
+      "id": "progressive-disclosure",
+      "dom": "stack",
+      "label": "Progressive disclosure",
+      "def": "A UI pattern that hides secondary detail behind on-demand controls (e.g. native `<details>`/`<summary>` disclosures) so the primary view stays uncluttered while depth remains one interaction away.",
+      "rel": [
+        "semantic-html",
+        "explorable-explanations",
+        "accessibility",
+        "calm-technology",
+        "deep-reading"
+      ],
+      "ev": "Recent self-improve commits styling essay disclosures: e5d8f86 'Frame essay `<details>` disclosures as an inset phosphor block', 1604733 'Tint an open essay `<details>` summary', 2f6fa30 'phosphor hov",
+      "src": "learned"
+    },
+    {
+      "id": "default-deny-egress",
+      "dom": "agentic-ai",
+      "label": "Default-deny egress",
+      "def": "A security posture that blocks all outbound network by default and requires explicit allowlisting, enforcing an agent's bounded autonomy and closing the data-exfiltration channel rather than merely observing it.",
+      "rel": [
+        "guardrails",
+        "agent-sandboxing",
+        "egress-transparency",
+        "lethal-trifecta",
+        "agent-security"
+      ],
+      "ev": "Doctrine guardrail 'no new external network calls' (principles.md, Hard don'ts + Guardrails layer) combined with the HN 'Agent-CLI wire transparency' theme / Grok CLI wire-level teardown of what agent",
+      "src": "learned"
+    },
+    {
+      "id": "platform-link-suppression",
+      "dom": "stack",
+      "label": "Platform link suppression",
+      "def": "Social and search platforms algorithmically demote posts that carry outbound links in order to keep users on-platform, forcing distributors to relocate the link out of the main body (e.g. into the first comment).",
+      "rel": [
+        "algorithm-aware-formatting",
+        "content-distribution",
+        "posse",
+        "indie-web",
+        "programmatic-seo"
+      ],
+      "ev": "commit af797fd/47bc298 'linkedin: link-in-first-comment — strip body link (reach penalty), post feed link as first comment' in li_publish.py distribution path",
+      "src": "learned"
     }
   ]
 }

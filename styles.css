@@ -89,6 +89,8 @@ html { scroll-behavior: smooth; }
 #content a:visited { color: var(--muted); }
 /* light list markers in the terminal accent so each bullet reads like a lit prompt marker */
 #content li::marker { color: var(--cyan); }
+/* second-level-and-deeper markers drop to dim phosphor so nesting depth reads at a glance (same secondary-green convention as <small>/<time>/<cite>/<aside>) */
+#content ul ul li::marker, #content ol ol li::marker { color: var(--muted); }
 /* tabular figures so auto-numbered ordered lists keep a flush marker column past double digits (mirrors essay <time> stamps) */
 #content ol { font-variant-numeric: tabular-nums; }
 /* lift bold key terms to the highlight-green so emphasised concepts glow one notch brighter (tracks the amber theme via --green) */
