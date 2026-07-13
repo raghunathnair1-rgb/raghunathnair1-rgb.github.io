@@ -4520,6 +4520,77 @@
       ],
       "ev": "latest trends notable 'Agent Draw: an AI agent that draws on a TLDraw canvas live as you talk to it' — the durable generative-UI paradigm it exemplifies",
       "src": "learned"
+    },
+    {
+      "id": "web-typography",
+      "dom": "stack",
+      "label": "Web typography",
+      "def": "The craft of rendering readable, well-styled prose on the web by theming semantic HTML elements (headings, quotes, code, tables, emphasis) with consistent type, spacing, and rhythm.",
+      "rel": [
+        "semantic-html",
+        "text-wrap-balance",
+        "accessibility",
+        "generative-ui",
+        "ssg"
+      ],
+      "ev": "The sustained run of self-improve commits styling essay elements as phosphor typography: `<cite>`, `<kbd>`, `<q>`, `<details>/<summary>`, `<figcaption>`, `<abbr title>`, `<table>` cells, `<mark>`, `<s",
+      "src": "learned"
+    },
+    {
+      "id": "calm-technology",
+      "dom": "stack",
+      "label": "Calm technology",
+      "def": "A design paradigm (Weiser/Brown) for technology that lives in the periphery and informs without demanding attention, engaging the center of focus only when needed.",
+      "rel": [
+        "ambient-display",
+        "cognitive-offloading",
+        "accessibility",
+        "reverse-centaur"
+      ],
+      "ev": "The system's ambient info generators — gen_wttr.py (weather), gen_sun.py (sunrise/sunset), tzc.py (timezone clock), spark telemetry — plus the trend theme 'Human attention and deep reading as backlash",
+      "src": "learned"
+    },
+    {
+      "id": "logit-lens",
+      "dom": "agentic-ai",
+      "label": "Logit Lens",
+      "def": "An interpretability technique that projects a transformer's intermediate-layer hidden states through the output unembedding to read the model's evolving next-token prediction across depth.",
+      "rel": [
+        "mechanistic-interpretability",
+        "superposition",
+        "activation-patching",
+        "cot-monitorability"
+      ],
+      "ev": "Latest AI/tech trends, HN front page 2026-07-13 theme 'Mechanistic interpretability of LLMs: Researchers are pushing to actually explain model internals rather than treat them as black boxes'",
+      "src": "learned"
+    },
+    {
+      "id": "time-to-first-token",
+      "dom": "infra",
+      "label": "Time to First Token",
+      "def": "A serving-latency metric measuring the delay from request arrival to the first generated token, dominated by prompt prefill and a primary driver of perceived agent responsiveness.",
+      "rel": [
+        "inference-economics",
+        "chunked-prefill",
+        "continuous-batching",
+        "disaggregated-serving",
+        "prefix-caching"
+      ],
+      "ev": "Latest AI/tech trends, HN notable 2026-07-13 'GPT-5.6 agent migration: A production AI agent moved to a newer model for 2.2x speed and 27% lower cost' under the 'Agent migration for speed and cost win",
+      "src": "learned"
+    },
+    {
+      "id": "continuous-partial-attention",
+      "dom": "agentic-ai",
+      "label": "Continuous Partial Attention",
+      "def": "The fragmented cognitive state of continuously monitoring many low-value information streams at once, the condition the renewed craving for focus and deep reading pushes back against.",
+      "rel": [
+        "calm-technology",
+        "cognitive-offloading",
+        "critical-ignoring"
+      ],
+      "ev": "Latest AI/tech trends, HN 2026-07-13 theme 'Human attention and deep reading as backlash: Amid AI automation there is renewed craving for focus, reading, and unmediated understanding'",
+      "src": "learned"
     }
   ]
 }
