@@ -4895,6 +4895,62 @@
       ],
       "ev": "Trend theme 'Automation without comprehension: growing unease that agents automate tasks nobody actually understands anymore' — Bainbridge's enduring HCI framing of that exact failure mode.",
       "src": "learned"
+    },
+    {
+      "id": "flash-attention",
+      "dom": "infra",
+      "label": "FlashAttention (IO-aware attention)",
+      "def": "An IO-aware exact-attention algorithm that tiles the computation and avoids materializing the full attention matrix in high-bandwidth memory, cutting memory traffic to accelerate long-context training and inference.",
+      "rel": [
+        "kernel-fusion",
+        "memory-bandwidth-bound",
+        "sparse-attention",
+        "kv-cache"
+      ],
+      "ev": "Notable trend item 'Flash-MSA: Sparse-attention kernels that accelerate million-token training runs' — an evolution of IO-aware FlashAttention-style kernels.",
+      "src": "learned"
+    },
+    {
+      "id": "context-parallelism",
+      "dom": "infra",
+      "label": "Context parallelism",
+      "def": "A model-parallelism strategy that shards the sequence/context dimension across multiple devices so attention over million-token windows scales beyond a single accelerator's memory.",
+      "rel": [
+        "tensor-parallelism",
+        "pipeline-parallelism",
+        "distributed-inference",
+        "sparse-attention"
+      ],
+      "ev": "The 'Flash-MSA … accelerate million-token training runs' trend theme of scaling attention to million-token sequences, which requires sharding the sequence dimension across devices.",
+      "src": "learned"
+    },
+    {
+      "id": "sidenotes",
+      "dom": "stack",
+      "label": "Sidenotes",
+      "def": "A reading-UX pattern (Tufte-style marginalia) that places asides, citations, and fine print beside the main column rather than in footnotes, keeping context in view without breaking the reading flow.",
+      "rel": [
+        "web-typography",
+        "deep-reading",
+        "semantic-html",
+        "explorable-explanations"
+      ],
+      "ev": "Commit f4645cb 'self-improve: Style essay <aside> as an inset dim-phosphor sidenote', part of the recent run of essay semantic-HTML styling commits (<small>, <dfn>, <var>, <time>)",
+      "src": "learned"
+    },
+    {
+      "id": "linear-probing",
+      "dom": "agentic-ai",
+      "label": "Linear probing",
+      "def": "An interpretability technique that trains a simple linear classifier on a model's internal activations to test whether a concept or property is linearly represented at a given layer.",
+      "rel": [
+        "mechanistic-interpretability",
+        "logit-lens",
+        "sparse-autoencoder",
+        "activation-steering"
+      ],
+      "ev": "Trend theme 'Mechanistic interpretability: opening the black box of LLMs with rigorous causal methods is a rising research focus'; a foundational probing method absent from the graph's SAE/steering/pa",
+      "src": "learned"
     }
   ]
 }
