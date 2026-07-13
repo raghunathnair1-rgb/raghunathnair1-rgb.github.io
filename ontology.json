@@ -5374,6 +5374,22 @@
       ],
       "ev": "Trend theme 'Model upgrade economics — teams publishing before/after speed and cost numbers when swapping model versions', mirrored by this system's dependency-pinning doctrine in principles.md (pinne",
       "src": "learned"
+    },
+    {
+      "id": "ci-as-oracle",
+      "dom": "sdlc",
+      "label": "CI as Oracle",
+      "def": "When an agent has no local build/test toolchain, remote CI becomes the sole authoritative verifier, so every change must ship reversibly and auto-revert if CI later fails.",
+      "rel": [
+        "ci",
+        "verification",
+        "revert",
+        "self-heal",
+        "deterministic-verification",
+        "sdlc-verify"
+      ],
+      "ev": "doctrine principles.md VERIFY layer: 'A local compiler is absent, so the Rust build is checked only in CI — treat that as the source of truth and be ready to revert', enforced by the loop's auto-rever",
+      "src": "learned"
     }
   ]
 }
