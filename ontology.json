@@ -4836,6 +4836,21 @@
       ],
       "ev": "latest trends NOTABLE: 'GPT-5.6 migration: A production agent migration showing concrete 2.2x speed and 27% cost gains from a model swap' — measuring a swap in production before cutover",
       "src": "learned"
+    },
+    {
+      "id": "single-file-app",
+      "dom": "stack",
+      "label": "Single-file web app",
+      "def": "A web application delivered as one self-contained HTML file with no build step or framework, leaning on native browser capabilities instead of a toolchain.",
+      "rel": [
+        "native-web-tooling",
+        "progressive-enhancement",
+        "ssg",
+        "disposable-software",
+        "semantic-html"
+      ],
+      "ev": "Trend theme 'Lean vanilla web tech: renewed appetite for minimal, single-file, framework-light web tooling'",
+      "src": "learned"
     }
   ]
 }
