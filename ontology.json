@@ -5359,6 +5359,21 @@
       ],
       "ev": "commit af797fd/47bc298 'linkedin: link-in-first-comment — strip body link (reach penalty), post feed link as first comment' in li_publish.py distribution path",
       "src": "learned"
+    },
+    {
+      "id": "model-pinning",
+      "dom": "stack",
+      "label": "Model version pinning",
+      "def": "Pinning an exact, dated model version instead of a floating alias so an agent's behavior stays reproducible and does not silently drift when the provider updates, re-tunes, or deprecates a model.",
+      "rel": [
+        "model-migration",
+        "reproducible-builds",
+        "floating-point-nondeterminism",
+        "evals",
+        "provider-abstraction"
+      ],
+      "ev": "Trend theme 'Model upgrade economics — teams publishing before/after speed and cost numbers when swapping model versions', mirrored by this system's dependency-pinning doctrine in principles.md (pinne",
+      "src": "learned"
     }
   ]
 }
