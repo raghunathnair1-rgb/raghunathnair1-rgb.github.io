@@ -4707,6 +4707,21 @@
       ],
       "ev": "latest-trends theme: 'a subtle math-function quirk now deanonymizes users' OS' via platform-varying floating-point results",
       "src": "learned"
+    },
+    {
+      "id": "hallucination-reduction",
+      "dom": "factory",
+      "label": "Hallucination-reduction loop",
+      "def": "A recurring self-audit loop that scans the system's own generated claims and gates or corrects ungrounded assertions to keep its knowledge truthful.",
+      "rel": [
+        "hallucination",
+        "grounding",
+        "self-improve",
+        "gate",
+        "novelty-guard"
+      ],
+      "ev": "reduce_hallucinations.py / reduce_hallucinations.sh plus logs/reduce-hallucinations.log — a real harness loop present alongside self-improve/idea-engine/watchdog",
+      "src": "learned"
     }
   ]
 }
