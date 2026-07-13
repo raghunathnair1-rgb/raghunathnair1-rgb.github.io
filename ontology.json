@@ -4994,6 +4994,63 @@
       ],
       "ev": "latest AI/tech trends — 'Browser fingerprinting & low-level security: Subtle platform leaks and long-dormant kernel bugs are drawing intense scrutiny of the trust stack'",
       "src": "learned"
+    },
+    {
+      "id": "monosemanticity",
+      "dom": "agentic-ai",
+      "label": "Monosemanticity",
+      "def": "The interpretability goal of decomposing a model's activations into features that each carry a single, human-interpretable meaning, the property sparse autoencoders and transcoders are built to recover.",
+      "rel": [
+        "superposition",
+        "sparse-autoencoder",
+        "transcoder",
+        "mechanistic-interpretability"
+      ],
+      "ev": "trend theme 'Interpretability rigor: Researchers are applying formal causal methods to actually explain LLM internals' — the direct complement to the existing `superposition` concept, which the graph ",
+      "src": "learned"
+    },
+    {
+      "id": "jagged-frontier",
+      "dom": "agentic-ai",
+      "label": "Jagged capability frontier",
+      "def": "The observation that an LLM's competence is unevenly distributed, excelling at some tasks while unpredictably failing at seemingly similar ones, so real usefulness cannot be inferred from marketing demos.",
+      "rel": [
+        "ai-hype-cycle",
+        "appropriate-reliance",
+        "potemkin-understanding",
+        "evals"
+      ],
+      "ev": "trend themes 'LLM hype backlash: separating genuine LLM usefulness from inflated marketing claims' and 'Automation without comprehension: agents execute steps without understanding, so trust needs gro",
+      "src": "learned"
+    },
+    {
+      "id": "benchmark-contamination",
+      "dom": "agentic-ai",
+      "label": "Benchmark contamination",
+      "def": "Leakage of evaluation or test data into a model's training corpus, which inflates benchmark scores so they overstate real-world capability.",
+      "rel": [
+        "evals",
+        "cost-aware-eval",
+        "model-collapse",
+        "data-poisoning",
+        "ai-hype-cycle"
+      ],
+      "ev": "Trend theme 'LLM hype backlash: separating genuine LLM usefulness from inflated marketing claims' — contamination is a core mechanism by which headline benchmark numbers overstate usefulness.",
+      "src": "learned"
+    },
+    {
+      "id": "causal-scrubbing",
+      "dom": "agentic-ai",
+      "label": "Causal scrubbing",
+      "def": "An interpretability method that validates a hypothesized circuit by resampling activations along behavior-preserving paths and checking the model's behavior is retained.",
+      "rel": [
+        "mechanistic-interpretability",
+        "activation-patching",
+        "circuit-tracing",
+        "causal-abstraction"
+      ],
+      "ev": "Trend theme 'Interpretability rigor: Researchers are applying formal causal methods to actually explain LLM internals.'",
+      "src": "learned"
     }
   ]
 }
