@@ -5239,6 +5239,21 @@
       ],
       "ev": "latest-trends theme 'LLM interpretability: Serious research effort is going into causally explaining what models do inside' — pairs the interpretability push with the system's existing llm-as-judge pa",
       "src": "learned"
+    },
+    {
+      "id": "multi-head-latent-attention",
+      "dom": "infra",
+      "label": "Multi-head Latent Attention (MLA)",
+      "def": "An attention variant that compresses keys and values into a low-rank latent vector, shrinking the KV cache read each decode step to cut memory-bandwidth and token cost during long-context inference.",
+      "rel": [
+        "kv-cache",
+        "kv-cache-quantization",
+        "grouped-query-attention",
+        "memory-bandwidth-bound",
+        "sparse-attention"
+      ],
+      "ev": "Latest AI/tech trends: 'LLM cost/latency efficiency — teams chasing cheaper, faster model migrations and sparse-attention kernels to cut token spend' (Flash-MSA sparse-attention kernels for million-to",
+      "src": "learned"
     }
   ]
 }
