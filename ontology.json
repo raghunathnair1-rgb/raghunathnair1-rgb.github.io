@@ -6613,6 +6613,52 @@
       ],
       "ev": "Latest AI/tech trends (2026-07-13 HN): 'On-device speech AI benchmarking' theme + NOTABLE 'Apple SpeechAnalyzer API' compared against Whisper, signaling a shift to local inference.",
       "src": "learned"
+    },
+    {
+      "id": "second-life-hardware",
+      "dom": "infra",
+      "label": "Second-Life Hardware",
+      "def": "Repurposing decommissioned, consumer-grade, or e-waste accelerators for AI inference to lower cost and amortize already-embodied manufacturing carbon over a longer service life.",
+      "rel": [
+        "accelerator-depreciation",
+        "embodied-carbon",
+        "cpu-inference",
+        "jevons-paradox",
+        "local-first"
+      ],
+      "ev": "Latest-trends 'Retro hardware & constraint hacking' theme — benchmarking e-waste GPUs and 'doing more with old, constrained hardware' (HN front page, 2026-07-13).",
+      "src": "learned"
+    },
+    {
+      "id": "permacomputing",
+      "dom": "infra",
+      "label": "Permacomputing",
+      "def": "A design philosophy that maximizes the useful lifespan of computing hardware and minimizes energy and material waste by doing more with old, constrained machines rather than replacing them.",
+      "rel": [
+        "second-life-hardware",
+        "embodied-carbon",
+        "jevons-paradox",
+        "open-hardware",
+        "energy-proportional-computing",
+        "carbon-aware-computing"
+      ],
+      "ev": "HN trend theme 'Retro hardware & constraint hacking: Booting Linux on ancient consoles and benchmarking e-waste GPUs reflects a strong culture of doing more with old, constrained hardware' (updated 20",
+      "src": "learned"
+    },
+    {
+      "id": "linus-law",
+      "dom": "sdlc",
+      "label": "Linus's Law (limits of)",
+      "def": "The claim that 'given enough eyeballs, all bugs are shallow' — empirically undermined when a serious defect survives many years of open peer review, showing visibility alone does not guarantee discovery.",
+      "rel": [
+        "verification",
+        "ai-review",
+        "fuzzing",
+        "vulnerability-dwell-time",
+        "memory-safety"
+      ],
+      "ev": "HN trend theme 'Systemic security & surveillance rollback': a 15-year-old kernel bug topped the front page, signalling renewed scrutiny of long-lived risk in widely-reviewed open-source code.",
+      "src": "learned"
     }
   ]
 }
