@@ -107,6 +107,7 @@ html { scroll-behavior: smooth; }
 #content del, #content s { color: var(--muted); text-decoration-line: line-through; text-decoration-color: var(--cyan); text-decoration-thickness: 1px; }
 #content ins { text-decoration-line: underline; text-decoration-color: var(--cyan); text-decoration-thickness: 1px; text-underline-offset: .18em; color: var(--green); }
 #content blockquote { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--cyan); color: var(--muted); font-style: italic; box-shadow: -4px 0 12px -10px var(--cyan); }
+#content blockquote footer { margin-top: .4rem; font-style: normal; font-size: .9em; color: var(--muted); }
 #content aside { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px dashed var(--line); color: var(--muted); font-size: .95em; }
 #content dt { color: var(--green); font-weight: 700; margin-top: .6rem; }
 #content dd { margin: .15rem 0 .6rem 1.2rem; color: var(--muted); }

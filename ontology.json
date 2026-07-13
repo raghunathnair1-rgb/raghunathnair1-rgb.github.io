@@ -4951,6 +4951,49 @@
       ],
       "ev": "Trend theme 'Mechanistic interpretability: opening the black box of LLMs with rigorous causal methods is a rising research focus'; a foundational probing method absent from the graph's SAE/steering/pa",
       "src": "learned"
+    },
+    {
+      "id": "trusted-computing-base",
+      "dom": "infra",
+      "label": "Trusted Computing Base",
+      "def": "The minimal set of hardware, firmware, and software whose correctness is critical to a system's security, such that a single flaw anywhere within it can compromise the whole.",
+      "rel": [
+        "confidential-computing",
+        "memory-safety",
+        "agent-sandboxing",
+        "device-attestation"
+      ],
+      "ev": "latest AI/tech trends theme 'Browser fingerprinting & low-level security: Subtle platform leaks and long-dormant kernel bugs are drawing intense scrutiny of the trust stack'",
+      "src": "learned"
+    },
+    {
+      "id": "attention-sink",
+      "dom": "infra",
+      "label": "Attention sink",
+      "def": "Transformer models dump excess attention onto a few initial tokens, so those tokens' KV-cache entries must be retained to keep long-context generation stable — a mechanistic finding that now guides cache-eviction policy.",
+      "rel": [
+        "mechanistic-interpretability",
+        "kv-cache",
+        "paged-attention",
+        "sparse-attention",
+        "superposition"
+      ],
+      "ev": "latest AI/tech trends — 'LLM interpretability: Researchers are moving from black-box use toward causal, mechanistic understanding of model internals'",
+      "src": "learned"
+    },
+    {
+      "id": "side-channel-attack",
+      "dom": "infra",
+      "label": "Side-channel attack",
+      "def": "An attack that recovers secrets by observing indirect microarchitectural or physical effects — cache timing, speculative execution, power — rather than breaking the algorithm directly.",
+      "rel": [
+        "memory-safety",
+        "trusted-computing-base",
+        "confidential-computing",
+        "browser-fingerprinting"
+      ],
+      "ev": "latest AI/tech trends — 'Browser fingerprinting & low-level security: Subtle platform leaks and long-dormant kernel bugs are drawing intense scrutiny of the trust stack'",
+      "src": "learned"
     }
   ]
 }
