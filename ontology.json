@@ -5809,6 +5809,19 @@
       ],
       "ev": "ontology_learn.py / ontology_maintain.py autonomously rewrite brain/ontology.json on cron; per the project's own edit-lock discipline, hand-edits must hold /tmp/darkfactory-ontology.lock or those loop",
       "src": "learned"
+    },
+    {
+      "id": "model-card",
+      "dom": "agentic-ai",
+      "label": "Model / System Card",
+      "def": "A standardized provider-published document disclosing a model's intended use, evaluations, limitations, and safety properties so its claims are auditable rather than taken on trust.",
+      "rel": [
+        "evals",
+        "ai-washing",
+        "content-provenance"
+      ],
+      "ev": "trend theme 'Skepticism of AI vendor claims: People are calling out hype and demanding honest, verifiable statements from model providers'",
+      "src": "learned"
     }
   ]
 }
