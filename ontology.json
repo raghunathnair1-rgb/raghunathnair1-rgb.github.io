@@ -5390,6 +5390,20 @@
       ],
       "ev": "doctrine principles.md VERIFY layer: 'A local compiler is absent, so the Rust build is checked only in CI — treat that as the source of truth and be ready to revert', enforced by the loop's auto-rever",
       "src": "learned"
+    },
+    {
+      "id": "quantified-self",
+      "dom": "stack",
+      "label": "Quantified Self",
+      "def": "The practice of self-tracking personal data (movement, health, location) and rendering it back as interactive, explorable visualizations.",
+      "rel": [
+        "geospatial-viz",
+        "virtual-globe",
+        "explorable-explanations",
+        "ambient-display"
+      ],
+      "ev": "Latest-trends theme 'Personal-data interactive visualization: Self-tracked datasets rendered as interactive globes and maps are resonating strongly.'",
+      "src": "learned"
     }
   ]
 }
