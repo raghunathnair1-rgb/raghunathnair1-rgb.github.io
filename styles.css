@@ -127,6 +127,8 @@ html { scroll-behavior: smooth; }
 #content ins { text-decoration-line: underline; text-decoration-color: var(--cyan); text-decoration-thickness: 1px; text-underline-offset: .18em; color: var(--green); }
 #content u { text-decoration: underline wavy var(--muted); text-decoration-thickness: 1px; text-underline-offset: .18em; }
 #content blockquote { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--cyan); color: var(--muted); font-style: italic; text-wrap: pretty; box-shadow: -4px 0 12px -10px var(--cyan); }
+#content blockquote > :first-child { margin-top: 0; }
+#content blockquote > :last-child { margin-bottom: 0; }
 #content blockquote footer { margin-top: .4rem; font-style: normal; font-size: .9em; color: var(--muted); }
 #content aside { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px dashed var(--line); color: var(--muted); font-size: .95em; }
 #content address { font-style: normal; color: var(--muted); border-left: 2px dotted var(--line); padding-left: .8rem; margin: 1.4rem 0; }
