@@ -6065,6 +6065,65 @@
       ],
       "ev": "HN trend theme 'Sandboxing agents away from your real machine' — Clawk gives coding agents a disposable Linux VM so they never touch your laptop",
       "src": "learned"
+    },
+    {
+      "id": "ephemeral-environment",
+      "dom": "infra",
+      "label": "Ephemeral Environment",
+      "def": "A disposable, provisioned-per-task compute environment that is created fresh for an agent and torn down afterward, so its side effects and any compromise never touch the host or persist.",
+      "rel": [
+        "agent-sandboxing",
+        "microvm",
+        "workspace-confinement",
+        "disposable-software",
+        "default-deny-egress"
+      ],
+      "ev": "HN trend 'Sandboxing agents away from your real machine' + Clawk (gives coding agents a disposable Linux VM so they never touch your laptop), 2026-07-13 trend feed",
+      "src": "learned"
+    },
+    {
+      "id": "computer-use",
+      "dom": "agentic-ai",
+      "label": "Computer use",
+      "def": "A paradigm in which an agent operates a full computer environment — shell, filesystem, and screen — as a general tool, which is precisely why it must be confined to a throwaway machine rather than the host.",
+      "rel": [
+        "agent-computer-interface",
+        "agentic-cli",
+        "agent-sandboxing",
+        "tool-use"
+      ],
+      "ev": "HN trend 'Sandboxing agents away from your real machine' + notable 'Clawk: Gives coding agents a disposable Linux VM so they never touch your laptop' — the isolation response presupposes agents that u",
+      "src": "learned"
+    },
+    {
+      "id": "inter-token-latency",
+      "dom": "infra",
+      "label": "Inter-Token Latency",
+      "def": "The per-token generation delay (time-per-output-token) during decode, distinct from prefill's time-to-first-token, and the dominant driver of an agent pipeline's end-to-end speed.",
+      "rel": [
+        "time-to-first-token",
+        "inference-economics",
+        "model-migration",
+        "continuous-batching",
+        "kv-cache"
+      ],
+      "ev": "Trend 'Production LLM migration for speed and cost' / NOTABLE 'GPT-5.6 agent migration: moved to a newer model for 2.2x speed' — the '2.2x speed' agents chase is decode throughput, not just TTFT.",
+      "src": "learned"
+    },
+    {
+      "id": "serving-goodput",
+      "dom": "infra",
+      "label": "Serving Goodput",
+      "def": "The rate of LLM requests completed within their latency SLO (not raw throughput), the metric a team actually optimizes when swapping models for a faster, cheaper agent pipeline.",
+      "rel": [
+        "inference-economics",
+        "continuous-batching",
+        "adaptive-serving",
+        "disaggregated-serving",
+        "inter-token-latency"
+      ],
+      "ev": "Trend theme 'Production LLM migration for speed and cost: Teams are actively swapping models to get faster, cheaper agent pipelines' — goodput is the SLO-bound metric behind that speed/cost tradeoff.",
+      "src": "learned"
     }
   ]
 }
