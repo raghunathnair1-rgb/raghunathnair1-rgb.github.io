@@ -6051,6 +6051,20 @@
       ],
       "ev": "Latest AI/tech trend theme 'AI agents leaking private data': coding agents silently exfiltrating home directories — the agent acts with the developer's full ambient filesystem authority, the antithesi",
       "src": "learned"
+    },
+    {
+      "id": "microvm",
+      "dom": "infra",
+      "label": "MicroVM",
+      "def": "A lightweight hardware-virtualized sandbox (e.g. Firecracker-style) that boots in milliseconds to give an agent VM-grade isolation from the host at near-container speed.",
+      "rel": [
+        "agent-sandboxing",
+        "workspace-confinement",
+        "confidential-computing",
+        "default-deny-egress"
+      ],
+      "ev": "HN trend theme 'Sandboxing agents away from your real machine' — Clawk gives coding agents a disposable Linux VM so they never touch your laptop",
+      "src": "learned"
     }
   ]
 }
