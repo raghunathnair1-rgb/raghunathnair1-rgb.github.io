@@ -5763,6 +5763,20 @@
       ],
       "ev": "This system's background idle loops (dream.py/dream.sh and world_loop.py) that compute offline, plus the trend theme 'Agent model migration for speed and cost' pushing agents to cut live latency/spend",
       "src": "learned"
+    },
+    {
+      "id": "intercepting-proxy",
+      "dom": "harness",
+      "label": "Intercepting proxy",
+      "def": "A TLS-terminating man-in-the-middle proxy that decrypts and logs an application's outbound traffic to reveal exactly what an opaque agent transmits.",
+      "rel": [
+        "wire-level-audit",
+        "egress-transparency",
+        "tls-fingerprinting",
+        "vendor-telemetry"
+      ],
+      "ev": "Trend NOTABLE 'Grok build CLI: xAI's coding CLI whose exact outbound traffic was reverse-engineered and published' + THEME 'Agent wire-level transparency' (HN front page, 2026-07-13)",
+      "src": "learned"
     }
   ]
 }
