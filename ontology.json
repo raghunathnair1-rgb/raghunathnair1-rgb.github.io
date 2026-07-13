@@ -5285,6 +5285,35 @@
       ],
       "ev": "Latest-trends theme 'AI hype fatigue & disclosure: the community wants honest signal over marketing and explicit labeling of machine-generated content', plus this system's own generated-content pipeli",
       "src": "learned"
+    },
+    {
+      "id": "cosmopolitan-libc",
+      "dom": "stack",
+      "label": "Cosmopolitan Libc / APE",
+      "def": "A C runtime that compiles build-once-run-anywhere polyglot binaries (the αcτµαlly Portable Executable format) which run natively across OSes and architectures from a single file, underpinning tools like redbean and llamafile.",
+      "rel": [
+        "portable-executable",
+        "single-file-app",
+        "cpu-inference",
+        "local-first"
+      ],
+      "ev": "HN trend 'Redbean: A single-file...' plus the 'minimal single-file / vanilla builds' theme; established Cosmopolitan/APE technology behind redbean and single-file local LLM runners",
+      "src": "learned"
+    },
+    {
+      "id": "accountability-sink",
+      "dom": "agentic-ai",
+      "label": "Accountability sink",
+      "def": "An automated arrangement in which decisions issue from a system that no identifiable human owns, so responsibility for a bad outcome has nowhere to land.",
+      "rel": [
+        "agent-accountability",
+        "ironies-of-automation",
+        "reverse-centaur",
+        "automation-bias",
+        "human-on-the-loop"
+      ],
+      "ev": "trend theme 'Automation without comprehension: Recurring worry that agents act without anyone understanding what or why' — the durable organizational failure mode where agentic action diffuses respons",
+      "src": "learned"
     }
   ]
 }
