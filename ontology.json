@@ -5879,6 +5879,34 @@
       ],
       "ev": "latest AI/tech trends theme 'Build-it-yourself maker hardware: from-scratch open hardware ... appetite for transparent, hackable builds' (Open-source from-scratch laptop topping Show HN)",
       "src": "learned"
+    },
+    {
+      "id": "coordinated-disclosure",
+      "dom": "sdlc",
+      "label": "Coordinated Vulnerability Disclosure",
+      "def": "The practice of privately reporting a discovered security flaw to maintainers and agreeing an embargo and fix timeline before any public release, so patches ship before exploits.",
+      "rel": [
+        "code-vulns",
+        "memory-safety",
+        "pentesting",
+        "sast"
+      ],
+      "ev": "trend theme 'Systemic security exposure: A decade-plus latent Linux memory bug shows the enduring pull of deep vulnerability disclosure'",
+      "src": "learned"
+    },
+    {
+      "id": "fuzzing",
+      "dom": "sdlc",
+      "label": "Fuzzing",
+      "def": "Automated generation of malformed or random inputs to a program to surface crashes and memory-safety bugs that static analysis and unit tests miss.",
+      "rel": [
+        "sast",
+        "code-vulns",
+        "memory-safety",
+        "verification"
+      ],
+      "ev": "HN theme 'Systemic security exposure' (decade-plus latent Linux memory bug) — the dynamic technique that finds such bugs, complementing this system's existing static SAST + secret-scan gates in the ve",
+      "src": "learned"
     }
   ]
 }
