@@ -5618,6 +5618,49 @@
       ],
       "ev": "Trends NOTABLE: 'HN books extractor: a deep-learning pipeline that mined 40k book mentions' — plus this system's own ontology_learn.py, which extracts structured concepts from raw trend/HN evidence.",
       "src": "learned"
+    },
+    {
+      "id": "jailbreak",
+      "dom": "agentic-ai",
+      "label": "Jailbreaking",
+      "def": "Crafting adversarial prompts that bypass a model's safety alignment or system-prompt constraints to elicit disallowed behavior, distinct from injecting instructions through untrusted data.",
+      "rel": [
+        "prompt-injection",
+        "adversarial-attacks",
+        "guardrails",
+        "constitutional-ai",
+        "system-prompt-extraction"
+      ],
+      "ev": "doctrine 'Guardrails' harness layer (bounded autonomy) + existing constitutional-ai/guardrails defenses that jailbreaks target; a foundational, lasting LLM-security concept absent from the graph",
+      "src": "learned"
+    },
+    {
+      "id": "confused-deputy",
+      "dom": "agentic-ai",
+      "label": "Confused deputy",
+      "def": "A privileged agent tricked by untrusted input into misusing its own authority on an attacker's behalf, e.g. exfiltrating data via a permitted egress path.",
+      "rel": [
+        "lethal-trifecta",
+        "prompt-injection",
+        "agent-iam",
+        "capability-based-security"
+      ],
+      "ev": "doctrine Guardrails 'no ... new external network calls' + the 'AI agent wire-level transparency' trend (what agent CLIs transmit) — the classic access-control failure underlying the lethal trifecta",
+      "src": "learned"
+    },
+    {
+      "id": "attention-residue",
+      "dom": "stack",
+      "label": "Attention residue",
+      "def": "The lingering cognitive carryover after a task switch, where thoughts about the prior task impair focus on the next and erode the sustained attention long-form reading requires.",
+      "rel": [
+        "deep-reading",
+        "continuous-partial-attention",
+        "cognitive-offloading",
+        "attention-economy"
+      ],
+      "ev": "latest AI/tech trends theme 'Attention & deep reading: reclaiming focus and long-form reading is resonating as a counter to feed-driven distraction'",
+      "src": "learned"
     }
   ]
 }
