@@ -5822,6 +5822,21 @@
       ],
       "ev": "trend theme 'Skepticism of AI vendor claims: People are calling out hype and demanding honest, verifiable statements from model providers'",
       "src": "learned"
+    },
+    {
+      "id": "open-hardware",
+      "dom": "infra",
+      "label": "Open hardware",
+      "def": "Computing hardware whose schematics, board layouts, or chip designs are released under open licenses so anyone can build, audit, or fork the physical machine.",
+      "rel": [
+        "risc-v",
+        "depin",
+        "self-hosting",
+        "local-first",
+        "neocloud"
+      ],
+      "ev": "Trend theme 'Build-it-from-scratch maker hardware: Open, self-built hardware projects are dominating Show HN attention right now' (2026-07-13 HN evidence), the durable movement above the existing open",
+      "src": "learned"
     }
   ]
 }
