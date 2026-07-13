@@ -5605,6 +5605,19 @@
       ],
       "ev": "latest AI/tech trends theme — 'AI-marketing skepticism / honesty: appetite for calling out inflated AI claims and demanding straight talk from vendors', reinforced by the doctrine's truthfulness pilla",
       "src": "learned"
+    },
+    {
+      "id": "information-extraction",
+      "dom": "agentic-ai",
+      "label": "Information extraction",
+      "def": "Pulling structured entities and relations out of unstructured text at scale, e.g. mining thousands of book mentions from forum posts or distilling trend prose into ontology concepts.",
+      "rel": [
+        "ontology-learning",
+        "retrieval",
+        "grounding"
+      ],
+      "ev": "Trends NOTABLE: 'HN books extractor: a deep-learning pipeline that mined 40k book mentions' — plus this system's own ontology_learn.py, which extracts structured concepts from raw trend/HN evidence.",
+      "src": "learned"
     }
   ]
 }
