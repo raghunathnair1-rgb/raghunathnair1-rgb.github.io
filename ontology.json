@@ -5936,6 +5936,35 @@
       ],
       "ev": "Trend theme 'Systemic security vulnerabilities' + NOTABLE 'GhostLock: a newly disclosed stack use-after-[free]' — long-dormant memory-safety bugs in ubiquitous infrastructure; grounded in this system'",
       "src": "learned"
+    },
+    {
+      "id": "software-monoculture",
+      "dom": "stack",
+      "label": "Software monoculture",
+      "def": "Systemic fragility that arises when one ubiquitous software component or dependency is deployed nearly everywhere, so a single latent flaw simultaneously exposes the whole ecosystem.",
+      "rel": [
+        "memory-safety",
+        "ai-supply-chain-security",
+        "algorithmic-monoculture",
+        "use-after-free"
+      ],
+      "ev": "HN theme 'Long-dormant memory-safety bugs sitting in ubiquitous infrastructure remain a top concern' (GhostLock) — the risk multiplier is the infrastructure's ubiquity, not just the bug.",
+      "src": "learned"
+    },
+    {
+      "id": "data-exfiltration",
+      "dom": "agentic-ai",
+      "label": "Data exfiltration",
+      "def": "The covert reading of local files or sensitive context by an AI tool or agent and its silent transmission to a remote endpoint without the user's awareness or consent.",
+      "rel": [
+        "lethal-trifecta",
+        "egress-transparency",
+        "default-deny-egress",
+        "confused-deputy",
+        "vendor-telemetry"
+      ],
+      "ev": "Latest AI/tech trends theme — 'AI vendor trust & privacy backlash: Tools silently exfiltrating local files are eroding trust in AI vendors.'",
+      "src": "learned"
     }
   ]
 }
