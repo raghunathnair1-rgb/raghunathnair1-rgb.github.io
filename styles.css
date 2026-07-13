@@ -96,6 +96,7 @@ html { scroll-behavior: smooth; }
 #content abbr[title] { text-decoration: underline dotted var(--muted); text-underline-offset: .2em; cursor: help; }
 #content kbd { font-family: inherit; font-size: .85em; color: var(--bg); background: var(--green); border: 1px solid var(--line); border-radius: 4px; padding: .05em .45em; box-shadow: 0 1px 0 var(--line); text-shadow: none; white-space: nowrap; }
 #content samp { font-family: inherit; color: var(--muted); }
+#content small { color: var(--muted); }
 #content q { color: var(--muted); font-style: italic; }
 #content cite { font-style: italic; color: var(--muted); }
 #content var { font-style: italic; color: var(--cyan); }
