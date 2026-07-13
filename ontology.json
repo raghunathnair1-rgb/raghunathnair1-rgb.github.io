@@ -5123,6 +5123,77 @@
       ],
       "ev": "latest AI/tech trends theme: 'AI-content provenance and labeling: the community is actively debating how to disclose and flag machine-generated writing.'",
       "src": "learned"
+    },
+    {
+      "id": "linear-attention",
+      "dom": "infra",
+      "label": "Linear attention",
+      "def": "Attention variants that replace the quadratic softmax with kernel/feature maps or recurrent state to reach near-linear cost in sequence length for cheaper long-context serving.",
+      "rel": [
+        "sparse-attention",
+        "flash-attention",
+        "kv-cache",
+        "memory-bandwidth-bound"
+      ],
+      "ev": "Trend theme 'LLM interpretability and efficient training ... cheaper long-context kernels' — a durable long-context efficiency paradigm distinct from the softmax kernels already in the graph (flash-/r",
+      "src": "learned"
+    },
+    {
+      "id": "grouped-query-attention",
+      "dom": "infra",
+      "label": "Grouped-query attention",
+      "def": "An attention variant that shares key/value projections across groups of query heads to shrink the KV cache and ease the memory-bandwidth bottleneck at long context.",
+      "rel": [
+        "kv-cache",
+        "memory-bandwidth-bound",
+        "flash-attention",
+        "paged-attention"
+      ],
+      "ev": "Trend theme 'cheaper long-context kernels' plus the existing kv-cache / memory-bandwidth-bound concepts it directly optimizes; GQA is a durable, ubiquitous inference technique.",
+      "src": "learned"
+    },
+    {
+      "id": "sliding-window-attention",
+      "dom": "infra",
+      "label": "Sliding-window attention",
+      "def": "A long-context technique that restricts each token's attention to a fixed local window, giving linear cost over sequence length and pairing naturally with retained attention-sink tokens.",
+      "rel": [
+        "attention-sink",
+        "sparse-attention",
+        "flash-attention",
+        "kv-cache",
+        "ring-attention"
+      ],
+      "ev": "Trend theme 'cheaper long-context kernels' and the established attention-sink/StreamingLLM lineage already in the graph; a lasting kernel-level efficiency pattern.",
+      "src": "learned"
+    },
+    {
+      "id": "attribution-patching",
+      "dom": "agentic-ai",
+      "label": "Attribution patching",
+      "def": "A gradient-based linear approximation of activation patching that estimates every component's causal effect in a single backward pass, making circuit attribution scale to large models.",
+      "rel": [
+        "activation-patching",
+        "path-patching",
+        "circuit-tracing",
+        "mechanistic-interpretability"
+      ],
+      "ev": "Trend theme 'shifting toward causal explanations of model behavior'; a durable interpretability method distinct from the activation-/path-patching concepts already present.",
+      "src": "learned"
+    },
+    {
+      "id": "kv-cache-quantization",
+      "dom": "infra",
+      "label": "KV-Cache Quantization",
+      "def": "Compressing or quantizing the transformer KV cache (per-token, per-channel, or via eviction) to cut the memory-bandwidth and capacity cost of long-context inference.",
+      "rel": [
+        "kv-cache",
+        "quantization",
+        "memory-bandwidth-bound",
+        "paged-attention"
+      ],
+      "ev": "Trend theme 'LLM interpretability and efficient training... research interest shifting toward cheaper long-context kernels', plus this system's local vLLM inference stack (vllm) where KV cache dominat",
+      "src": "learned"
     }
   ]
 }
