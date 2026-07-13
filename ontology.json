@@ -5194,6 +5194,20 @@
       ],
       "ev": "Trend theme 'LLM interpretability and efficient training... research interest shifting toward cheaper long-context kernels', plus this system's local vLLM inference stack (vllm) where KV cache dominat",
       "src": "learned"
+    },
+    {
+      "id": "normalization-of-deviance",
+      "dom": "agentic-ai",
+      "label": "Normalization of deviance",
+      "def": "The gradual process by which operators of an autonomous system come to accept recurring anomalies as normal, eroding safety margins until a latent flaw causes catastrophic failure.",
+      "rel": [
+        "ironies-of-automation",
+        "automation-bias",
+        "epistemic-debt",
+        "human-on-the-loop"
+      ],
+      "ev": "Latest AI/tech trends theme 'Automation without comprehension: People are worried about deploying automated systems no one actually understands' (HN front page, 2026-07-13)",
+      "src": "learned"
     }
   ]
 }
