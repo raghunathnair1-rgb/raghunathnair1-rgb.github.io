@@ -6325,6 +6325,105 @@
       ],
       "ev": "HN themes (2026-07-13): agents exfiltrating home directories, and the sandboxing response of giving agents disposable throwaway environments — both are about drawing and enforcing the local↔vendor tru",
       "src": "learned"
+    },
+    {
+      "id": "vulnerability-dwell-time",
+      "dom": "stack",
+      "label": "Vulnerability dwell time",
+      "def": "The often-multi-year interval a latent memory-safety or logic flaw persists undiscovered in widely deployed code before it is finally found, disclosed, and patched.",
+      "rel": [
+        "use-after-free",
+        "memory-safety",
+        "fuzzing",
+        "coordinated-disclosure",
+        "software-monoculture"
+      ],
+      "ev": "Trend theme: a 15-year-old stack use-after-free affecting all Linux distros, cited as a reminder that deep, latent vulns still lurk in long-lived systems.",
+      "src": "learned"
+    },
+    {
+      "id": "data-loss-prevention",
+      "dom": "agentic-ai",
+      "label": "Data-loss prevention",
+      "def": "Content-aware inspection that detects and blocks sensitive data (keys, credentials, source) from leaving an agent's environment, complementing destination-based egress controls.",
+      "rel": [
+        "data-exfiltration",
+        "egress-transparency",
+        "default-deny-egress",
+        "log-redaction"
+      ],
+      "ev": "Trend theme: AI coding CLIs silently uploading entire home directories to vendor servers, making agent data-leakage the acute current fear.",
+      "src": "learned"
+    },
+    {
+      "id": "sandbox-escape",
+      "dom": "infra",
+      "label": "Sandbox escape",
+      "def": "A confined agent or workload breaching its isolation boundary (VM, container, or microVM) to reach the host or other tenants — the failure mode that sandboxing untrusted agents is meant to contain.",
+      "rel": [
+        "agent-sandboxing",
+        "microvm",
+        "workspace-confinement",
+        "blast-radius-containment",
+        "ephemeral-environment"
+      ],
+      "ev": "Latest-trends theme 'Sandboxing agents instead of trusting them: give the agent a disposable VM, not your laptop' — the escape risk is the threat model that motivates that isolation.",
+      "src": "learned"
+    },
+    {
+      "id": "emulation",
+      "dom": "stack",
+      "label": "Emulation",
+      "def": "Running software built for one machine or platform on another by simulating its instruction set or runtime environment, e.g. compiling a console or CPU emulator to WebAssembly to run in a browser.",
+      "rel": [
+        "wasm",
+        "portable-executable",
+        "cosmopolitan-libc",
+        "open-hardware"
+      ],
+      "ev": "Latest-trends theme 'Build-it-from-scratch hardware and retro computing: homebrew consoles and tiny emulators dominate.'",
+      "src": "learned"
+    },
+    {
+      "id": "rlhf",
+      "dom": "agentic-ai",
+      "label": "RLHF",
+      "def": "Reinforcement learning from human feedback fine-tunes a model against a reward model trained on human preference rankings so its outputs align with what people prefer.",
+      "rel": [
+        "constitutional-ai",
+        "reward-hacking",
+        "evals"
+      ],
+      "ev": "Established alignment technique that constitutional-ai (already in the graph) generalizes and that reward-hacking (already in the graph) is a failure mode of.",
+      "src": "learned"
+    },
+    {
+      "id": "vector-embedding",
+      "dom": "agentic-ai",
+      "label": "Vector embedding",
+      "def": "A dense numeric vector that encodes the semantic meaning of text so related content can be found by distance in embedding space rather than by exact keywords.",
+      "rel": [
+        "retrieval",
+        "agentic-rag",
+        "graph-rag",
+        "semantic-caching"
+      ],
+      "ev": "The representation that retrieval, agentic-rag, graph-rag and semantic-caching (all already in the graph) are built on top of.",
+      "src": "learned"
+    },
+    {
+      "id": "tokenization",
+      "dom": "agentic-ai",
+      "label": "Tokenization",
+      "def": "Splitting text into subword tokens (e.g. via byte-pair encoding) is the model's input representation whose count drives context limits and per-call cost.",
+      "rel": [
+        "token-budgeting",
+        "agent-token-overhead",
+        "context-rot",
+        "kv-cache"
+      ],
+      "ev": "The subword unit that token-budgeting, agent-token-overhead and kv-cache (all already in the graph) operate on.",
+      "src": "learned"
     }
   ]
 }
