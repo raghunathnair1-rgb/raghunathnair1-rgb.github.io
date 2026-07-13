@@ -118,6 +118,7 @@ html { scroll-behavior: smooth; }
 #content summary:hover, #content summary:focus-visible { text-shadow: var(--glow); }
 #content summary:active { color: var(--green); text-shadow: var(--glow); }
 #content summary::marker { color: var(--cyan); }
+#content details[open] > summary { color: var(--green); }
 #content a:hover,
 #content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
 #content a:active { color: var(--green); text-shadow: var(--glow); }
