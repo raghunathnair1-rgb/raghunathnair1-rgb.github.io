@@ -5462,6 +5462,21 @@
       ],
       "ev": "router_stats.py / the system's tiered-router capability, plus the trend theme 'Model migration for cost/speed: teams porting production agents to newer models chasing measurable speed and cost wins' —",
       "src": "learned"
+    },
+    {
+      "id": "intrinsic-web-design",
+      "dom": "stack",
+      "label": "Intrinsic web design",
+      "def": "Layout that sizes elements from their content and the viewport using intrinsic sizing primitives (aspect-ratio, clamp, min/max-content, fluid media) rather than fixed pixel breakpoints.",
+      "rel": [
+        "progressive-enhancement",
+        "network-adaptive-rendering",
+        "text-wrap-balance",
+        "semantic-html",
+        "accessibility"
+      ],
+      "ev": "Commit bbe1e5b: 'Frame essay inline <svg>/<video> diagrams as fluid media so wide ...' — the essay renderer sizes embedded media fluidly to its container.",
+      "src": "learned"
     }
   ]
 }
