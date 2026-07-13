@@ -5477,6 +5477,34 @@
       ],
       "ev": "Commit bbe1e5b: 'Frame essay inline <svg>/<video> diagrams as fluid media so wide ...' — the essay renderer sizes embedded media fluidly to its container.",
       "src": "learned"
+    },
+    {
+      "id": "polyglot-file",
+      "dom": "stack",
+      "label": "Polyglot file",
+      "def": "A single file simultaneously valid in multiple formats — e.g. a ZIP archive appended to a cross-platform executable — enabling self-contained, single-artifact distribution.",
+      "rel": [
+        "cosmopolitan-libc",
+        "portable-executable",
+        "single-file-app"
+      ],
+      "ev": "Show HN 'Redbean' — a single-file distributable web server that appends its served assets as a ZIP to an Actually Portable Executable (APE) binary, itself a polyglot valid as shell script + PE + ELF +",
+      "src": "learned"
+    },
+    {
+      "id": "system-prompt-extraction",
+      "dom": "agentic-ai",
+      "label": "System-prompt extraction",
+      "def": "An attack (or audit technique) that recovers an agent's hidden system/instruction prompt by wire-level interception or adversarial querying, exposing its scaffolding and secrets.",
+      "rel": [
+        "prompt-injection",
+        "model-extraction",
+        "wire-level-audit",
+        "agentic-cli",
+        "agent-token-overhead"
+      ],
+      "ev": "Trend theme 'Wire-level scrutiny of AI agent CLIs' — people auditing exactly what coding agents transmit and how bloated their hidden prompts are, plus the Grok build CLI wire-level teardown exposing ",
+      "src": "learned"
     }
   ]
 }
