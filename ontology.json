@@ -5777,6 +5777,21 @@
       ],
       "ev": "Trend NOTABLE 'Grok build CLI: xAI's coding CLI whose exact outbound traffic was reverse-engineered and published' + THEME 'Agent wire-level transparency' (HN front page, 2026-07-13)",
       "src": "learned"
+    },
+    {
+      "id": "self-hosting",
+      "dom": "infra",
+      "label": "Self-hosting",
+      "def": "Operating software on infrastructure you own and control rather than renting a managed SaaS, favoring small self-contained artifacts you can deploy and run yourself.",
+      "rel": [
+        "local-first",
+        "ai-sovereignty",
+        "indie-web",
+        "portable-executable",
+        "cosmopolitan-libc"
+      ],
+      "ev": "Trend theme 'Minimal single-file self-hosting: self-contained, distributable tools with tiny footprints are resonating strongly' + NOTABLE Redbean (single-file distributable web server shipped as one ",
+      "src": "learned"
     }
   ]
 }
