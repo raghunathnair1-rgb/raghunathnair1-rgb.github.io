@@ -5850,6 +5850,35 @@
       ],
       "ev": "commit b499710 'Add pretty-wrapping to essay blockquotes so pull-quotes don't orphan a line' — a distinct CSS typography feature from the already-present text-wrap-balance",
       "src": "learned"
+    },
+    {
+      "id": "black-box-auditing",
+      "dom": "agentic-ai",
+      "label": "Black-box auditing",
+      "def": "Assessing an AI system's real behavior, cost, and honesty purely from its inputs, outputs, and network traffic when the vendor's internals and claims cannot be trusted.",
+      "rel": [
+        "evals",
+        "ai-washing",
+        "wire-level-audit",
+        "mechanistic-interpretability",
+        "online-evaluation"
+      ],
+      "ev": "trend theme 'Distrust of AI vendor claims: Top stories reward blunt scrutiny of what AI companies actually do versus what they market', plus the 'Grok CLI wire analysis' notable reverse-engineering ex",
+      "src": "learned"
+    },
+    {
+      "id": "bootstrappable-builds",
+      "dom": "stack",
+      "label": "Bootstrappable builds",
+      "def": "Building a full software toolchain up from a minimal, auditable source seed with no opaque prebuilt binaries, so the entire supply chain is inspectable from scratch.",
+      "rel": [
+        "reproducible-builds",
+        "ai-supply-chain-security",
+        "open-hardware",
+        "ci"
+      ],
+      "ev": "latest AI/tech trends theme 'Build-it-yourself maker hardware: from-scratch open hardware ... appetite for transparent, hackable builds' (Open-source from-scratch laptop topping Show HN)",
+      "src": "learned"
     }
   ]
 }
