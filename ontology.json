@@ -5079,6 +5079,50 @@
       ],
       "ev": "trend theme 'Interpretability rigor: applying formal causal methods to actually explain LLM internals'; refines the existing activation-patching / causal-scrubbing methods",
       "src": "learned"
+    },
+    {
+      "id": "online-evaluation",
+      "dom": "sdlc",
+      "label": "Online evaluation",
+      "def": "Judging a model's real quality, latency, and cost on live production traffic rather than static offline benchmarks, so that swapping the model behind an agent is decided by observed deltas.",
+      "rel": [
+        "model-migration",
+        "cost-aware-eval",
+        "shadow-deployment",
+        "eval-driven-development",
+        "telemetry",
+        "provider-abstraction"
+      ],
+      "ev": "Trend themes 'Agent cost/perf migration: Teams are quantifying real speed and cost deltas from swapping the model behind a production agent' and 'LLM hype backlash: separating genuine usefulness from ",
+      "src": "learned"
+    },
+    {
+      "id": "ring-attention",
+      "dom": "infra",
+      "label": "Ring Attention",
+      "def": "A distributed attention algorithm that shards a long sequence across devices and overlaps blockwise attention with ring-topology communication, extending context length near-linearly with device count.",
+      "rel": [
+        "context-parallelism",
+        "flash-attention",
+        "sparse-attention",
+        "kv-cache"
+      ],
+      "ev": "latest AI/tech trends: 'Research interest is shifting toward causal explanations of model behavior and cheaper long-context kernels.'",
+      "src": "learned"
+    },
+    {
+      "id": "c2pa",
+      "dom": "stack",
+      "label": "C2PA Content Credentials",
+      "def": "An open standard that attaches cryptographically signed provenance manifests to media so viewers can verify origin and whether content was AI-generated or edited.",
+      "rel": [
+        "content-provenance",
+        "ai-watermarking",
+        "content-addressed-networking",
+        "generative-media"
+      ],
+      "ev": "latest AI/tech trends theme: 'AI-content provenance and labeling: the community is actively debating how to disclose and flag machine-generated writing.'",
+      "src": "learned"
     }
   ]
 }
