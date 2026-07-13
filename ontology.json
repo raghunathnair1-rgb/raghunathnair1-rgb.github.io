@@ -5907,6 +5907,21 @@
       ],
       "ev": "HN theme 'Systemic security exposure' (decade-plus latent Linux memory bug) — the dynamic technique that finds such bugs, complementing this system's existing static SAST + secret-scan gates in the ve",
       "src": "learned"
+    },
+    {
+      "id": "capability-cost-frontier",
+      "dom": "agentic-ai",
+      "label": "Capability–cost frontier",
+      "def": "The Pareto frontier of model or agent quality against dollar-and-latency cost, used to pick the cheapest configuration that still clears a task's quality bar rather than defaulting to the most capable one.",
+      "rel": [
+        "tiered-router",
+        "model-cascade",
+        "model-migration",
+        "inference-economics",
+        "cost-aware-eval"
+      ],
+      "ev": "Trend theme 'Agent token-efficiency scrutiny: developers now benchmarking coding agents on overhead and cost, not just capability' plus the notable 'GPT-5.6 agent migration got 2.2x faster and 27% che",
+      "src": "learned"
     }
   ]
 }
