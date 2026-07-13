@@ -182,7 +182,8 @@
         "self-heal",
         "doctrine",
         "gate",
-        "verification"
+        "verification",
+        "revert"
       ]
     },
     {
@@ -4605,6 +4606,21 @@
         "semantic-html"
       ],
       "ev": "Recent self-improve commits styling essay semantics for readable long-form (<cite>, <q>, <details>, <mark>, footnote <sup>/<sub>) plus the trend theme 'renewed craving for focus, reading, and unmediat",
+      "src": "learned"
+    },
+    {
+      "id": "cost-aware-eval",
+      "dom": "agentic-ai",
+      "label": "Cost-aware agent eval",
+      "def": "Benchmarking and ranking AI agents by the tokens and dollars they spend per completed task, treating cost-efficiency as a first-class evaluation metric alongside raw capability.",
+      "rel": [
+        "evals",
+        "inference-economics",
+        "agent-token-overhead",
+        "harnessability",
+        "verification-bottleneck"
+      ],
+      "ev": "Trend theme 'Agent token/cost efficiency scrutiny: People are now benchmarking agents on tokens spent and dollars saved, not just capability', exemplified by OpenCode winning attention for sending far",
       "src": "learned"
     }
   ]
