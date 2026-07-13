@@ -6150,6 +6150,49 @@
       ],
       "ev": "Recent self-improve commits 4f7ba08 'Distinguish essay data-table row headers from column headers', 8cd8212 'Zebra-stripe essay data tables so telemetry rows track across wide col', and 5762220 'Add a",
       "src": "learned"
+    },
+    {
+      "id": "entity-resolution",
+      "dom": "factory",
+      "label": "Entity resolution",
+      "def": "The technique of detecting and merging references that denote the same real-world concept when building a knowledge graph, so corpus-to-graph extraction does not accrete duplicate or near-duplicate nodes.",
+      "rel": [
+        "ontology-maintenance",
+        "ontology-learning",
+        "information-extraction",
+        "graph-rag",
+        "novelty-guard"
+      ],
+      "ev": "ontology_maintain.py (real script) plus this task's own de-duplication mandate ('no duplicates or near-duplicates') and the trend theme 'Knowledge graphs & extraction from corpora: turning raw text du",
+      "src": "learned"
+    },
+    {
+      "id": "design-fiction",
+      "dom": "agentic-ai",
+      "label": "Design fiction",
+      "def": "The practice of using generative models to produce deliberately plausible speculative artifacts (e.g., a future news front page) in order to explore or critique possible futures rather than to report fact.",
+      "rel": [
+        "generative-world-sim",
+        "dreaming",
+        "generative-media"
+      ],
+      "ev": "trend NOTABLE item: 'Gemini Pro 3 future-HN: An LLM hallucinates the Hacker News front page a decade out as speculative-design art'",
+      "src": "learned"
+    },
+    {
+      "id": "blast-radius-containment",
+      "dom": "agentic-ai",
+      "label": "Blast-radius containment",
+      "def": "Designing an autonomous agent's runtime so that a compromise or misfire can reach as little as possible — through disposable, isolated, least-privilege environments — bounding the total damage instead of trusting the agent to behave.",
+      "rel": [
+        "agent-sandboxing",
+        "microvm",
+        "ephemeral-environment",
+        "data-exfiltration",
+        "default-deny-egress"
+      ],
+      "ev": "trend theme 'Coding-agent data-exfiltration risk: Autonomous AI agents are silently uploading users' private files'; Clawk gives coding agents a disposable Linux VM instead of direct access to your la",
+      "src": "learned"
     }
   ]
 }
