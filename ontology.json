@@ -4851,6 +4851,35 @@
       ],
       "ev": "Trend theme 'Lean vanilla web tech: renewed appetite for minimal, single-file, framework-light web tooling'",
       "src": "learned"
+    },
+    {
+      "id": "buildless-web",
+      "dom": "stack",
+      "label": "Buildless web development",
+      "def": "Shipping web apps directly as native ES modules with import maps, eliminating the bundler/compiler build step.",
+      "rel": [
+        "native-web-tooling",
+        "single-file-app",
+        "javascript-runtime",
+        "progressive-enhancement"
+      ],
+      "ev": "The 'lean vanilla web tech' trend theme — renewed appetite for minimal, single-file, framework-light web tooling",
+      "src": "learned"
+    },
+    {
+      "id": "sparse-attention",
+      "dom": "infra",
+      "label": "Sparse attention",
+      "def": "An attention technique that computes only a selected subset of query-key interactions instead of the full quadratic matrix, letting models train and serve million-token contexts far more cheaply.",
+      "rel": [
+        "kv-cache",
+        "memory-bandwidth-bound",
+        "paged-attention",
+        "chunked-prefill",
+        "moe"
+      ],
+      "ev": "Latest-trends NOTABLE: 'Flash-MSA: Sparse-attention kernels that accelerate million-token training runs.'",
+      "src": "learned"
     }
   ]
 }
