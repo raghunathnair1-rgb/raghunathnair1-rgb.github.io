@@ -3621,7 +3621,8 @@
         "planning",
         "recursive-loop",
         "reflexion",
-        "chain-of-thought"
+        "chain-of-thought",
+        "agentic-patterns"
       ],
       "ev": "doctrine principles.md's recursive harness loop 'reflect on real signals -> propose ONE grounded change -> gate -> ship -> VERIFY its CI' is a reason-then-act cycle; ReAct is the established interleav",
       "src": "learned"
