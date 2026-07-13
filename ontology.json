@@ -5419,6 +5419,35 @@
       ],
       "ev": "doctrine principles.md: verification layer enforces 'a 100% coverage floor' + 'a change ships only if ALL of them agree', gated in CI",
       "src": "learned"
+    },
+    {
+      "id": "hanging-punctuation",
+      "dom": "stack",
+      "label": "Hanging punctuation",
+      "def": "A CSS typography feature that pushes quotation marks, bullets, and stops into the margin so the text block's optical edge stays flush.",
+      "rel": [
+        "web-typography",
+        "sidenotes",
+        "text-wrap-balance",
+        "semantic-html"
+      ],
+      "ev": "commit 1880623 'self-improve: Add hanging-punctuation so essay quotes and list markers optically align' plus the sibling essay-typography commits (f680dbf, 1da97af)",
+      "src": "learned"
+    },
+    {
+      "id": "attention-economy",
+      "dom": "agentic-ai",
+      "label": "Attention economy",
+      "def": "The media and economic system in which finite human attention is the scarce, contested resource that content, feeds, and ranking algorithms compete to capture.",
+      "rel": [
+        "deep-reading",
+        "calm-technology",
+        "continuous-partial-attention",
+        "content-distribution",
+        "algorithm-aware-formatting"
+      ],
+      "ev": "HN trend theme 'Reclaiming attention and deep reading: a counter-current of posts focuses on rebuilding human focus against distraction' (trends, 2026-07-13)",
+      "src": "learned"
     }
   ]
 }

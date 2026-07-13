@@ -108,6 +108,7 @@ html { scroll-behavior: smooth; }
 #content cite { font-style: italic; color: var(--muted); }
 #content var { font-style: italic; color: var(--cyan); }
 #content time { color: var(--muted); font-variant-numeric: tabular-nums; }
+#content data { color: var(--muted); font-variant-numeric: tabular-nums; }
 #content dfn { font-style: italic; color: var(--green); font-weight: 700; }
 #content sup, #content sub { line-height: 0; font-size: .72em; }
 #content del, #content s { color: var(--muted); text-decoration-line: line-through; text-decoration-color: var(--cyan); text-decoration-thickness: 1px; }
