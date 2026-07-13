@@ -6036,6 +6036,21 @@
       ],
       "ev": "latest-trends notable: Voxel Tokyo (live voxel city synced to real Japan time) and isometric.nyc browser-rendered spatial scenes topping Show HN",
       "src": "learned"
+    },
+    {
+      "id": "ambient-authority",
+      "dom": "agentic-ai",
+      "label": "Ambient authority",
+      "def": "The default, undesignated authority an agent inherits over its whole environment (e.g. read access to the user's entire home directory) simply by running, rather than being granted only the specific capabilities it needs.",
+      "rel": [
+        "capability-based-security",
+        "confused-deputy",
+        "lethal-trifecta",
+        "workspace-confinement",
+        "data-exfiltration"
+      ],
+      "ev": "Latest AI/tech trend theme 'AI agents leaking private data': coding agents silently exfiltrating home directories — the agent acts with the developer's full ambient filesystem authority, the antithesi",
+      "src": "learned"
     }
   ]
 }
