@@ -71,6 +71,8 @@ html { scroll-behavior: smooth; }
 /* pretty-wrap essay body text so the last line isn't a lone orphan — inert where unsupported */
 #content p { text-wrap: pretty; }
 #content li { text-wrap: pretty; }
+/* hang leading quotes and list markers into the margin so text optically aligns — inert where unsupported */
+#content { hanging-punctuation: first last; }
 /* break otherwise-unbreakable tokens (long URLs, model/GPU IDs) so narrow screens don't scroll sideways */
 #content { overflow-wrap: break-word; }
 /* keep embedded figures/diagrams fluid so a wide image can't force horizontal scroll either */
