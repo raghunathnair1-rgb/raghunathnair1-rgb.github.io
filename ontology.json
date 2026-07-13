@@ -4591,6 +4591,21 @@
       ],
       "ev": "Latest AI/tech trends, HN 2026-07-13 theme 'Human attention and deep reading as backlash: Amid AI automation there is renewed craving for focus, reading, and unmediated understanding'",
       "src": "learned"
+    },
+    {
+      "id": "deep-reading",
+      "dom": "stack",
+      "label": "Deep reading",
+      "def": "A design value that optimizes long-form pages for sustained, focused, unmediated reading as a deliberate counter to fragmented attention and AI-summarized consumption.",
+      "rel": [
+        "web-typography",
+        "calm-technology",
+        "continuous-partial-attention",
+        "critical-ignoring",
+        "semantic-html"
+      ],
+      "ev": "Recent self-improve commits styling essay semantics for readable long-form (<cite>, <q>, <details>, <mark>, footnote <sup>/<sub>) plus the trend theme 'renewed craving for focus, reading, and unmediat",
+      "src": "learned"
     }
   ]
 }
