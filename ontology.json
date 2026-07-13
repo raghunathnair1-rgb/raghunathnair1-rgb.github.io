@@ -6008,6 +6008,34 @@
       ],
       "ev": "CLAUDE.md operating rule 'Work ONLY inside /home/raghu/harness. Never touch files elsewhere', reinforced by the trend 'Grok CLI: an AI coding CLI caught uploading a user's entire home directory to clo",
       "src": "learned"
+    },
+    {
+      "id": "build-time-data-fetching",
+      "dom": "stack",
+      "label": "Build-time data fetching",
+      "def": "Fetching or computing dynamic data (telemetry, weather, sun position, coverage) at build time and baking it into static pages so the deployed site serves precomputed content with no runtime fetch.",
+      "rel": [
+        "ssg",
+        "single-source-of-truth",
+        "local-first",
+        "network-adaptive-rendering"
+      ],
+      "ev": "Real scripts gen_wttr.py, gen_sun.py, gen_coverage.py and the 15-min spark telemetry refreshes are computed then baked into ssg.py output committed to the repo",
+      "src": "learned"
+    },
+    {
+      "id": "voxel-rendering",
+      "dom": "stack",
+      "label": "Voxel rendering",
+      "def": "Rendering 3D scenes as grids of volumetric cubes (voxels) in the browser via WebGL, rather than polygon meshes.",
+      "rel": [
+        "webgl",
+        "isometric-projection",
+        "virtual-globe",
+        "generative-world-sim"
+      ],
+      "ev": "latest-trends notable: Voxel Tokyo (live voxel city synced to real Japan time) and isometric.nyc browser-rendered spatial scenes topping Show HN",
+      "src": "learned"
     }
   ]
 }
