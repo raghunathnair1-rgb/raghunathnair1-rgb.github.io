@@ -93,6 +93,7 @@ html { scroll-behavior: smooth; }
 #content kbd { font-family: inherit; font-size: .85em; color: var(--bg); background: var(--green); border: 1px solid var(--line); border-radius: 4px; padding: .05em .45em; box-shadow: 0 1px 0 var(--line); text-shadow: none; white-space: nowrap; }
 #content q { color: var(--muted); font-style: italic; }
 #content cite { font-style: italic; color: var(--muted); }
+#content sup, #content sub { line-height: 0; font-size: .72em; }
 #content blockquote { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--cyan); color: var(--muted); font-style: italic; box-shadow: -4px 0 12px -10px var(--cyan); }
 #content summary { cursor: pointer; color: var(--cyan); }
 #content summary::marker { color: var(--cyan); }
