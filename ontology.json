@@ -5922,6 +5922,20 @@
       ],
       "ev": "Trend theme 'Agent token-efficiency scrutiny: developers now benchmarking coding agents on overhead and cost, not just capability' plus the notable 'GPT-5.6 agent migration got 2.2x faster and 27% che",
       "src": "learned"
+    },
+    {
+      "id": "use-after-free",
+      "dom": "stack",
+      "label": "Use-after-free",
+      "def": "A temporal memory-safety vulnerability class where code dereferences a pointer to already-freed heap memory, enabling crashes or exploitation, and the exact bug category that memory-safe languages like Rust are designed to eliminate.",
+      "rel": [
+        "memory-safety",
+        "rust",
+        "code-vulns",
+        "fuzzing"
+      ],
+      "ev": "Trend theme 'Systemic security vulnerabilities' + NOTABLE 'GhostLock: a newly disclosed stack use-after-[free]' — long-dormant memory-safety bugs in ubiquitous infrastructure; grounded in this system'",
+      "src": "learned"
     }
   ]
 }
