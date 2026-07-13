@@ -6124,6 +6124,19 @@
       ],
       "ev": "Trend theme 'Production LLM migration for speed and cost: Teams are actively swapping models to get faster, cheaper agent pipelines' — goodput is the SLO-bound metric behind that speed/cost tradeoff.",
       "src": "learned"
+    },
+    {
+      "id": "borrow-checker",
+      "dom": "stack",
+      "label": "Borrow checker",
+      "def": "Rust's compile-time ownership-and-borrowing analysis that statically guarantees memory and thread safety without a garbage collector, rejecting use-after-free and data races before the program ever runs.",
+      "rel": [
+        "rust",
+        "memory-safety",
+        "use-after-free"
+      ],
+      "ev": "This system's frontend is built in Rust/Yew/WASM with a pinned Cargo.lock enforced by CI (doctrine + `rust` concept); grounded in the HN trend theme 'deep, long-lived memory-safety flaws keep surfacin",
+      "src": "learned"
     }
   ]
 }
