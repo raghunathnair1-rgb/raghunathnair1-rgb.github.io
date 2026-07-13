@@ -5208,6 +5208,37 @@
       ],
       "ev": "Latest AI/tech trends theme 'Automation without comprehension: People are worried about deploying automated systems no one actually understands' (HN front page, 2026-07-13)",
       "src": "learned"
+    },
+    {
+      "id": "dictionary-learning",
+      "dom": "agentic-ai",
+      "label": "Dictionary learning",
+      "def": "An unsupervised technique that decomposes a model's dense, polysemantic activations into a large overcomplete set of sparse, human-interpretable features, forming the mathematical basis for sparse autoencoders and their variants.",
+      "rel": [
+        "sparse-autoencoder",
+        "monosemanticity",
+        "superposition",
+        "crosscoder",
+        "transcoder",
+        "mechanistic-interpretability"
+      ],
+      "ev": "latest-trends theme 'LLM interpretability: Serious research effort is going into causally explaining what models do inside'; it is the foundational method underneath the existing sparse-autoencoder/cr",
+      "src": "learned"
+    },
+    {
+      "id": "auto-interpretability",
+      "dom": "agentic-ai",
+      "label": "Automated interpretability",
+      "def": "Using an LLM to automatically generate and score natural-language explanations for the features or neurons surfaced by interpretability tools, making feature analysis scalable beyond manual inspection.",
+      "rel": [
+        "sparse-autoencoder",
+        "dictionary-learning",
+        "monosemanticity",
+        "mechanistic-interpretability",
+        "llm-as-judge"
+      ],
+      "ev": "latest-trends theme 'LLM interpretability: Serious research effort is going into causally explaining what models do inside' — pairs the interpretability push with the system's existing llm-as-judge pa",
+      "src": "learned"
     }
   ]
 }
