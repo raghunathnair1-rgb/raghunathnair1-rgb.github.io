@@ -88,6 +88,7 @@ html { scroll-behavior: smooth; }
 #content td, #content th { font-variant-numeric: tabular-nums; }
 #content caption { caption-side: bottom; margin-top: .5rem; font-size: .85rem; font-style: italic; color: var(--muted); text-align: left; text-wrap: pretty; }
 #content th { color: var(--green); }
+#content th[scope="col"] { text-wrap: balance; }
 #content th[scope="row"] { font-weight: 400; color: var(--fg); }
 #content tbody tr:nth-child(even) { background: rgba(0,255,65,.025); }
 #content tbody tr:hover { background: rgba(0,255,65,.05); }
