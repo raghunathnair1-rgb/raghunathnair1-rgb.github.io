@@ -6659,6 +6659,20 @@
       ],
       "ev": "HN trend theme 'Systemic security & surveillance rollback': a 15-year-old kernel bug topped the front page, signalling renewed scrutiny of long-lived risk in widely-reviewed open-source code.",
       "src": "learned"
+    },
+    {
+      "id": "memory-tagging",
+      "dom": "stack",
+      "label": "Hardware memory tagging",
+      "def": "A CPU mechanism (e.g. Arm MTE) that tags allocations and pointers so the hardware traps use-after-free and out-of-bounds accesses at runtime, catching the class of foundational memory-safety bugs that mitigations like the borrow checker address only in safe languages.",
+      "rel": [
+        "use-after-free",
+        "memory-safety",
+        "control-flow-integrity",
+        "borrow-checker"
+      ],
+      "ev": "HN front-page theme: a 15-year-old use-after-free surfacing across every distro shows foundational memory-safety bugs remain top-of-mind; hardware memory tagging is an established, durable mitigation ",
+      "src": "learned"
     }
   ]
 }
