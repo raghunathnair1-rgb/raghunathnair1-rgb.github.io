@@ -6193,6 +6193,93 @@
       ],
       "ev": "trend theme 'Coding-agent data-exfiltration risk: Autonomous AI agents are silently uploading users' private files'; Clawk gives coding agents a disposable Linux VM instead of direct access to your la",
       "src": "learned"
+    },
+    {
+      "id": "agent-skills",
+      "dom": "agentic-ai",
+      "label": "Agent skills",
+      "def": "Packaged, discoverable instruction-and-resource modules an agent loads on demand to acquire a capability, exposing only a name/description until invoked so procedural knowledge stays out of the base context.",
+      "rel": [
+        "claude-agent-sdk",
+        "agent-instruction-file",
+        "lazy-tool-loading",
+        "progressive-disclosure",
+        "concept-application"
+      ],
+      "ev": "Established technology: Claude Agent Skills — the on-demand Skill mechanism this Claude-Agent-SDK harness itself runs on (distinct from a single always-loaded instruction file like CLAUDE.md).",
+      "src": "learned"
+    },
+    {
+      "id": "error-budget",
+      "dom": "factory",
+      "label": "Error budget",
+      "def": "A quantified tolerance for failure that trades reliability against change velocity, letting a self-improving loop ship risky changes as long as failures stay within budget and are automatically reverted when exceeded.",
+      "rel": [
+        "observability",
+        "self-heal",
+        "watchdog",
+        "ci-as-oracle",
+        "quality-ratchet",
+        "telemetry"
+      ],
+      "ev": "doctrine (principles.md): a change that passes the deploy gate but fails the Rust compile in CI is auto-reverted, not left to strand main — operating the loop within a tolerated failure margin.",
+      "src": "learned"
+    },
+    {
+      "id": "scroll-driven-animation",
+      "dom": "stack",
+      "label": "Scroll-driven animation",
+      "def": "A native CSS primitive (scroll/view timelines) that binds animation progress to scroll position without JavaScript, enabling narrative and interactive data visualizations that respect reduced-motion preferences.",
+      "rel": [
+        "explorable-explanations",
+        "progressive-enhancement",
+        "intrinsic-web-design",
+        "prefers-reduced-motion"
+      ],
+      "ev": "Trend theme 'Personal interactive data globes & maps' (hand-built spatial life-data visualizations resonating as portfolio pieces), realizable as an established, JS-free web-platform feature.",
+      "src": "learned"
+    },
+    {
+      "id": "roofline-model",
+      "dom": "infra",
+      "label": "Roofline model",
+      "def": "A performance model that bounds a kernel's achievable throughput by either peak compute or memory bandwidth given its arithmetic intensity, showing whether a workload is compute-bound or bandwidth-bound.",
+      "rel": [
+        "memory-bandwidth-bound",
+        "kernel-fusion",
+        "flash-attention",
+        "serving-goodput"
+      ],
+      "ev": "GB10 GPU/memory telemetry (spark.sh) and the existing 'memory-bandwidth-bound' concept, which is one regime of the roofline that frames LLM-inference optimization",
+      "src": "learned"
+    },
+    {
+      "id": "gaussian-splatting",
+      "dom": "stack",
+      "label": "3D Gaussian Splatting",
+      "def": "3D Gaussian splatting represents a scene as a cloud of optimized anisotropic Gaussians, enabling real-time photorealistic rendering and reconstruction of scanned environments directly in the browser.",
+      "rel": [
+        "voxel-rendering",
+        "webgl",
+        "virtual-globe",
+        "isometric-projection"
+      ],
+      "ev": "Latest-trends theme 'Interactive spatial/3D web showcases': big Show HNs are immersive browser experiences (isometric cities, 3D scans, live voxel worlds).",
+      "src": "learned"
+    },
+    {
+      "id": "information-flow-control",
+      "dom": "agentic-ai",
+      "label": "Information-Flow Control",
+      "def": "Information-flow control tags sensitive data and tracks it as it moves through a program so an agent cannot route confidential inputs to an untrusted sink, structurally blocking exfiltration rather than relying on the agent to behave.",
+      "rel": [
+        "lethal-trifecta",
+        "data-exfiltration",
+        "default-deny-egress",
+        "confused-deputy"
+      ],
+      "ev": "Latest-trends dominant theme 'AI coding agents exfiltrating private data': CLI tools silently uploading users' entire home directories to vendor servers.",
+      "src": "learned"
     }
   ]
 }
