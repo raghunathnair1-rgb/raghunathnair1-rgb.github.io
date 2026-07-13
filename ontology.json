@@ -4822,8 +4822,7 @@
       "rel": [
         "prefix-caching",
         "retrieval",
-        "inference-economics",
-        "grounding"
+        "inference-economics"
       ],
       "ev": "latest AI/tech trends theme: 'LLM cost/latency optimization — teams are actively swapping models and kernels to cut spend and speed up inference in production'",
       "src": "learned"
@@ -6996,6 +6995,50 @@
         "content-provenance"
       ],
       "ev": "Latest AI/tech trends theme: 'Surveillance & AI-training data backlash — Institutions and users are actively rejecting mass surveillance and forced data harvesting for AI.'",
+      "src": "learned"
+    },
+    {
+      "id": "training-data-consent",
+      "dom": "agentic-ai",
+      "label": "Training-data consent",
+      "def": "Norms and machine-readable signals (do-not-train opt-outs, consent registries, provenance-based exclusion) that let people and institutions withhold their content from AI training corpora.",
+      "rel": [
+        "crawler-directives",
+        "ai-crawler",
+        "data-minimization",
+        "machine-unlearning",
+        "content-provenance",
+        "c2pa"
+      ],
+      "ev": "Latest trends theme 'Surveillance & AI-training data backlash': institutions and users are actively rejecting mass surveillance and forced data harvesting for AI.",
+      "src": "learned"
+    },
+    {
+      "id": "consent-or-pay",
+      "dom": "agentic-ai",
+      "label": "Consent-or-Pay",
+      "def": "A data-collection model in which a service conditions core access on the user either consenting to have their data used for AI training or paying a fee, rendering that consent effectively coerced.",
+      "rel": [
+        "training-data-consent",
+        "data-minimization",
+        "machine-unlearning"
+      ],
+      "ev": "Latest trends theme 'Coerced data for AI training: Companies tying core service access to consent for AI training is triggering user backlash.'",
+      "src": "learned"
+    },
+    {
+      "id": "surveillance-capitalism",
+      "dom": "infra",
+      "label": "Surveillance capitalism",
+      "def": "The economic model in which firms extract behavioral and personal data as raw material for prediction and AI training, driving the mass-surveillance and coerced-consent dynamics now provoking public and institutional backlash.",
+      "rel": [
+        "training-data-consent",
+        "consent-or-pay",
+        "vendor-telemetry",
+        "attention-economy",
+        "data-minimization"
+      ],
+      "ev": "HN front-page trend theme (2026-07-13): 'Surveillance & data-privacy backlash: public and institutional pushback against mass surveillance and coerced AI-training data is dominating the front page.'",
       "src": "learned"
     }
   ]
