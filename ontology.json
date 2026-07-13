@@ -4766,6 +4766,48 @@
       ],
       "ev": "Latest AI/tech trend theme: 'Teams are actively swapping models and kernels to cut spend and speed up inference in production.'",
       "src": "learned"
+    },
+    {
+      "id": "provider-abstraction",
+      "dom": "harness",
+      "label": "Provider abstraction",
+      "def": "A harness layer that decouples agent logic from any single model provider so models can be swapped without rewriting the harness.",
+      "rel": [
+        "model-migration",
+        "harness-eng",
+        "tiered-router",
+        "claude-agent-sdk"
+      ],
+      "ev": "latest-trends theme 'LLM cost/latency optimization: Teams are actively swapping models and kernels to cut spend' + the notable GPT-5.6 migration showing 2.2x speed and 27% cost gains from a model swap",
+      "src": "learned"
+    },
+    {
+      "id": "kernel-autotuning",
+      "dom": "infra",
+      "label": "Kernel autotuning",
+      "def": "Automatically searching over and generating GPU kernel variants to select the fastest for a given operation shape and accelerator.",
+      "rel": [
+        "kernel-fusion",
+        "memory-bandwidth-bound",
+        "query-compilation",
+        "inference-economics"
+      ],
+      "ev": "latest-trends theme 'LLM cost/latency optimization: Teams are ... swapping ... kernels to cut spend and speed up inference in production'",
+      "src": "learned"
+    },
+    {
+      "id": "transcoder",
+      "dom": "agentic-ai",
+      "label": "Transcoder",
+      "def": "An interpretability tool that replaces an MLP block with a sparse, more interpretable approximation to trace features across layers.",
+      "rel": [
+        "sparse-autoencoder",
+        "circuit-tracing",
+        "superposition",
+        "mechanistic-interpretability"
+      ],
+      "ev": "latest-trends theme 'Mechanistic interpretability: Interest is rising in causal, explainable accounts of how models actually reach outputs'",
+      "src": "learned"
     }
   ]
 }
