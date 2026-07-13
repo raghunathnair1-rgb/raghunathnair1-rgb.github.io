@@ -7082,6 +7082,20 @@
       ],
       "ev": "HN trend theme 'Open-data resilience & preservation: When institutional data is taken down, open mirrors and archives are what keep it alive.'",
       "src": "learned"
+    },
+    {
+      "id": "webgpu",
+      "dom": "stack",
+      "label": "WebGPU",
+      "def": "A modern browser API exposing GPU graphics and general-purpose compute, succeeding WebGL to enable both immersive real-time 3D scenes and client-side model inference in the browser.",
+      "rel": [
+        "webgl",
+        "wasm",
+        "voxel-rendering",
+        "local-first"
+      ],
+      "ev": "Trend theme 'Interactive 3D / spatial web experiences: immersive real-time voxel and isometric web worlds dominating the front page' plus the existing WebGL/WASM front-end stack (yew/trunk); WebGPU is",
+      "src": "learned"
     }
   ]
 }

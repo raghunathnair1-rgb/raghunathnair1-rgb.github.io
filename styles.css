@@ -105,6 +105,9 @@ html { scroll-behavior: smooth; }
 #content ul ul li::marker, #content ol ol li::marker { color: var(--muted); }
 /* tabular figures so auto-numbered ordered lists keep a flush marker column past double digits (mirrors essay <time> stamps) */
 #content ol { font-variant-numeric: tabular-nums; }
+/* nested numbered lists shift numeral system by depth (1 → a → i) so outline structure reads at a glance, not just marker colour */
+#content ol ol { list-style-type: lower-alpha; }
+#content ol ol ol { list-style-type: lower-roman; }
 /* lift bold key terms to the highlight-green so emphasised concepts glow one notch brighter (tracks the amber theme via --green) */
 #content strong, #content b { color: var(--green); }
 #content em, #content i { font-style: italic; color: var(--green); }
