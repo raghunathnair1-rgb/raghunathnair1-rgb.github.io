@@ -4736,6 +4736,21 @@
       ],
       "ev": "HN front-page trend theme 'long-lived system security holes' — a 15-year-old use-after-free surfacing in the Linux kernel — grounded against this system's Rust/Cargo.lock stack cited in principles.md.",
       "src": "learned"
+    },
+    {
+      "id": "deskilling",
+      "dom": "agentic-ai",
+      "label": "Deskilling",
+      "def": "The long-term erosion of human practitioners' underlying competence when agents routinely perform the work, leaving people progressively less able to do or critically judge it unaided.",
+      "rel": [
+        "reverse-centaur",
+        "cognitive-offloading",
+        "epistemic-debt",
+        "appropriate-reliance",
+        "verification-bottleneck"
+      ],
+      "ev": "trends theme 'Rigor over automation in AI research: automating steps without understanding causes shallow, one-step thinking'",
+      "src": "learned"
     }
   ]
 }
