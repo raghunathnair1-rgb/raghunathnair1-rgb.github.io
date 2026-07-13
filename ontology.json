@@ -4880,6 +4880,21 @@
       ],
       "ev": "Latest-trends NOTABLE: 'Flash-MSA: Sparse-attention kernels that accelerate million-token training runs.'",
       "src": "learned"
+    },
+    {
+      "id": "ironies-of-automation",
+      "dom": "agentic-ai",
+      "label": "Ironies of automation",
+      "def": "The paradox that automating the easy parts of a task leaves humans with the harder residual work of monitoring and recovering systems whose inner workings they no longer practice or understand.",
+      "rel": [
+        "reverse-centaur",
+        "deskilling",
+        "verification-bottleneck",
+        "human-on-the-loop",
+        "epistemic-debt"
+      ],
+      "ev": "Trend theme 'Automation without comprehension: growing unease that agents automate tasks nobody actually understands anymore' — Bainbridge's enduring HCI framing of that exact failure mode.",
+      "src": "learned"
     }
   ]
 }
