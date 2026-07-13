@@ -4637,6 +4637,21 @@
       ],
       "ev": "HN trend theme 'Live agentic UX' — appetite for watching an agent act in real time on a shared canvas (e.g. an agent drawing on a TLDraw canvas as you converse) instead of just returning text.",
       "src": "learned"
+    },
+    {
+      "id": "eval-driven-development",
+      "dom": "sdlc",
+      "label": "Eval-driven development",
+      "def": "A development methodology where a suite of task evals is written first and the agent, prompt, or model is iterated against measurable before/after scores rather than subjective claims.",
+      "rel": [
+        "evals",
+        "cost-aware-eval",
+        "verification",
+        "sdlc-verify",
+        "model-migration"
+      ],
+      "ev": "Trend theme 'Production agent migration metrics: Concrete before/after benchmarks on latency and cost are what people trust over claims', reinforced by doctrine's VERIFY layer ('never ship what the ga",
+      "src": "learned"
     }
   ]
 }
