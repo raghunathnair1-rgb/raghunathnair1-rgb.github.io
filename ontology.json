@@ -4652,6 +4652,48 @@
       ],
       "ev": "Trend theme 'Production agent migration metrics: Concrete before/after benchmarks on latency and cost are what people trust over claims', reinforced by doctrine's VERIFY layer ('never ship what the ga",
       "src": "learned"
+    },
+    {
+      "id": "causal-abstraction",
+      "dom": "agentic-ai",
+      "label": "Causal abstraction",
+      "def": "A mechanistic-interpretability framework that tests whether a high-level causal model of a task is actually implemented inside a network by intervening on internal activations and checking that the abstraction holds under those interventions.",
+      "rel": [
+        "mechanistic-interpretability",
+        "activation-patching",
+        "circuit-tracing",
+        "cot-faithfulness"
+      ],
+      "ev": "Trend theme: 'Interpretability and causal reasoning about LLMs — appetite for rigorous, mechanistic explanations of what models actually do inside.'",
+      "src": "learned"
+    },
+    {
+      "id": "in-context-learning",
+      "dom": "agentic-ai",
+      "label": "In-Context Learning",
+      "def": "A model's ability to acquire task behavior from instructions and examples placed in the prompt at inference time, without any weight updates.",
+      "rel": [
+        "prompt-engineering",
+        "chain-of-thought",
+        "context-eng",
+        "long-horizon-agency"
+      ],
+      "ev": "Trend theme 'Interpretability and causal reasoning about LLMs' (appetite for mechanistic accounts of what models actually do inside) — the foundational inference-time-learning phenomenon those account",
+      "src": "learned"
+    },
+    {
+      "id": "induction-head",
+      "dom": "agentic-ai",
+      "label": "Induction Head",
+      "def": "An attention circuit that completes prompt patterns by copying what followed a token's previous occurrence, identified as a core mechanism behind in-context learning.",
+      "rel": [
+        "circuit-tracing",
+        "superposition",
+        "mechanistic-interpretability",
+        "in-context-learning"
+      ],
+      "ev": "Trend theme 'Interpretability and causal reasoning about LLMs' — appetite for rigorous, mechanistic explanations of what models do inside; established interpretability finding.",
+      "src": "learned"
     }
   ]
 }
