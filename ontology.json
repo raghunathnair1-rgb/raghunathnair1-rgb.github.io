@@ -5591,6 +5591,20 @@
       ],
       "ev": "Established production LLM-serving technique layered on prefix caching; extends the system's real tiered router (`router_stats.py`, `tiered-router`) and vLLM prefix-cache stack.",
       "src": "learned"
+    },
+    {
+      "id": "ai-washing",
+      "dom": "agentic-ai",
+      "label": "AI washing",
+      "def": "The deceptive marketing practice of overstating, mislabeling, or fabricating a product's use of AI to attract users, investment, or attention.",
+      "rel": [
+        "ai-hype-cycle",
+        "ai-slop",
+        "machine-content-disclosure",
+        "content-provenance"
+      ],
+      "ev": "latest AI/tech trends theme — 'AI-marketing skepticism / honesty: appetite for calling out inflated AI claims and demanding straight talk from vendors', reinforced by the doctrine's truthfulness pilla",
+      "src": "learned"
     }
   ]
 }
