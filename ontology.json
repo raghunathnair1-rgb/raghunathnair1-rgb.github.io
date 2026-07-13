@@ -6137,6 +6137,19 @@
       ],
       "ev": "This system's frontend is built in Rust/Yew/WASM with a pinned Cargo.lock enforced by CI (doctrine + `rust` concept); grounded in the HN trend theme 'deep, long-lived memory-safety flaws keep surfacin",
       "src": "learned"
+    },
+    {
+      "id": "accessible-data-table",
+      "dom": "stack",
+      "label": "Accessible data table",
+      "def": "Rendering tabular data so it stays parseable by both eye and assistive tech via explicit row/column header association (scope), captions, zebra striping, and row-hover tracking.",
+      "rel": [
+        "semantic-html",
+        "accessibility",
+        "tabular-figures"
+      ],
+      "ev": "Recent self-improve commits 4f7ba08 'Distinguish essay data-table row headers from column headers', 8cd8212 'Zebra-stripe essay data tables so telemetry rows track across wide col', and 5762220 'Add a",
+      "src": "learned"
     }
   ]
 }
