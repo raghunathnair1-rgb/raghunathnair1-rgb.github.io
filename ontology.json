@@ -4694,6 +4694,19 @@
       ],
       "ev": "Trend theme 'Interpretability and causal reasoning about LLMs' — appetite for rigorous, mechanistic explanations of what models do inside; established interpretability finding.",
       "src": "learned"
+    },
+    {
+      "id": "floating-point-nondeterminism",
+      "dom": "infra",
+      "label": "Floating-Point Nondeterminism",
+      "def": "IEEE-754 transcendental and accumulation results differ subtly across CPU/GPU, libm, and compiler, so the same computation is not bit-reproducible on different platforms — which both undermines reproducible/verifiable computation and leaks the underlying platform.",
+      "rel": [
+        "reproducible-builds",
+        "verifiable-inference",
+        "browser-fingerprinting"
+      ],
+      "ev": "latest-trends theme: 'a subtle math-function quirk now deanonymizes users' OS' via platform-varying floating-point results",
+      "src": "learned"
     }
   ]
 }
