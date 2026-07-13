@@ -91,6 +91,7 @@ html { scroll-behavior: smooth; }
 #content th[scope="row"] { font-weight: 400; color: var(--fg); }
 #content tbody tr:nth-child(even) { background: rgba(0,255,65,.025); }
 #content tbody tr:hover { background: rgba(0,255,65,.05); }
+#content tfoot td, #content tfoot th { border-top: 2px solid var(--cyan); color: var(--muted); font-variant-numeric: tabular-nums; }
 #content hr { border: 0; height: 1px; margin: 2rem 0; background: linear-gradient(90deg, transparent, var(--line) 20%, var(--cyan) 50%, var(--line) 80%, transparent); box-shadow: var(--glow); }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
 #content a:visited { color: var(--muted); }
