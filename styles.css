@@ -88,6 +88,7 @@ html { scroll-behavior: smooth; }
 #content td, #content th { font-variant-numeric: tabular-nums; }
 #content caption { caption-side: bottom; margin-top: .5rem; font-size: .85rem; font-style: italic; color: var(--muted); text-align: left; }
 #content th { color: var(--green); }
+#content tbody tr:hover { background: rgba(0,255,65,.05); }
 #content hr { border: 0; height: 1px; margin: 2rem 0; background: linear-gradient(90deg, transparent, var(--line) 20%, var(--cyan) 50%, var(--line) 80%, transparent); box-shadow: var(--glow); }
 /* visited in-content links decay to the dim phosphor green — a pixel that's already been lit */
 #content a:visited { color: var(--muted); }
