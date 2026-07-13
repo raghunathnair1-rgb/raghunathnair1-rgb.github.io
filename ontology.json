@@ -5531,6 +5531,20 @@
       ],
       "ev": "commit bbe1e5b 'self-improve: Frame essay inline <svg>/<video> diagrams as fluid media so wide essays…'",
       "src": "learned"
+    },
+    {
+      "id": "vendor-telemetry",
+      "dom": "stack",
+      "label": "Vendor Telemetry",
+      "def": "The practice of developer tools and AI coding agents silently transmitting usage, code, or context data back to their vendor, raising trust, privacy, and payload-bloat concerns.",
+      "rel": [
+        "wire-level-audit",
+        "egress-transparency",
+        "agentic-cli",
+        "agent-security"
+      ],
+      "ev": "Trend/NOTABLE: 'Grok build CLI analysis: A wire-level teardown of exactly what xAI's coding CLI phones home to the vendor' + theme 'AI tool transparency / wire-level scrutiny: Developers are dissectin",
+      "src": "learned"
     }
   ]
 }
