@@ -5993,6 +5993,21 @@
       ],
       "ev": "Recent self-improve commits repeatedly style essays in an explicit 'phosphor' language (phosphor row-hover 5762220, tabular phosphor columns dacf8c6, phosphor :active press-flash 3d651d9), reinforced ",
       "src": "learned"
+    },
+    {
+      "id": "workspace-confinement",
+      "dom": "agentic-ai",
+      "label": "Workspace confinement",
+      "def": "Restricting an autonomous agent's filesystem access to a single explicitly-allowed directory so it cannot read or write files elsewhere on the host.",
+      "rel": [
+        "agent-sandboxing",
+        "lethal-trifecta",
+        "data-exfiltration",
+        "capability-based-security",
+        "agentic-cli"
+      ],
+      "ev": "CLAUDE.md operating rule 'Work ONLY inside /home/raghu/harness. Never touch files elsewhere', reinforced by the trend 'Grok CLI: an AI coding CLI caught uploading a user's entire home directory to clo",
+      "src": "learned"
     }
   ]
 }
