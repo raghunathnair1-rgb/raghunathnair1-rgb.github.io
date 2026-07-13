@@ -5404,6 +5404,21 @@
       ],
       "ev": "Latest-trends theme 'Personal-data interactive visualization: Self-tracked datasets rendered as interactive globes and maps are resonating strongly.'",
       "src": "learned"
+    },
+    {
+      "id": "quality-ratchet",
+      "dom": "sdlc",
+      "label": "Quality ratchet",
+      "def": "A CI gate that only permits a quality metric to hold or improve and mechanically blocks any regression, turning a threshold like a coverage floor into a one-way monotonic ratchet.",
+      "rel": [
+        "coverage",
+        "ci",
+        "gate",
+        "keep-quality-left",
+        "monotonic-knowledge"
+      ],
+      "ev": "doctrine principles.md: verification layer enforces 'a 100% coverage floor' + 'a change ships only if ALL of them agree', gated in CI",
+      "src": "learned"
     }
   ]
 }

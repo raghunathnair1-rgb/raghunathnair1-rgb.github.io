@@ -1,5 +1,13 @@
 [
  {
+  "title": "Show HN: Abralo – Free, easy way to run several Claude Code agents in one window",
+  "date": "2026-07-08",
+  "tag": "claude",
+  "summary": "Abralo wraps the Claude Code CLI in a native multi-agent cockpit: several agents running concurrently in one window, each pane laid out to scan at a glance rather than forcing you to babysit a wall of scrolling terminal. It's your own local claude key doing the work, so the interesting bit is the orchestration layer — parallel agents as a first-class UI primitive instead of a tmux grid you cobbled together. For anyone already fanning out agents across tasks, that's the difference between supervising a fleet and drowning in one.",
+  "source": "abralo.com",
+  "url": "https://abralo.com/"
+ },
+ {
   "title": "Ben Bernanke Joins Anthropic Oversight Trust",
   "date": "2026-07-10",
   "tag": "anthropic",
