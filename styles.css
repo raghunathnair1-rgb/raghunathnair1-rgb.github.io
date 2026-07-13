@@ -59,6 +59,7 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 /* give every glide a gutter above the landing target so headings never sit flush to the top edge */
 :target, #content, .console, .kg3d, .brain-gl { scroll-margin-top: 1.25rem; }
+#content :target { background: rgba(0,255,65,.07); border-radius: 4px; }
 
 /* keyboard focus indicators (mouse users unaffected) */
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 4px; }
