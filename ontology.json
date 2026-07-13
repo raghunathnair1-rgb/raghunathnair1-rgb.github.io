@@ -6424,6 +6424,35 @@
       ],
       "ev": "The subword unit that token-budgeting, agent-token-overhead and kv-cache (all already in the graph) operate on.",
       "src": "learned"
+    },
+    {
+      "id": "syscall-filtering",
+      "dom": "infra",
+      "label": "Syscall filtering",
+      "def": "Restricting which kernel system calls a process may invoke (e.g. seccomp-BPF or Landlock) to shrink the kernel attack surface and confine what a sandboxed agent can actually do.",
+      "rel": [
+        "agent-sandboxing",
+        "microvm",
+        "workspace-confinement",
+        "capability-based-security",
+        "sandbox-escape"
+      ],
+      "ev": "Trend theme 'Sandboxing agents instead of trusting them — give the agent a disposable VM, not your laptop', which at the OS level is enforced by syscall confinement.",
+      "src": "learned"
+    },
+    {
+      "id": "control-flow-integrity",
+      "dom": "infra",
+      "label": "Control-flow integrity",
+      "def": "A runtime exploit mitigation that constrains a program's indirect jumps and calls to valid targets, blocking control-flow hijacking even when a memory-corruption bug like a use-after-free is present.",
+      "rel": [
+        "memory-safety",
+        "use-after-free",
+        "sandbox-escape",
+        "trusted-computing-base"
+      ],
+      "ev": "Trend: a 15-year-old stack use-after-free across all Linux distros, illustrating latent memory-corruption bugs that mitigations like CFI are designed to contain.",
+      "src": "learned"
     }
   ]
 }
