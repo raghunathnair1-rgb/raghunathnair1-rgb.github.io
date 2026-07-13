@@ -5837,6 +5837,19 @@
       ],
       "ev": "Trend theme 'Build-it-from-scratch maker hardware: Open, self-built hardware projects are dominating Show HN attention right now' (2026-07-13 HN evidence), the durable movement above the existing open",
       "src": "learned"
+    },
+    {
+      "id": "text-wrap-pretty",
+      "dom": "stack",
+      "label": "text-wrap: pretty",
+      "def": "A CSS text-wrap value that improves line-breaking to avoid orphans and short last lines, complementing rather than centering the balance algorithm.",
+      "rel": [
+        "text-wrap-balance",
+        "web-typography",
+        "hanging-punctuation"
+      ],
+      "ev": "commit b499710 'Add pretty-wrapping to essay blockquotes so pull-quotes don't orphan a line' — a distinct CSS typography feature from the already-present text-wrap-balance",
+      "src": "learned"
     }
   ]
 }
