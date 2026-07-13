@@ -5254,6 +5254,21 @@
       ],
       "ev": "Latest AI/tech trends: 'LLM cost/latency efficiency — teams chasing cheaper, faster model migrations and sparse-attention kernels to cut token spend' (Flash-MSA sparse-attention kernels for million-to",
       "src": "learned"
+    },
+    {
+      "id": "native-sparse-attention",
+      "dom": "infra",
+      "label": "Native sparse attention",
+      "def": "A hardware-aligned, end-to-end trainable sparse-attention design that learns which key/value blocks to attend to, cutting compute and memory for both training and inference on very long (million-token) sequences rather than sparsifying a dense model after the fact.",
+      "rel": [
+        "sparse-attention",
+        "flash-attention",
+        "kernel-fusion",
+        "memory-bandwidth-bound",
+        "context-parallelism"
+      ],
+      "ev": "latest AI/tech trends: NOTABLE 'Flash-MSA: Sparse-attention kernels that accelerate million-token training runs' + theme 'LLM cost/latency efficiency ... sparse-attention kernels to cut token spend' (",
+      "src": "learned"
     }
   ]
 }

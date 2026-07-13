@@ -114,6 +114,8 @@ html { scroll-behavior: smooth; }
 #content dt { color: var(--green); font-weight: 700; margin-top: .6rem; }
 #content dd { margin: .15rem 0 .6rem 1.2rem; color: var(--muted); }
 #content summary { cursor: pointer; color: var(--cyan); }
+#content summary:hover, #content summary:focus-visible { text-shadow: var(--glow); }
+#content summary:active { color: var(--green); text-shadow: var(--glow); }
 #content summary::marker { color: var(--cyan); }
 #content a:hover,
 #content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
