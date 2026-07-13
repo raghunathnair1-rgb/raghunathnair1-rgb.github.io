@@ -5505,6 +5505,32 @@
       ],
       "ev": "Trend theme 'Wire-level scrutiny of AI agent CLIs' — people auditing exactly what coding agents transmit and how bloated their hidden prompts are, plus the Grok build CLI wire-level teardown exposing ",
       "src": "learned"
+    },
+    {
+      "id": "tabular-figures",
+      "dom": "stack",
+      "label": "Tabular figures",
+      "def": "The OpenType `font-variant-numeric: tabular-nums` feature renders digits at a fixed advance width so numeric values and `<data>` columns align vertically instead of jittering.",
+      "rel": [
+        "web-typography",
+        "semantic-html"
+      ],
+      "ev": "commit dea9beb 'self-improve: Style essay <data> values as dim phosphor tabular figures'",
+      "src": "learned"
+    },
+    {
+      "id": "fluid-media",
+      "dom": "stack",
+      "label": "Fluid media",
+      "def": "Replaced/embedded media such as `<svg>` and `<video>` is constrained to `max-width:100%` with intrinsic aspect ratio so it scales down to any container width rather than overflowing a narrow viewport.",
+      "rel": [
+        "intrinsic-web-design",
+        "network-adaptive-rendering",
+        "progressive-enhancement",
+        "semantic-html"
+      ],
+      "ev": "commit bbe1e5b 'self-improve: Frame essay inline <svg>/<video> diagrams as fluid media so wide essays…'",
+      "src": "learned"
     }
   ]
 }
