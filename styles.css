@@ -102,6 +102,7 @@ html { scroll-behavior: smooth; }
 #content samp { font-family: inherit; color: var(--muted); }
 #content small { color: var(--muted); }
 #content q { color: var(--muted); font-style: italic; }
+#content q::before, #content q::after { color: var(--cyan); text-shadow: var(--glow); }
 #content cite { font-style: italic; color: var(--muted); }
 #content var { font-style: italic; color: var(--cyan); }
 #content time { color: var(--muted); font-variant-numeric: tabular-nums; }
