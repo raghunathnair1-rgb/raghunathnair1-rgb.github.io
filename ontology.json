@@ -7855,6 +7855,21 @@
       ],
       "ev": "Trend: 'Real-time maps and personal-data globes are drawing huge attention as a way to make invisible systems tangible' — mirrored by this system's own pipeline-viz and spark telemetry surfacing its i",
       "src": "learned"
+    },
+    {
+      "id": "repository-mining",
+      "dom": "sdlc",
+      "label": "Repository mining",
+      "def": "Extracting patterns, signals, and narratives from a project's version-control history (commits, deploys, change frequency) to inform and drive development decisions.",
+      "rel": [
+        "self-improve",
+        "conventional-commits",
+        "software-cartography",
+        "telemetry",
+        "operational-transparency"
+      ],
+      "ev": "Trend theme 'Git history as a first-class artifact: tools that surface and narrate git history are trending'; grounded in-system by gen_activity.py (sanitized execution-activity feed from commit/deplo",
+      "src": "learned"
     }
   ]
 }
