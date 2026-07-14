@@ -148,6 +148,7 @@ html { scroll-behavior: smooth; }
 #content summary::marker { color: var(--cyan); }
 #content details { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--line); }
 #content details[open] > summary { color: var(--green); }
+#content details[open] { border-left-color: var(--cyan); }
 #content a:hover,
 #content a:focus-visible { color: var(--cyan); text-shadow: var(--glow); }
 #content a:active { color: var(--green); text-shadow: var(--glow); }
