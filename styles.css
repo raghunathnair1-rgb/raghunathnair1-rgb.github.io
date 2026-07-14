@@ -143,6 +143,7 @@ html { scroll-behavior: smooth; }
 #content dl { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--line); }
 #content summary { cursor: pointer; color: var(--cyan); }
 #content summary:hover, #content summary:focus-visible { text-shadow: var(--glow); }
+#content summary:hover, #content summary:focus-visible { background: rgba(0,255,65,.05); border-radius: 4px; }
 #content summary:active { color: var(--green); text-shadow: var(--glow); }
 #content summary::marker { color: var(--cyan); }
 #content details { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--line); }
