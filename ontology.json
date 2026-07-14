@@ -849,7 +849,8 @@
         "test-time-compute",
         "local-first",
         "quantization",
-        "memory-bandwidth-bound"
+        "memory-bandwidth-bound",
+        "small-language-model"
       ],
       "ev": "HN trend theme 'Local LLM inference on modest hardware: builders squeezing frontier models onto slow/small machines', a durable technique supported by the system's vLLM serving stack.",
       "src": "learned"
@@ -7356,6 +7357,64 @@
         "progressive-enhancement"
       ],
       "ev": "commit 6145bb0 'self-improve: Phosphor-tint the search-engine text-fragment highlight'",
+      "src": "learned"
+    },
+    {
+      "id": "scaling-laws",
+      "dom": "infra",
+      "label": "Scaling laws",
+      "def": "Empirical power-law relationships predicting how model loss falls with training compute, dataset size, and parameter count, used to allocate compute optimally.",
+      "rel": [
+        "scaling-limits",
+        "inference-economics",
+        "capability-cost-frontier",
+        "moe",
+        "knowledge-distillation"
+      ],
+      "ev": "Trend theme 'Recursive self-improvement & AI economics' (the economics of scaling AI systems) grounded on the established foundational ML result behind compute budgeting.",
+      "src": "learned"
+    },
+    {
+      "id": "silicon-photonics",
+      "dom": "infra",
+      "label": "Silicon photonics",
+      "def": "Optical interconnect fabricated on silicon that moves data between accelerators as light, relieving the bandwidth and energy limits of copper links as inference scales across nodes.",
+      "rel": [
+        "gpu-interconnect",
+        "coherent-interconnect",
+        "rdma",
+        "distributed-inference",
+        "memory-bandwidth-bound"
+      ],
+      "ev": "Established datacenter interconnect technology; this system's own multi-node GB10 'spark' cluster (spark_stats.py / 2-node telemetry commits) depends on high-speed accelerator interconnect.",
+      "src": "learned"
+    },
+    {
+      "id": "fill-in-the-middle",
+      "dom": "agentic-ai",
+      "label": "Fill-in-the-Middle",
+      "def": "A code-model training and inference technique that completes or edits code conditioned on both the preceding and the following context, not just a left-to-right prefix.",
+      "rel": [
+        "code-intelligence",
+        "in-context-learning",
+        "tokenization",
+        "sdlc-build"
+      ],
+      "ev": "trend theme 'AI-written, human-reviewed code' — FIM is the established technique underpinning agentic code completion and mid-file editing",
+      "src": "learned"
+    },
+    {
+      "id": "system-model-api",
+      "dom": "infra",
+      "label": "OS-native model API",
+      "def": "Operating systems increasingly ship built-in, benchmarkable on-device model capabilities (speech, vision, language) as a stable system API that apps call instead of bundling and shipping their own weights.",
+      "rel": [
+        "on-device-speech-recognition",
+        "platform-native-inference",
+        "provider-abstraction",
+        "streaming-asr"
+      ],
+      "ev": "HN front page (2026-07-14): Apple's on-device SpeechAnalyzer speech-to-text API benchmarked head-to-head against Whisper — an OS-provided model API vs. a bundled model.",
       "src": "learned"
     }
   ]
