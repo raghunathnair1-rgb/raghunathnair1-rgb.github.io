@@ -7329,6 +7329,34 @@
       ],
       "ev": "latest AI/tech trends (HN front page, 2026-07-14): the 'future of work / what human labor remains' anxiety theme combined with the 'AI-written, human-reviewed code' theme where humans are left to gate",
       "src": "learned"
+    },
+    {
+      "id": "intelligence-explosion",
+      "dom": "agentic-ai",
+      "label": "Intelligence explosion",
+      "def": "The hypothesized rapid, self-reinforcing acceleration of capability that could follow once an AI system can reliably improve itself, distinct from the recursive-self-improvement mechanism that would drive it.",
+      "rel": [
+        "recursive-self-improvement",
+        "capability-overhang",
+        "self-improve",
+        "dark-factory",
+        "jagged-frontier"
+      ],
+      "ev": "latest AI/tech trends — THEME 'Recursive self-improvement and the future of work: People are seriously debating the economics and human role once AI can improve itself'",
+      "src": "learned"
+    },
+    {
+      "id": "text-fragment",
+      "dom": "stack",
+      "label": "Text Fragments",
+      "def": "A web-platform URL directive (#:~:text=) that scrolls to and highlights a quoted passage on page load, stylable via the ::target-text pseudo-element.",
+      "rel": [
+        "semantic-html",
+        "deep-reading",
+        "progressive-enhancement"
+      ],
+      "ev": "commit 6145bb0 'self-improve: Phosphor-tint the search-engine text-fragment highlight'",
+      "src": "learned"
     }
   ]
 }
