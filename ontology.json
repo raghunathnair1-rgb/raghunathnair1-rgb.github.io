@@ -7517,6 +7517,21 @@
       ],
       "ev": "Trend theme 'Object-oriented graph databases are trending as the backbone for structured knowledge' plus the system's own brain/ontology.json knowledge graph maintained by ontology_learn.py/ontology_m",
       "src": "learned"
+    },
+    {
+      "id": "cloud-development-environment",
+      "dom": "infra",
+      "label": "Cloud Development Environment",
+      "def": "A remote, fully-provisioned, standardized coding workspace (devcontainers, Codespaces, throwaway VMs) that replaces the developer's local machine as the place where code and autonomous agents run, then is discarded after use.",
+      "rel": [
+        "ephemeral-environment",
+        "agent-sandboxing",
+        "microvm",
+        "workspace-confinement",
+        "disposable-software"
+      ],
+      "ev": "HN front-page trend theme 'Sandboxed coding agents' + Clawk ('gives coding agents a throwaway Linux VM so they never touch your real machine') + trend theme 'Building without heavy IDEs/toolchains'",
+      "src": "learned"
     }
   ]
 }
