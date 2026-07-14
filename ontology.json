@@ -7758,6 +7758,47 @@
       ],
       "ev": "trends theme 'Recursive AI self-improvement: active interest in the economics and dynamics of AI systems that improve themselves ... exactly the dark-factory thesis'",
       "src": "learned"
+    },
+    {
+      "id": "conventional-commits",
+      "dom": "sdlc",
+      "label": "Conventional Commits",
+      "def": "A structured commit-message convention (type/scope: description) that makes version history machine-parseable and changelog-ready.",
+      "rel": [
+        "sdlc-ship",
+        "trunk-based-development",
+        "structural-diff"
+      ],
+      "ev": "HN 'developer tooling and git ergonomics' theme + this system's own structured commit prefixes ('self-improve:', 'spark:') and the doctrine's honest-commit-message rule in principles.md",
+      "src": "learned"
+    },
+    {
+      "id": "frustum-culling",
+      "dom": "stack",
+      "label": "Frustum Culling",
+      "def": "A real-time rendering optimization that skips drawing geometry outside the camera's view volume to sustain high frame rates when a scene holds many objects.",
+      "rel": [
+        "webgl",
+        "level-of-detail",
+        "instanced-rendering",
+        "kg-viz"
+      ],
+      "ev": "HN 'live real-time visualization maps' theme (interactive live maps of tens of thousands of moving objects) + the site's live WebGL knowledge-graph brain",
+      "src": "learned"
+    },
+    {
+      "id": "mutation-testing",
+      "dom": "sdlc",
+      "label": "Mutation Testing",
+      "def": "A test-suite quality technique that injects small code faults (mutants) and measures how many the tests catch, exposing gaps that line coverage alone hides.",
+      "rel": [
+        "coverage",
+        "verification",
+        "evals",
+        "sdlc-verify"
+      ],
+      "ev": "doctrine's '100% coverage floor' verification layer in principles.md + the system's gen_coverage.py capability",
+      "src": "learned"
     }
   ]
 }

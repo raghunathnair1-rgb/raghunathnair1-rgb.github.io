@@ -144,6 +144,7 @@ html { scroll-behavior: smooth; }
 #content dt:first-child { margin-top: 0; }
 #content dd { margin: .15rem 0 .6rem 1.2rem; color: var(--muted); text-wrap: pretty; }
 #content dl { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--line); }
+#content dl > :last-child { margin-bottom: 0; }
 #content summary { cursor: pointer; color: var(--cyan); text-wrap: balance; transition: color .15s ease, text-shadow .15s ease; }
 #content summary:hover, #content summary:focus-visible { text-shadow: var(--glow); }
 #content summary:hover, #content summary:focus-visible { background: rgba(0,255,65,.05); border-radius: 4px; }
