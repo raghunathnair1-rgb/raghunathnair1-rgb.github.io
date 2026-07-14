@@ -7416,6 +7416,35 @@
       ],
       "ev": "HN front page (2026-07-14): Apple's on-device SpeechAnalyzer speech-to-text API benchmarked head-to-head against Whisper — an OS-provided model API vs. a bundled model.",
       "src": "learned"
+    },
+    {
+      "id": "takeoff-economics",
+      "dom": "factory",
+      "label": "Takeoff economics",
+      "def": "The economic modeling of recursive self-improvement — analyzing whether AI-driven R&D actually compounds into an intelligence explosion or is throttled by compute, data, and experiment-throughput bottlenecks.",
+      "rel": [
+        "recursive-self-improvement",
+        "intelligence-explosion",
+        "inference-economics",
+        "scaling-limits",
+        "self-improve"
+      ],
+      "ev": "latest AI/tech trend theme — a formal economics paper on recursive self-improvement reaching the HN front page, scrutinizing the exact self-improving-agent premise this site showcases.",
+      "src": "learned"
+    },
+    {
+      "id": "graph-database",
+      "dom": "stack",
+      "label": "Graph database",
+      "def": "A database whose native data model is nodes and edges with properties (a property/object graph), optimized for traversing richly connected data rather than joining flat relational tables.",
+      "rel": [
+        "graph-rag",
+        "ontology",
+        "kg-viz",
+        "storage-engine"
+      ],
+      "ev": "Latest-trends theme 'Graph databases and knowledge modeling: Object-oriented graph stores are resurging as a way to model richly connected data' (HN front page, 2026-07-14)",
+      "src": "learned"
     }
   ]
 }
