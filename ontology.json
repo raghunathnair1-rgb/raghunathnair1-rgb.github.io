@@ -7314,6 +7314,21 @@
       ],
       "ev": "HN front-page trend theme (2026-07-14): 'On-device / in-browser ML ... networks running in SQL'",
       "src": "learned"
+    },
+    {
+      "id": "workslop",
+      "dom": "agentic-ai",
+      "label": "Workslop",
+      "def": "AI-generated work output that looks polished and complete but offloads the real interpretive and verification effort onto the human recipient downstream.",
+      "rel": [
+        "ai-slop",
+        "reverse-centaur",
+        "verification-bottleneck",
+        "cognitive-offloading",
+        "appropriate-reliance"
+      ],
+      "ev": "latest AI/tech trends (HN front page, 2026-07-14): the 'future of work / what human labor remains' anxiety theme combined with the 'AI-written, human-reviewed code' theme where humans are left to gate",
+      "src": "learned"
     }
   ]
 }

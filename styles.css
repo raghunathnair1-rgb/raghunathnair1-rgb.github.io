@@ -173,6 +173,7 @@ html { scroll-behavior: smooth; }
 /* text selection uses the terminal palette, not OS blue (tracks the amber theme via --green) */
 ::selection { background: var(--green); color: var(--bg); text-shadow: none; }
 ::-moz-selection { background: var(--green); color: var(--bg); text-shadow: none; }
+#content ::target-text { background: var(--green); color: var(--bg); text-shadow: none; }
 input, textarea, [contenteditable] { caret-color: var(--cyan); }
 
 /* themed scrollbar so the last un-themed OS chrome tracks the phosphor palette (recolors with amber) */
