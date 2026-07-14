@@ -1,5 +1,21 @@
 [
  {
+  "title": "Claude Code sends 33k tokens before reading the prompt; OpenCode sends 7k",
+  "date": "2026-07-12",
+  "tag": "claude",
+  "summary": "Somebody actually instrumented the API boundary and found Claude Code ships ~33k tokens of system prompt, tool schemas, and instruction-file weight before your first character of intent lands — nearly 5x OpenCode's 7k — and that's the floor, before MCP servers bolt on their schema tax and every subagent multiplies the whole payload again. The saving grace is cache-write behavior: most of that bulk is static and gets cached, so you pay the read discount on turn two, not the full freight. Still, it reframes the MCP-everything reflex — each server you wire in is a fixed per-request tariff on cont",
+  "source": "systima.ai",
+  "url": "https://systima.ai/blog/claude-code-vs-opencode-token-overhead"
+ },
+ {
+  "title": "Show HN: Jacquard, a programming language for AI-written, human-reviewed code",
+  "date": "2026-07-13",
+  "tag": "agents",
+  "summary": "The clever bit isn't the syntax — it's the premise that the target reader is a human reviewer, not a compiler, so the language optimizes for legibility and local reasoning over authorial convenience: explicit effects, no clever implicit control flow, structure that makes a diff auditable at a glance. That's a real inversion, since most language ergonomics assume a human is doing the writing and can be trusted to remember context the machine can't. If models are going to author the bulk of your code, designing the substrate so a person can actually verify it in bounded time is a more honest bet",
+  "source": "github.com",
+  "url": "https://github.com/jbwinters/jacquard-lang"
+ },
+ {
   "title": "Show HN: Abralo – Free, easy way to run several Claude Code agents in one window",
   "date": "2026-07-08",
   "tag": "claude",
