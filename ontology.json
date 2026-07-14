@@ -6722,7 +6722,8 @@
       "def": "Installable capability packs that extend a coding agent (Claude Code) with department-specific skills — Developers, Designers, Marketing, Social, Finance, Small-business, Legal. Shipped as GitHub repos or claude.com/plugins and dropped into ~/.claude/skills or the plugin marketplace. Treat this as the catalogue the factory can shop from to gain a new capability without writing it.",
       "rel": [
         "tool-orch",
-        "agent"
+        "agent",
+        "agent-skills"
       ],
       "src": "curated",
       "ev": "user-provided catalogue, 2026-07-13"

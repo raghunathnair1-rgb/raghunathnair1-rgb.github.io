@@ -101,6 +101,8 @@ html { scroll-behavior: smooth; }
 #content a:visited { color: var(--muted); }
 /* light list markers in the terminal accent so each bullet reads like a lit prompt marker */
 #content li::marker { color: var(--cyan); }
+/* the footnote you jumped to lights its own marker phosphor-green (same already-lit/active convention as ::marker cyan / :active green), so the exact landed-on item is unmistakable */
+#content li:target::marker { color: var(--green); text-shadow: var(--glow); }
 /* second-level-and-deeper markers drop to dim phosphor so nesting depth reads at a glance (same secondary-green convention as <small>/<time>/<cite>/<aside>) */
 #content ul ul li::marker, #content ol ol li::marker { color: var(--muted); }
 /* tabular figures so auto-numbered ordered lists keep a flush marker column past double digits (mirrors essay <time> stamps) */
