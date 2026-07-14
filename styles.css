@@ -116,6 +116,7 @@ html { scroll-behavior: smooth; }
 #content em, #content i { font-style: italic; color: var(--green); }
 #content mark { background: var(--green); color: var(--bg); text-shadow: none; padding: 0 .2em; border-radius: 3px; box-shadow: var(--glow); }
 #content abbr[title] { text-decoration: underline dotted var(--muted); text-underline-offset: .2em; cursor: help; }
+#content abbr[title]:hover { text-decoration-color: var(--cyan); }
 #content kbd { font-family: inherit; font-size: .85em; color: var(--bg); background: var(--green); border: 1px solid var(--line); border-radius: 4px; padding: .05em .45em; box-shadow: 0 1px 0 var(--line); text-shadow: none; white-space: nowrap; }
 #content samp { font-family: inherit; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: .05em .4em; }
 #content small { color: var(--muted); }
