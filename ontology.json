@@ -7167,7 +7167,8 @@
         "cpu-inference",
         "platform-native-inference",
         "model-offloading",
-        "vllm"
+        "vllm",
+        "knowledge-distillation"
       ],
       "ev": "Trend theme 'On-device / local AI vs cloud' with Apple SpeechAnalyzer running a native on-device speech/ML model instead of a cloud API; this system already runs local vLLM inference on GB10 nodes.",
       "src": "learned"
@@ -7213,6 +7214,75 @@
         "in-browser-inference"
       ],
       "ev": "HN trend: on-device speech-to-text (Apple SpeechAnalyzer) benchmarked against Whisper — SpeechAnalyzer's defining property vs batch Whisper is streaming/real-time incremental transcription.",
+      "src": "learned"
+    },
+    {
+      "id": "word-error-rate",
+      "dom": "agentic-ai",
+      "label": "Word Error Rate (WER)",
+      "def": "The standard edit-distance metric for scoring automatic speech recognition by counting insertions, deletions, and substitutions against a reference transcript.",
+      "rel": [
+        "on-device-speech-recognition",
+        "streaming-asr",
+        "evals",
+        "model-arena",
+        "cost-aware-eval"
+      ],
+      "ev": "Latest-trends theme 'On-device speech & audio AI': Apple SpeechAnalyzer, a native on-device speech-to-text API, benchmarked head-to-head with Whisper — WER is the canonical metric for exactly such ASR",
+      "src": "learned"
+    },
+    {
+      "id": "speaker-diarization",
+      "dom": "agentic-ai",
+      "label": "Speaker Diarization",
+      "def": "The speech-processing task of partitioning an audio stream into segments labeled by who is speaking (the 'who spoke when' problem).",
+      "rel": [
+        "on-device-speech-recognition",
+        "streaming-asr",
+        "web-audio-api"
+      ],
+      "ev": "Latest-trends theme 'On-device speech & audio AI' — local, benchmarked audio/speech models (Apple SpeechAnalyzer vs Whisper); diarization is a core companion task in that on-device speech stack.",
+      "src": "learned"
+    },
+    {
+      "id": "procedural-generation",
+      "dom": "stack",
+      "label": "Procedural Generation",
+      "def": "Algorithmically synthesizing content such as terrain, voxel worlds, or geometry from seeds and rules rather than authoring it by hand.",
+      "rel": [
+        "voxel-rendering",
+        "generative-world-sim",
+        "webgl",
+        "webgpu"
+      ],
+      "ev": "Latest-trends theme 'In-browser interactive 3D/voxel worlds' — explorable spatial voxel experiences running live in the browser, which are typically built with procedural world generation.",
+      "src": "learned"
+    },
+    {
+      "id": "voice-user-interface",
+      "dom": "stack",
+      "label": "Voice user interface",
+      "def": "An interaction paradigm where users drive software primarily through spoken input and audio output rather than typing or pointing.",
+      "rel": [
+        "on-device-speech-recognition",
+        "streaming-asr",
+        "mixed-initiative-interaction",
+        "computer-use"
+      ],
+      "ev": "latest AI/tech trends: 'On-device speech & audio AI' is the top HN story — Apple SpeechAnalyzer, a native on-device speech-to-text API benchmarked head-to-head with Whisper (updated 2026-07-14), signa",
+      "src": "learned"
+    },
+    {
+      "id": "keyword-spotting",
+      "dom": "infra",
+      "label": "Keyword spotting",
+      "def": "An always-on, low-power on-device audio technique that continuously listens for a small set of trigger words (e.g. a wake word) before invoking heavier speech recognition.",
+      "rel": [
+        "on-device-speech-recognition",
+        "small-language-model",
+        "cpu-inference"
+      ],
+      "ev": "latest AI/tech trends: the 'On-device speech & audio AI' theme (Apple SpeechAnalyzer, native local audio models benchmarked vs Whisper, HN front page 2026-07-14) — the shift to local, always-listening",
       "src": "learned"
     }
   ]
