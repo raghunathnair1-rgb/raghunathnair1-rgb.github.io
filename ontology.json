@@ -7284,6 +7284,36 @@
       ],
       "ev": "latest AI/tech trends: the 'On-device speech & audio AI' theme (Apple SpeechAnalyzer, native local audio models benchmarked vs Whisper, HN front page 2026-07-14) — the shift to local, always-listening",
       "src": "learned"
+    },
+    {
+      "id": "recursive-self-improvement",
+      "dom": "agentic-ai",
+      "label": "Recursive Self-Improvement",
+      "def": "The paradigm in which an AI system iteratively improves its own capabilities or harness across cycles, now being modeled with formal economics rather than treated as science fiction.",
+      "rel": [
+        "self-improve",
+        "recursive-loop",
+        "capability-overhang",
+        "inference-economics",
+        "dark-factory"
+      ],
+      "ev": "Latest AI/tech trend theme: 'Recursive self-improvement as a serious economic topic: Self-improving AI has moved from sci-fi to being modeled with formal economics.' — mirrors this system's doctrine '",
+      "src": "learned"
+    },
+    {
+      "id": "in-database-ml",
+      "dom": "infra",
+      "label": "In-Database ML",
+      "def": "Running machine-learning inference directly inside a database engine (e.g. executing neural networks as SQL queries) so models run next to the data instead of in a separate serving process.",
+      "rel": [
+        "in-browser-inference",
+        "embedded-db",
+        "text-to-sql",
+        "local-first",
+        "vectorized-execution"
+      ],
+      "ev": "HN front-page trend theme (2026-07-14): 'On-device / in-browser ML ... networks running in SQL'",
+      "src": "learned"
     }
   ]
 }
