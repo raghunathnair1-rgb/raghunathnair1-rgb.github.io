@@ -7828,6 +7828,33 @@
       ],
       "ev": "HN trend 2026-07-14: builders wiring multiple LLMs into voting juries to produce and verify structured data instead of trusting one model.",
       "src": "learned"
+    },
+    {
+      "id": "orthogonal-persistence",
+      "dom": "stack",
+      "label": "Orthogonal persistence",
+      "def": "A storage paradigm where in-memory object graphs are persisted transparently regardless of their type or lifetime, so code manipulates durable structured data without explicit serialization or query boundaries.",
+      "rel": [
+        "object-database",
+        "graph-database",
+        "storage-engine"
+      ],
+      "ev": "Trend theme: 'Object-oriented graph storage is trending, aligning with structured knowledge-graph representations of a system's brain' — the classic paradigm underpinning object/graph stores.",
+      "src": "learned"
+    },
+    {
+      "id": "operational-transparency",
+      "dom": "factory",
+      "label": "Operational transparency",
+      "def": "The design practice of deliberately exposing a system's internal process to observers, which raises trust and perceived value even when the underlying work is unchanged.",
+      "rel": [
+        "pipeline-viz",
+        "brain-hud",
+        "observability",
+        "ambient-display"
+      ],
+      "ev": "Trend: 'Real-time maps and personal-data globes are drawing huge attention as a way to make invisible systems tangible' — mirrored by this system's own pipeline-viz and spark telemetry surfacing its i",
+      "src": "learned"
     }
   ]
 }
