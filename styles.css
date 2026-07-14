@@ -78,6 +78,7 @@ html { scroll-behavior: smooth; }
 #content { overflow-wrap: break-word; }
 /* keep embedded figures/diagrams fluid so a wide image can't force horizontal scroll either */
 #content img { max-width: 100%; height: auto; }
+#content figure img { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
 #content svg, #content video { max-width: 100%; height: auto; }
 #content audio { max-width: 100%; }
 #content figcaption { margin-top: .4rem; text-align: center; font-size: .85rem; font-style: italic; color: var(--muted); text-wrap: balance; }
