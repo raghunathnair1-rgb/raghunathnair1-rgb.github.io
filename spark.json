@@ -1,28 +1,28 @@
 {
- "captured": "2026-07-14T19:30:06Z",
+ "captured": "2026-07-14T20:00:04Z",
  "reachable": true,
  "nodes": [
   {
    "host": "spark-1",
    "role": "node 1",
    "reachable": true,
-   "load": "0.21 0.24 0.26",
+   "load": "0.20 0.19 0.18",
    "gpus": [
     {
      "name": "NVIDIA GB10",
      "util": 0,
-     "temp": 50,
+     "temp": 49,
      "power": 10
     }
    ],
-   "mem_used_mb": 105381,
+   "mem_used_mb": 105412,
    "mem_total_mb": 124610
   },
   {
    "host": "spark-2",
    "role": "node 2",
    "reachable": true,
-   "load": "0.07 0.18 0.14",
+   "load": "0.11 0.13 0.14",
    "gpus": [
     {
      "name": "NVIDIA GB10",
