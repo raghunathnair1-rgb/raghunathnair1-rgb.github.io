@@ -7532,6 +7532,160 @@
       ],
       "ev": "HN front-page trend theme 'Sandboxed coding agents' + Clawk ('gives coding agents a throwaway Linux VM so they never touch your real machine') + trend theme 'Building without heavy IDEs/toolchains'",
       "src": "learned"
+    },
+    {
+      "id": "index-free-adjacency",
+      "dom": "stack",
+      "label": "Index-Free Adjacency",
+      "def": "The native graph-database storage technique where each node holds direct physical references to its neighbours, so traversals follow pointers in constant time instead of computing repeated index lookups or joins.",
+      "rel": [
+        "graph-database",
+        "property-graph",
+        "storage-engine",
+        "join-algorithms"
+      ],
+      "ev": "latest AI/tech trend theme 'Graph / object databases: General-purpose graph databases for connected data are drawing front-page attention' — index-free adjacency is the defining storage technique that",
+      "src": "learned"
+    },
+    {
+      "id": "multi-model-database",
+      "dom": "stack",
+      "label": "Multi-model database",
+      "def": "A database that stores and queries data under several data models (graph, document, object, key-value) through a single engine and query layer.",
+      "rel": [
+        "graph-database",
+        "object-database",
+        "property-graph",
+        "storage-engine"
+      ],
+      "ev": "Hacker News NOTABLE (2026-07-14): YouTrackDB, an object-oriented graph database for general-purpose connected-data workloads — an engine spanning object+graph models",
+      "src": "learned"
+    },
+    {
+      "id": "llm-jury",
+      "dom": "agentic-ai",
+      "label": "LLM jury",
+      "def": "Aggregating verdicts from a panel of several diverse LLM evaluators instead of a single judge, to label data and score outputs more reliably and at lower cost.",
+      "rel": [
+        "llm-as-judge",
+        "evals",
+        "multi-agent-debate",
+        "self-consistency"
+      ],
+      "ev": "latest AI/tech trends theme 'LLMs as evaluators and juries': 'Using panels of LLMs to judge and label data is emerging as a practical building pattern.'",
+      "src": "learned"
+    },
+    {
+      "id": "weak-supervision",
+      "dom": "agentic-ai",
+      "label": "Weak supervision",
+      "def": "Training or evaluating models on large volumes of cheap, noisy labels — increasingly produced by panels of LLMs labeling data — instead of costly hand-annotation.",
+      "rel": [
+        "llm-jury",
+        "llm-as-judge",
+        "knowledge-distillation",
+        "evals",
+        "rlhf"
+      ],
+      "ev": "Latest-trends theme 'LLMs as evaluators and juries': using panels of LLMs to judge and label data is emerging as a practical building pattern.",
+      "src": "learned"
+    },
+    {
+      "id": "knowledge-graph-embedding",
+      "dom": "agentic-ai",
+      "label": "Knowledge-graph embedding",
+      "def": "Encoding a knowledge graph's entities and relations as dense vectors so connected concepts can be retrieved and reasoned over by similarity rather than exact traversal.",
+      "rel": [
+        "ontology",
+        "graph-rag",
+        "vector-embedding",
+        "retrieval"
+      ],
+      "ev": "2026-07-14 HN trend theme 'Graph databases & knowledge graphs' (YouTrackDB object-oriented graph DB) intersected with this system's own JSON knowledge-graph ontology (brain/ontology.json).",
+      "src": "learned"
+    },
+    {
+      "id": "llm-as-annotator",
+      "dom": "agentic-ai",
+      "label": "LLM-as-annotator",
+      "def": "Using an LLM, or a panel of them, to label, tag, and annotate datasets in place of human annotators as a scalable data-preparation pattern.",
+      "rel": [
+        "llm-jury",
+        "weak-supervision",
+        "llm-as-judge"
+      ],
+      "ev": "2026-07-14 HN trend theme 'LLMs as evaluators and juries... to judge and label data is emerging as a practical building pattern'.",
+      "src": "learned"
+    },
+    {
+      "id": "trunk-based-development",
+      "dom": "sdlc",
+      "label": "Trunk-based development",
+      "def": "Integrating small changes continuously into a single main branch instead of long-lived feature branches, keeping the trunk always releasable.",
+      "rel": [
+        "ci",
+        "small-batch-delivery",
+        "revert",
+        "sdlc-ship"
+      ],
+      "ev": "HN trend theme 'Developer tooling & lightweight build/version workflows' plus this system's recursive loop committing small self-improve changes straight to main with auto-revert (recent commits; self",
+      "src": "learned"
+    },
+    {
+      "id": "community-detection",
+      "dom": "agentic-ai",
+      "label": "Graph community detection",
+      "def": "Unsupervised graph algorithms such as Louvain or Leiden that partition a network into densely connected clusters, used to summarize knowledge graphs into hierarchical communities for retrieval.",
+      "rel": [
+        "graph-rag",
+        "kg-viz",
+        "ontology",
+        "knowledge-graph-embedding",
+        "force-directed-layout"
+      ],
+      "ev": "Latest trend theme 'Graph databases & knowledge graphs'; grounds directly in this system's ontology.json knowledge graph rendered by kg-viz and the existing graph-rag concept (GraphRAG builds communit",
+      "src": "learned"
+    },
+    {
+      "id": "ephemeris-computation",
+      "dom": "stack",
+      "label": "Ephemeris computation",
+      "def": "Computing the time-varying positions of celestial and orbital bodies (sun, satellites) from orbital elements or almanac models to drive maps and time-of-day feeds.",
+      "rel": [
+        "geospatial-viz",
+        "virtual-globe",
+        "build-time-data-fetching"
+      ],
+      "ev": "The system's real gen_sun.py solar-position feed, plus the trend NOTABLE 'Satellite Tracker' plotting Starlink orbits on a live WebGL map — both compute body positions over time.",
+      "src": "learned"
+    },
+    {
+      "id": "instanced-rendering",
+      "dom": "stack",
+      "label": "Instanced Rendering",
+      "def": "A GPU technique that draws thousands of copies of one mesh in a single draw call by streaming per-instance attributes, keeping large node/entity scenes performant.",
+      "rel": [
+        "webgl",
+        "kg-viz",
+        "geospatial-viz",
+        "level-of-detail"
+      ],
+      "ev": "HN trend 'live real-time visualization maps of tens of thousands of moving objects' + the site's live WebGL knowledge-graph brain (kg-viz)",
+      "src": "learned"
+    },
+    {
+      "id": "spatial-index",
+      "dom": "stack",
+      "label": "Spatial Index",
+      "def": "A tree structure (quadtree, R-tree, k-d tree) that partitions space so nearby objects can be located without scanning them all, powering both live-map queries and Barnes-Hut force layouts.",
+      "rel": [
+        "geospatial-viz",
+        "force-directed-layout",
+        "b-tree",
+        "virtual-globe"
+      ],
+      "ev": "HN trend of interactive live maps of tens of thousands of moving objects + the site's force-directed WebGL brain",
+      "src": "learned"
     }
   ]
 }
