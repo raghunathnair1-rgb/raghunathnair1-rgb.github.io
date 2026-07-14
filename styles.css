@@ -141,7 +141,7 @@ html { scroll-behavior: smooth; }
 #content dt { color: var(--green); font-weight: 700; margin-top: .6rem; text-wrap: balance; }
 #content dd { margin: .15rem 0 .6rem 1.2rem; color: var(--muted); text-wrap: pretty; }
 #content dl { margin: 1.4rem 0; padding: .4rem 0 .4rem 1rem; border-left: 2px solid var(--line); }
-#content summary { cursor: pointer; color: var(--cyan); }
+#content summary { cursor: pointer; color: var(--cyan); text-wrap: balance; }
 #content summary:hover, #content summary:focus-visible { text-shadow: var(--glow); }
 #content summary:hover, #content summary:focus-visible { background: rgba(0,255,65,.05); border-radius: 4px; }
 #content summary:active { color: var(--green); text-shadow: var(--glow); }

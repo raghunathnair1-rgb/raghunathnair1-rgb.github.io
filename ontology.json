@@ -7201,6 +7201,19 @@
       ],
       "ev": "HN trend theme: 'Lightweight client-side apps that turn media into structured data are resonating without any server round-trip', alongside the on-device transcription (Apple SpeechAnalyzer) shift; gr",
       "src": "learned"
+    },
+    {
+      "id": "streaming-asr",
+      "dom": "infra",
+      "label": "Streaming ASR",
+      "def": "Automatic speech recognition that transcribes audio incrementally in real time, emitting partial and revisable (volatile) hypotheses before the utterance ends rather than decoding a completed clip in one batch pass.",
+      "rel": [
+        "on-device-speech-recognition",
+        "time-to-first-token",
+        "in-browser-inference"
+      ],
+      "ev": "HN trend: on-device speech-to-text (Apple SpeechAnalyzer) benchmarked against Whisper — SpeechAnalyzer's defining property vs batch Whisper is streaming/real-time incremental transcription.",
+      "src": "learned"
     }
   ]
 }
