@@ -7686,6 +7686,78 @@
       ],
       "ev": "HN trend of interactive live maps of tens of thousands of moving objects + the site's force-directed WebGL brain",
       "src": "learned"
+    },
+    {
+      "id": "structural-diff",
+      "dom": "sdlc",
+      "label": "Structural diff",
+      "def": "A diff that compares parsed syntax trees rather than text lines, reporting changes by code structure so review and verification read more legibly.",
+      "rel": [
+        "ai-review",
+        "code-intelligence",
+        "sdlc-verify",
+        "code-property-graph"
+      ],
+      "ev": "Trends theme 'Developer tooling and git ergonomics: Sharper, more legible git and build tooling keeps drawing the top of the page.'",
+      "src": "learned"
+    },
+    {
+      "id": "stacked-diffs",
+      "dom": "sdlc",
+      "label": "Stacked diffs",
+      "def": "A workflow of chaining small, dependent changes as separately reviewable commits so each ships and reverts independently instead of in one large branch.",
+      "rel": [
+        "trunk-based-development",
+        "small-batch-delivery",
+        "sdlc-ship",
+        "revert"
+      ],
+      "ev": "Trends theme 'Developer tooling and git ergonomics: Sharper, more legible git and build tooling keeps drawing the top of the page.'",
+      "src": "learned"
+    },
+    {
+      "id": "merge-queue",
+      "dom": "sdlc",
+      "label": "Merge queue",
+      "def": "A serialized gate that rebases each change on the latest trunk, runs the full CI suite, and only then lands it — auto-rejecting or reverting any change that fails.",
+      "rel": [
+        "gate",
+        "ci-as-oracle",
+        "trunk-based-development",
+        "revert",
+        "small-batch-delivery"
+      ],
+      "ev": "doctrine principles.md SHIP/VERIFY/OBSERVE flow ('atomic, reversible, through the FULL gate' + CI as source of truth + auto-revert on red) combined with the trends 'Developer tooling and git ergonomic",
+      "src": "learned"
+    },
+    {
+      "id": "tree-sitter",
+      "dom": "stack",
+      "label": "Incremental parser (Tree-sitter)",
+      "def": "An error-tolerant incremental parsing library that builds concrete syntax trees fast enough to re-parse on every keystroke, underpinning structural diffs, code intelligence, and legible tooling.",
+      "rel": [
+        "code-intelligence",
+        "code-property-graph",
+        "structural-diff",
+        "software-cartography"
+      ],
+      "ev": "trends theme 'Developer tooling and git ergonomics: Sharper, more legible git and build tooling'",
+      "src": "learned"
+    },
+    {
+      "id": "compute-overhang",
+      "dom": "agentic-ai",
+      "label": "Compute overhang",
+      "def": "The condition in which available hardware compute far exceeds what current algorithms exploit, so an algorithmic or harness breakthrough can unlock a sudden, discontinuous capability jump.",
+      "rel": [
+        "capability-overhang",
+        "takeoff-economics",
+        "recursive-self-improvement",
+        "scaling-laws",
+        "inference-economics"
+      ],
+      "ev": "trends theme 'Recursive AI self-improvement: active interest in the economics and dynamics of AI systems that improve themselves ... exactly the dark-factory thesis'",
+      "src": "learned"
     }
   ]
 }
