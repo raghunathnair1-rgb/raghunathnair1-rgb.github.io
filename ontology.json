@@ -7096,6 +7096,33 @@
       ],
       "ev": "Trend theme 'Interactive 3D / spatial web experiences: immersive real-time voxel and isometric web worlds dominating the front page' plus the existing WebGL/WASM front-end stack (yew/trunk); WebGPU is",
       "src": "learned"
+    },
+    {
+      "id": "embodied-agent",
+      "dom": "agentic-ai",
+      "label": "Embodied agents",
+      "def": "AI agents that act through physical or playful embodiments (toys, whimsical hardware, robots) rather than only a text chatbox interface.",
+      "rel": [
+        "agent",
+        "computer-use",
+        "agent-native-application"
+      ],
+      "ev": "Latest AI/tech trends theme: 'Playful, embodied AI agents: Agent frameworks are escaping the chatbox into toys and whimsical hardware, showing agents as a mainstream primitive.'",
+      "src": "learned"
+    },
+    {
+      "id": "rust-rewrite",
+      "dom": "stack",
+      "label": "Rust rewrite (RIIR)",
+      "def": "The recurring practice of reimplementing foundational systems software in idiomatic Rust to gain memory safety and correctness guarantees the original language could not enforce.",
+      "rel": [
+        "rust",
+        "memory-safety",
+        "legacy-modernization",
+        "borrow-checker"
+      ],
+      "ev": "Latest AI/tech trends theme: 'Rust rewrites of foundational systems: Reimplementing classic systems in idiomatic Rust remains a top signal of the language's pull for correctness and safety.'",
+      "src": "learned"
     }
   ]
 }
