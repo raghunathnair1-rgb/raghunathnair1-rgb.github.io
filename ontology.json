@@ -7171,6 +7171,36 @@
       ],
       "ev": "Trend theme 'On-device / local AI vs cloud' with Apple SpeechAnalyzer running a native on-device speech/ML model instead of a cloud API; this system already runs local vLLM inference on GB10 nodes.",
       "src": "learned"
+    },
+    {
+      "id": "web-audio-api",
+      "dom": "stack",
+      "label": "Web Audio API",
+      "def": "A stable W3C browser standard for real-time audio synthesis, processing, and analysis entirely client-side, enabling media-to-structured-data tools with no server round-trip.",
+      "rel": [
+        "generative-media",
+        "buildless-web",
+        "webgpu",
+        "single-file-app",
+        "local-first"
+      ],
+      "ev": "trend theme 'In-browser creative/audio tools: Lightweight client-side apps that turn media into structured data' resonating with no server round-trip; fits the same web-platform tier as existing webgl",
+      "src": "learned"
+    },
+    {
+      "id": "in-browser-inference",
+      "dom": "infra",
+      "label": "In-browser inference",
+      "def": "Running ML models entirely client-side in the browser via WebAssembly/WebGPU, turning media into structured data with no server round-trip.",
+      "rel": [
+        "webgpu",
+        "wasm",
+        "local-first",
+        "on-device-speech-recognition",
+        "web-audio-api"
+      ],
+      "ev": "HN trend theme: 'Lightweight client-side apps that turn media into structured data are resonating without any server round-trip', alongside the on-device transcription (Apple SpeechAnalyzer) shift; gr",
+      "src": "learned"
     }
   ]
 }
