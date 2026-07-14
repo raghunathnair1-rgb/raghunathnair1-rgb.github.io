@@ -7799,6 +7799,35 @@
       ],
       "ev": "doctrine's '100% coverage floor' verification layer in principles.md + the system's gen_coverage.py capability",
       "src": "learned"
+    },
+    {
+      "id": "gpu-particle-system",
+      "dom": "stack",
+      "label": "GPU particle system",
+      "def": "A rendering technique that advances and draws tens of thousands of independently-moving points or sprites entirely on the GPU, holding large animated entity sets at interactive frame rates in the browser.",
+      "rel": [
+        "webgl",
+        "instanced-rendering",
+        "virtual-globe",
+        "level-of-detail"
+      ],
+      "ev": "HN front page 2026-07-14: Show HN satellite tracker rendering 30k+ Starlink/other satellites live in-browser; this system already ships WebGL visualizations (kg-viz, geospatial-viz, instanced-renderin",
+      "src": "learned"
+    },
+    {
+      "id": "generation-verification-gap",
+      "dom": "agentic-ai",
+      "label": "Generation-verification gap",
+      "def": "The asymmetry that checking a candidate answer is often cheaper and more reliable than producing it, which is why sample-and-verify and multi-model jury pipelines outperform trusting a single generator.",
+      "rel": [
+        "llm-jury",
+        "best-of-n-sampling",
+        "verification-bottleneck",
+        "self-consistency",
+        "structured-output"
+      ],
+      "ev": "HN trend 2026-07-14: builders wiring multiple LLMs into voting juries to produce and verify structured data instead of trusting one model.",
+      "src": "learned"
     }
   ]
 }
