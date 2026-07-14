@@ -7445,6 +7445,34 @@
       ],
       "ev": "Latest-trends theme 'Graph databases and knowledge modeling: Object-oriented graph stores are resurging as a way to model richly connected data' (HN front page, 2026-07-14)",
       "src": "learned"
+    },
+    {
+      "id": "object-database",
+      "dom": "stack",
+      "label": "Object database",
+      "def": "A datastore that persists interconnected in-memory objects by identity with transparent navigation between them, rather than decomposing them into relational rows or explicit edge tables.",
+      "rel": [
+        "graph-database",
+        "storage-engine",
+        "ontology",
+        "embedded-db"
+      ],
+      "ev": "latest AI/tech trends theme: 'Graph databases and knowledge modeling — Object-oriented graph stores are resurging as a way to model richly connected data.'",
+      "src": "learned"
+    },
+    {
+      "id": "tinyml",
+      "dom": "infra",
+      "label": "TinyML / embedded inference",
+      "def": "The practice of running machine-learning models on microcontrollers and other resource-constrained embedded substrates rather than on servers or cloud GPUs.",
+      "rel": [
+        "small-language-model",
+        "cpu-inference",
+        "on-device-speech-recognition",
+        "model-offloading"
+      ],
+      "ev": "Latest AI/tech trends theme 'On-device / embedded ML: Momentum is toward running models locally and in unexpected substrates rather than always calling the cloud.'",
+      "src": "learned"
     }
   ]
 }
