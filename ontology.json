@@ -7473,6 +7473,50 @@
       ],
       "ev": "Latest AI/tech trends theme 'On-device / embedded ML: Momentum is toward running models locally and in unexpected substrates rather than always calling the cloud.'",
       "src": "learned"
+    },
+    {
+      "id": "graph-query-language",
+      "dom": "stack",
+      "label": "Graph query language",
+      "def": "A declarative language for matching and traversing patterns over a property graph (e.g. the ISO GQL standard and Cypher), serving as the graph analogue of SQL.",
+      "rel": [
+        "graph-database",
+        "text-to-sql",
+        "query-planner",
+        "graph-rag"
+      ],
+      "ev": "Latest-trends theme (HN front page 2026-07-14) on graph databases as the backbone for structured knowledge; complements the existing SQL-serving cluster (typed-sql, text-to-sql, query-planner).",
+      "src": "learned"
+    },
+    {
+      "id": "property-graph",
+      "dom": "stack",
+      "label": "Property graph model",
+      "def": "A graph data model in which both nodes and edges carry typed labels and arbitrary key/value properties, distinct from the storage engine itself, and the shape trending object-oriented graph databases and this system's ontology store both adopt.",
+      "rel": [
+        "graph-database",
+        "object-database",
+        "ontology",
+        "kg-viz",
+        "graph-query-language"
+      ],
+      "ev": "Trend theme (2026-07-14 HN front page): object-oriented graph databases trending as the backbone for structured knowledge, mirroring the site's knowledge graph; the system stores its ontology as a lab",
+      "src": "learned"
+    },
+    {
+      "id": "triplestore",
+      "dom": "stack",
+      "label": "Triplestore (RDF)",
+      "def": "A database that stores knowledge as subject-predicate-object triples under the RDF model and queries them with SPARQL, a graph paradigm distinct from the labeled-property-graph model.",
+      "rel": [
+        "graph-database",
+        "property-graph",
+        "object-database",
+        "ontology",
+        "graph-query-language"
+      ],
+      "ev": "Trend theme 'Object-oriented graph databases are trending as the backbone for structured knowledge' plus the system's own brain/ontology.json knowledge graph maintained by ontology_learn.py/ontology_m",
+      "src": "learned"
     }
   ]
 }
