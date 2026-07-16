@@ -8913,6 +8913,76 @@
       ],
       "ev": "Trend theme 'Open-weights AI models' plus the open-weight ecosystem's established mergekit-style merging technology; deepens the open-weights cluster (open-weights, PEFT, model-hub).",
       "src": "learned"
+    },
+    {
+      "id": "frontier-model",
+      "dom": "agentic-ai",
+      "label": "Frontier model",
+      "def": "The class of most-capable general-purpose AI models at the current edge of capability — the tier that AI safety and regulation single out as 'frontier AI'.",
+      "rel": [
+        "foundation-model",
+        "capability-overhang",
+        "scaling-laws",
+        "open-weights"
+      ],
+      "ev": "Latest-trends evidence: newly released open-weight model launches ('Inkling') topping the HN front page plus 'Gemini Pro 3 HN forecast' — the leading-capability model tier as a distinct category from ",
+      "src": "learned"
+    },
+    {
+      "id": "capability-density",
+      "dom": "infra",
+      "label": "Capability density",
+      "def": "The empirical trend (the 'densing law') that the capability achievable per model parameter roughly doubles over time, so ever-smaller models match older large ones and become runnable on commodity, GPU-less hardware.",
+      "rel": [
+        "scaling-laws",
+        "small-language-model",
+        "cpu-inference",
+        "capability-cost-frontier"
+      ],
+      "ev": "Trend theme 'Running big LLMs on modest/local hardware' + Notable: 'Gemma 4 26B (local): running a 26B model on a decade-old CPU with no GPU'.",
+      "src": "learned"
+    },
+    {
+      "id": "social-simulacra",
+      "dom": "agentic-ai",
+      "label": "Social simulacra",
+      "def": "Using a population of LLM-driven generative agents to simulate and forecast how a human community would behave, letting designers prototype a social system before real users arrive.",
+      "rel": [
+        "generative-world-sim",
+        "multi-agent",
+        "world-model"
+      ],
+      "ev": "Trend Notable: 'Gemini Pro 3 HN forecast: a viral Show HN using a model to imagine HN's future' — generative-agent simulation of an online community.",
+      "src": "learned"
+    },
+    {
+      "id": "terminal-user-interface",
+      "dom": "stack",
+      "label": "Terminal UI (TUI)",
+      "def": "An interactive, full-screen application rendered with text and terminal control sequences inside a shell, distinct from a single-shot CLI command.",
+      "rel": [
+        "agentic-cli",
+        "cli-ergonomics",
+        "terminal-aesthetic",
+        "unix-philosophy"
+      ],
+      "ev": "HN trend theme (2026-07-16): 'CLI and terminal craft — command-line design and terminal experiences keep drawing sustained attention.'",
+      "src": "learned"
+    },
+    {
+      "id": "atomic-reference-counting",
+      "dom": "stack",
+      "label": "Atomic reference counting",
+      "def": "Thread-safe shared ownership of heap data through an atomically counted smart pointer (Rust's Arc), which frees the value when its last owner is dropped.",
+      "rel": [
+        "send-sync-traits",
+        "raii",
+        "fearless-concurrency",
+        "interior-mutability",
+        "memory-safety"
+      ],
+      "ev": "HN trend theme (2026-07-16): 'Rust and systems-language concurrency — Rust idioms and the pitfalls of async concurrency'; grounded in this system's Rust/Yew stack.",
+      "src": "learned"
     }
   ]
 }
