@@ -8587,6 +8587,157 @@
       ],
       "ev": "Latest-trends theme 'Rust and systems-language ergonomics: Rust's design patterns and concurrency model are shaping how other tools evolve' (2026-07-16 HN front page)",
       "src": "learned"
+    },
+    {
+      "id": "narrative-visualization",
+      "dom": "stack",
+      "label": "Narrative Visualization",
+      "def": "Author-driven data storytelling that walks a viewer through data along a guided narrative structure while still permitting interactive drill-down, distinct from reader-driven explorable models.",
+      "rel": [
+        "explorable-explanations",
+        "quantified-self",
+        "geospatial-viz",
+        "pipeline-viz",
+        "kg-viz"
+      ],
+      "ev": "Trend theme 'Interactive personal-data showcases: the highest-voted Show HNs are people turning their own data into explorable interactive visuals', plus this system's own viz surfaces (gen_activity.p",
+      "src": "learned"
+    },
+    {
+      "id": "deadlock",
+      "dom": "stack",
+      "label": "Deadlock",
+      "def": "A concurrency pitfall where tasks each hold a resource the other needs and none can proceed, a recurring hazard when composing async futures and shared locks.",
+      "rel": [
+        "async-runtime",
+        "executor-starvation",
+        "lock-free-programming",
+        "cooperative-scheduling"
+      ],
+      "ev": "Trend theme 'Rust and the hard edges of systems concurrency: Rust's model and async concurrency pitfalls are a recurring engineering discussion', grounded in this system's Rust/wasm stack.",
+      "src": "learned"
+    },
+    {
+      "id": "false-sharing",
+      "dom": "stack",
+      "label": "False sharing",
+      "def": "A concurrency performance pathology where logically independent variables land on the same CPU cache line, so writes from different cores trigger needless cache-coherence invalidations that serialize otherwise-parallel work.",
+      "rel": [
+        "memory-ordering",
+        "lock-free-programming",
+        "thread-per-core",
+        "memory-bandwidth-bound"
+      ],
+      "ev": "HN front-page theme 'Rust and the hard edges of systems concurrency: Rust's model and async concurrency pitfalls are a recurring engineering discussion'",
+      "src": "learned"
+    },
+    {
+      "id": "aba-problem",
+      "dom": "stack",
+      "label": "ABA problem",
+      "def": "A correctness hazard in lock-free algorithms where a location read as value A is changed to B and back to A, so a compare-and-swap wrongly succeeds even though the underlying state changed in between.",
+      "rel": [
+        "lock-free-programming",
+        "memory-ordering"
+      ],
+      "ev": "HN front-page theme 'Rust and the hard edges of systems concurrency' (systems concurrency pitfalls)",
+      "src": "learned"
+    },
+    {
+      "id": "livelock",
+      "dom": "stack",
+      "label": "Livelock",
+      "def": "A concurrency failure in which threads stay active and keep changing state in response to one another yet make no forward progress, unlike a deadlock where they block outright.",
+      "rel": [
+        "deadlock",
+        "aba-problem",
+        "lock-free-programming"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust and the hard edges of systems concurrency' — recurring async/concurrency-pitfall discussion on the HN front page",
+      "src": "learned"
+    },
+    {
+      "id": "priority-inversion",
+      "dom": "stack",
+      "label": "Priority inversion",
+      "def": "A scheduling hazard where a high-priority task is indefinitely delayed because a lower-priority task holds a resource it needs, often worsened when a medium-priority task preempts the holder.",
+      "rel": [
+        "deadlock",
+        "executor-starvation",
+        "work-stealing-scheduler"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust and the hard edges of systems concurrency' — async runtime scheduling pitfalls",
+      "src": "learned"
+    },
+    {
+      "id": "lock-convoy",
+      "dom": "stack",
+      "label": "Lock convoy",
+      "def": "A performance collapse in which many threads repeatedly contend for one lock, each waking and re-blocking in lockstep so throughput degrades toward serial execution.",
+      "rel": [
+        "deadlock",
+        "false-sharing",
+        "lock-free-programming",
+        "connection-pooling"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust and the hard edges of systems concurrency' — lock contention pitfalls in systems code",
+      "src": "learned"
+    },
+    {
+      "id": "safe-memory-reclamation",
+      "dom": "stack",
+      "label": "Safe memory reclamation",
+      "def": "The concurrency problem of deciding when it is safe to free a node in a lock-free data structure, solved by deferral schemes such as hazard pointers, epoch-based reclamation and RCU that reclaim memory only once no thread can still hold a reference.",
+      "rel": [
+        "lock-free-programming",
+        "aba-problem",
+        "use-after-free",
+        "memory-ordering"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust and the hard edges of systems concurrency' — lock-free structures raise the reclamation problem that ties the existing lock-free/ABA/use-after-free concepts together",
+      "src": "learned"
+    },
+    {
+      "id": "seqlock",
+      "dom": "stack",
+      "label": "Sequence lock",
+      "def": "A synchronization primitive where a writer increments a version counter to odd before and to even after an update, and lock-free readers re-read the counter and retry if it changed mid-read, giving very cheap reader-side access to rarely-written shared data.",
+      "rel": [
+        "lock-free-programming",
+        "memory-ordering",
+        "false-sharing"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust and the hard edges of systems concurrency' — a lasting reader/writer primitive distinct from the existing lock pathologies (deadlock, lock-convoy, priority-inversion",
+      "src": "learned"
+    },
+    {
+      "id": "expert-offloading",
+      "dom": "infra",
+      "label": "Expert offloading",
+      "def": "Serving a Mixture-of-Experts model on limited memory by keeping only the currently-active experts resident and streaming the inactive expert weights from CPU RAM or disk on demand.",
+      "rel": [
+        "moe",
+        "model-offloading",
+        "expert-parallelism",
+        "cpu-inference",
+        "memory-mapped-weights"
+      ],
+      "ev": "HN front-page theme (2026-07-16): fixation on running large open models cheaply without GPUs and storing weights efficiently; extends the existing moe + model-offloading concepts.",
+      "src": "learned"
+    },
+    {
+      "id": "green-threads",
+      "dom": "stack",
+      "label": "Green threads",
+      "def": "A concurrency model that multiplexes many lightweight user-space (stackful) coroutines onto a few OS threads, the alternative to stackless poll-based async that Rust removed before 1.0 and that still frames its async debates.",
+      "rel": [
+        "async-runtime",
+        "poll-based-futures",
+        "function-coloring",
+        "thread-per-core"
+      ],
+      "ev": "HN theme (2026-07-16): sustained Rust ecosystem debates about async concurrency and language editions.",
+      "src": "learned"
     }
   ]
 }
