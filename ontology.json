@@ -7926,6 +7926,62 @@
       ],
       "ev": "latest AI/tech trends theme 'WebAssembly running heavy apps in-browser' + NOTABLE 'Firefox in WebAssembly: A full browser compiled to and running inside WebAssembly.'",
       "src": "learned"
+    },
+    {
+      "id": "public-ai",
+      "dom": "infra",
+      "label": "Public AI infrastructure",
+      "def": "The paradigm of funding open AI models and compute as institutionally-backed public goods rather than leaving them solely to private closed providers.",
+      "rel": [
+        "ai-sovereignty",
+        "open-weights",
+        "data-commons",
+        "neocloud"
+      ],
+      "ev": "HN trend theme 'Public investment in open AI infrastructure: There's a policy-level argument that open-source AI deserves institutional funding'",
+      "src": "learned"
+    },
+    {
+      "id": "agent-experience",
+      "dom": "agentic-ai",
+      "label": "Agent Experience (AX)",
+      "def": "The design discipline of shaping API surfaces, docs, and affordances so autonomous agents — not just humans — are first-class consumers, analogous to UX and DX.",
+      "rel": [
+        "agent-native-application",
+        "agent-computer-interface",
+        "agentic-web",
+        "tool-use"
+      ],
+      "ev": "Latest AI/tech trend theme: 'Designing for AI agents as first-class consumers — Builders are rethinking API surfaces so autonomous agents, not just humans, can drive them.'",
+      "src": "learned"
+    },
+    {
+      "id": "foundation-model",
+      "dom": "agentic-ai",
+      "label": "Foundation Model",
+      "def": "A large model pretrained on broad data that serves as an adaptable base for many downstream tasks via fine-tuning, prompting, or in-context learning.",
+      "rel": [
+        "open-weights",
+        "small-language-model",
+        "scaling-laws",
+        "in-context-learning",
+        "agent"
+      ],
+      "ev": "latest AI/tech trends NOTABLE: 'Inkling: A newly released open-weights foundation model'",
+      "src": "learned"
+    },
+    {
+      "id": "fearless-concurrency",
+      "dom": "stack",
+      "label": "Fearless Concurrency",
+      "def": "Rust's model of preventing data races at compile time by enforcing ownership and borrowing rules across threads, so concurrent code that compiles is memory-safe.",
+      "rel": [
+        "rust",
+        "borrow-checker",
+        "memory-safety"
+      ],
+      "ev": "latest AI/tech trends THEME: 'Rust / systems-language ergonomics: Rust concurrency pitfalls are dominating the systems discussion' + rust in this system's stack",
+      "src": "learned"
     }
   ]
 }
