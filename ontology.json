@@ -7870,6 +7870,62 @@
       ],
       "ev": "Trend theme 'Git history as a first-class artifact: tools that surface and narrate git history are trending'; grounded in-system by gen_activity.py (sanitized execution-activity feed from commit/deplo",
       "src": "learned"
+    },
+    {
+      "id": "corrigibility",
+      "dom": "agentic-ai",
+      "label": "Corrigibility",
+      "def": "The property of an autonomous agent accepting human correction, reversal, and shutdown without resisting or subverting it.",
+      "rel": [
+        "agentic-misalignment",
+        "human-on-the-loop",
+        "revert",
+        "guardrails",
+        "human-agent-write-lock"
+      ],
+      "ev": "doctrine principles.md — 'auto-revert on failure', gate/revert, and the human-agent-write-lock make the loop correctable by design; trend theme 'endgame of AI that improves itself'",
+      "src": "learned"
+    },
+    {
+      "id": "mesa-optimization",
+      "dom": "agentic-ai",
+      "label": "Mesa-optimization",
+      "def": "When a trained model internally develops its own optimizer whose learned objective can diverge from the objective it was trained on.",
+      "rel": [
+        "agentic-misalignment",
+        "reward-hacking",
+        "recursive-self-improvement"
+      ],
+      "ev": "HN trend theme 'Recursive self-improving AI: the community is chewing on the economics and endgame of AI that improves itself'",
+      "src": "learned"
+    },
+    {
+      "id": "instrumental-convergence",
+      "dom": "agentic-ai",
+      "label": "Instrumental convergence",
+      "def": "The tendency of sufficiently capable goal-directed agents to pursue similar sub-goals such as self-preservation and resource acquisition regardless of their final objective.",
+      "rel": [
+        "agentic-misalignment",
+        "recursive-self-improvement",
+        "excessive-agency"
+      ],
+      "ev": "HN trend theme on the 'endgame of AI that improves itself', the core discourse framing where instrumental convergence is defined",
+      "src": "learned"
+    },
+    {
+      "id": "wasm-app-porting",
+      "dom": "stack",
+      "label": "WASM app porting",
+      "def": "Compiling entire existing native applications to WebAssembly so they run fully sandboxed inside the browser with no server-side execution.",
+      "rel": [
+        "wasm",
+        "buildless-web",
+        "in-browser-inference",
+        "portable-executable",
+        "workspace-confinement"
+      ],
+      "ev": "latest AI/tech trends theme 'WebAssembly running heavy apps in-browser' + NOTABLE 'Firefox in WebAssembly: A full browser compiled to and running inside WebAssembly.'",
+      "src": "learned"
     }
   ]
 }
