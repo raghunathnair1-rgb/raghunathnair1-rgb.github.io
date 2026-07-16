@@ -8269,6 +8269,20 @@
       ],
       "ev": "HN trend theme 'Rust and systems-language craft: Multiple front-page posts debate Rust-style ergonomics and its async/concurrency pitfalls'",
       "src": "learned"
+    },
+    {
+      "id": "gui-grounding",
+      "dom": "agentic-ai",
+      "label": "GUI grounding",
+      "def": "A vision-language agent's capability to localize and act on on-screen UI elements (buttons, fields, menus) directly from pixels, which is the perception layer underpinning computer-use agents.",
+      "rel": [
+        "computer-use",
+        "grounding",
+        "agent-computer-interface",
+        "tool-use"
+      ],
+      "ev": "Latest AI/tech trends: 'Coasty: An API that lets developers drive computer-use agents' plus theme 'Computer-use agents ... agents-that-act as the frontier product category.'",
+      "src": "learned"
     }
   ]
 }
