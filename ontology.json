@@ -8782,6 +8782,48 @@
       ],
       "ev": "Trend theme: 'Rust ecosystem debates about async concurrency and language editions' — the async-as-effect / keyword-generics discussion; established programming-language-theory concept.",
       "src": "learned"
+    },
+    {
+      "id": "reactor-pattern",
+      "dom": "stack",
+      "label": "Reactor pattern",
+      "def": "An event-demultiplexing loop that blocks on OS readiness notifications (epoll/io_uring) and dispatches ready I/O events to their handlers, forming the core beneath async runtimes.",
+      "rel": [
+        "async-runtime",
+        "io-uring",
+        "poll-based-futures",
+        "actor-model"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust and systems-level concurrency ... async concurrency pitfalls are a live debate among systems developers'; system stack is Rust/Yew/WASM (yew, trunk, wasm scripts)",
+      "src": "learned"
+    },
+    {
+      "id": "blocking-offload",
+      "dom": "stack",
+      "label": "Blocking offload",
+      "def": "Moving CPU-bound or blocking-syscall work onto a dedicated thread pool so it does not stall the cooperative async executor's worker threads.",
+      "rel": [
+        "executor-starvation",
+        "async-runtime",
+        "cooperative-scheduling",
+        "thread-per-core"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust ergonomics and async concurrency pitfalls are a live debate among systems developers' — the canonical mitigation for the executor-starvation failure mode already in ",
+      "src": "learned"
+    },
+    {
+      "id": "async-drop",
+      "dom": "stack",
+      "label": "Async Drop",
+      "def": "Rust's Drop destructor cannot run asynchronous code, so releasing async-held resources (connections, locks, buffers) at scope-exit forces awkward manual close/cancel patterns and is a recurring async-concurrency pitfall.",
+      "rel": [
+        "cancellation-safety",
+        "raii",
+        "future-pinning",
+        "blocking-offload"
+      ],
+      "ev": "Latest trends theme 'Rust and systems-level concurrency: Rust ergonomics and async concurrency pitfalls are a live debate among systems developers', grounded in this system's Rust/Yew/WASM stack (rust",
+      "src": "learned"
     }
   ]
 }
