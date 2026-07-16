@@ -7982,6 +7982,98 @@
       ],
       "ev": "latest AI/tech trends THEME: 'Rust / systems-language ergonomics: Rust concurrency pitfalls are dominating the systems discussion' + rust in this system's stack",
       "src": "learned"
+    },
+    {
+      "id": "open-source-ai-definition",
+      "dom": "agentic-ai",
+      "label": "Open Source AI Definition",
+      "def": "The standard (formalized by the OSI's OSAID) that a model counts as genuinely open source only when weights, training/inference code, and sufficient data information are released together, distinguishing it from weights-only releases.",
+      "rel": [
+        "open-weights",
+        "public-ai",
+        "training-data-consent",
+        "foundation-model"
+      ],
+      "ev": "Latest AI/tech trend theme: 'Open-weights AI push: Multiple top stories center on releasing model weights AND source openly rather than gatekeeping them' — a durable transparency/reproducibility stand",
+      "src": "learned"
+    },
+    {
+      "id": "function-coloring",
+      "dom": "stack",
+      "label": "Function coloring",
+      "def": "The language-design property whereby async and sync functions form two incompatible 'colors,' so asynchrony infects every caller and cannot be transparently mixed with blocking code.",
+      "rel": [
+        "rust",
+        "fearless-concurrency",
+        "borrow-checker"
+      ],
+      "ev": "latest AI/tech trends theme 'Rust / systems-language ergonomics: Language design and Rust concurrency pitfalls are dominating the systems discussion' (HN front page 2026-07-16)",
+      "src": "learned"
+    },
+    {
+      "id": "actor-model",
+      "dom": "stack",
+      "label": "Actor model",
+      "def": "A concurrency architecture in which isolated actors hold private state and coordinate solely by passing messages, eliminating shared-memory data races.",
+      "rel": [
+        "fearless-concurrency",
+        "multi-agent",
+        "a2a"
+      ],
+      "ev": "latest AI/tech trends theme 'Rust concurrency pitfalls are dominating the systems discussion' (HN front page 2026-07-16), the established message-passing response to shared-state concurrency",
+      "src": "learned"
+    },
+    {
+      "id": "rust-edition",
+      "dom": "stack",
+      "label": "Rust editions",
+      "def": "Rust's edition mechanism lets the language ship opt-in, backward-incompatible idiom changes on a per-crate basis (2015/2018/2021/2024) so crates on different editions still interoperate without splitting the ecosystem.",
+      "rel": [
+        "rust",
+        "borrow-checker"
+      ],
+      "ev": "trends theme 'Rust systems-programming refinement: Front-page debate keeps returning to Rust idioms, editions, and its concurrency model' + this system's Rust/Yew/Cargo stack",
+      "src": "learned"
+    },
+    {
+      "id": "copy-paste-components",
+      "dom": "stack",
+      "label": "Copy-paste components",
+      "def": "A frontend distribution model (popularized by shadcn/ui) where component source is copied into and owned inside a project rather than pulled in as a versioned dependency, trading upgrade automation for full local control.",
+      "rel": [
+        "native-web-tooling",
+        "buildless-web"
+      ],
+      "ev": "trends theme 'AI-coding-tool aesthetics' + notable 'Brainless: a shadcn component library that mimics the UI of Claude Code, Codex, and Grok'",
+      "src": "learned"
+    },
+    {
+      "id": "zero-cost-abstractions",
+      "dom": "stack",
+      "label": "Zero-cost abstractions",
+      "def": "The Rust design principle that high-level constructs (iterators, generics, futures) compile down to code as efficient as hand-written low-level equivalents, with no runtime penalty.",
+      "rel": [
+        "rust",
+        "borrow-checker",
+        "fearless-concurrency",
+        "wasm"
+      ],
+      "ev": "latest trends theme 'Rust systems-programming refinement: Front-page debate keeps returning to Rust idioms, editions, and its concurrency model' — zero-cost abstractions is the core idiom under that d",
+      "src": "learned"
+    },
+    {
+      "id": "trait-based-polymorphism",
+      "dom": "stack",
+      "label": "Trait-based polymorphism",
+      "def": "Rust's mechanism for shared behavior and generic dispatch via traits, resolved either statically (monomorphized) or dynamically (trait objects) without inheritance.",
+      "rel": [
+        "rust",
+        "zero-cost-abstractions",
+        "function-coloring",
+        "actor-model"
+      ],
+      "ev": "latest trends theme 'Rust systems-programming refinement ... Rust idioms, editions, and its concurrency model' — traits are the central polymorphism idiom recurring in that discussion",
+      "src": "learned"
     }
   ]
 }

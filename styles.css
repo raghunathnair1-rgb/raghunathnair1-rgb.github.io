@@ -89,6 +89,7 @@ html { scroll-behavior: smooth; }
 #content pre, #content code, #content samp, #content kbd { font-variant-ligatures: none; }
 #content :not(pre) > code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: .05em .4em; font-size: .92em; color: var(--cyan); }
 #content a code { color: inherit; }
+#content :is(h1, h2, h3, h4) code { font-size: 1em; padding: 0; border: 0; background: none; }
 #content a strong, #content a b, #content a em, #content a i { color: inherit; }
 #content table { display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 #content th, #content td { border: 1px solid var(--line); padding: .4rem .6rem; text-align: left; vertical-align: top; }
