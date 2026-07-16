@@ -191,6 +191,7 @@ html { scroll-behavior: smooth; }
 ::selection { background: var(--green); color: var(--bg); text-shadow: none; }
 ::-moz-selection { background: var(--green); color: var(--bg); text-shadow: none; }
 #content ::target-text { background: var(--green); color: var(--bg); text-shadow: none; }
+#content ::selection { background: var(--green); color: var(--bg); text-shadow: none; }
 input, textarea, [contenteditable] { caret-color: var(--cyan); }
 
 /* themed scrollbar so the last un-themed OS chrome tracks the phosphor palette (recolors with amber) */
