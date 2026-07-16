@@ -603,6 +603,17 @@
 <url><loc>https://raghunathnair1-rgb.github.io/kb/copy-paste-components/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://raghunathnair1-rgb.github.io/kb/zero-cost-abstractions/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://raghunathnair1-rgb.github.io/kb/trait-based-polymorphism/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/structured-concurrency/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/async-runtime/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/work-stealing-scheduler/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/thread-per-core/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/io-uring/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/cancellation-safety/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/memory-mapped-weights/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/send-sync-traits/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/cooperative-scheduling/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/poll-based-futures/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://raghunathnair1-rgb.github.io/kb/future-pinning/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://raghunathnair1-rgb.github.io/kb/domain/agentic-ai/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://raghunathnair1-rgb.github.io/kb/domain/harness/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://raghunathnair1-rgb.github.io/kb/domain/factory/</loc><lastmod>2026-07-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>

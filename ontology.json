@@ -8211,6 +8211,21 @@
       ],
       "ev": "HN theme 'Rust systems and concurrency: Rust's ergonomics, async pitfalls, and its influence on other tools are an active discussion' (2026-07-16)",
       "src": "learned"
+    },
+    {
+      "id": "future-pinning",
+      "dom": "stack",
+      "label": "Pinning (self-referential futures)",
+      "def": "Rust's Pin/Unpin mechanism guarantees a value's memory address stays fixed, making the self-referential state machines that async functions compile into sound.",
+      "rel": [
+        "poll-based-futures",
+        "async-runtime",
+        "send-sync-traits",
+        "cancellation-safety",
+        "memory-safety"
+      ],
+      "ev": "Latest AI/tech trend theme 'Rust systems and concurrency: Rust's ergonomics, async pitfalls, and its influence on other tools are an active discussion.'",
+      "src": "learned"
     }
   ]
 }

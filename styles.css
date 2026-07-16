@@ -168,6 +168,8 @@ html { scroll-behavior: smooth; }
   font-size: .82em; color: var(--muted); text-shadow: none;
   display: inline-block; text-decoration: none;   /* keep the phosphor underline off the nbsp + arrow */
 }
+/* image/figure links carry their own meaning — drop the stray ↗ with no text to attach to */
+#content a[href^="http"]:has(img, svg, picture)::after { content: none; }
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"]):hover::after,
 #content a[href^="http"]:not([href*="raghunathnair1-rgb.github.io"]):focus-visible::after {
   color: var(--cyan); text-shadow: var(--glow);
