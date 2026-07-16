@@ -8226,6 +8226,21 @@
       ],
       "ev": "Latest AI/tech trend theme 'Rust systems and concurrency: Rust's ergonomics, async pitfalls, and its influence on other tools are an active discussion.'",
       "src": "learned"
+    },
+    {
+      "id": "agent-as-a-service",
+      "dom": "agentic-ai",
+      "label": "Agent-as-a-Service",
+      "def": "The paradigm of delivering autonomous computer-use agents as hosted, callable developer APIs rather than as local tools an application embeds.",
+      "rel": [
+        "computer-use",
+        "agent",
+        "mcp",
+        "agentic-cli",
+        "orchestrator-agent"
+      ],
+      "ev": "Latest AI/tech trend theme 'Computer-use agents as infrastructure: Autonomous agents that operate real interfaces are being packaged as developer APIs' (HN front page, 2026-07-16).",
+      "src": "learned"
     }
   ]
 }
