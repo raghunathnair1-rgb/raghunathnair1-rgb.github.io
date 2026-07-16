@@ -99,6 +99,7 @@ html { scroll-behavior: smooth; }
 #content caption { caption-side: bottom; margin-top: .5rem; font-size: .85rem; font-style: italic; color: var(--muted); text-align: left; text-wrap: pretty; }
 #content th { color: var(--green); }
 #content th[scope="col"] { text-wrap: balance; }
+#content td { text-wrap: pretty; }
 #content th[scope="row"] { font-weight: 400; color: var(--fg); position: sticky; left: 0; background: var(--bg); }
 #content tbody tr:nth-child(even) { background: rgba(0,255,65,.025); }
 #content tbody tr { transition: background .15s ease; }

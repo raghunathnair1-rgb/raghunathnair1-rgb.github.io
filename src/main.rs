@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use yew::TargetCast;
 // pure logic lives in the coverage-gated blog-logic crate (tested code == shipped code)
-use blog_logic::{day_length_hm, evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r, related_posts};
+use blog_logic::{day_length_hm, evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r, reading_time, related_posts, slug};
 
 /// The dark factory went live 2026-07-06 00:00 UTC. Every "uptime" on the site counts from
 /// this single origin, so the number reads identically wherever it appears (brain card, footer).
@@ -2067,11 +2067,14 @@ fn app() -> Html {
             let keys: Vec<String> = list.iter().map(|q| format!("{} {}", q.tag, q.title)).collect();
             let keyrefs: Vec<&str> = keys.iter().map(|s| s.as_str()).collect();
             let related = related_posts(&keyrefs, i, 3);
+            // pure slug/read-time live in the coverage-gated blog-logic crate
+            let anchor = slug(p.title);
+            let href = format!("#{}", anchor);
             html! {
                 <article>
                     <a class="back" onclick={back} onkeydown={keyback} tabindex="0" role="button">{"‹ back to log"}</a>
-                    <h2>{ p.title }</h2>
-                    <div class="meta"><span class="tag">{ format!("#{}", p.tag) }</span>{ " · " }<time datetime={ p.date }>{ p.date }</time></div>
+                    <h2 id={anchor.clone()}>{ p.title }{ " " }<a class="permalink" href={href} aria-label="copy permalink to this post" title="copy permalink">{ "#" }</a></h2>
+                    <div class="meta"><span class="tag">{ format!("#{}", p.tag) }</span>{ " · " }<time datetime={ p.date }>{ p.date }</time>{ " · " }<span class="rt">{ format!("{} min read", reading_time(p.body)) }</span></div>
                     { for p.body.split("\n\n").map(|para| html! { <p>{ para }</p> }) }
                     { if related.is_empty() { html! {} } else { html! {
                         <nav class="related" aria-label="related posts">

@@ -9055,6 +9055,48 @@
       ],
       "ev": "latest AI/tech trends theme 'Local & efficient LLM inference: running big models cheaply on old or GPU-less hardware and storing weights efficiently'",
       "src": "learned"
+    },
+    {
+      "id": "approximate-nearest-neighbor",
+      "dom": "stack",
+      "label": "Approximate nearest-neighbor search",
+      "def": "Vector index structures such as HNSW and IVF-PQ that trade exactness for sublinear-time similarity lookup, forming the retrieval substrate under embedding-based RAG.",
+      "rel": [
+        "vector-embedding",
+        "retrieval",
+        "graph-rag",
+        "spatial-index"
+      ],
+      "ev": "Established retrieval technology (HNSW/IVF vector indexes) underpinning the system's existing RAG concepts — retrieval, graph-rag, vector-embedding.",
+      "src": "learned"
+    },
+    {
+      "id": "cross-encoder-reranking",
+      "dom": "agentic-ai",
+      "label": "Cross-encoder reranking",
+      "def": "A two-stage retrieval refinement where a heavier cross-encoder rescores the top candidate documents jointly against the query to sharpen relevance before they enter the context window.",
+      "rel": [
+        "retrieval",
+        "agentic-rag",
+        "graph-rag",
+        "llm-as-judge"
+      ],
+      "ev": "Established two-stage RAG technique (cross-encoder rerankers) that deepens the existing retrieval / agentic-rag concepts.",
+      "src": "learned"
+    },
+    {
+      "id": "hybrid-search",
+      "dom": "stack",
+      "label": "Hybrid search",
+      "def": "Fusing sparse lexical (BM25/inverted-index) and dense vector retrieval scores so that keyword-exact and semantic matches are recalled together.",
+      "rel": [
+        "retrieval",
+        "agentic-rag",
+        "vector-embedding",
+        "graph-rag"
+      ],
+      "ev": "Established retrieval technique fusing BM25 lexical and dense vector search, connecting the existing retrieval and vector-embedding concepts.",
+      "src": "learned"
     }
   ]
 }

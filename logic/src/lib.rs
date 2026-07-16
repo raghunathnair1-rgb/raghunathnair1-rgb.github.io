@@ -75,6 +75,23 @@ pub fn reading_time(body: &str) -> u32 {
     (((body.split_whitespace().count() as u32) + 100) / 200).max(1)
 }
 
+/// URL-safe anchor slug for a heading `title`: lowercased, every run of
+/// non-alphanumeric characters collapsed to a single `-`, with no leading or
+/// trailing `-`. Pure, total, and std-only. The wasm post header renders the
+/// returned value as a heading `id` and copy-permalink target, so the tested
+/// value IS the value shipped. Keep it covered by the 100% gate.
+pub fn slug(title: &str) -> String {
+    let mut out = String::new();
+    for ch in title.chars() {
+        if ch.is_alphanumeric() {
+            out.extend(ch.to_lowercase());
+        } else if !out.ends_with('-') {
+            out.push('-');
+        }
+    }
+    out.trim_matches('-').to_string()
+}
+
 /// Rank posts by keyword overlap with the post at `idx`, most-related first.
 /// Each `keywords` entry is that post's searchable text (e.g. `"tag title"`);
 /// relatedness is the number of distinct lowercased word tokens two posts share.
@@ -170,6 +187,14 @@ mod tests {
         assert_eq!(reading_time("just a few words"), 1); // 4 words rounds down to 1
         assert_eq!(reading_time(&"word ".repeat(300)), 2); // (300+100)/200 = 2
         assert_eq!(reading_time(&"word ".repeat(500)), 3); // (500+100)/200 = 3
+    }
+
+    #[test]
+    fn slug_is_url_safe_and_collapses() {
+        assert_eq!(slug("Hello, World!"), "hello-world"); // punctuation run collapses, trailing '-' trimmed
+        assert_eq!(slug("  Rust & WASM  "), "rust-wasm"); // leading/trailing trimmed, inner run collapsed
+        assert_eq!(slug("Already-slug"), "already-slug"); // alnum + single separator preserved
+        assert_eq!(slug(""), ""); // empty stays empty
     }
 
     #[test]
