@@ -8824,6 +8824,51 @@
       ],
       "ev": "Latest trends theme 'Rust and systems-level concurrency: Rust ergonomics and async concurrency pitfalls are a live debate among systems developers', grounded in this system's Rust/Yew/WASM stack (rust",
       "src": "learned"
+    },
+    {
+      "id": "answer-engine-optimization",
+      "dom": "stack",
+      "label": "Answer Engine Optimization",
+      "def": "Structuring and formatting content so AI answer engines and LLM-powered search cite and surface it directly, instead of optimizing solely for ranked link results.",
+      "rel": [
+        "programmatic-seo",
+        "topic-cluster",
+        "ai-crawler",
+        "algorithm-aware-formatting",
+        "machine-content-disclosure"
+      ],
+      "ev": "Latest-trends theme 'AI reimagining interfaces and content — search-driven versions of familiar interfaces', combined with this system's existing content-discovery tooling (programmatic-seo, topic-clu",
+      "src": "learned"
+    },
+    {
+      "id": "stackless-coroutine",
+      "dom": "stack",
+      "label": "Stackless Coroutine",
+      "def": "A suspendable computation the compiler lowers into a state machine that stores only its live variables rather than a full call stack — the model Rust uses to implement async fn.",
+      "rel": [
+        "poll-based-futures",
+        "future-pinning",
+        "function-coloring",
+        "async-runtime",
+        "send-sync-traits"
+      ],
+      "ev": "Latest-trends theme 'Rust and systems-level concurrency — async concurrency pitfalls are a live debate'; it is the root abstraction under the existing future-pinning / poll-based-futures / function-co",
+      "src": "learned"
+    },
+    {
+      "id": "creative-coding",
+      "dom": "stack",
+      "label": "Creative coding",
+      "def": "The practice of writing code as an expressive, generative medium to produce interactive visual toys and art rather than conventional application UI.",
+      "rel": [
+        "procedural-generation",
+        "gpu-particle-system",
+        "webgl",
+        "generative-media",
+        "single-file-app"
+      ],
+      "ev": "latest-trends theme 'Playful, self-referential web toys' (highest-scoring Show HNs are interactive single-purpose novelties), grounded in this system's existing webgl/procedural-generation/gpu-particl",
+      "src": "learned"
     }
   ]
 }
