@@ -1,5 +1,29 @@
 [
  {
+  "title": "Inkling: Our Open-Weights Model",
+  "date": "2026-07-15",
+  "tag": "release",
+  "summary": "Inkling arrives as an open-weights MoE that is natively multimodal and — the genuinely useful part — exposes reasoning effort as a dial rather than a fixed personality, so you can trade latency for depth per request instead of per model. Pairing the release with Tinker fine-tuning means the sparse expert routing is yours to specialize, not just prompt against. For builders, the interesting bet is whether controllable reasoning survives fine-tuning intact — an open MoE you can both steer at inference and retrain is a rare combination to get in one drop.",
+  "source": "thinkingmachines.ai",
+  "url": "https://thinkingmachines.ai/news/introducing-inkling/"
+ },
+ {
+  "title": "Show HN: Juggler – an open-source GUI coding agent, by the creator of JUCE",
+  "date": "2026-07-12",
+  "tag": "release",
+  "summary": "Juggler is a GUI-native coding agent from Jules Storer—the man behind JUCE, the C++ framework under half the audio plugins you've ever loaded—which means it comes at agentic coding from the desktop-app tradition rather than the terminal-and-TUI lineage everyone else is mining. The interesting bet is that a real native UI, not a chat pane bolted onto a CLI, is the right substrate for steering long-running agent work: inspecting diffs, juggling parallel tasks, keeping a human in the loop without a wall of scrollback. Whether GUI-first turns out to be a genuine ergonomic edge or just a nicer coat",
+  "source": "github.com",
+  "url": "https://github.com/juggler-ai/juggler"
+ },
+ {
+  "title": "Launch HN: Agnost AI (YC S26) – Extract user feedback from agent conversations",
+  "date": "2026-07-14",
+  "tag": "release",
+  "summary": "Agnost AI treats production agent transcripts as an eval mine: instead of hand-writing test cases, it clusters real conversation logs to surface the failure modes your offline suite never anticipated, then proposes reviewed patches for the highest-frequency ones. The clever bit is closing the loop — feedback extraction feeding directly into fixes — which turns the messy exhaust of live traffic into a regression set that actually reflects how users break your agent. For builders, it is a bet that the best evals are discovered downstream, not authored upfront.",
+  "source": "agnost.ai",
+  "url": "https://agnost.ai"
+ },
+ {
   "title": "Claude Code sends 33k tokens before reading the prompt; OpenCode sends 7k",
   "date": "2026-07-12",
   "tag": "claude",

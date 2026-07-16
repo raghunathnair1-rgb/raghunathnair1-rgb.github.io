@@ -8283,6 +8283,50 @@
       ],
       "ev": "Latest AI/tech trends: 'Coasty: An API that lets developers drive computer-use agents' plus theme 'Computer-use agents ... agents-that-act as the frontier product category.'",
       "src": "learned"
+    },
+    {
+      "id": "map-tiling",
+      "dom": "stack",
+      "label": "Map tiling / slippy map",
+      "def": "Cutting a very large map or image into a zoom-level pyramid of pre-rendered tiles fetched on demand by viewport, so huge explorable scenes pan smoothly in the browser without loading everything at once.",
+      "rel": [
+        "level-of-detail",
+        "spatial-index",
+        "virtual-globe",
+        "network-adaptive-rendering",
+        "infinite-canvas"
+      ],
+      "ev": "HN trend 'Personal interactive data visualization' — isometric.nyc, a giant explorable isometric pixel-art map rendered in the browser, and other explorable-map/globe Show HNs",
+      "src": "learned"
+    },
+    {
+      "id": "wasi",
+      "dom": "stack",
+      "label": "WASI",
+      "def": "The WebAssembly System Interface is a standardized, capability-scoped set of host calls (files, clocks, sockets) that lets WASM modules access system resources portably and sandboxed, inside or outside the browser.",
+      "rel": [
+        "wasm",
+        "capability-based-security",
+        "portable-executable",
+        "syscall-filtering",
+        "cosmopolitan-libc"
+      ],
+      "ev": "HN 'WebAssembly in the browser' theme + notable 'Firefox in WebAssembly: a full web browser compiled to run inside WASM' — running heavyweight software client-side requires a standardized WASM system ",
+      "src": "learned"
+    },
+    {
+      "id": "wasm-component-model",
+      "dom": "stack",
+      "label": "WASM Component Model",
+      "def": "A language-agnostic standard for defining and composing WebAssembly modules via typed interfaces, so components written in different languages interoperate without shared memory or glue code.",
+      "rel": [
+        "wasm",
+        "wasm-app-porting",
+        "function-coloring",
+        "native-extension"
+      ],
+      "ev": "HN 'WebAssembly in the browser' theme + 'Firefox in WebAssembly' — porting/composing large multi-language applications into WASM relies on the component model as the composition layer",
+      "src": "learned"
     }
   ]
 }
