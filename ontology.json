@@ -8471,6 +8471,122 @@
       ],
       "ev": "latest-trends theme: community fixated on squeezing large LLMs onto old CPUs and efficient weight storage rather than renting GPUs (HN front page, 2026-07-16)",
       "src": "learned"
+    },
+    {
+      "id": "lock-free-programming",
+      "dom": "stack",
+      "label": "Lock-free programming",
+      "def": "Coordinating concurrent threads through atomic operations and explicit memory ordering instead of mutual-exclusion locks, so no single thread can block the progress of the others.",
+      "rel": [
+        "fearless-concurrency",
+        "async-runtime",
+        "work-stealing-scheduler",
+        "actor-model",
+        "thread-per-core"
+      ],
+      "ev": "Trend theme 'Rust concurrency and systems craft: deep systems discussion centers on Rust's async/concurrency model'; complements existing Rust-concurrency concepts (fearless-concurrency, work-stealing",
+      "src": "learned"
+    },
+    {
+      "id": "memory-ordering",
+      "dom": "stack",
+      "label": "Memory ordering",
+      "def": "The guarantees (relaxed, acquire/release, sequential consistency) that govern how atomic operations become visible across threads, which lock-free and concurrent code must specify correctly to stay sound.",
+      "rel": [
+        "lock-free-programming",
+        "fearless-concurrency",
+        "send-sync-traits",
+        "async-runtime"
+      ],
+      "ev": "latest-trends THEME 'Rust concurrency and systems craft: deep systems discussion centers on Rust's async/concurrency model and Rust-flavored design elsewhere'",
+      "src": "learned"
+    },
+    {
+      "id": "agent-browser-infra",
+      "dom": "agentic-ai",
+      "label": "Agent browser infrastructure",
+      "def": "Hosted, API-controllable browser or desktop environments provisioned so computer-use agents can drive real interfaces remotely and at scale.",
+      "rel": [
+        "computer-use",
+        "gui-grounding",
+        "agent-as-a-service",
+        "ephemeral-environment",
+        "microvm"
+      ],
+      "ev": "latest-trends NOTABLE 'Coasty: a YC-backed API for driving computer-use agents' plus THEME 'Computer-use agents: a clear pull toward programmable agents that operate real interfaces via APIs'",
+      "src": "learned"
+    },
+    {
+      "id": "accessibility-tree-grounding",
+      "dom": "agentic-ai",
+      "label": "Accessibility-tree grounding",
+      "def": "Grounding a computer-use agent in the platform's accessibility tree — structured element roles, names, and states — so it can locate and act on UI controls reliably instead of inferring them from raw pixels.",
+      "rel": [
+        "computer-use",
+        "gui-grounding",
+        "accessibility",
+        "agent-computer-interface",
+        "semantic-html"
+      ],
+      "ev": "trends: 'Computer-use agents: a clear pull toward programmable agents that operate real interfaces via APIs' (Coasty)",
+      "src": "learned"
+    },
+    {
+      "id": "set-of-mark-prompting",
+      "dom": "agentic-ai",
+      "label": "Set-of-mark prompting",
+      "def": "A prompting technique that overlays numbered or labelled marks on a UI screenshot so a vision-language agent can refer to and act on specific interface elements by index rather than by fragile pixel coordinates.",
+      "rel": [
+        "computer-use",
+        "gui-grounding",
+        "agent-computer-interface",
+        "prompt-engineering"
+      ],
+      "ev": "trends: computer-use agents driving real interfaces via APIs (Coasty)",
+      "src": "learned"
+    },
+    {
+      "id": "algebraic-data-types",
+      "dom": "stack",
+      "label": "Algebraic data types",
+      "def": "Sum and product types (as in Rust enums/structs) with compiler-enforced exhaustive pattern matching, letting a design make illegal states unrepresentable.",
+      "rel": [
+        "rust",
+        "errors-as-values",
+        "typestate-pattern",
+        "newtype-pattern"
+      ],
+      "ev": "Trends theme 'Rust and systems-language ergonomics: Rust's design patterns and concurrency model are shaping how other tools evolve.'",
+      "src": "learned"
+    },
+    {
+      "id": "software-fault-isolation",
+      "dom": "stack",
+      "label": "Software fault isolation",
+      "def": "A technique for running untrusted or legacy code safely in-process by instrumenting its memory and control-flow accesses so faults cannot escape a bounded sandbox region — the isolation model that underlies WebAssembly's in-browser safety.",
+      "rel": [
+        "wasm",
+        "memory-safety",
+        "agent-sandboxing",
+        "capability-based-security",
+        "sandbox-escape"
+      ],
+      "ev": "Latest-trends theme 'WebAssembly running heavy apps in-browser' plus the notable item 'Firefox in WebAssembly: a full web browser compiled to and running inside WASM' (2026-07-16 HN front page)",
+      "src": "learned"
+    },
+    {
+      "id": "affine-types",
+      "dom": "stack",
+      "label": "Affine types",
+      "def": "A substructural type discipline in which a value may be used at most once, giving the type-theoretic foundation for Rust's move/ownership semantics that the borrow checker mechanically enforces.",
+      "rel": [
+        "borrow-checker",
+        "typestate-pattern",
+        "memory-safety",
+        "zero-cost-abstractions"
+      ],
+      "ev": "Latest-trends theme 'Rust and systems-language ergonomics: Rust's design patterns and concurrency model are shaping how other tools evolve' (2026-07-16 HN front page)",
+      "src": "learned"
     }
   ]
 }
