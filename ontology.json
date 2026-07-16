@@ -6107,7 +6107,8 @@
         "inference-economics",
         "model-migration",
         "continuous-batching",
-        "kv-cache"
+        "kv-cache",
+        "speculative-decoding"
       ],
       "ev": "Trend 'Production LLM migration for speed and cost' / NOTABLE 'GPT-5.6 agent migration: moved to a newer model for 2.2x speed' — the '2.2x speed' agents chase is decode throughput, not just TTFT.",
       "src": "learned"
@@ -8982,6 +8983,77 @@
         "memory-safety"
       ],
       "ev": "HN trend theme (2026-07-16): 'Rust and systems-language concurrency — Rust idioms and the pitfalls of async concurrency'; grounded in this system's Rust/Yew stack.",
+      "src": "learned"
+    },
+    {
+      "id": "sans-io",
+      "dom": "stack",
+      "label": "Sans-I/O protocol design",
+      "def": "An architecture that implements protocol and state-machine logic with zero embedded I/O calls, so one core can be driven by sync, async, or any runtime without duplicating the logic.",
+      "rel": [
+        "function-coloring",
+        "effect-system",
+        "reactor-pattern",
+        "async-runtime"
+      ],
+      "ev": "Trends theme 'Rust editions and concurrency pitfalls ... hard debates about async concurrency models' — sans-io is the ecosystem's architectural answer to function-coloring and async-runtime lock-in.",
+      "src": "learned"
+    },
+    {
+      "id": "orphan-rule",
+      "dom": "stack",
+      "label": "Orphan rule (trait coherence)",
+      "def": "Rust's coherence constraint permitting a trait implementation only when either the trait or the type is local to the crate, guaranteeing a single canonical impl exists globally.",
+      "rel": [
+        "trait-based-polymorphism",
+        "newtype-pattern",
+        "zero-cost-abstractions"
+      ],
+      "ev": "Trends theme 'Rust's design patterns spilling into other tools'; the existing newtype-pattern concept exists specifically to work around this rule, so the graph already references it implicitly.",
+      "src": "learned"
+    },
+    {
+      "id": "software-transactional-memory",
+      "dom": "stack",
+      "label": "Software Transactional Memory",
+      "def": "A concurrency-control approach that groups shared-memory operations into atomic, composable transactions that automatically retry on conflict instead of using explicit locks.",
+      "rel": [
+        "lock-free-programming",
+        "mvcc",
+        "serializable-isolation",
+        "memory-ordering"
+      ],
+      "ev": "Trend theme 'Rust editions and concurrency pitfalls... hard debates about async concurrency models'; STM is a durable lock-free alternative concurrency paradigm absent from the existing async/locking ",
+      "src": "learned"
+    },
+    {
+      "id": "completion-based-io",
+      "dom": "stack",
+      "label": "Completion-based I/O",
+      "def": "An asynchronous I/O model where the OS signals the program only after an operation has fully completed (as in io_uring or IOCP), rather than when a resource is merely ready, which clashes with Rust's readiness/poll-based futures and makes future cancellation prone to buffer-use-after-free.",
+      "rel": [
+        "io-uring",
+        "reactor-pattern",
+        "poll-based-futures",
+        "cancellation-safety",
+        "async-runtime"
+      ],
+      "ev": "Trend theme 'Rust editions and concurrency pitfalls / hard debates about async concurrency models' grounded against the existing io-uring and poll-based-futures nodes.",
+      "src": "learned"
+    },
+    {
+      "id": "model-pruning",
+      "dom": "infra",
+      "label": "Model pruning",
+      "def": "Removing redundant individual weights or whole structural blocks from a trained network to shrink its stored size and speed inference on constrained or GPU-less hardware, ideally with negligible accuracy loss.",
+      "rel": [
+        "quantization",
+        "knowledge-distillation",
+        "one-bit-llm",
+        "moe",
+        "memory-bandwidth-bound"
+      ],
+      "ev": "latest AI/tech trends theme 'Local & efficient LLM inference: running big models cheaply on old or GPU-less hardware and storing weights efficiently'",
       "src": "learned"
     }
   ]
