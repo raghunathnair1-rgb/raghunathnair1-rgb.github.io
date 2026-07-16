@@ -8371,6 +8371,62 @@
       ],
       "ev": "HN trend theme 'renewed appreciation for well-designed CLIs and minimal, distributable single-file tooling' (e.g. Redbean single-file server)",
       "src": "learned"
+    },
+    {
+      "id": "raii",
+      "dom": "stack",
+      "label": "RAII / Drop",
+      "def": "A resource-management idiom that binds a resource's lifetime to an owning value so cleanup runs deterministically the moment that value is dropped, giving leak-free release without a garbage collector.",
+      "rel": [
+        "borrow-checker",
+        "memory-safety",
+        "zero-cost-abstractions",
+        "rust"
+      ],
+      "ev": "Trends 2026-07-16: 'Rust idioms and its concurrency model dominate the systems-programming conversation'; grounded in this system's Rust/Yew/Trunk/WASM stack (rust, rust-rewrite concepts).",
+      "src": "learned"
+    },
+    {
+      "id": "errors-as-values",
+      "dom": "stack",
+      "label": "Errors as Values",
+      "def": "An error-handling paradigm where fallible operations return an explicit result type (Ok/Err) instead of throwing exceptions, forcing every caller to handle or propagate failure at compile time.",
+      "rel": [
+        "rust",
+        "borrow-checker",
+        "memory-safety"
+      ],
+      "ev": "Trends 2026-07-16: 'Rust idioms and its concurrency model dominate the systems-programming conversation'; grounded in this system's Rust stack (rust, rust-rewrite concepts).",
+      "src": "learned"
+    },
+    {
+      "id": "typestate-pattern",
+      "dom": "stack",
+      "label": "Typestate pattern",
+      "def": "A Rust idiom that encodes an object's runtime state as distinct compile-time types so the borrow checker rejects calling a method in the wrong state, making illegal state transitions unrepresentable.",
+      "rel": [
+        "rust",
+        "borrow-checker",
+        "trait-based-polymorphism",
+        "zero-cost-abstractions",
+        "errors-as-values"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust systems craft: Rust idioms and its concurrency model dominate the systems-programming conversation'",
+      "src": "learned"
+    },
+    {
+      "id": "newtype-pattern",
+      "dom": "stack",
+      "label": "Newtype pattern",
+      "def": "A Rust idiom that wraps a value in a single-field tuple struct to give it a distinct type, enforcing domain invariants and enabling custom trait implementations with no runtime cost.",
+      "rel": [
+        "rust",
+        "trait-based-polymorphism",
+        "zero-cost-abstractions",
+        "memory-safety"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust systems craft: Rust idioms and its concurrency model dominate the systems-programming conversation'",
+      "src": "learned"
     }
   ]
 }
