@@ -8869,6 +8869,36 @@
       ],
       "ev": "latest-trends theme 'Playful, self-referential web toys' (highest-scoring Show HNs are interactive single-purpose novelties), grounded in this system's existing webgl/procedural-generation/gpu-particl",
       "src": "learned"
+    },
+    {
+      "id": "data-race",
+      "dom": "stack",
+      "label": "Data Race",
+      "def": "A concurrency defect where two threads access the same memory location simultaneously with at least one write and no synchronization, producing undefined behavior — the exact bug class Rust's ownership and borrow rules statically prevent.",
+      "rel": [
+        "fearless-concurrency",
+        "borrow-checker",
+        "send-sync-traits",
+        "memory-safety",
+        "false-sharing"
+      ],
+      "ev": "Trend theme: 'Rust and systems-language design... its concurrency pitfalls keep surfacing across multiple front-page threads', grounded against the graph's existing borrow-checker/fearless-concurrency",
+      "src": "learned"
+    },
+    {
+      "id": "model-provenance",
+      "dom": "agentic-ai",
+      "label": "Model Provenance",
+      "def": "The verifiable origin, training lineage, and integrity chain of a downloadable model's weights, letting a self-hosting operator trust where a checkpoint came from before running it.",
+      "rel": [
+        "open-weights",
+        "model-card",
+        "ai-supply-chain-security",
+        "content-provenance",
+        "model-hub"
+      ],
+      "ev": "Trend NOTABLE: open-weights releases (Inkling foundation model, Grok Build) 'making local model provenance the dominant conversation'.",
+      "src": "learned"
     }
   ]
 }
