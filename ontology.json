@@ -8738,6 +8738,50 @@
       ],
       "ev": "HN theme (2026-07-16): sustained Rust ecosystem debates about async concurrency and language editions.",
       "src": "learned"
+    },
+    {
+      "id": "wait-free-programming",
+      "dom": "stack",
+      "label": "Wait-Free Programming",
+      "def": "Wait-freedom is the strongest non-blocking progress guarantee: every thread finishes its operation in a bounded number of steps regardless of contention, unlike lock-freedom which only guarantees that *some* thread makes progress.",
+      "rel": [
+        "lock-free-programming",
+        "memory-ordering",
+        "safe-memory-reclamation",
+        "aba-problem"
+      ],
+      "ev": "latest AI/tech trends: HN front-page 'Deep Rust ecosystem debates about async concurrency'; extends the system's established Rust lock-free concurrency cluster (lock-free-programming, seqlock, aba-pro",
+      "src": "learned"
+    },
+    {
+      "id": "async-fn-in-traits",
+      "dom": "stack",
+      "label": "Async fn in traits",
+      "def": "The Rust language capability (built on return-position impl-Trait-in-traits) that lets trait methods be declared `async`, enabling libraries to abstract over asynchronous behavior behind trait interfaces without external macros or boxing.",
+      "rel": [
+        "function-coloring",
+        "async-runtime",
+        "trait-based-polymorphism",
+        "rust-edition",
+        "poll-based-futures"
+      ],
+      "ev": "Trend theme: 'Deep Rust ecosystem debates about async concurrency and language editions are drawing sustained interest'; grounded in the established Rust async trait-abstraction milestone.",
+      "src": "learned"
+    },
+    {
+      "id": "effect-system",
+      "dom": "stack",
+      "label": "Effect system",
+      "def": "A type-system mechanism that tracks and lets code abstract generically over computational effects (asynchrony, fallibility, mutation), the general framework behind proposals like Rust's keyword/effect generics aimed at dissolving the sync/async function-coloring split.",
+      "rel": [
+        "function-coloring",
+        "async-fn-in-traits",
+        "typestate-pattern",
+        "cancellation-safety",
+        "structured-concurrency"
+      ],
+      "ev": "Trend theme: 'Rust ecosystem debates about async concurrency and language editions' — the async-as-effect / keyword-generics discussion; established programming-language-theory concept.",
+      "src": "learned"
     }
   ]
 }
