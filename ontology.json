@@ -8074,6 +8074,143 @@
       ],
       "ev": "latest trends theme 'Rust systems-programming refinement ... Rust idioms, editions, and its concurrency model' — traits are the central polymorphism idiom recurring in that discussion",
       "src": "learned"
+    },
+    {
+      "id": "structured-concurrency",
+      "dom": "stack",
+      "label": "Structured Concurrency",
+      "def": "A concurrency paradigm that scopes concurrent tasks to a lexical block so their lifetimes, error propagation, and cancellation are well-defined rather than leaking as detached background work.",
+      "rel": [
+        "fearless-concurrency",
+        "function-coloring",
+        "actor-model"
+      ],
+      "ev": "Latest-trends theme 'Rust systems-programming refinement: front-page debate keeps returning to Rust idioms, editions, and its concurrency model' — structured concurrency is a central, lasting topic in",
+      "src": "learned"
+    },
+    {
+      "id": "async-runtime",
+      "dom": "stack",
+      "label": "Async runtime",
+      "def": "A pluggable userspace executor and reactor (e.g. Rust's Tokio) that multiplexes many non-blocking tasks onto a small pool of OS threads, since the language ships no built-in event loop.",
+      "rel": [
+        "function-coloring",
+        "fearless-concurrency",
+        "structured-concurrency",
+        "actor-model"
+      ],
+      "ev": "latest AI/tech trends theme: 'Rust concurrency craft — deep systems debate around async runtimes and Rust-style design keeps surfacing.'",
+      "src": "learned"
+    },
+    {
+      "id": "work-stealing-scheduler",
+      "dom": "stack",
+      "label": "Work-Stealing Scheduler",
+      "def": "A multi-threaded task scheduler where idle worker threads steal queued tasks from busier peers to balance load, the design behind Rust async runtimes like Tokio.",
+      "rel": [
+        "async-runtime",
+        "structured-concurrency",
+        "actor-model"
+      ],
+      "ev": "latest AI/tech trends: 'Rust concurrency craft: Deep systems debate around async runtimes and Rust-style design keeps surfacing.'",
+      "src": "learned"
+    },
+    {
+      "id": "thread-per-core",
+      "dom": "stack",
+      "label": "Thread-per-Core",
+      "def": "A concurrency architecture that pins one execution thread to each CPU core with no cross-core task migration, trading dynamic load-balancing for cache locality and lock-free per-core state.",
+      "rel": [
+        "async-runtime",
+        "work-stealing-scheduler",
+        "actor-model"
+      ],
+      "ev": "latest AI/tech trends: 'Rust concurrency craft: Deep systems debate around async runtimes and Rust-style design keeps surfacing.'",
+      "src": "learned"
+    },
+    {
+      "id": "io-uring",
+      "dom": "infra",
+      "label": "io_uring",
+      "def": "A Linux asynchronous I/O interface using shared submission and completion ring buffers to batch and offload syscalls, underpinning modern high-performance async runtimes.",
+      "rel": [
+        "async-runtime",
+        "thread-per-core",
+        "zero-copy"
+      ],
+      "ev": "latest AI/tech trends: 'Rust concurrency craft: Deep systems debate around async runtimes and Rust-style design keeps surfacing.'",
+      "src": "learned"
+    },
+    {
+      "id": "cancellation-safety",
+      "dom": "stack",
+      "label": "Cancellation safety",
+      "def": "The property that an async operation can be dropped at an await point (e.g. by select! or a timeout) without losing in-flight data or leaving state inconsistent.",
+      "rel": [
+        "async-runtime",
+        "structured-concurrency",
+        "function-coloring",
+        "fearless-concurrency"
+      ],
+      "ev": "latest AI/tech trends theme 'Rust concurrency craft: Deep systems debate around async runtimes and Rust-style design keeps surfacing'",
+      "src": "learned"
+    },
+    {
+      "id": "memory-mapped-weights",
+      "dom": "infra",
+      "label": "Memory-mapped weights",
+      "def": "Loading model weights via mmap so the OS page cache streams them from disk on demand, letting a machine run models larger than its physical RAM.",
+      "rel": [
+        "model-offloading",
+        "cpu-inference",
+        "memory-bandwidth-bound",
+        "second-life-hardware",
+        "local-first"
+      ],
+      "ev": "latest AI/tech trends theme 'Local/low-end inference: Enthusiasm is high for running large models cheaply on old, GPU-less hardware'",
+      "src": "learned"
+    },
+    {
+      "id": "send-sync-traits",
+      "dom": "stack",
+      "label": "Send + Sync marker traits",
+      "def": "Rust's Send and Sync auto-marker traits let the compiler prove at build time whether a value can be moved across threads or shared by reference, turning data races into compile errors.",
+      "rel": [
+        "fearless-concurrency",
+        "async-runtime",
+        "borrow-checker",
+        "trait-based-polymorphism"
+      ],
+      "ev": "latest AI/tech trends theme 'Rust concurrency craft: Deep systems debate around async runtimes and Rust-style design', grounded in this system's Rust codebase (existing concepts rust, borrow-checker, ",
+      "src": "learned"
+    },
+    {
+      "id": "cooperative-scheduling",
+      "dom": "stack",
+      "label": "Cooperative scheduling",
+      "def": "In async runtimes, tasks run until they voluntarily yield at an await point, so a task that blocks or never yields starves every other task sharing that executor thread.",
+      "rel": [
+        "async-runtime",
+        "work-stealing-scheduler",
+        "thread-per-core",
+        "cancellation-safety"
+      ],
+      "ev": "latest AI/tech trends theme 'Rust concurrency craft': deep systems debate around async runtimes and Rust-style design",
+      "src": "learned"
+    },
+    {
+      "id": "poll-based-futures",
+      "dom": "stack",
+      "label": "Poll-based futures",
+      "def": "In Rust, an async value is an inert state machine that makes no progress until an executor polls it, so a future that is never awaited simply never runs.",
+      "rel": [
+        "async-runtime",
+        "function-coloring",
+        "cooperative-scheduling",
+        "cancellation-safety"
+      ],
+      "ev": "HN theme 'Rust systems and concurrency: Rust's ergonomics, async pitfalls, and its influence on other tools are an active discussion' (2026-07-16)",
+      "src": "learned"
     }
   ]
 }
