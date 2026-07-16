@@ -8343,6 +8343,34 @@
       ],
       "ev": "spark.sh / spark_stats.py publishing 2-node GB10 Grace Blackwell telemetry refreshes every 30 min, aligned with the HN trend 'Local LLM inference on modest hardware — running capable models cheaply wi",
       "src": "learned"
+    },
+    {
+      "id": "interior-mutability",
+      "dom": "stack",
+      "label": "Interior mutability",
+      "def": "A Rust pattern (Cell/RefCell/Mutex/RwLock) that permits mutation through a shared reference by shifting borrow enforcement from compile time to runtime checks or synchronization primitives.",
+      "rel": [
+        "borrow-checker",
+        "send-sync-traits",
+        "fearless-concurrency",
+        "zero-cost-abstractions"
+      ],
+      "ev": "HN trend theme 'Rust-style design and concurrency pitfalls in systems code', grounded in this system's Rust/Yew/WASM stack (rust, yew, wasm concepts)",
+      "src": "learned"
+    },
+    {
+      "id": "unix-philosophy",
+      "dom": "harness",
+      "label": "Unix philosophy",
+      "def": "The design paradigm of building small, single-purpose, composable tools that each do one thing well and pipe together, prized for clarity and distributability.",
+      "rel": [
+        "cli-ergonomics",
+        "minimal-agent",
+        "single-file-app",
+        "agentic-cli"
+      ],
+      "ev": "HN trend theme 'renewed appreciation for well-designed CLIs and minimal, distributable single-file tooling' (e.g. Redbean single-file server)",
+      "src": "learned"
     }
   ]
 }

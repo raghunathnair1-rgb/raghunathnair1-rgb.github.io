@@ -100,6 +100,7 @@ html { scroll-behavior: smooth; }
 #content th[scope="col"] { text-wrap: balance; }
 #content th[scope="row"] { font-weight: 400; color: var(--fg); }
 #content tbody tr:nth-child(even) { background: rgba(0,255,65,.025); }
+#content tbody tr { transition: background .15s ease; }
 #content tbody tr:hover { background: rgba(0,255,65,.05); }
 #content tfoot td, #content tfoot th { border-top: 2px solid var(--cyan); color: var(--muted); font-variant-numeric: tabular-nums; }
 #content thead th { border-bottom: 2px solid var(--cyan); }
