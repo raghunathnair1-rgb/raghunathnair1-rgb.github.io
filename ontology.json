@@ -8254,6 +8254,21 @@
       ],
       "ev": "latest AI/tech trend: 'CLI craft revival — command-line design and Rust systems ergonomics' theme (HN front page, 2026-07-16); this system is driven by shell CLIs (run-agent.sh, rc-session.sh, spark.s",
       "src": "learned"
+    },
+    {
+      "id": "executor-starvation",
+      "dom": "stack",
+      "label": "Executor starvation",
+      "def": "A concurrency pitfall where running blocking or long-CPU work directly on an async runtime's worker thread stalls the executor and starves other ready tasks.",
+      "rel": [
+        "async-runtime",
+        "poll-based-futures",
+        "cooperative-scheduling",
+        "thread-per-core",
+        "cancellation-safety"
+      ],
+      "ev": "HN trend theme 'Rust and systems-language craft: Multiple front-page posts debate Rust-style ergonomics and its async/concurrency pitfalls'",
+      "src": "learned"
     }
   ]
 }
