@@ -8899,6 +8899,20 @@
       ],
       "ev": "Trend NOTABLE: open-weights releases (Inkling foundation model, Grok Build) 'making local model provenance the dominant conversation'.",
       "src": "learned"
+    },
+    {
+      "id": "model-merging",
+      "dom": "infra",
+      "label": "Model merging",
+      "def": "Combining the weights of multiple separately fine-tuned models (e.g. via linear interpolation, SLERP, or task arithmetic) into one model that inherits their capabilities without any further training.",
+      "rel": [
+        "open-weights",
+        "parameter-efficient-finetuning",
+        "knowledge-distillation",
+        "model-hub"
+      ],
+      "ev": "Trend theme 'Open-weights AI models' plus the open-weight ecosystem's established mergekit-style merging technology; deepens the open-weights cluster (open-weights, PEFT, model-hub).",
+      "src": "learned"
     }
   ]
 }
