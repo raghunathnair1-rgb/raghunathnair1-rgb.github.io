@@ -8327,6 +8327,22 @@
       ],
       "ev": "HN 'WebAssembly in the browser' theme + 'Firefox in WebAssembly' — porting/composing large multi-language applications into WASM relies on the component model as the composition layer",
       "src": "learned"
+    },
+    {
+      "id": "ai-workstation",
+      "dom": "infra",
+      "label": "AI workstation",
+      "def": "A desktop-class machine with large unified memory and integrated accelerators that runs and fine-tunes sizeable models locally, collapsing the gap between developer hardware and datacenter inference.",
+      "rel": [
+        "local-first",
+        "spark",
+        "unified-memory",
+        "cpu-inference",
+        "distributed-inference",
+        "neocloud"
+      ],
+      "ev": "spark.sh / spark_stats.py publishing 2-node GB10 Grace Blackwell telemetry refreshes every 30 min, aligned with the HN trend 'Local LLM inference on modest hardware — running capable models cheaply wi",
+      "src": "learned"
     }
   ]
 }
