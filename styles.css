@@ -91,6 +91,7 @@ html { scroll-behavior: smooth; }
 #content a code { color: inherit; }
 #content :is(h1, h2, h3, h4) code { font-size: 1em; padding: 0; border: 0; background: none; }
 #content a strong, #content a b, #content a em, #content a i { color: inherit; }
+#content mark a { color: inherit; }
 #content table { display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
 #content pre, #content table { scrollbar-width: thin; scrollbar-color: var(--cyan) var(--panel); }
 #content th, #content td { border: 1px solid var(--line); padding: .4rem .6rem; text-align: left; vertical-align: top; }

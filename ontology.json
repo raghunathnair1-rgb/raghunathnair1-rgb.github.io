@@ -8427,6 +8427,50 @@
       ],
       "ev": "latest AI/tech trends theme: 'Rust systems craft: Rust idioms and its concurrency model dominate the systems-programming conversation'",
       "src": "learned"
+    },
+    {
+      "id": "weight-serialization-format",
+      "dom": "infra",
+      "label": "Weight serialization format",
+      "def": "A standardized single-file container that stores model weights (often quantized) with metadata so they load safely, portably, and memory-mappably for local inference.",
+      "rel": [
+        "memory-mapped-weights",
+        "quantization",
+        "open-weights",
+        "model-offloading",
+        "cpu-inference"
+      ],
+      "ev": "Latest-trends theme: community 'fixated on squeezing large LLMs onto old CPUs and efficient weight storage rather than renting GPUs' (HN front page, 2026-07-16); durable formats such as safetensors/GG",
+      "src": "learned"
+    },
+    {
+      "id": "model-hub",
+      "dom": "infra",
+      "label": "Model hub / weight registry",
+      "def": "A registry that indexes, versions, and distributes openly released model weights and datasets so anyone can discover and pull them for local use.",
+      "rel": [
+        "open-weights",
+        "model-card",
+        "content-addressed-networking",
+        "model-pinning",
+        "weight-serialization-format"
+      ],
+      "ev": "Latest-trends theme: 'labs and manifestos pushing openly released model weights and free AI infrastructure'; NOTABLE 'Inkling: a newly released open-weights foundation model published for anyone to ru",
+      "src": "learned"
+    },
+    {
+      "id": "one-bit-llm",
+      "dom": "infra",
+      "label": "1-bit LLMs",
+      "def": "Representing model weights in ~1.58 bits (ternary {-1,0,1}) so matrix multiplies collapse to additions, letting large models run on commodity CPUs with a fraction of the memory and bandwidth.",
+      "rel": [
+        "quantization",
+        "cpu-inference",
+        "memory-bandwidth-bound",
+        "small-language-model"
+      ],
+      "ev": "latest-trends theme: community fixated on squeezing large LLMs onto old CPUs and efficient weight storage rather than renting GPUs (HN front page, 2026-07-16)",
+      "src": "learned"
     }
   ]
 }
