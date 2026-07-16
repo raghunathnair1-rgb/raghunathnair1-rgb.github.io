@@ -75,6 +75,35 @@ pub fn reading_time(body: &str) -> u32 {
     (((body.split_whitespace().count() as u32) + 100) / 200).max(1)
 }
 
+/// Rank posts by keyword overlap with the post at `idx`, most-related first.
+/// Each `keywords` entry is that post's searchable text (e.g. `"tag title"`);
+/// relatedness is the number of distinct lowercased word tokens two posts share.
+/// Returns up to `limit` other-post indices with non-zero overlap, ties broken by
+/// original order. Pure, total, and std-only — the wasm post view calls it directly,
+/// so keep it covered by the 100% gate.
+pub fn related_posts(keywords: &[&str], idx: usize, limit: usize) -> Vec<usize> {
+    if idx >= keywords.len() {
+        return Vec::new();
+    }
+    let toks = |s: &str| -> std::collections::BTreeSet<String> {
+        s.split(|c: char| !c.is_alphanumeric())
+            .filter(|w| !w.is_empty())
+            .map(|w| w.to_lowercase())
+            .collect()
+    };
+    let target = toks(keywords[idx]);
+    let mut scored: Vec<(usize, usize)> = keywords
+        .iter()
+        .enumerate()
+        .filter(|&(i, _)| i != idx)
+        .map(|(i, s)| (i, toks(s).intersection(&target).count()))
+        .filter(|&(_, score)| score > 0)
+        .collect();
+    // strongest overlap first; equal overlap keeps original post order
+    scored.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
+    scored.into_iter().take(limit).map(|(i, _)| i).collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -141,5 +170,18 @@ mod tests {
         assert_eq!(reading_time("just a few words"), 1); // 4 words rounds down to 1
         assert_eq!(reading_time(&"word ".repeat(300)), 2); // (300+100)/200 = 2
         assert_eq!(reading_time(&"word ".repeat(500)), 3); // (500+100)/200 = 3
+    }
+
+    #[test]
+    fn related_ranks_by_overlap() {
+        // comma+space exercises the non-alphanumeric split (and its empty-token filter)
+        let ks = ["rust, wasm", "rust systems", "coffee cat", "wasm rust yew"];
+        // post 0 {rust,wasm}: shares 2 with post 3, 1 with post 1, 0 with post 2
+        assert_eq!(related_posts(&ks, 0, 5), vec![3, 1]); // strongest overlap first
+        assert_eq!(related_posts(&ks, 0, 1), vec![3]); // limit is respected
+        // post 1 {rust,systems}: ties with 0 and 3 (both share only "rust")
+        assert_eq!(related_posts(&ks, 1, 5), vec![0, 3]); // equal overlap -> original order
+        assert!(related_posts(&ks, 2, 5).is_empty()); // "coffee cat" shares nothing
+        assert!(related_posts(&ks, 9, 5).is_empty()); // idx past the end -> empty
     }
 }

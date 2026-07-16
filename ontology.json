@@ -8241,6 +8241,19 @@
       ],
       "ev": "Latest AI/tech trend theme 'Computer-use agents as infrastructure: Autonomous agents that operate real interfaces are being packaged as developer APIs' (HN front page, 2026-07-16).",
       "src": "learned"
+    },
+    {
+      "id": "cli-ergonomics",
+      "dom": "stack",
+      "label": "CLI ergonomics",
+      "def": "The design discipline of making command-line tools legible and pleasant for both humans and agents through careful flags, output shape, and sensible defaults.",
+      "rel": [
+        "agentic-cli",
+        "terminal-aesthetic",
+        "native-web-tooling"
+      ],
+      "ev": "latest AI/tech trend: 'CLI craft revival — command-line design and Rust systems ergonomics' theme (HN front page, 2026-07-16); this system is driven by shell CLIs (run-agent.sh, rc-session.sh, spark.s",
+      "src": "learned"
     }
   ]
 }

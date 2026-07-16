@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use yew::TargetCast;
 // pure logic lives in the coverage-gated blog-logic crate (tested code == shipped code)
-use blog_logic::{day_length_hm, evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r};
+use blog_logic::{day_length_hm, evt_cls, kg_dom_cls, kg_domain, kg_fmt, kg_r, related_posts};
 
 /// The dark factory went live 2026-07-06 00:00 UTC. Every "uptime" on the site counts from
 /// this single origin, so the number reads identically wherever it appears (brain card, footer).
@@ -2063,12 +2063,36 @@ fn app() -> Html {
                     }
                 })
             };
+            // related posts by tag/keyword overlap (pure ranking lives in blog-logic)
+            let keys: Vec<String> = list.iter().map(|q| format!("{} {}", q.tag, q.title)).collect();
+            let keyrefs: Vec<&str> = keys.iter().map(|s| s.as_str()).collect();
+            let related = related_posts(&keyrefs, i, 3);
             html! {
                 <article>
                     <a class="back" onclick={back} onkeydown={keyback} tabindex="0" role="button">{"‹ back to log"}</a>
                     <h2>{ p.title }</h2>
                     <div class="meta"><span class="tag">{ format!("#{}", p.tag) }</span>{ " · " }<time datetime={ p.date }>{ p.date }</time></div>
                     { for p.body.split("\n\n").map(|para| html! { <p>{ para }</p> }) }
+                    { if related.is_empty() { html! {} } else { html! {
+                        <nav class="related" aria-label="related posts">
+                            <div class="cmd">{ "$ grep -l related ~/posts" }</div>
+                            <ul class="log">
+                                { for related.iter().map(|&r| {
+                                    let open = { let s = selected.clone(); Callback::from(move |_: web_sys::MouseEvent| s.set(Some(r))) };
+                                    let keyopen = { let s = selected.clone(); Callback::from(move |e: web_sys::KeyboardEvent| {
+                                        if e.key() == "Enter" || e.key() == " " { e.prevent_default(); s.set(Some(r)); }
+                                    }) };
+                                    html! {
+                                        <li onclick={open} onkeydown={keyopen} tabindex="0" role="button">
+                                            <span class="prompt">{ "›" }</span>
+                                            <span class="title">{ list[r].title }</span>
+                                            <span class="tag">{ format!("#{}", list[r].tag) }</span>
+                                        </li>
+                                    }
+                                }) }
+                            </ul>
+                        </nav>
+                    } } }
                 </article>
             }
         }
