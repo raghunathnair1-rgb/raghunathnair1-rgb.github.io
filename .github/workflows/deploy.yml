@@ -1,4 +1,4 @@
-name: Deploy static site to Pages
+name: Deploy Next.js site to Pages
 
 on:
   push:
@@ -41,13 +41,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Prepare static site
-        run: |
-          mkdir -p dist
-          cp -R index.html styles.css assets status.json news.json dmesg.json spark.json router.json deploy.json activity.json watchdog.json coverage.json brain.json ontology.json ideas.json wx.json p feed kb sitemap.xml rss.xml atom.xml feed.json robots.txt dist/
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - run: npm run build:static
+      - name: Preserve existing published routes and assets
+        run: cp -R styles.css assets status.json news.json dmesg.json spark.json router.json deploy.json activity.json watchdog.json coverage.json brain.json ontology.json ideas.json wx.json p feed kb sitemap.xml rss.xml atom.xml feed.json robots.txt out/
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: out
 
   deploy:
     needs: build

@@ -1,30 +1,30 @@
-# One-time GitHub setup (3 steps)
+# Deployment
 
-The VPS side is done (repo wired, deploy key generated, CI written). These 3 steps
-need you on GitHub (no API token, so I can't do them for you). Do them once.
+## Vercel
 
-## 1. Create the repo
-Create a **new empty repo** named exactly:
-    raghunathnair1-rgb.github.io
-(User site → served at https://raghunathnair1-rgb.github.io). Do NOT add a README.
+The project is linked locally to `raghu-adf1/calisthenics`. Vercel uses the Next.js framework, `npm run build`, and `.next` output configured in `vercel.json`.
 
-## 2. Add the deploy key (write access)
-Repo → **Settings → Deploy keys → Add deploy key**:
-- Title: `harness-blog`
-- Key: paste the PUBLIC key below
-- ✅ **Allow write access**
-
-```
-<PASTE THE PUBLIC KEY PRINTED IN THE TERMINAL — .deploy/blog_deploy_key.pub>
+```sh
+vercel deploy --target preview --scope raghu-adf1
+vercel inspect <deployment-url> --scope raghu-adf1 --wait
 ```
 
-## 3. Enable Pages via Actions
-Repo → **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+Use `--prod` only when publishing to the production domain is intended. Automatic deployments from GitHub require connecting the GitHub account and repository in Vercel project settings.
 
-## Then ship
-From the VPS:
-    cd ~/harness/blog && ./deploy.sh "initial deploy"
-GitHub Actions builds Rust→WASM and publishes to Pages. Live in ~1–2 min at
-https://raghunathnair1-rgb.github.io
+## GitHub Pages
 
-(After this, every `./deploy.sh` — or every blog task the brain runs — auto-deploys.)
+The workflow in `.github/workflows/deploy.yml` runs on pushes to `main`. It retains the legacy Rust coverage gate, builds and browser-tests Next.js, exports the app with `npm run build:static`, and uploads `out/` to Pages. Existing blog routes and assets are copied into the export before upload.
+
+Enable **Settings → Pages → Build and deployment → Source: GitHub Actions** in the repository.
+
+## Local production check
+
+```sh
+npm ci
+npm run build
+npx playwright install chromium
+npm test
+npm start
+```
+
+The old `deploy.sh` belongs to the legacy VPS blog automation. Use the commands above for this Next.js app.
