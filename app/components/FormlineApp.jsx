@@ -214,8 +214,8 @@ export default class FormlineApp extends Component {
 
     return {
       accentColor: A,
-      athlete: this.props.athleteName || "Mara Ellis",
-      initials: (this.props.athleteName || "Mara Ellis")
+      athlete: this.props.athleteName || "Raghu Nair",
+      initials: (this.props.athleteName || "Raghu Nair")
         .split(" ")
         .map((w) => w[0])
         .join("")
