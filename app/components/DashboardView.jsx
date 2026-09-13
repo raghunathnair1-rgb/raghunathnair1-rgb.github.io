@@ -8,6 +8,7 @@ export default function DashboardView({ model }) {
       {isDash && (
         <>
           <div
+            className="dashboard-layout"
             style={{ display: "flex", flexDirection: "column", gap: "18px" }}
           >
             <div

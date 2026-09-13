@@ -29,6 +29,7 @@ export default function SessionView({ model }) {
       {isSession && (
         <>
           <div
+            className="session-layout"
             style={{
               display: "grid",
               gridTemplateColumns:

@@ -8,6 +8,7 @@ export default function LibraryView({ model }) {
       {isLib && (
         <>
           <div
+            className="library-layout"
             style={{
               display: "grid",
               gridTemplateColumns:

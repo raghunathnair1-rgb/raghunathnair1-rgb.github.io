@@ -15,6 +15,7 @@ export default function ReportView({ model }) {
       {isReport && (
         <>
           <div
+            className="report-layout"
             style={{ display: "flex", flexDirection: "column", gap: "18px" }}
           >
             <div
