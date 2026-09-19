@@ -63,9 +63,11 @@ jobs:
         run: cp -R styles.css assets status.json news.json dmesg.json spark.json router.json deploy.json activity.json watchdog.json coverage.json brain.json ontology.json ideas.json wx.json p feed kb sitemap.xml rss.xml atom.xml feed.json robots.txt out/
       # Size gate: fail loudly if the Pages artifact balloons (assets/content creep).
       # du -sk (KB) — `du -sb` is a GNU-ism that fails on macOS.
+      # Baseline is ~11 MB (kb/ 5.8 MB + assets 0.7 MB + ontology 0.4 MB + app ~1 MB);
+      # 15 MB leaves headroom for growth while still catching runaway bloat.
       - name: Artifact size gate
         run: |
-          LIMIT=$((10 * 1024))
+          LIMIT=$((15 * 1024))
           SIZE=$(du -sk out | cut -f1)
           echo "Pages artifact size: $SIZE KB (limit: $LIMIT KB)"
           if [ "$SIZE" -gt "$LIMIT" ]; then
