@@ -13,7 +13,7 @@ These instructions apply to the Formline calisthenics product. Carry authorized 
 ## Full software development lifecycle
 
 1. **Discover:** state the user problem, affected flow, acceptance criteria, risks, and evidence needed. Use `planning-and-task-breakdown`, `source-driven-development`, and `typesafe-ai` when a semantic judgment or ranking helps.
-2. **Design:** preserve the existing Next.js App Router structure and responsive behavior. Use `frontend-ui-engineering`, `api-and-interface-design`, `performance-optimization`, and `security-basics` when relevant. Record durable product decisions in `01 Projects/Formline/Formline Decision Log.md`.
+2. **Design:** preserve the existing Next.js App Router structure and responsive behavior. Use `frontend-ui-engineering`, `web-design-guidelines`, `make-interfaces-feel-better`, `impeccable`, `modern-web-guidance`, `api-and-interface-design`, `performance-optimization`, and `security-basics` when relevant. Define the user goal, information hierarchy, states, keyboard path, responsive layout, contrast, focus treatment, and empty/error/loading behavior before polishing visuals. Record durable product decisions in `01 Projects/Formline/Formline Decision Log.md`.
 3. **Build:** make the smallest coherent change. Use `test-driven-development` for meaningful behavior, `code-simplification` for needless complexity, and `vercel-react-best-practices` for React or Next.js performance work.
 4. **Verify locally:** run the narrowest affected checks, then the complete gate before handoff:
 
@@ -55,6 +55,7 @@ Use the smallest applicable skill set. Do not invoke every skill for every chang
 | Work | Skills |
 | --- | --- |
 | Product discovery and design | `planning-and-task-breakdown`, `source-driven-development`, `frontend-ui-engineering`, `typesafe-ai` |
+| UX and UI design | `frontend-ui-engineering`, `web-design-guidelines`, `make-interfaces-feel-better`, `impeccable`, `modern-web-guidance`, `diagramming-code` |
 | React, Next.js, performance | `vercel-react-best-practices`, `performance-optimization`, `web-design-guidelines` |
 | Tests and browser behavior | `test-driven-development`, `browser-testing-with-devtools`, `integration-testing-http`, `verification-before-completion` |
 | CI/CD and release | `ci-cd-and-automation`, `github-actions-local-repro`, `github-actions-failure-triage`, `finishing-a-development-branch` |
