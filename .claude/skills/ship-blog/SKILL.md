@@ -11,11 +11,12 @@ description: >
 
 The blog is a **Rust → WebAssembly** app (Yew + Trunk), its OWN git repo, deployed to
 **GitHub Pages** via GitHub Actions. The VPS has **no C toolchain** → you CANNOT build
-locally. CI is the only build. So: never claim "done" until you have *verified* the
+locally. CI is the only build. So: never claim "done" until you have _verified_ the
 live result. `./deploy.sh` runs a **3-layer security gate → snapshots brain status →
 pushes → Actions builds+deploys**.
 
 ## The security gate (deploy.sh, before any push)
+
 1. **Secret regex** — `git grep` for `sk-…`, private keys, `ghp_…`, `AKIA…` (aborts on hit).
 2. **opengrep SAST** — `--severity ERROR` language-agnostic static analysis (aborts on error-level).
 3. **Fable AI review** — `claude -p --model claude-fable-5` reads the `git diff HEAD` and
@@ -27,6 +28,7 @@ pushes → Actions builds+deploys**.
    Do NOT remove or weaken this gate. If it false-blocks, tighten the prompt, don't delete it.
 
 ## Non-negotiable workflow
+
 1. Make the change (edit `blog/src/main.rs`, `index.html`, `styles.css`, etc.).
    - **For any VISUAL/design change** (new widget, CSS, layout, colour, type, motion), first consult the
      **`impeccable`** skill — a design-language + AI-slop check. Apply its bans + craft rules and run the
@@ -36,11 +38,12 @@ pushes → Actions builds+deploys**.
    - the **build job** step = `success` (not just the run "completed"),
    - the **wasm hash changed** (Rust/asset change) OR the **CSS hash changed** (CSS-only), and
    - the site returns **HTTP 200**.
-   Use the verify snippet in `verify.md`.
+     Use the verify snippet in `verify.md`.
 4. Only then say it's live. If build failed → it's YOUR code (fix). If build succeeded
    but the run failed → it's the transient `deploy-pages` flake → re-trigger.
 
 ## Mistakes already made here — do not repeat
+
 - **js-sys Date getters**: `get_milliseconds/get_day/get_month/get_date/get_full_year`
   did NOT compile in the pinned crate. Use `js_sys::Date::now()` and
   `Date::to_date_string().as_string()` instead. Only `get_hours/get_minutes/get_seconds`
@@ -67,11 +70,13 @@ pushes → Actions builds+deploys**.
   don't pipe through `head -N` which can SIGPIPE-truncate your view.)
 
 ## Adding a terminal command
+
 Command logic lives in `run_command()` (pure `&str -> String`). Side-effects that touch
 the DOM (`theme`, `crt`, `reboot`) are handled specially in the `onkeydown` handler, not
 in `run_command`. Add the name to the `help` string too.
 
 ## The brain-status widget
+
 It fetches `/status.json` (written by `deploy.sh` from the real `harness-brain.service`)
 and ticks live uptime. If you touch the widget, keep `deploy.sh`'s status.json writer.
 

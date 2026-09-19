@@ -1,14 +1,7 @@
 import { Fragment } from "react";
 
 export default function ReportView({ model }) {
-  const {
-    accentColor,
-    fixList,
-    isReport,
-    reportStats,
-    reportSummary,
-    sessionScore,
-  } = model;
+  const { accentColor, fixList, isReport, reportStats, reportSummary, sessionScore } = model;
   return (
     <>
       {" "}
@@ -21,8 +14,7 @@ export default function ReportView({ model }) {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit,minmax(min(100%, 260px),1fr))",
+                gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 260px),1fr))",
                 gap: "18px",
                 alignItems: "stretch",
               }}
@@ -191,9 +183,7 @@ export default function ReportView({ model }) {
                         {f.n}
                       </div>
                       <div style={{ minWidth: "0" }}>
-                        <div style={{ fontSize: "13.5px", fontWeight: "600" }}>
-                          {f.title}
-                        </div>
+                        <div style={{ fontSize: "13.5px", fontWeight: "600" }}>{f.title}</div>
                         <div
                           style={{
                             fontSize: "12px",

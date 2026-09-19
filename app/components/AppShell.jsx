@@ -146,9 +146,7 @@ export default function AppShell({ model }) {
             >
               {"CALIBRATION"}
             </div>
-            <div
-              style={{ display: "flex", alignItems: "baseline", gap: "6px" }}
-            >
+            <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
               <div
                 style={{
                   fontSize: "22px",
@@ -169,9 +167,7 @@ export default function AppShell({ model }) {
                 overflow: "hidden",
               }}
             >
-              <div
-                style={{ width: "98%", height: "100%", background: "#5fe08f" }}
-              ></div>
+              <div style={{ width: "98%", height: "100%", background: "#5fe08f" }}></div>
             </div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>

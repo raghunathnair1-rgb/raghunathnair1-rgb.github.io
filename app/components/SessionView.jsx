@@ -32,8 +32,7 @@ export default function SessionView({ model }) {
             className="session-layout"
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fit,minmax(min(100%, 360px),1fr))",
+              gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 360px),1fr))",
               gap: "22px",
               alignItems: "start",
             }}
@@ -52,8 +51,7 @@ export default function SessionView({ model }) {
                   border: "1px solid #1c201c",
                   borderRadius: "14px",
                   overflow: "hidden",
-                  background:
-                    "repeating-linear-gradient(135deg,#101210 0 9px,#0c0e0c 9px 18px)",
+                  background: "repeating-linear-gradient(135deg,#101210 0 9px,#0c0e0c 9px 18px)",
                   aspectRatio: "16/10",
                   minHeight: "320px",
                   width: "100%",
@@ -67,8 +65,7 @@ export default function SessionView({ model }) {
                     left: "0",
                     right: "0",
                     height: "1px",
-                    background:
-                      "linear-gradient(90deg,transparent,#5fe08f,transparent)",
+                    background: "linear-gradient(90deg,transparent,#5fe08f,transparent)",
                     animation: "scan 3.4s linear infinite",
                   }}
                 ></div>
@@ -188,10 +185,7 @@ export default function SessionView({ model }) {
                       {phaseLabel}
                     </div>
                   </div>
-                  <div
-                    className="live-chips"
-                    style={{ display: "flex", gap: "9px" }}
-                  >
+                  <div className="live-chips" style={{ display: "flex", gap: "9px" }}>
                     {liveChips.map((c, index) => (
                       <Fragment key={index}>
                         <div
@@ -346,12 +340,7 @@ export default function SessionView({ model }) {
                     width: "124px",
                     height: "124px",
                     borderRadius: "50%",
-                    background:
-                      "conic-gradient(" +
-                      accentColor +
-                      " " +
-                      accDeg +
-                      ", #161a16 0)",
+                    background: "conic-gradient(" + accentColor + " " + accDeg + ", #161a16 0)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -424,9 +413,7 @@ export default function SessionView({ model }) {
                   >
                     {verdictNote}
                   </div>
-                  <div
-                    style={{ display: "flex", gap: "14px", marginTop: "2px" }}
-                  >
+                  <div style={{ display: "flex", gap: "14px", marginTop: "2px" }}>
                     {miniStats.map((m, index) => (
                       <Fragment key={index}>
                         <div>

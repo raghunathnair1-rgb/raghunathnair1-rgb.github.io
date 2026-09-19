@@ -129,11 +129,7 @@ export default class FormlineApp extends Component {
   }
 
   tone(v) {
-    return v >= this.bar
-      ? this.accent
-      : v >= this.bar - 10
-        ? this.warn
-        : this.bad;
+    return v >= this.bar ? this.accent : v >= this.bar - 10 ? this.warn : this.bad;
   }
 
   cueFor(score, n) {
@@ -250,11 +246,7 @@ export default class FormlineApp extends Component {
 
       statusDot: running ? B : "#5e655d",
       statusText: running ? "DEMO RUNNING · 9 SIMULATED JOINTS" : "DEMO READY",
-      ctaLabel: running
-        ? "End session"
-        : reps.length
-          ? "Resume capture"
-          : "Start capture",
+      ctaLabel: running ? "End session" : reps.length ? "Resume capture" : "Start capture",
       ctaBg: running ? "transparent" : A,
       ctaFg: running ? "#e9ece8" : "#0a0b0a",
       ctaBorder: running ? "#334034" : A,
@@ -285,9 +277,7 @@ export default class FormlineApp extends Component {
         halo: (dev > 8 ? B : dev > 5 ? W : A) + "26",
       })),
       jointRows: jointDefs.map(([name, dev]) => {
-        const d = running
-          ? Math.max(1, dev + Math.round(2 * Math.sin(t / 9 + dev)))
-          : dev;
+        const d = running ? Math.max(1, dev + Math.round(2 * Math.sin(t / 9 + dev))) : dev;
         return {
           name,
           dev: d + "°",
@@ -300,16 +290,12 @@ export default class FormlineApp extends Component {
         { label: "REPS", value: reps.length + "/" + target, color: "#e9ece8" },
         {
           label: "TEMPO",
-          value: running
-            ? (1.7 + 0.5 * Math.abs(Math.sin(t / 23))).toFixed(1) + "s"
-            : "—",
+          value: running ? (1.7 + 0.5 * Math.abs(Math.sin(t / 23))).toFixed(1) + "s" : "—",
           color: "#e9ece8",
         },
         {
           label: "SYMMETRY",
-          value:
-            (running ? 88 + Math.round(8 * Math.abs(Math.cos(t / 19))) : 92) +
-            "%",
+          value: (running ? 88 + Math.round(8 * Math.abs(Math.cos(t / 19))) : 92) + "%",
           color: this.tone(acc),
         },
       ],
@@ -330,9 +316,7 @@ export default class FormlineApp extends Component {
       miniStats: [
         {
           label: "RANGE OF MOTION",
-          value:
-            (running ? 88 + Math.round(9 * Math.abs(Math.sin(t / 13))) : 96) +
-            "%",
+          value: (running ? 88 + Math.round(9 * Math.abs(Math.sin(t / 13))) : 96) + "%",
         },
         {
           label: "TIME UNDER TENSION",
@@ -341,10 +325,7 @@ export default class FormlineApp extends Component {
       ],
 
       repProgress: reps.length + " OF " + target + " REPS · BAR " + this.bar,
-      repBars: (reps.length
-        ? reps
-        : Array.from({ length: 12 }, (_, i) => ({ n: i + 1, score: 0 }))
-      )
+      repBars: (reps.length ? reps : Array.from({ length: 12 }, (_, i) => ({ n: i + 1, score: 0 })))
         .slice(-14)
         .map((r) => ({
           n: r.n,
@@ -440,10 +421,7 @@ export default class FormlineApp extends Component {
       reportStats: [
         {
           label: "CLEAN REPS",
-          value:
-            reps.filter((r) => r.score >= this.bar).length +
-            "/" +
-            (reps.length || 0),
+          value: reps.filter((r) => r.score >= this.bar).length + "/" + (reps.length || 0),
           note: "Inside full tolerance band",
         },
         {

@@ -14,8 +14,7 @@ export default function DashboardView({ model }) {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit,minmax(min(100%, 180px),1fr))",
+                gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 180px),1fr))",
                 gap: "14px",
               }}
             >
@@ -84,8 +83,7 @@ export default function DashboardView({ model }) {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit,minmax(min(100%, 320px),1fr))",
+                gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 320px),1fr))",
                 gap: "18px",
                 alignItems: "start",
               }}
@@ -230,11 +228,7 @@ export default function DashboardView({ model }) {
                           {w.score}
                         </div>
                         <div style={{ minWidth: "0" }}>
-                          <div
-                            style={{ fontSize: "13.5px", fontWeight: "600" }}
-                          >
-                            {w.title}
-                          </div>
+                          <div style={{ fontSize: "13.5px", fontWeight: "600" }}>{w.title}</div>
                           <div
                             style={{
                               fontSize: "12px",
@@ -277,8 +271,7 @@ export default function DashboardView({ model }) {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns:
-                    "minmax(110px,1.4fr) repeat(4,minmax(56px,.7fr)) 52px",
+                  gridTemplateColumns: "minmax(110px,1.4fr) repeat(4,minmax(56px,.7fr)) 52px",
                   minWidth: "480px",
                   width: "100%",
                   gap: "10px",
@@ -305,8 +298,7 @@ export default function DashboardView({ model }) {
                     onClick={m.go}
                     style={{
                       display: "grid",
-                      gridTemplateColumns:
-                        "minmax(110px,1.4fr) repeat(4,minmax(56px,.7fr)) 52px",
+                      gridTemplateColumns: "minmax(110px,1.4fr) repeat(4,minmax(56px,.7fr)) 52px",
                       minWidth: "480px",
                       width: "100%",
                       gap: "10px",

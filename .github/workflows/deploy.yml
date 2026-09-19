@@ -20,24 +20,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  coverage:
-    name: 100% coverage gate (blog-logic)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: llvm-tools-preview
-      - uses: Swatinem/rust-cache@v2
-      - uses: taiki-e/install-action@cargo-llvm-cov
-      # Gate ONLY the pure-logic crate at 100% lines. It has no web deps, so it builds and
-      # tests on the native host (no wasm target / browser needed). A drop below 100% fails
-      # this job, which blocks `build` (needs: coverage) and therefore the deploy.
-      - name: cargo llvm-cov — fail under 100% lines
-        run: cargo llvm-cov -p blog-logic --lib --fail-under-lines 100 --summary-only --locked
-
-  build:
-    needs: coverage
+  quality:
+    name: Lint + format gate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,18 +30,55 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+
+  build:
+    name: Build + browser tests + static export
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Cache the Playwright browser across runs so the ~150 MB chromium download
+      # only happens when the @playwright/test version changes.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
+      - name: Install Playwright chromium
+        run: npx playwright install --with-deps chromium
+      # Server build (also serves the Playwright webServer) and the static export.
       - run: npm run build
-      - run: npx playwright install --with-deps chromium
+      # Browser tests are a blocking gate: a broken UI never ships.
       - run: npm test
       - run: npm run build:static
       - name: Preserve existing published routes and assets
         run: cp -R styles.css assets status.json news.json dmesg.json spark.json router.json deploy.json activity.json watchdog.json coverage.json brain.json ontology.json ideas.json wx.json p feed kb sitemap.xml rss.xml atom.xml feed.json robots.txt out/
+      # Size gate: fail loudly if the Pages artifact balloons (assets/content creep).
+      # du -sk (KB) — `du -sb` is a GNU-ism that fails on macOS.
+      - name: Artifact size gate
+        run: |
+          LIMIT=$((10 * 1024))
+          SIZE=$(du -sk out | cut -f1)
+          echo "Pages artifact size: $SIZE KB (limit: $LIMIT KB)"
+          if [ "$SIZE" -gt "$LIMIT" ]; then
+            echo "❌ artifact exceeds $((LIMIT / 1024)) MB limit"
+            du -sk out/* | sort -rn | head -20
+            exit 1
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
 
   deploy:
-    needs: build
+    needs: [quality, build]
     runs-on: ubuntu-latest
     environment:
       name: github-pages

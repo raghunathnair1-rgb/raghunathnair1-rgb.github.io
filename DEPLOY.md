@@ -13,7 +13,12 @@ Use `--prod` only when publishing to the production domain is intended. Automati
 
 ## GitHub Pages
 
-The workflow in `.github/workflows/deploy.yml` runs on pushes to `main`. It retains the legacy Rust coverage gate, builds and browser-tests Next.js, exports the app with `npm run build:static`, and uploads `out/` to Pages. Existing blog routes and assets are copied into the export before upload.
+The workflow in `.github/workflows/deploy.yml` runs on pushes to `main` with two parallel jobs:
+
+- **quality** — `npm ci`, then ESLint (`npm run lint`) and Prettier (`npm run format:check`) as blocking gates.
+- **build** — `npm ci`, Playwright chromium (cached across runs), `npm run build`, Playwright browser tests (`npm test`) as a blocking gate, `npm run build:static`, copies existing blog routes and assets into the export, enforces a 10 MB artifact size gate, and uploads `out/` to Pages.
+
+The `deploy` job runs only when both pass. The legacy Rust coverage gate was removed: the `blog-logic` crate has no tests, so the 100% floor was vacuous.
 
 Enable **Settings → Pages → Build and deployment → Source: GitHub Actions** in the repository.
 

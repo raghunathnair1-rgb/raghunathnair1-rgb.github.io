@@ -11,8 +11,7 @@ export default function LibraryView({ model }) {
             className="library-layout"
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fill,minmax(min(100%, 236px),1fr))",
+              gridTemplateColumns: "repeat(auto-fill,minmax(min(100%, 236px),1fr))",
               gap: "16px",
             }}
           >

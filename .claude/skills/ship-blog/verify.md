@@ -33,7 +33,9 @@ fi
 ```
 
 ## Diagnosing a build failure without CI logs (no token)
+
 `build failure` = a Rust compile error. You cannot read the log, so:
+
 1. Re-read the exact code you changed.
 2. Suspect: new deps/features, unproven js-sys methods, iframe-in-html!, type mismatches.
 3. Rewrite with APIs proven to compile here (see SKILL.md "mistakes"). Deploy, watch build.
