@@ -26,6 +26,7 @@ These instructions apply to the Formline calisthenics product. Carry authorized 
    ```
 
    Use `browser-testing-with-devtools` for real browser behavior and `verification-before-completion` before claiming success.
+
 5. **Secure:** threat-model new flows with STRIDE. Use `security-and-hardening`, `secret-scan-triage`, `codeql`, `semgrep`, `supply-chain-risk-auditor`, and `dependency`/`npm audit` checks when the change touches authentication, user data, dependencies, build scripts, or deployment. Never commit API keys, tokens, camera data, or personal data.
 6. **Integrate:** use `git-workflow-and-versioning`, review the diff, and keep commits reversible. Do not rewrite history or delete data without explicit authorization.
 7. **CI/CD:** `.github/workflows/deploy.yml` is the source of truth. `quality` and `build` run in parallel; lint, formatting, Next.js build, Playwright, static export, and the artifact-size gate are blocking checks. Use `ci-cd-and-automation`, `github-actions-local-repro`, and `github-actions-failure-triage` when changing or diagnosing the workflow.
@@ -52,16 +53,16 @@ Reference practices: [Netflix TechBlog](https://netflixtechblog.com/) and [Netfl
 
 Use the smallest applicable skill set. Do not invoke every skill for every change.
 
-| Work | Skills |
-| --- | --- |
-| Product discovery and design | `planning-and-task-breakdown`, `source-driven-development`, `frontend-ui-engineering`, `typesafe-ai` |
-| UX and UI design | `frontend-ui-engineering`, `web-design-guidelines`, `make-interfaces-feel-better`, `impeccable`, `modern-web-guidance`, `diagramming-code` |
-| React, Next.js, performance | `vercel-react-best-practices`, `performance-optimization`, `web-design-guidelines` |
-| Tests and browser behavior | `test-driven-development`, `browser-testing-with-devtools`, `integration-testing-http`, `verification-before-completion` |
-| CI/CD and release | `ci-cd-and-automation`, `github-actions-local-repro`, `github-actions-failure-triage`, `finishing-a-development-branch` |
-| Deployment | `deploy-to-vercel`, `vercel-cli-with-tokens`, `shipping-and-launch` |
-| Security and supply chain | `security-basics`, `security-and-hardening`, `secret-scan-triage`, `codeql`, `semgrep`, `supply-chain-risk-auditor` |
-| Reliability and operations | `observability-and-instrumentation`, `observability-metrics`, `debugging-and-error-recovery`, `systematic-debugging` |
+| Work                         | Skills                                                                                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Product discovery and design | `planning-and-task-breakdown`, `source-driven-development`, `frontend-ui-engineering`, `typesafe-ai`                                       |
+| UX and UI design             | `frontend-ui-engineering`, `web-design-guidelines`, `make-interfaces-feel-better`, `impeccable`, `modern-web-guidance`, `diagramming-code` |
+| React, Next.js, performance  | `vercel-react-best-practices`, `performance-optimization`, `web-design-guidelines`                                                         |
+| Tests and browser behavior   | `test-driven-development`, `browser-testing-with-devtools`, `integration-testing-http`, `verification-before-completion`                   |
+| CI/CD and release            | `ci-cd-and-automation`, `github-actions-local-repro`, `github-actions-failure-triage`, `finishing-a-development-branch`                    |
+| Deployment                   | `deploy-to-vercel`, `vercel-cli-with-tokens`, `shipping-and-launch`                                                                        |
+| Security and supply chain    | `security-basics`, `security-and-hardening`, `secret-scan-triage`, `codeql`, `semgrep`, `supply-chain-risk-auditor`                        |
+| Reliability and operations   | `observability-and-instrumentation`, `observability-metrics`, `debugging-and-error-recovery`, `systematic-debugging`                       |
 
 ## Completion standard
 
