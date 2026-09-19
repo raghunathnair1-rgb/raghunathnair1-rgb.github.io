@@ -10,7 +10,8 @@
     "build:static": "STATIC_EXPORT=1 next build",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "brain:sync": "node scripts/sync-product-brain.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

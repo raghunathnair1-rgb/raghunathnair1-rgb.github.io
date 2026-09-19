@@ -2,6 +2,7 @@
 
 import { Component } from "react";
 import AppShell from "./AppShell";
+import productBrain from "../data/product-brain.json";
 
 export default class FormlineApp extends Component {
   render() {
@@ -210,6 +211,7 @@ export default class FormlineApp extends Component {
 
     return {
       accentColor: A,
+      productBrain,
       athlete: this.props.athleteName || "Raghu Nair",
       initials: (this.props.athleteName || "Raghu Nair")
         .split(" ")

@@ -1,12 +1,94 @@
 import { Fragment } from "react";
 
 export default function DashboardView({ model }) {
-  const { isDash, moveRows, tiles, trend, weakPoints } = model;
+  const { isDash, moveRows, tiles, trend, weakPoints, productBrain } = model;
   return (
     <>
       {" "}
       {isDash && (
         <>
+          <section
+            aria-labelledby="product-brain-title"
+            style={{
+              border: "1px solid #294b35",
+              borderRadius: "14px",
+              padding: "18px 20px",
+              background: "linear-gradient(135deg,#101a12,#0d110e)",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "baseline",
+                justifyContent: "space-between",
+                gap: "12px",
+                flexWrap: "wrap",
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    fontFamily: "'Barlow Condensed',sans-serif",
+                    textTransform: "uppercase",
+                    fontWeight: "600",
+                    fontSize: "12px",
+                    color: "#5fe08f",
+                    letterSpacing: "0.16em",
+                  }}
+                >
+                  PRODUCT BRAIN · OBSIDIAN
+                </div>
+                <h2
+                  id="product-brain-title"
+                  style={{ fontSize: "20px", margin: "7px 0 0", letterSpacing: "-0.02em" }}
+                >
+                  {productBrain.focus}
+                </h2>
+              </div>
+              <div style={{ color: "#767d74", fontSize: "11.5px" }}>
+                synced {productBrain.updated}
+              </div>
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 220px),1fr))",
+                gap: "12px",
+                marginTop: "16px",
+              }}
+            >
+              <div>
+                <div style={{ color: "#767d74", fontSize: "11px", textTransform: "uppercase" }}>
+                  Coaching rules
+                </div>
+                <div
+                  style={{
+                    color: "#c7d0c7",
+                    fontSize: "12.5px",
+                    lineHeight: "1.55",
+                    marginTop: "5px",
+                  }}
+                >
+                  {productBrain.principles.join(" · ")}
+                </div>
+              </div>
+              <div>
+                <div style={{ color: "#767d74", fontSize: "11px", textTransform: "uppercase" }}>
+                  Next learning step
+                </div>
+                <div
+                  style={{
+                    color: "#c7d0c7",
+                    fontSize: "12.5px",
+                    lineHeight: "1.55",
+                    marginTop: "5px",
+                  }}
+                >
+                  {productBrain.next}
+                </div>
+              </div>
+            </div>
+          </section>
           <div
             className="dashboard-layout"
             style={{ display: "flex", flexDirection: "column", gap: "18px" }}

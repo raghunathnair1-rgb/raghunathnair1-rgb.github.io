@@ -34,6 +34,16 @@ npm test
 
 Session capture is a simulation using a timer, not camera capture or pose estimation. Dashboard values and coaching cues are sample data. Session state is held in memory and resets on page reload.
 
+## Product brain
+
+Product context lives in the linked Obsidian notes under `01 Projects/Formline`. The dashboard consumes the reviewed snapshot at `app/data/product-brain.json`, so the deployed app stays self-contained. After changing the product notes locally, refresh the snapshot with:
+
+```sh
+npm run brain:sync
+```
+
+Set `FORMLINE_VAULT` when the vault is stored somewhere else. The sync reads the roadmap, coaching principles, and feedback inbox; it does not modify the notes.
+
 ## Deployment
 
 `vercel.json` configures a native Next.js deployment. Run `vercel deploy` for a preview. GitHub Pages builds the Next.js export and preserves the existing published blog routes and assets.

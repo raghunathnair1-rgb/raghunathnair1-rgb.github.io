@@ -18,6 +18,7 @@ export default function AppShell({ model }) {
     tierLabel,
     title,
     toggleRun,
+    productBrain,
   } = model;
   return (
     <div
@@ -324,7 +325,7 @@ export default function AppShell({ model }) {
           </div>
         </header>
         <SessionView model={model} />
-        <DashboardView model={model} />
+        <DashboardView model={{ ...model, productBrain }} />
         <LibraryView model={model} />
         <ReportView model={model} />
       </main>
