@@ -49,6 +49,22 @@ Use these as practices, adapted to this small product; do not copy Netflix scale
 
 Reference practices: [Netflix TechBlog](https://netflixtechblog.com/) and [Netflix Simian Army](https://netflix.github.io/chaosmonkey/).
 
+## Global software engineering standards
+
+Apply these standards proportionately to the change. They are engineering baselines, not claims that the project is formally certified.
+
+- **Requirements and change control:** use clear acceptance criteria, explicit assumptions, traceable decisions, and reversible changes. Use RFC 2119 terms (`MUST`, `SHOULD`, `MAY`) when a requirement needs an unambiguous strength.
+- **Code quality:** prefer cohesive modules, explicit interfaces, small functions, meaningful names, single responsibility, and dependency inversion at boundaries. Avoid speculative abstractions and hidden global state.
+- **Web and API contracts:** use semantic HTML, stable JSON shapes, explicit error states, and documented contracts. Follow HTTP semantics and OpenAPI when an API is introduced.
+- **Accessibility:** target WCAG 2.2 AA for user-facing flows: keyboard access, visible focus, semantic labels, sufficient contrast, reduced-motion support, readable text, and usable mobile layouts.
+- **Security:** apply OWASP ASVS and OWASP Top 10 thinking; validate at trust boundaries, encode output, protect secrets, use least privilege, and log security-relevant events without sensitive data. Use CWE categories when describing defects.
+- **Privacy:** collect the minimum personal or movement data needed, define retention, avoid sending health or camera data to third parties by default, and document consent boundaries before adding telemetry.
+- **Dependencies and supply chain:** pin and review dependency changes, keep lockfiles committed, run audit and secret checks, generate an SBOM when release requirements need one, and preserve license notices using SPDX identifiers where applicable. Use SLSA-style provenance for release artifacts when available.
+- **Reliability and observability:** define useful health signals, structured logs, actionable alerts, and recovery steps. Prefer OpenTelemetry-compatible names and trace context if distributed telemetry is added.
+- **Testing:** test behavior at the lowest useful layer, add regression coverage for bugs, include accessibility and responsive checks for UI changes, and separate deterministic tests from live integration tests.
+- **Release discipline:** use Semantic Versioning for published packages or APIs, keep changes backward compatible unless a breaking change is explicit, and record migration or rollback steps.
+- **Documentation:** update README, deployment notes, decisions, and threat-model evidence when behavior or operations change. Keep documentation claims tied to code, configuration, or test evidence.
+
 ## Skill routing
 
 Use the smallest applicable skill set. Do not invoke every skill for every change.
